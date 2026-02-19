@@ -92,15 +92,25 @@ Libraries live on workspace `remix-libraries` at `agt.remixlabs.com`. Add these 
 
 OAuth documentation also available for: Desktop, Chrome Extension, and Widgets surfaces.
 
+### OAuth Handler Details
+
+> Notion: [OAuth Handler](https://www.notion.so/29a1d464528f807784fcdce13675f665)
+
+- **Purpose**: Templated screen for subscribing to third-party OAuth sign-in completion, so post-sign-in behavior can be handled
+- **Prerequisite**: Add `remix_labs` library in builder search: URL `https://agt.remixlabs.com/ws/remix_labs` (Find → Config → Add URL)
+- **Key screen**: `connect_extension` — Extension-specific, customizable sign-in screen
+    - Takes a `redirect_screen` name param for post-sign-in navigation
+    - After sign-in, opens: `https://remix.app/remix/oauth_handler?redirect_screen=<REDIRECT_SCREEN>`
+    - That remix.app screen publishes the `oauthredirect` topic
+- **Source app**: `remix.remixlabs.com/e/edit/oauth_handler`
+
 ---
 
 ## The Mix Programming Language
 
 > Notion: [The Mix Programming Language](https://www.notion.so/259ede6504e34505982dde5dc4b63d10)
-> Key
-> subpages: [Mix Syntax](https://www.notion.so/1061d464528f81d492f4e1b0f8c8adf4), [Type system](https://www.notion.so/1061d464528f81c0ba7bdc8fc2ce8556), [Standard Library](https://www.notion.so/1061d464528f8010b0cfc60836c20290), [Builtin operations](https://www.notion.so/1061d464528f81a5a5bbff09ca40f2cf)
-> Additional topics: cells, links & aliases, case types, recursion, streams, pattern matching, modules, action closures, directives, libraries & executables, JSON changes, imperative, embedding
-> viewstacks
+> Key subpages: [Mix Syntax](https://www.notion.so/1061d464528f81d492f4e1b0f8c8adf4), [Type system](https://www.notion.so/1061d464528f81c0ba7bdc8fc2ce8556), [Standard Library](https://www.notion.so/1061d464528f8010b0cfc60836c20290), [Builtin operations](https://www.notion.so/1061d464528f81a5a5bbff09ca40f2cf)
+> Additional topics: cells, links & aliases, case types, recursion, streams, pattern matching, modules, action closures, directives, libraries & executables, JSON changes, imperative, embedding viewstacks
 > Special screens: `_rmx_init`, `_rmx_auth`, `_rmx_error`, `_rmx_entry`, `_rmx_debugShell`
 > Extra core libraries: `mixc/parsing` (CSV), `mixc/driver` (compiler), `mixc/agents`
 
@@ -149,6 +159,119 @@ OAuth documentation also available for: Desktop, Chrome Extension, and Widgets s
 - `serverEnvironment` — Amp/not builder REPL
 - `webEnvironment` — client VM/groovebox JS
 - `widgetEnvironment` — Rust/mixswift
+
+---
+
+## .remix File Format V2
+
+> Notion: [Remix Files V2](https://www.notion.so/21b1d464528f8043a176cfea87324ba5)
+> Related: [Storing executable binaries in files](https://www.notion.so/1e31d464528f80c79470fad0aca57363)
+
+### Goals (V2 vs V1)
+
+- Simpler creation/reading/transformation from regular Mix code (no special amp functions needed)
+- Easier to change database name
+- Executables stored in files instead of database records
+- Cleaner update semantics and better structure
+
+### Manifest (v2.1 — current)
+
+Path: `manifest_v2.json`. Single app per file.
+
+```json
+{ "version": "2.1",
+  "id": "<random-id>",
+  "updates": "<update-mode>",
+  "name": "<app-name>",
+  "app": {
+    "recordsets": ["rs1"],
+    "filesets": ["fs1"],
+    "metadata": { ... },
+    "platforms": ["web"],       // [] = all
+    "surfaces": ["app"]         // [] = all
+  },
+  "created": {
+    "timestamp": "2025-07-01T12:56:00",
+    "rmxUser": "user@remixlabs.com",
+    "buildHost": "build.remixlabs.com",
+    "recipe": "<recipe-file-name>"
+  }
+}
+```
+
+**`updates` field semantics:**
+
+| Value          | Meaning                                             |
+|----------------|-----------------------------------------------------|
+| `""` / missing | Delete existing apps before installation            |
+| `"*"`          | Install on top of existing data, or fresh install   |
+| `"**"`         | Must be installed on top of existing data           |
+| `"<id>"`       | Only install on top of the .remix file with that ID |
+
+### Directory Structure
+
+```
+manifest_v2.json
+apps/<appName>/appMeta.json        # usual contents, but omits `name` field (added back on import)
+apps/<appName>/runtime.json        # usual contents, but omits `dbName` field (added back on import)
+recordsets/<rsName>/rsMeta.json
+recordsets/<rsName>/*.json          # arrays of JSON-encoded records
+filesets/<fsName>/fsMeta.json
+filesets/<fsName>/root/<path>/<file>
+```
+
+### Recordsets
+
+`rsMeta.json`:
+
+- `onUpdateDelete` — query (string or AST) executed before install to delete matching records
+- `saveOptions` — e.g., `["upsert"]`
+- `representationType` — `"JSON"` (supported) or `"db-image"` (planned: .dat file for direct DB engine use)
+- `contentType` — `"userRecords"` or `"builderAssets"`
+
+### Filesets
+
+`fsMeta.json`:
+
+- `onUpdateDelete` — glob patterns for files to delete before install (like .gitignore). Three forms: `/dir/` (whole hierarchy), `/path/file` (specific files), `*.ext` (basename match). Supports `?`,
+  `*`, `**`, `[chars]`, `{alt1,alt2}`.
+- `code` — boolean, whether this fileset contains executable binaries
+
+### Executable Files
+
+Path `/code` within a fileset is reserved for executables.
+
+**File naming:**
+
+| Pattern                                     | Meaning                                          |
+|---------------------------------------------|--------------------------------------------------|
+| `_rmx_executable.<suffix>`                  | Main executable                                  |
+| `_rmx_executable-<name>.<suffix>`           | Standalone executable for `<name>`               |
+| `<libname>-<libversion>@<libhash>.<suffix>` | Library                                          |
+| `<module>.mixsrc`                           | Source code                                      |
+| `build_info.json`                           | Triggers file-based code loading (instead of DB) |
+
+**Suffixes:**
+
+| Suffix         | Contents                                                             |
+|----------------|----------------------------------------------------------------------|
+| `.mixexe`      | QCode or WASM blob of executable                                     |
+| `.mixexe.dbg`  | Debug object for executable                                          |
+| `.mixlib`      | QCode or WASM blob of library                                        |
+| `.mixlib.dbg`  | Debug object for library                                             |
+| `.mixhdr`      | Header data (JSON) for compiler (optional, not needed at runtime)    |
+| `.mixlib.info` | Library metadata: name, requires, variant, version, hash, modules    |
+| `.mixexe.info` | Executable metadata: name, requires, variant, stdlib, modules        |
+| `.mixrule`     | Build dependency/checksum info (opaque, for build server/make agent) |
+| `.mixsrc`      | Wrapped Mix source: module name, library, code, hash, imports        |
+
+**Library info (`<name>.mixlib.info`) key fields:** `name`, `requires` (dependency list), `variant` (`"WASM"` or QCode), `lib_version`, `lib_hash`, `lib_stdlib`, `lib_modules`, `lib_modmetas`.
+
+**Executable info (`_rmx_executable.mixexe.info`) key fields:** `name`, `requires`, `variant`, `exe_stdlib`, `exe_override`, `exe_modules`, `exe_modmetas`.
+
+**Parts:** Large projects can be subdivided into subfolders (e.g., `/code/p/`). The `part` field in info/src files tracks which subdivision a file belongs to.
+
+**Automatic cleanup:** Libraries not needed by any executable are automatically deleted on update.
 
 ---
 

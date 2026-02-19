@@ -171,6 +171,13 @@ Two main parts of any prod deployment: **platform** and **content**.
     - App updates not required; users may run old versions — but app clips always use the latest
 - **TappedIn** — built from `remix-swiftui-template` repo
 
+### Desktop App
+
+- **Remix Desktop** — Tauri-based, Mac & Windows (managed by `turntable` repo)
+- Local cache: `~/Library/Application Support/com.remixlabs.desktop` (clear to reset)
+- Desktop releases URL: `https://remix.app/remix/desktop-releases?channel=dev|beta|release`
+- Slack channel: `#desktop`
+
 ### Web App Clip & Web Assets
 
 - `remix.app` — CloudFlare Workers + static assets (managed by `remix.app` repo)
