@@ -1,7 +1,8 @@
 # Remix Documentation — Glossary, Deployment, Mix Language, Syncing, Deeplinks, Preferences
 
 > Notion: [Remix Documentation](https://www.notion.so/fe31096a438b4f29b103c189bc9a7fb8)
-> Subpages: Glossary, Getting Started, Studio user guide, Cloud Workspace Tool, Deploying, iOS/Android widgets, Component overriding, Catalogs & Toolkits, Mix Language, .remix file syncing, Deeplinks, Synced preferences
+> Subpages: Glossary, Getting Started, Studio user guide, Cloud Workspace Tool, Deploying, iOS/Android widgets, Component overriding, Catalogs & Toolkits, Mix Language, .remix file syncing, Deeplinks,
+> Synced preferences
 
 ---
 
@@ -13,12 +14,12 @@
 
 Internal terminology → external terminology:
 
-| Level | Internal | External Name | Description |
-|-------|----------|---------------|-------------|
-| L0 | L0 | **Projects Dashboard** | Landing page; list of project tiles |
-| L1 | L1 | **Project Home** | Graph/list view of all modules in a project |
-| L2 | L2 | **Screen/Agent/Component Graph** | Graph view of a module |
-| L3 | L3 | **Editors** (Card / Query / Data Tree / Table / Decision / Function) | The editing interface for a specific node type |
+| Level | Internal | External Name                                                        | Description                                    |
+|-------|----------|----------------------------------------------------------------------|------------------------------------------------|
+| L0    | L0       | **Projects Dashboard**                                               | Landing page; list of project tiles            |
+| L1    | L1       | **Project Home**                                                     | Graph/list view of all modules in a project    |
+| L2    | L2       | **Screen/Agent/Component Graph**                                     | Graph view of a module                         |
+| L3    | L3       | **Editors** (Card / Query / Data Tree / Table / Decision / Function) | The editing interface for a specific node type |
 
 ### Key Concepts
 
@@ -28,11 +29,15 @@ Internal terminology → external terminology:
 - **Library**: A type of Project housing Collections (groups of standalone assets of any node type) and Templates (fully realized functional screens usable after configuration).
 - **Module types**: Screens, Agents (Local/Cloud), Code Modules, Plugins, Styles, Symbols, Constants, Settings. Projects also have Files.
 - **Mix**: Custom programming language. Studio generates Mix code from visual editor tiles → compiled to bytecode → executed by runtimes.
-- **Executable**: Publishing a project creates a compiled runnable version saved in the project's DB. Programs consist of bytecode records + metadata. Can be statically or dynamically linked. By default includes all screens + agents; can also compile standalone executables for subsets.
-- **.remix file**: ZIP packaging of a directory structure. Packaging mechanism for Remix programs + data. Used to deploy compiled projects from Studio to other environments (agent server, browser runtime, etc.). Can contain multiple projects. Generally contains only compiled executable assets (most recent versions, no history).
+- **Executable**: Publishing a project creates a compiled runnable version saved in the project's DB. Programs consist of bytecode records + metadata. Can be statically or dynamically linked. By
+  default includes all screens + agents; can also compile standalone executables for subsets.
+- **.remix file**: ZIP packaging of a directory structure. Packaging mechanism for Remix programs + data. Used to deploy compiled projects from Studio to other environments (agent server, browser
+  runtime, etc.). Can contain multiple projects. Generally contains only compiled executable assets (most recent versions, no history).
 - **Package**: Exporting compiled executable assets from Studio into a .remix file for deployment.
-- **Agent**: A "headless screen" — callable like a function/API endpoint, cannot be stateful or interactive. Takes input params, returns output params. Can be invoked from same project or over HTTP. Deployable on Studio server or dedicated cloud agent server.
-- **Cloud agent server**: Server runtime supporting only agent invocations (not interactive sessions). Also supports file upload/storage/hosting. Divided into workspaces (namespaces for permissions and projects).
+- **Agent**: A "headless screen" — callable like a function/API endpoint, cannot be stateful or interactive. Takes input params, returns output params. Can be invoked from same project or over HTTP.
+  Deployable on Studio server or dedicated cloud agent server.
+- **Cloud agent server**: Server runtime supporting only agent invocations (not interactive sessions). Also supports file upload/storage/hosting. Divided into workspaces (namespaces for permissions
+  and projects).
 
 ---
 
@@ -41,6 +46,7 @@ Internal terminology → external terminology:
 > Notion: [Deploying Remix applications](https://www.notion.so/11b1d464528f8030a107dc7f5e8d27cc)
 
 10 deployment targets:
+
 1. Flow in Remix container app (iOS/Android)
 2. iOS or Android widgets
 3. Full screen web page
@@ -64,25 +70,25 @@ Internal terminology → external terminology:
 
 Libraries live on workspace `remix-libraries` at `agt.remixlabs.com`. Add these URLs to Studio → System Preferences → Search Preferences (then refresh browser):
 
-| Library | URL | Description |
-|---------|-----|-------------|
-| Remix Design | `https://agt.remixlabs.com/ws/remix-libraries/_rmx_design` | Base UI components, layouts, styles |
-| Remix HubSpot | `https://agt.remixlabs.com/ws/remix-libraries/_rmx_hubspot` | HubSpot connector toolkit |
-| Remix Drafts | `https://agt.remixlabs.com/ws/remix-libraries/_rmx_drafts` | Components in draft/review stage |
+| Library       | URL                                                         | Description                         |
+|---------------|-------------------------------------------------------------|-------------------------------------|
+| Remix Design  | `https://agt.remixlabs.com/ws/remix-libraries/_rmx_design`  | Base UI components, layouts, styles |
+| Remix HubSpot | `https://agt.remixlabs.com/ws/remix-libraries/_rmx_hubspot` | HubSpot connector toolkit           |
+| Remix Drafts  | `https://agt.remixlabs.com/ws/remix-libraries/_rmx_drafts`  | Components in draft/review stage    |
 
 ### Available Catalogs
 
-| Catalog | Description |
-|---------|-------------|
-| **Base** | Table component, Charts, Voice Chat headless |
-| **HubSpot toolkit** | Assets for HubSpot-connected apps (requires HubSpot Connector + Configurator apps) |
-| **SMB** | Library assets for small/midsize business applications |
-| **Business Profile / About Us** | Digital business profile assets |
-| **Integrations** | Integration-specific assets |
-| **AI** | AI-related assets |
-| **DuckDB** | DuckDB integration |
-| **OAuth Handler** | OAuth flow handling |
-| **Snowflake — Cortex Search** | Snowflake Cortex Search integration |
+| Catalog                         | Description                                                                        |
+|---------------------------------|------------------------------------------------------------------------------------|
+| **Base**                        | Table component, Charts, Voice Chat headless                                       |
+| **HubSpot toolkit**             | Assets for HubSpot-connected apps (requires HubSpot Connector + Configurator apps) |
+| **SMB**                         | Library assets for small/midsize business applications                             |
+| **Business Profile / About Us** | Digital business profile assets                                                    |
+| **Integrations**                | Integration-specific assets                                                        |
+| **AI**                          | AI-related assets                                                                  |
+| **DuckDB**                      | DuckDB integration                                                                 |
+| **OAuth Handler**               | OAuth flow handling                                                                |
+| **Snowflake — Cortex Search**   | Snowflake Cortex Search integration                                                |
 
 OAuth documentation also available for: Desktop, Chrome Extension, and Widgets surfaces.
 
@@ -91,8 +97,10 @@ OAuth documentation also available for: Desktop, Chrome Extension, and Widgets s
 ## The Mix Programming Language
 
 > Notion: [The Mix Programming Language](https://www.notion.so/259ede6504e34505982dde5dc4b63d10)
-> Key subpages: [Mix Syntax](https://www.notion.so/1061d464528f81d492f4e1b0f8c8adf4), [Type system](https://www.notion.so/1061d464528f81c0ba7bdc8fc2ce8556), [Standard Library](https://www.notion.so/1061d464528f8010b0cfc60836c20290), [Builtin operations](https://www.notion.so/1061d464528f81a5a5bbff09ca40f2cf)
-> Additional topics: cells, links & aliases, case types, recursion, streams, pattern matching, modules, action closures, directives, libraries & executables, JSON changes, imperative, embedding viewstacks
+> Key
+> subpages: [Mix Syntax](https://www.notion.so/1061d464528f81d492f4e1b0f8c8adf4), [Type system](https://www.notion.so/1061d464528f81c0ba7bdc8fc2ce8556), [Standard Library](https://www.notion.so/1061d464528f8010b0cfc60836c20290), [Builtin operations](https://www.notion.so/1061d464528f81a5a5bbff09ca40f2cf)
+> Additional topics: cells, links & aliases, case types, recursion, streams, pattern matching, modules, action closures, directives, libraries & executables, JSON changes, imperative, embedding
+> viewstacks
 > Special screens: `_rmx_init`, `_rmx_auth`, `_rmx_error`, `_rmx_entry`, `_rmx_debugShell`
 > Extra core libraries: `mixc/parsing` (CSV), `mixc/driver` (compiler), `mixc/agents`
 
@@ -106,16 +114,16 @@ OAuth documentation also available for: Desktop, Chrome Extension, and Widgets s
 
 ### Key Constructs
 
-| Construct | Syntax | Description |
-|-----------|--------|-------------|
-| Module | `module M ... module end` | Namespace for cells, defs, types. Can import other modules. |
-| Cell | `cell c = <expr>` | Propagating (reactive) value. Auto-updates on dependency change. |
-| Var cell | `var cell c = <expr>` | Mutable cell, assignable in actions. |
-| Def | `def f(x) = <expr>` | Named value/function definition. |
-| Action | `action(v) { ... }` | Closure with access to app state; can mutate var cells and write DB. |
-| Case | `case red` / `case rgb([number,number,number])` | Tagged union constructor. |
-| Observer | `on x do { ... }` | Runs action when cell is evaluated. Supports `when` guards. |
-| Initializer | `initializer { ... }` | Runs once after module var cells are defined. |
+| Construct   | Syntax                                          | Description                                                          |
+|-------------|-------------------------------------------------|----------------------------------------------------------------------|
+| Module      | `module M ... module end`                       | Namespace for cells, defs, types. Can import other modules.          |
+| Cell        | `cell c = <expr>`                               | Propagating (reactive) value. Auto-updates on dependency change.     |
+| Var cell    | `var cell c = <expr>`                           | Mutable cell, assignable in actions.                                 |
+| Def         | `def f(x) = <expr>`                             | Named value/function definition.                                     |
+| Action      | `action(v) { ... }`                             | Closure with access to app state; can mutate var cells and write DB. |
+| Case        | `case red` / `case rgb([number,number,number])` | Tagged union constructor.                                            |
+| Observer    | `on x do { ... }`                               | Runs action when cell is evaluated. Supports `when` guards.          |
+| Initializer | `initializer { ... }`                           | Runs once after module var cells are defined.                        |
 
 ### Type System Highlights
 
@@ -151,14 +159,20 @@ OAuth documentation also available for: Desktop, Chrome Extension, and Widgets s
 ### Core Concepts
 
 **App**: A .remix file hosted on a remote server, defined by JSON:
+
 ```json
-{ "dbName": "_rmx_home", "appName": "Remix Home" }
+{
+  "dbName": "_rmx_home",
+  "appName": "Remix Home"
+}
 ```
+
 - Storage types: `gcs/versioned` (default, via Publish & List), `gcs/channel` (via Host on GCS), `url` (exact URL)
 
 **Group**: A list of apps for a surface. Defines: `surface` (mobile/desktop), `name` (unique per surface), optional `home` (home screen in `dbName/screenName` format).
 
 **Subscriptions**: A user subscribes to (in order):
+
 1. Global **system** group (`_rmx_home`, `_rmx_widgets`, etc.)
 2. Per-workspace **default** group (org-specific)
 3. Optional named groups (marketing, sales, hr...)
@@ -176,6 +190,7 @@ Last group defining `home` wins (user > default > system).
 Deployed on the `_rmx_sync` app in a mixer workspace.
 
 **User agents:**
+
 - `get_apps` — input: `{channel, version, surface}` → output: `{channel, version, surface, user, groups}` with fully resolved URLs
 - `set_app` — set apps for current user's personal group. Input: `{surface, home, apps}`
 - `set_user_groups` — set custom group subscriptions. Input: `{groups}` (array of names)
@@ -186,12 +201,14 @@ Deployed on the `_rmx_sync` app in a mixer workspace.
 ### Channel Promotion
 
 Apps published via Publish & List default to `draft` channel. Promotion via Content Catalog in Tools & Settings:
+
 - **Draft → Test**: copies version pointer JSON (e.g., `rmx-static/packaged/1.43/draft/app.json` → `rmx-static/packaged/1.43/test/app.json`)
 - **Test → Public**: same copy mechanism
 
 ### Platform Version Promotion
 
-When platform version bumps (e.g., 1.43 → 1.44), all pointer files must be copied. Done manually via scripts in `flutter-runtime` repo: `bin/download_packaged_folder.sh` + `bin/upload_packaged_folder.sh`.
+When platform version bumps (e.g., 1.43 → 1.44), all pointer files must be copied. Done manually via scripts in `flutter-runtime` repo: `bin/download_packaged_folder.sh` +
+`bin/upload_packaged_folder.sh`.
 
 ### Mobile Bootstrap Flow
 
@@ -207,14 +224,16 @@ Setup screen: `remix.remixlabs.com/e/edit/_rmx_sync/setup`
 > Notion: [Mobile/Desktop deeplinks](https://www.notion.so/27a1d464528f803db94ac980a0bd84eb)
 
 **Unified (mobile + desktop):**
+
 - Download & open .remix: `com.remixlabs.runtime://localhost/run-remix-file?url=<url>&workspace=<ws>&app=<app>&screen=<screen>&params=<params>`
-  - Downloads, shows confirmation screen, installs locally, runs
+    - Downloads, shows confirmation screen, installs locally, runs
 - Open installed screen: `com.remixlabs.runtime://localhost/open-screen?workspace=<ws>&app=<app>&screen=<screen>&params=<params>`
-  - If screen omitted, defaults to `home`
+    - If screen omitted, defaults to `home`
 
 **Desktop only:**
+
 - Open artifact: `com.remixlabs.runtime://localhost/open-artifact?url=<url>&mode=<mode>`
-  - Modes: `configure` (default, switches to `run` if no config node), `run`
+    - Modes: `configure` (default, switches to `run` if no config node), `run`
 
 `workspace` parameter is only meaningful on desktop.
 
@@ -229,6 +248,7 @@ Setup screen: `remix.remixlabs.com/e/edit/_rmx_sync/setup`
 Preferences are name/value pairs (names can be namespaced, e.g., `address.mailing.city`).
 
 **Three-layer override chain** (each takes precedence over previous):
+
 1. **System prefs** — compile-time constants (e.g., default `search.libs` pointing to `remix_labs` catalog)
 2. **Default prefs** — per-workspace, set by admin (dynamic)
 3. **User prefs** — per-user (dynamic)

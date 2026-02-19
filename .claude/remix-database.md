@@ -26,12 +26,14 @@
 ## Querying Logic
 
 Queries are expressed as AST (Abstract Syntax Tree) and executed in layers:
+
 1. **Indexed Filter**: Computed first using the index, yielding database rows.
 2. **Record Inspection**: Non-indexed parts of the query are performed on materialized records (lazy loading).
 3. **Projections**: Modifications to the record stream (e.g., selecting fields, renaming).
 4. **Post-processing**: Arbitrary filters/maps executed in the Mix VM (rather than the DB engine).
 
 ### Query Builder 2.0 (QB2)
+
 - Focuses on **Rich Projections** to fetch all data in a single round-trip.
 - Removes post-processing from the DB engine for maximum speed (users must handle post-processing in Mix).
 
@@ -40,10 +42,12 @@ Queries are expressed as AST (Abstract Syntax Tree) and executed in layers:
 ## Query Syntax (Mix & HTTP)
 
 ### Basic Syntax
+
 - `filter | projection`
 - Example: `"entity" == "person" | { first_name, last_name, name: first_name + " " + last_name }`
 
 ### Performance Tiers
+
 1. **Index Operations**: Comparisons on strings/refs/bools, prefix tests, string contains, `in`/`all in`, boolean combinations.
 2. **Engine Operations**: Comparisons on numbers, lists, maps, arbitrary case types.
 3. **Mix VM Operations**: Post-processing (`db.postprocess`), fallbacks (`db.filterWithFallback`).
