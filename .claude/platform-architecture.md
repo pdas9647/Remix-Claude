@@ -171,6 +171,10 @@ Two main parts of any prod deployment: **platform** and **content**.
 - **Orderly** (`G4dLBeuE4V`) — Early-stage hotel concierge startup, 1 hotel in Mountain View. Phase 1: Chrome extension scraping WebRez PMS → Orderly API + front desk flow for triggering
   checkin/checkout concierge. Remix workspace holds no customer data (only logs). Future: widgets, AI agentic flows for guests.
 - **Bomisco** (`0ry4DirCMQ`) — LinkedIn → HubSpot contact posting. Chrome extension for clipping LinkedIn profiles, editing, and pushing to HubSpot as contacts. Old workspace corrupted (`ET8fjwrW2h`).
+  Chrome extension has page detection logic (clip company, clip contact, or "navigate to a LinkedIn page" prompt). Open questions around duplicate detection strategy and Skills/Experience/Education
+  use cases.
+  Target HubSpot **Contact** properties: First Name, Last Name, Company Name, Job Title, Email, Mobile Phone, City, State/Region, Country/Region, Lead Status, Contact owner, LinkedIn Bio.
+  Target HubSpot **Company** properties: Company Name, Company Domain Name, Industry, Phone Number, Type, City, State/Region, Country/Region, Time Zone, Description.
 - **5 Star Music** (`Hafoe2ekMN`) — Music school (50–60 students, 2–3 teachers). Twilio IVR → SMS with Remix digital business experience. ~10 inbound calls/day. DBP: `remix.app/about/5starmusic`. IVR
   contact form: `remix.app/about/5starmusic/ivr_contact_form`. Staff review inbound requests via Remix mobile app + web app.
 - **Lumber** (`iaEj4QYboi`) — Construction labor tracking, job costing, payroll. Snowflake agents at `remix-dev.remixlabs.com/e/edit/snowflake`. Reporting at

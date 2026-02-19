@@ -14,7 +14,9 @@ _Detailed notes per domain. Created as pages are reviewed._
 - [Tech Debt](tech-debt.md) — Known architectural limitations: refs vs strings, no AST, incomplete type checker, wasm backend, K8s overkill, crude permissions
 - [Engineering Process](engineering-process.md) — CI (CircleCI, Docker images, secrets), deployment channels (dev/beta/release), release cadence, hot fixes, auto-update chain, operational runbooks,
   QA, planning, asset submission/review (Tasks tool), GTM customer categories
-- [Lumber](lumber.md) — Customer project: construction labor tracking, job costing report (PostgreSQL→Snowflake), payroll reporting, data model
+- [Lumber](lumber.md) — Customer project: construction labor tracking, PostgreSQL schema (6 LFI tables), job costing report, payroll reporting (38 prl_ tables), Workforce Junction benefits schema (11
+  h_ tables)
+- [Funda](funda.md) — Customer project: Indian founder community, three-app architecture (DBP website, admin, member), member directory, LinkedIn clipping, services
 - [Remix Database](remix-database.md) — Record store, universal indexing, Query Builder 2.0, history/tombstones, performance tiers
 - [Remix Docs](remix-docs.md) — Public docs: glossary (L0–L3, Flow, Mix, .remix files, agents), deployment surfaces, catalogs, Mix language overview, .remix file format V2 (manifest, recordsets,
   filesets, executables), .remix syncing, deeplinks, synced preferences
@@ -61,3 +63,5 @@ _Key parent pages by domain. Fetch these from Notion when deeper context is need
 ### Customer Projects
 
 - [Lumber](https://www.notion.so/28c1d464528f801bac72d6c064d30db2) — Construction industry customer (subpages: Workforce Junction, Schema of Lumber Postgres, Job Costing Report, Payroll reporting)
+- [Funda](https://www.notion.so/26f1d464528f807f9782d5bffc5401a5) — Indian founder community (subpages: FUNDA notes)
+- [Bomisco](https://www.notion.so/2bc1d464528f806f94c9ce622bddacab) — LinkedIn→HubSpot clipping, Contact/Company property mapping (stored in platform-architecture.md)
