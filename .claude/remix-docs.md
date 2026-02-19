@@ -109,8 +109,10 @@ OAuth documentation also available for: Desktop, Chrome Extension, and Widgets s
 ## The Mix Programming Language
 
 > Notion: [The Mix Programming Language](https://www.notion.so/259ede6504e34505982dde5dc4b63d10)
-> Key subpages: [Mix Syntax](https://www.notion.so/1061d464528f81d492f4e1b0f8c8adf4), [Type system](https://www.notion.so/1061d464528f81c0ba7bdc8fc2ce8556), [Standard Library](https://www.notion.so/1061d464528f8010b0cfc60836c20290), [Builtin operations](https://www.notion.so/1061d464528f81a5a5bbff09ca40f2cf)
-> Additional topics: cells, links & aliases, case types, recursion, streams, pattern matching, modules, action closures, directives, libraries & executables, JSON changes, imperative, embedding viewstacks
+> Key
+> subpages: [Mix Syntax](https://www.notion.so/1061d464528f81d492f4e1b0f8c8adf4), [Type system](https://www.notion.so/1061d464528f81c0ba7bdc8fc2ce8556), [Standard Library](https://www.notion.so/1061d464528f8010b0cfc60836c20290), [Builtin operations](https://www.notion.so/1061d464528f81a5a5bbff09ca40f2cf)
+> Additional topics: cells, links & aliases, case types, recursion, streams, pattern matching, modules, action closures, directives, libraries & executables, JSON changes, imperative, embedding
+> viewstacks
 > Special screens: `_rmx_init`, `_rmx_auth`, `_rmx_error`, `_rmx_entry`, `_rmx_debugShell`
 > Extra core libraries: `mixc/parsing` (CSV), `mixc/driver` (compiler), `mixc/agents`
 
@@ -179,16 +181,29 @@ OAuth documentation also available for: Desktop, Chrome Extension, and Widgets s
 Path: `manifest_v2.json`. Single app per file.
 
 ```json
-{ "version": "2.1",
+{
+  "version": "2.1",
   "id": "<random-id>",
   "updates": "<update-mode>",
   "name": "<app-name>",
   "app": {
-    "recordsets": ["rs1"],
-    "filesets": ["fs1"],
-    "metadata": { ... },
-    "platforms": ["web"],       // [] = all
-    "surfaces": ["app"]         // [] = all
+    "recordsets": [
+      "rs1"
+    ],
+    "filesets": [
+      "fs1"
+    ],
+    "metadata": {
+      ...
+    },
+    "platforms": [
+      "web"
+    ],
+    // [] = all
+    "surfaces": [
+      "app"
+    ]
+    // [] = all
   },
   "created": {
     "timestamp": "2025-07-01T12:56:00",

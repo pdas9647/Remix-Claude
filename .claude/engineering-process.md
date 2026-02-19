@@ -255,3 +255,68 @@ Deploying repos: `harmony` (amp), `remix.app` (web runtime), `flutter-runtime` (
 - Chrome extension v1
 - Self-host server v1
 - Snowflake-hosted server v1
+
+---
+
+## Asset Submission & Review (Tasks Tool)
+
+> Notion: [Tasks - Asset Submission Guide](https://www.notion.so/2111d464528f8031a05fd76e687b6379)
+
+**Purpose**: Submit artifacts (flows, builder assets, MCP tools) for review and potential publishing to Remix catalog or library.
+
+### Setup
+
+1. Install the **Tasks** app via **Workspace Tools → App Hub**
+2. Access Tasks tool:
+    - Prod US: `remix.remixlabs.com/tasks/start`
+    - Prod India: `remix-india.remixlabs.com/tasks/start`
+3. Configure to point to your workspace via **Set workspace**
+
+### Supported Artifact Types
+
+| Type                   | Description                                    |
+|------------------------|------------------------------------------------|
+| **Auth Configuration** | JSON payload of an auth configuration          |
+| **MCP Tools**          | .remix file with agents accessible through MCP |
+| **Builder Asset**      | Builder node (screen, agent, component, etc.)  |
+
+### Workflow
+
+1. **Create** — New task with name + description (starts as "backlog")
+2. **Attach** — Add artifacts via corresponding buttons
+3. **Complete** — Mark task as complete
+4. **Submit** — "Submit for review" with reviewer-facing name/description
+
+### Key Rules
+
+- All submissions reviewed in the **`remix_review`** workspace
+- MCP .remix files must include MCP records with `_rmx_type = mcp_tool`
+- Don't submit the same artifact multiple times unless necessary
+
+---
+
+## GTM Customer Categories
+
+> Notion: [T1/T2 Customers](https://www.notion.so/20d1d464528f80608571fc691f0bf69f)
+
+Four reusable solution patterns for customer engagements:
+
+1. **Informational Awareness** — Ad hoc queries, NatLang, widgets; info consumption at point of use
+2. **Human in the Loop / Distributed Data Gathering** — Beacons + Chrome extension → data back to Snowflake; rapid workflow deployment across surfaces
+3. **Agentic Use Cases** — Generalized MCP; IT-focused, potential end-user config; inline prompting in L2/template tools
+4. **Digital Experience at Scale** — CDP+ETL = DBP; educational sale; self-serve quiz/template creation and deployment
+
+### GTM Prospect Pipeline (as of mid-2025)
+
+| Prospect              | Priority | Categories              | Notes                               |
+|-----------------------|----------|-------------------------|-------------------------------------|
+| Funda                 | High     | —                       | Live customer, LinkedIn+AI+DBP      |
+| Guidewire             | High     | —                       | Customer 360, contract audit        |
+| Alteryx               | High     | —                       | "We are solution; push towards LLM" |
+| Opt Health            | High     | Info Awareness, Agentic | Requested proposal                  |
+| Snowflake             | Medium   | —                       | Partnership/integration target      |
+| Freshworks            | —        | —                       | —                                   |
+| Cisco                 | Low      | —                       | —                                   |
+| Next Frontier Capital | Low      | —                       | —                                   |
+
+_Note: Anthropic listed as "not a customer" (reference/partner context)._

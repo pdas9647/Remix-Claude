@@ -161,6 +161,23 @@ Two main parts of any prod deployment: **platform** and **content**.
 
 - Google Shared Drive for customer success projects: `https://drive.google.com/drive/folders/0AABUg1qaj6gfUk9PVA`
 
+### Customer Use Case Notes
+
+> Notion: [Customer Success Projects](https://www.notion.so/26f1d464528f80f3a6fffc1fe4cf294e)
+
+- **Funda** (`sEt2qxPydL`) — WhatsApp community of ~500 Indian founders ([funda.club](https://www.funda.club/)). Phase 1: member directory — admins (2 named users) maintain profiles via LinkedIn
+  clipping, members (~600 anonymous) browse/search directory and contact members. Phase 2: network summary reports. Reusable services: Snowflake Cortex semantic search, general person+company data
+  model (underpins CRM/directory/sales), modular LinkedIn clipper configs.
+- **Orderly** (`G4dLBeuE4V`) — Early-stage hotel concierge startup, 1 hotel in Mountain View. Phase 1: Chrome extension scraping WebRez PMS → Orderly API + front desk flow for triggering
+  checkin/checkout concierge. Remix workspace holds no customer data (only logs). Future: widgets, AI agentic flows for guests.
+- **Bomisco** (`0ry4DirCMQ`) — LinkedIn → HubSpot contact posting. Chrome extension for clipping LinkedIn profiles, editing, and pushing to HubSpot as contacts. Old workspace corrupted (`ET8fjwrW2h`).
+- **5 Star Music** (`Hafoe2ekMN`) — Music school (50–60 students, 2–3 teachers). Twilio IVR → SMS with Remix digital business experience. ~10 inbound calls/day. DBP: `remix.app/about/5starmusic`. IVR
+  contact form: `remix.app/about/5starmusic/ivr_contact_form`. Staff review inbound requests via Remix mobile app + web app.
+- **Lumber** (`iaEj4QYboi`) — Construction labor tracking, job costing, payroll. Snowflake agents at `remix-dev.remixlabs.com/e/edit/snowflake`. Reporting at
+  `remix-india.remixlabs.com/e/edit/lumber_reporting`. Catalog: `remix.app/run?_rmx_url=https://agt.files.remix.app/iaEj4QYboi/_rmx_files/apps/catalog.remix`. See [lumber.md](lumber.md).
+- **Nevista** — Restaurant apps (UK). Dedicated amp (`nevista.remixlabs.com`) + agent server (`agt-uk.remixlabs.com`).
+- **Petavue** — Ball in their court. India team getting up to speed on Arvind's implementation pattern (reusable UI delivery model).
+
 ### Mobile Apps
 
 - **Primary Remix app** (iOS/Android) — managed by `flutter-runtime` repo
@@ -186,6 +203,8 @@ Two main parts of any prod deployment: **platform** and **content**.
 - Static files in CloudFlare R2 and GCS (documentation incomplete)
 - `remixlabs.com` web assets including `run.html` and `app.html` (managed in `website` repo)
 - **Chrome extension** — documentation incomplete
+- **Push Messaging** — Browser-based push notifications via Google Firebase (foreground + background). Works on Safari (iOS, must be "added to desktop"), Chrome/Firefox (Android, Windows, macOS,
+  Linux). Docs: `turntable` repo `webapp/` README.
 
 ## Prod Update Cadence (Weekly)
 

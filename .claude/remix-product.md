@@ -205,6 +205,65 @@ Setup for sync groups: `remix.remixlabs.com/e/edit/_rmx_sync/setup_admin` — **
 - No dependencies on other libraries for Remix-published assets
 - Use `draft` tag for assets undergoing review
 
+### ZenDesk Widget Setup (from scratch using library assets)
+
+**Service agents** (deploy to workspace):
+
+1. `set_secret` — saves the `anthropic_api_key`
+2. `get_secret` — retrieves the `anthropic_api_key`
+3. `generate_zendesk_query` — AI-generated Zendesk API query from human prompt
+
+**OAuth setup**:
+
+- `remix-india` used as auth server
+- ZenDesk uses subdomain-per-org → need OAuth config per new org in `oauth_manager`
+- Set `auth_config.config_name` in Constants; if auth server changes, update `auth_config.server`
+- Bring in `zendesk_connect` and `confirmation` screens from `remix_labs` library
+
+**Constants setup**:
+
+- Add `auth_config` and `central_workspace` objects (tags: `constants`, `data_model`)
+- Add ZenDesk `colors` constant (tag: `zendesk`, collection: zendesk)
+
+**Widget template screen**: `zendesk_template_widget`
+
+## Snowflake Integration
+
+> Notion: [Remix in Snowflake/Snowpark](https://www.notion.so/2841d464528f804ba6fbe2d8feb7a963)
+
+- Self-host Remix deployed entirely within Snowpark Container Service
+- GitHub tracking: `remix-issues#143`
+
+### Snowflake Workspaces (dedicated auth flows)
+
+| Workspace ID | Snowflake Account | Account URL                                         |
+|--------------|-------------------|-----------------------------------------------------|
+| `6Xj36DfSbF` | `REMIX_DEMO`      | `https://app.snowflake.com/oxfsvki/remix_demo/`     |
+| `vuVXGsZuxW` | `SNOWFLAKE_DEMO`  | `https://app.snowflake.com/oxfsvki/snowflake_demo/` |
+
+- User needs a Snowflake user in the corresponding account
+- Remix identity = email on the Snowflake user profile
+- Sign in with Snowflake credentials (username + password/passkey)
+
+## MCP Connectors
+
+> Notion: [Connectors](https://www.notion.so/1e61d464528f80508ef4c3df63b25a5f)
+
+MCP tool connectors built for Remix Desktop AI integration:
+
+| Connector         | Builder Location                                           | Capabilities                                                            |
+|-------------------|------------------------------------------------------------|-------------------------------------------------------------------------|
+| **Notion**        | `remix-india.remixlabs.com/e/edit/notion_tools`            | Search/read/create/update pages, add/retrieve comments                  |
+| **Airtable**      | `remix-india.remixlabs.com/e/edit/airtable_connecter`      | CRUD on bases, tables, records, fields                                  |
+| **Google Sheets** | `remix-india.remixlabs.com/e/edit/google_sheets_connector` | Comprehensive: CRUD, formatting, charts, filtering, sorting, protection |
+| **Slack**         | (setup guide in Notion)                                    | Post messages, create/edit canvases, list users/channels/files          |
+| **Gmail**         | `remix-dev.remixlabs.com/e/edit/gmail_tools` / `gmail_mcp` | Gmail tools + MCP integration                                           |
+| **Confluence**    | (in development)                                           | —                                                                       |
+| **Snowflake**     | (setup guides in Notion)                                   | OAuth + service account integration                                     |
+
+- MCP tool setup walkthrough: Zoom recording available in Notion (Wilber's walk-through)
+- Sample project: `remix-dev.remixlabs.com/e/edit/wc_tools/mcp_tools`
+
 ## Remix IT Tools
 
 - Web app for customer IT team
