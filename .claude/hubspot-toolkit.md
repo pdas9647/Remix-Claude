@@ -9,6 +9,7 @@
 ## Overview
 
 The Remix HubSpot toolkit is a set of assets, templates, tools and tutorials for building HubSpot-integrated Remix applications. Examples:
+
 - Custom mobile app for sales reps
 - IVR / WhatsApp customer interaction channels that update HubSpot
 - Embedding HubSpot data as widgets in internal or customer-facing systems
@@ -21,12 +22,12 @@ The Remix HubSpot toolkit is a set of assets, templates, tools and tutorials for
 
 Four deliverables:
 
-| # | Component | Description |
-|---|-----------|-------------|
-| 1 | **HubSpot Connector app** | Deployed as a Remix app in a workspace. Server-side set of agents that connect to a HubSpot instance. Remix applications connect to this Connector to fetch/update HubSpot data. |
-| 2 | **HubSpot Configurator app** | Application to configure the HubSpot Connector. |
-| 3 | **HubSpot library** | Library assets to accelerate development. Hosted at `https://agt.remixlabs.com/ws/remix-libraries/_rmx_hubspot`. Not versioned — updated on an ongoing basis. |
-| 4 | **Example application** | Simple app showing how all toolkit assets work together. |
+| # | Component                    | Description                                                                                                                                                                      |
+|---|------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1 | **HubSpot Connector app**    | Deployed as a Remix app in a workspace. Server-side set of agents that connect to a HubSpot instance. Remix applications connect to this Connector to fetch/update HubSpot data. |
+| 2 | **HubSpot Configurator app** | Application to configure the HubSpot Connector.                                                                                                                                  |
+| 3 | **HubSpot library**          | Library assets to accelerate development. Hosted at `https://agt.remixlabs.com/ws/remix-libraries/_rmx_hubspot`. Not versioned — updated on an ongoing basis.                    |
+| 4 | **Example application**      | Simple app showing how all toolkit assets work together.                                                                                                                         |
 
 ---
 
@@ -36,11 +37,11 @@ All .remix files downloadable from `agt.files.remix.app/remix-libraries/files/_r
 
 ### HubSpot Connector
 
-| Version | Notes | Download URL |
-|---------|-------|--------------|
-| 20241204 | Latest release | `agt.files.remix.app/.../20241204/hubspot_connector-20241204.remix` |
+| Version  | Notes             | Download URL                                                        |
+|----------|-------------------|---------------------------------------------------------------------|
+| 20241204 | Latest release    | `agt.files.remix.app/.../20241204/hubspot_connector-20241204.remix` |
 | 20241120 | Support for OAuth | `agt.files.remix.app/.../20241120/hubspot_connector-20241120.remix` |
-| 20241111 | First release | `agt.files.remix.app/.../20241111/hubspot_connector-20241111.remix` |
+| 20241111 | First release     | `agt.files.remix.app/.../20241111/hubspot_connector-20241111.remix` |
 
 ### HubSpot Connector Configurator
 
@@ -54,16 +55,16 @@ All .remix files downloadable from `agt.files.remix.app/remix-libraries/files/_r
 
 ### HubSpot Example App
 
-| Version | Notes |
-|---------|-------|
+| Version  | Notes                                    |
+|----------|------------------------------------------|
 | 20241204 | Separate app config screens into own app |
-| 20241120 | Support for OAuth |
-| 20241111 | First release |
+| 20241120 | Support for OAuth                        |
+| 20241111 | First release                            |
 
 ### HubSpot Widgets Example
 
-| Version | Notes |
-|---------|-------|
+| Version  | Notes           |
+|----------|-----------------|
 | 20241204 | Initial release |
 
 ---
@@ -120,6 +121,7 @@ Add any other scopes as **optional** based on your use case (e.g. tickets, leads
 > Page is a draft/placeholder — content not yet written.
 
 Planned scenario categories:
+
 - HubSpot tiered pricing forcing app usage
 - Edge engagement points → HubSpot updates (IVR, TripAdvisor reviews, WhatsApp)
 - Internal system integration (e.g. HubSpot ticketing ↔ Jira)
@@ -128,6 +130,7 @@ Planned scenario categories:
 - Interactive surveys with AI
 
 Named use cases in sidebar:
+
 - Updating a ticket based on edge engagement
 - Creating a ticket from a submitted review
 - WhatsApp integration

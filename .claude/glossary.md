@@ -63,7 +63,8 @@ Internal terminology — use the public names with external partners:
 - **Home Screen** — Every project has one. Can't be deleted (reassign first). Default name `home` but can be any name. Users start here when running a published flow.
 - **Bindpoint** — A connection point on a node. Toggle ON in the L3 Card Editor to expose a value for wiring in the L2 nodegraph. Bindpoints accept Data, Card, or Event types.
 - **Binding** — A wire connecting an Out Bindpoint to an In Bindpoint. Data flows instantly along bindings (live reactive system).
-- **Publish vs Package** — Publishing makes changes viewable on the Studio workspace (team testing URL: `{host}/{project}/{screen}`). Packaging creates a `.remix` file for distribution to other surfaces.
+- **Publish vs Package** — Publishing makes changes viewable on the Studio workspace (team testing URL: `{host}/{project}/{screen}`). Packaging creates a `.remix` file for distribution to other
+  surfaces.
 
 ## Remix Database (Record Store)
 
@@ -92,25 +93,28 @@ Row-based, schemaless, JSON record store. Each project has its own database.
 > Source: [Getting Started in Remix Studio](https://www.notion.so/1051d464528f8008b584dd33015fd5b3) — Steps 6, 7, 9
 > Parent: Remix Documentation > Child pages
 
-The L2 editor is an infinite-canvas **nodegraph** — a graph of nodes connected by wires. Nodes have a **binding interface**: **In Bindings** (left edge) accept data values and event triggers; **Out Bindings** (right edge) emit data, cards, or events. The system is **live** — data flows instantly along wires as you build.
+The L2 editor is an infinite-canvas **nodegraph** — a graph of nodes connected by wires. Nodes have a **binding interface**: **In Bindings** (left edge) accept data values and event triggers; **Out
+Bindings** (right edge) emit data, cards, or events. The system is **live** — data flows instantly along wires as you build.
 
 ### Node Color Coding
 
-| Color | Category | Purpose |
-|-------|----------|---------|
-| Blue | Cards & Components | Render information, layout, design on screen |
-| Yellow | Data | Declare and move data values through the system |
-| Dark Green | Queries | Interact with the database |
-| Light Green | Logic | Conditional decisions, state machines |
-| Orange | Functions & Code | Textual code (Mix language, WASM) |
-| Pink | Actions | Do things — navigate, save, call APIs, etc. |
-| Yellow (flower) | Annotations | Code comments with markdown + `[[nodeNum]]` linking |
+| Color           | Category           | Purpose                                             |
+|-----------------|--------------------|-----------------------------------------------------|
+| Blue            | Cards & Components | Render information, layout, design on screen        |
+| Yellow          | Data               | Declare and move data values through the system     |
+| Dark Green      | Queries            | Interact with the database                          |
+| Light Green     | Logic              | Conditional decisions, state machines               |
+| Orange          | Functions & Code   | Textual code (Mix language, WASM)                   |
+| Pink            | Actions            | Do things — navigate, save, call APIs, etc.         |
+| Yellow (flower) | Annotations        | Code comments with markdown + `[[nodeNum]]` linking |
 
 ### Complete Node Catalog
 
 **Cards & Components (Blue)**
+
 - **Card** — Nested tree of containers + display primitives (Text, Icons, Dates, Images, User Inputs). Layout uses flexbox. Edited in L3 Card Editor.
-- **Component** — Self-contained sub-graph (a Module). Has own nodegraph with all node types. Exposes **In Params** node (data/events in) and **Out Params** node (data/cards/events out). Reusable black-box. Components can nest.
+- **Component** — Self-contained sub-graph (a Module). Has own nodegraph with all node types. Exposes **In Params** node (data/events in) and **Out Params** node (data/cards/events out). Reusable
+  black-box. Components can nest.
 - **Webcomponents (4)** — Standard web components (custom HTML tags with JS). One generic + three Remix embeds (embed entire Remix runtime inside another Remix flow). Escape hatch #2.
 
 **Data & Transforms (Yellow)**
@@ -123,11 +127,15 @@ Query, Record, Advanced Query
 Decision, State Machine
 
 **Functions & Code (Orange)**
+
 - **Function** — Mix language code editor. Escape hatch #1.
 - **Wasm** — WebAssembly bundles (C/C++/Rust compiled). Registered + hosted, found via Library. Escape hatch #3.
 
 **Actions (Pink)**
-Push to Screen, Navigate, Show Overlay, Open Link, Go Back, Reset View, Reload Screen, Close App, Set a Value, Set State, On Change, Postpone (agent-only: return initial value before complex calc), Delay, Toast, Save, Save Multiple, Delete, Delete Multiple, API Connect, Agent Connect, Publish, Subscribe, Custom Action, Get Location, Copy to Clipboard, Local Storage Set/Get, Share, Get Push Messaging Token, Messaging Status, Download File, Play Alert, Inject Local File, Upload File, Open Document, Mobile POS Print, SMS, SMS Permission, Reload Widgets, Experimental Client Action, Macros (4), Profiler
+Push to Screen, Navigate, Show Overlay, Open Link, Go Back, Reset View, Reload Screen, Close App, Set a Value, Set State, On Change, Postpone (agent-only: return initial value before complex calc),
+Delay, Toast, Save, Save Multiple, Delete, Delete Multiple, API Connect, Agent Connect, Publish, Subscribe, Custom Action, Get Location, Copy to Clipboard, Local Storage Set/Get, Share, Get Push
+Messaging Token, Messaging Status, Download File, Play Alert, Inject Local File, Upload File, Open Document, Mobile POS Print, SMS, SMS Permission, Reload Widgets, Experimental Client Action, Macros (
+4), Profiler
 
 **Annotations (Yellow flower)**
 Annotation — Markdown-formatted sticky notes. `[[10]]` creates a clickable link to Node #10.
@@ -135,6 +143,7 @@ Annotation — Markdown-formatted sticky notes. `[[10]]` creates a clickable lin
 ### Three Escape Hatches
 
 When built-in node primitives are insufficient:
+
 1. **Function Nodes** — Write Mix code directly
 2. **Webcomponents** — Embed custom HTML/JS components
 3. **WASM Bundles** — High-performance compiled code (C/C++/Rust)

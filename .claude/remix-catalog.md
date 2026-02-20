@@ -13,11 +13,11 @@ Content pipeline visibility — current widget templates. Snowflake widgets also
 
 ### ZenDesk Widgets (iOS/Android, OAuth, AI: Anthropic)
 
-| Widget | Size | Output |
-|--------|------|--------|
-| Ticket count & list | small/medium | AI-generated query → ticket list + count |
-| Users count | small | AI-generated query → user count |
-| Agent leaderboard | medium | AI-generated query → agents assigned to tickets |
+| Widget              | Size         | Output                                          |
+|---------------------|--------------|-------------------------------------------------|
+| Ticket count & list | small/medium | AI-generated query → ticket list + count        |
+| Users count         | small        | AI-generated query → user count                 |
+| Agent leaderboard   | medium       | AI-generated query → agents assigned to tickets |
 
 **Configurator fields (all ZenDesk):** subdomain, human prompt, widget title
 **Project:** `remix-india.remixlabs.com/e/edit/zendesk_template_widgets`
@@ -44,7 +44,8 @@ Documented components in the base catalog:
 
 > Source: [Charts](https://www.notion.so/d1b57c77c9014194b59b6f5a23b7f188)
 
-- **Description:** WebComponent-based data visualization using the [Chart.js](https://www.chartjs.org/docs/latest/) library. A web-component allows leveraging 3rd-party libraries and creates a reusable custom HTML element.
+- **Description:** WebComponent-based data visualization using the [Chart.js](https://www.chartjs.org/docs/latest/) library. A web-component allows leveraging 3rd-party libraries and creates a
+  reusable custom HTML element.
 - **Dependencies:** None
 - **Release:** 1.0 — 24 September 2024
 
@@ -65,10 +66,10 @@ Documented components in the base catalog:
 1. **No comparable approach in the HubSpot ecosystem** — Remix's native iOS/Android widgets + Chrome Extension widgets is unique; no similar solution found in marketplace or internet research
 2. **HubSpot's own mobile widgets:** only 2 (Recently Called Contacts, Upcoming Calls) — minimal investment
 3. **HubSpot Marketplace penetration is low:**
-   - Only 50 apps have 10k+ installs (3% of 300k customers)
-   - Only 107 apps have 3k+ installs (1% penetration)
-   - Top apps are Gmail (392k), Google Calendar (245k), Outlook (226k), Zapier (172k), Slack (79k)
-   - Databox (analytics, most comparable) = 17k installs (#33)
+    - Only 50 apps have 10k+ installs (3% of 300k customers)
+    - Only 107 apps have 3k+ installs (1% penetration)
+    - Top apps are Gmail (392k), Google Calendar (245k), Outlook (226k), Zapier (172k), Slack (79k)
+    - Databox (analytics, most comparable) = 17k installs (#33)
 4. **Analytics landscape:** customers extract data to Tableau/Power BI/Looker; HubSpot mobile app has dashboards + AI report generation (Pro plan only)
 
 ### Strategic Implication
@@ -91,17 +92,20 @@ Remix approach is differentiated (no direct competitor in HubSpot ecosystem), bu
 ### ZenDesk Widget Setup (from-scratch pattern)
 
 **Service agents** (deploy to workspace):
+
 1. `set_secret` — saves `anthropic_api_key`
 2. `get_secret` — retrieves `anthropic_api_key`
 3. `generate_zendesk_query` — AI generates ZenDesk API parameters from human prompt
 
 **OAuth setup:**
+
 - Auth server: `remix-india` (current)
 - ZenDesk uses subdomain-per-org → create OAuth config per org in `oauth_manager`
 - Set `auth_config.config_name` in Constants; if auth server changes, update `auth_config.server`
 - Pull in `zendesk_connect` + `confirmation` screens from remix_labs library
 
 **Constants:**
+
 1. Add `auth_config` and `central_workspace` objects from remix_labs (tags: `constants`, `data_model`)
 2. ZenDesk color palette: `colors` constant (tag: `zendesk`)
 3. Connect all 3 constant objects to Constants screen and save
@@ -119,21 +123,21 @@ Remix approach is differentiated (no direct competitor in HubSpot ecosystem), bu
 
 - All connectors require: Local Mixer + `remix_toolbox` setup + Claude/MCP client
 - OAuth callback URI pattern: `https://{ENV}.remixlabs.com/a/x/auth/{AUTH_CONFIG_NAME}/callback`
-  - ENV: `remix-dev`, `remix-beta`, `remix`, `remix-india`
-  - Production: `https://auth.remixlabs.com/a/x/auth/{AUTH_CONFIG_NAME}/callback`
+    - ENV: `remix-dev`, `remix-beta`, `remix`, `remix-india`
+    - Production: `https://auth.remixlabs.com/a/x/auth/{AUTH_CONFIG_NAME}/callback`
 - OAuth configs managed via OAuth Manager App (per environment)
 - MCP tool walkthrough recording: Zoom (see Connectors hub page)
 
 ### Connector Inventory
 
-| Connector | Auth Method | Auth Config Name | Project URL | Owner | Capabilities |
-|-----------|-------------|-----------------|-------------|-------|-------------|
-| Notion | Internal integration token | — | `remix-india.remixlabs.com/e/edit/notion_tools` | Arka | Search, get/create/update pages, add/get comments (6 tools) |
-| Gmail | GCP OAuth (`gmail.compose`) | `gmail_connect` | `remix-dev.remixlabs.com/e/edit/gmail_tools`, `gmail_mcp` | Wilber, Mark | Create draft, send email |
-| Google Sheets | GCP OAuth (`spreadsheets`, `drive`, `userinfo.email`) | `sheets_connect` | `remix-india.remixlabs.com/e/edit/google_sheets_connector` | Padma | 28 operations: CRUD sheets/tabs/rows/columns, charts, sort, filter, conditional formatting, merge, freeze, protect (all Done) |
-| Airtable | Personal Access Token | — | `remix-india.remixlabs.com/e/edit/airtable_connecter` | Riju | 14 tools: bases, tables, records, fields CRUD + search |
-| Confluence | API token + email | — | `remix-india.remixlabs.com/e/edit/confuence_connector` | Nivesh | Get page content by page_id |
-| Slack | Slack App OAuth (bot + user tokens) | `slack_oauth` | — | Shawn | Post message, create/add to canvas, list users/channels/files (6 tools) |
+| Connector     | Auth Method                                           | Auth Config Name | Project URL                                                | Owner        | Capabilities                                                                                                                  |
+|---------------|-------------------------------------------------------|------------------|------------------------------------------------------------|--------------|-------------------------------------------------------------------------------------------------------------------------------|
+| Notion        | Internal integration token                            | —                | `remix-india.remixlabs.com/e/edit/notion_tools`            | Arka         | Search, get/create/update pages, add/get comments (6 tools)                                                                   |
+| Gmail         | GCP OAuth (`gmail.compose`)                           | `gmail_connect`  | `remix-dev.remixlabs.com/e/edit/gmail_tools`, `gmail_mcp`  | Wilber, Mark | Create draft, send email                                                                                                      |
+| Google Sheets | GCP OAuth (`spreadsheets`, `drive`, `userinfo.email`) | `sheets_connect` | `remix-india.remixlabs.com/e/edit/google_sheets_connector` | Padma        | 28 operations: CRUD sheets/tabs/rows/columns, charts, sort, filter, conditional formatting, merge, freeze, protect (all Done) |
+| Airtable      | Personal Access Token                                 | —                | `remix-india.remixlabs.com/e/edit/airtable_connecter`      | Riju         | 14 tools: bases, tables, records, fields CRUD + search                                                                        |
+| Confluence    | API token + email                                     | —                | `remix-india.remixlabs.com/e/edit/confuence_connector`     | Nivesh       | Get page content by page_id                                                                                                   |
+| Slack         | Slack App OAuth (bot + user tokens)                   | `slack_oauth`    | —                                                          | Shawn        | Post message, create/add to canvas, list users/channels/files (6 tools)                                                       |
 
 Snowflake connectors: see [remix-snowflake.md](./remix-snowflake.md)
 
@@ -177,12 +181,12 @@ High value for regional events. Alteryx expressed interest.
 
 Four patterns/categories for customer solutions:
 
-| # | Category | Description | Examples |
-|---|----------|-------------|----------|
-| 1 | **Informational awareness** | Show what's going on in your org. Ad hoc queries, NatLang widgets, federated queries, point-of-use, query diffs over time | Info consumption |
-| 2 | **Human-in-the-loop / Distributed data gathering** | Beacons + Chrome ext → data back into Snowflake, note-taking. Info creation. Create and deploy workflows rapidly on different surfaces | LinkedIn clipping |
-| 3 | **Agentic use cases** | Generalized MCP: get info from Snowflake, send email, etc. IT focused, potential end-user config. Inline prompting in L2 / template tools | MCP connectors |
-| 4 | **Digital experience at scale** | CDP+ETL = DBP. Educational sale (hasn't crossed the chasm). Self-serve. Given a quiz template → auto-create quiz and deploy | DBP sites |
+| # | Category                                           | Description                                                                                                                               | Examples          |
+|---|----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|-------------------|
+| 1 | **Informational awareness**                        | Show what's going on in your org. Ad hoc queries, NatLang widgets, federated queries, point-of-use, query diffs over time                 | Info consumption  |
+| 2 | **Human-in-the-loop / Distributed data gathering** | Beacons + Chrome ext → data back into Snowflake, note-taking. Info creation. Create and deploy workflows rapidly on different surfaces    | LinkedIn clipping |
+| 3 | **Agentic use cases**                              | Generalized MCP: get info from Snowflake, send email, etc. IT focused, potential end-user config. Inline prompting in L2 / template tools | MCP connectors    |
+| 4 | **Digital experience at scale**                    | CDP+ETL = DBP. Educational sale (hasn't crossed the chasm). Self-serve. Given a quiz template → auto-create quiz and deploy               | DBP sites         |
 
 Named prospects: OptHealth, Funda, NFC, Alteryx, Guidewire, Snowflake.
 
@@ -198,35 +202,36 @@ Library agents in `remix_labs` for integrating with third-party AI providers. Al
 
 1. Add `remix_labs` library to searchable libraries: URL `https://agt.remixlabs.com/ws/remix_labs` (in builder: Find → Config → Add URL)
 2. Save AI provider API tokens to the target workspace using:
-   - **`set_secret`** agent (deploy to workspace first) — [library asset](https://remix.app/remix/asset?source=https://agt.remixlabs.com/ws/remix_labs/QvzOgJPsKHQgaGQwgiM4BQfCfXMkWwH8)
-   - **`save_secret`** helper screen — [library asset](https://remix.app/remix/asset?source=https://agt.remixlabs.com/ws/com_remixlabs_john/Hmn3PDz9LkEVfaLWlTiRt97mcGnwYCUb) (update Node 14 bindings to point to your deployed `set_secret` agent before saving)
+    - **`set_secret`** agent (deploy to workspace first) — [library asset](https://remix.app/remix/asset?source=https://agt.remixlabs.com/ws/remix_labs/QvzOgJPsKHQgaGQwgiM4BQfCfXMkWwH8)
+    - **`save_secret`** helper screen — [library asset](https://remix.app/remix/asset?source=https://agt.remixlabs.com/ws/com_remixlabs_john/Hmn3PDz9LkEVfaLWlTiRt97mcGnwYCUb) (update Node 14 bindings
+      to point to your deployed `set_secret` agent before saving)
 
 ### Anthropic Agents
 
-| Agent | Description | Input |
-|-------|-------------|-------|
-| `anthropic_messages` | Fully configurable agent | `secret_key`, `body` (API request body) |
-| `anthropic` | Pre-configured agent with artifact for setup (edit secret_key, model, system prompt, tools for JSON output) | — |
+| Agent                | Description                                                                                                 | Input                                   |
+|----------------------|-------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| `anthropic_messages` | Fully configurable agent                                                                                    | `secret_key`, `body` (API request body) |
+| `anthropic`          | Pre-configured agent with artifact for setup (edit secret_key, model, system prompt, tools for JSON output) | —                                       |
 
 ### OpenAI Agents
 
 No artifacts — require manually updating API key / Org ID fields within the agent.
 
-| Agent | Description | Input |
-|-------|-------------|-------|
-| `openai_completions` | Fully configurable agent | `api_key_secret_key`, `org_id_secret_key`, `body` |
-| `openai_json` | Returns JSON conforming to a specified output structure | — |
-| `openai_text` | Returns text response | — |
-| `openai_image` | Returns URL of a generated + uploaded image for a given prompt | — |
-| `openai_embeddings` | Generates text embeddings for a given string (measures relatedness). Requires a vector database for nearest-match queries (TBD). | — |
+| Agent                | Description                                                                                                                      | Input                                             |
+|----------------------|----------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------|
+| `openai_completions` | Fully configurable agent                                                                                                         | `api_key_secret_key`, `org_id_secret_key`, `body` |
+| `openai_json`        | Returns JSON conforming to a specified output structure                                                                          | —                                                 |
+| `openai_text`        | Returns text response                                                                                                            | —                                                 |
+| `openai_image`       | Returns URL of a generated + uploaded image for a given prompt                                                                   | —                                                 |
+| `openai_embeddings`  | Generates text embeddings for a given string (measures relatedness). Requires a vector database for nearest-match queries (TBD). | —                                                 |
 
 ### Gemini Agents
 
 No artifacts — require manually updating API key fields within the agent.
 
-| Agent | Description |
-|-------|-------------|
+| Agent         | Description                                             |
+|---------------|---------------------------------------------------------|
 | `gemini_json` | Returns JSON conforming to a specified output structure |
-| `gemini_text` | Returns text response |
+| `gemini_text` | Returns text response                                   |
 
 **Source app:** `https://remix.remixlabs.com/e/edit/ai`

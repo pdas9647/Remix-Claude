@@ -12,12 +12,14 @@
 Chronological meeting notes — only stable decisions extracted here; re-fetch page for full context.
 
 ### Org & Auth Model (Oct 2025)
+
 - A user is associated to one org (customer/account)
 - An org has a primary workspace (and hence so does a user) and auth endpoint
 - Auth managed at primary workspace level; tokens accepted by any endpoint
 - Accessible in the builder/runtime
 
 ### Engineering Process (Feb 2026)
+
 - **PM:** Chris = engineering PM, Reza = content PM
 - **Sprint cadence:** 2 weeks — planning Monday before standup, retro following Friday
 - **Bug reporting:** Slack as triage/discovery → if confirmed bug, create GitHub issue for tracking/prioritization
@@ -25,11 +27,13 @@ Chronological meeting notes — only stable decisions extracted here; re-fetch p
 - **Diagrams:** standardize on draw.io (connected to Google Drive)
 
 ### Platform Maturity (Feb 2026)
+
 - Platform is "close to feature complete" — needs bug fixes + incremental improvements, not new releases
 - Content is "not at all close" — content PM and content engineering pipeline are critical needs
 - Platform components: mobile, extension, desktop, server — deployment is per-customer customizable
 
 ### QA & Desktop Studio (Nov 2025)
+
 - Moving off amp builder (remix.remixlabs.com) to desktop studio is a priority
 - Service-agent-only apps should be built on desktop in dev channel
 - Need beta/prod release channels for desktop app
@@ -45,6 +49,7 @@ Chronological meeting notes — only stable decisions extracted here; re-fetch p
 ### Design Rationale
 
 Moving to decentralized auth because:
+
 - Future: most Remix backend services will be self-hosted with customer's own identity provider
 - Services don't need to share a userspace or mutually trust tokens
 - Some deployments should exclude Remix-managed dependencies
@@ -88,7 +93,8 @@ Moving to decentralized auth because:
 ## Unified Login
 
 > Source: [Unified Login](https://www.notion.so/2901d464528f8096a29ccd062758e637)
-> See also: [Org / System Setup](https://www.notion.so/2871d464528f8079b692edaa589da6b8), [Unified login diagram (draw.io)](https://drive.google.com/file/d/14naLAJarPRn7n0dAvYx0I_VlQJXXqPls/view?usp=sharing)
+> See
+> also: [Org / System Setup](https://www.notion.so/2871d464528f8079b692edaa589da6b8), [Unified login diagram (draw.io)](https://drive.google.com/file/d/14naLAJarPRn7n0dAvYx0I_VlQJXXqPls/view?usp=sharing)
 > Debug notes: [Login debug page](https://www.notion.so/2c41d464528f808ab1e4d162b4a22039)
 
 Full login flow implemented by all surfaces (desktop, mobile, extension, web, amp).
@@ -100,20 +106,20 @@ Each org/customer has a **primary workspace on a mixer server**. Login = login t
 - Displayed as a webview: `https://remix.app/remix/signin?surface=<surface>`
 - Source: `https://remix.remixlabs.com/e/edit/_rmx_signin/home`
 - Params:
-  - `surface` (string): `desktop|extension|mobile|amp|web`
-  - `extra` (string, optional): passed through to stage 2 app (amp uses this for host)
-  - `workspace` (string, optional): for token-expired/unlock flow
-  - `registered_user` (string, optional): for token-expired/unlock flow
+    - `surface` (string): `desktop|extension|mobile|amp|web`
+    - `extra` (string, optional): passed through to stage 2 app (amp uses this for host)
+    - `workspace` (string, optional): for token-expired/unlock flow
+    - `registered_user` (string, optional): for token-expired/unlock flow
 
 User enters workspace ID → invokes router agent `route` on `agt/_rmx_ws_router` → returns org info object:
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `workspace` | string | Workspace ID the user entered |
-| `server` | url | Mixer server of the org |
-| `name` | string | Org name (display only) |
-| `remix_remix_url` | url | Org-specific auth app URL |
-| `remix_app_url` | url | Full remix.app URL for auth app (convenience) |
+| Field             | Type   | Description                                   |
+|-------------------|--------|-----------------------------------------------|
+| `workspace`       | string | Workspace ID the user entered                 |
+| `server`          | url    | Mixer server of the org                       |
+| `name`            | string | Org name (display only)                       |
+| `remix_remix_url` | url    | Org-specific auth app URL                     |
+| `remix_app_url`   | url    | Full remix.app URL for auth app (convenience) |
 
 ### Screen 2 — Workspace-Specific Auth
 
@@ -126,14 +132,14 @@ Native surface opens `remix_app_url` in a **real browser tab** (so existing iden
 
 User picks identity provider (e.g. Google) → OAuth token exchange → Remix/amp token issued → object passed back to native surface:
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `token` | string | Remix token |
-| `workspace` | string | Workspace ID |
-| `server` | url | Mixer server |
-| `name` | string | Org name (display) |
-| `nonce` | string | Optional, passed through |
-| `extra` | string | Optional, passed through |
+| Field       | Type   | Description              |
+|-------------|--------|--------------------------|
+| `token`     | string | Remix token              |
+| `workspace` | string | Workspace ID             |
+| `server`    | url    | Mixer server             |
+| `name`      | string | Org name (display)       |
+| `nonce`     | string | Optional, passed through |
+| `extra`     | string | Optional, passed through |
 
 Each surface implements its own mechanism for passing data back (deeplink or external action).
 
@@ -150,10 +156,10 @@ Pass `workspace` + `registered_user` to the welcome screen → forces re-login a
 
 Deployed on `agt/remix`, app `_rmx_ws_router`:
 
-| Agent | Input | Output |
-|-------|-------|--------|
-| `route` | `{workspace}` | `{server, workspace, name, auth_remix_url}` |
-| `save_route` | `{server, workspace, name, auth_remix_url}` | (none) |
+| Agent        | Input                                       | Output                                      |
+|--------------|---------------------------------------------|---------------------------------------------|
+| `route`      | `{workspace}`                               | `{server, workspace, name, auth_remix_url}` |
+| `save_route` | `{server, workspace, name, auth_remix_url}` | (none)                                      |
 
 ### Key Resources
 
@@ -173,19 +179,19 @@ Deployed on `agt/remix`, app `_rmx_ws_router`:
 
 **Global workspace:** server `agt`, workspace `RYxpTj1Ial`
 
-| App | Purpose | Permissions |
-|-----|---------|-------------|
-| `_rmx_sync` | Global app groups synced to all users (system apps for mobile/desktop) | `get_apps_for_group`: all auth'd users |
-| `_rmx_files` | Global file hosting | — |
-| `_rmx_ws_router` | Central router (workspace → org info) | `route`: anonymous users |
+| App              | Purpose                                                                | Permissions                            |
+|------------------|------------------------------------------------------------------------|----------------------------------------|
+| `_rmx_sync`      | Global app groups synced to all users (system apps for mobile/desktop) | `get_apps_for_group`: all auth'd users |
+| `_rmx_files`     | Global file hosting                                                    | —                                      |
+| `_rmx_ws_router` | Central router (workspace → org info)                                  | `route`: anonymous users               |
 
 **`_rmx_sync` groups (global):**
 
-| Surface | Group | Type | Description |
-|---------|-------|------|-------------|
-| `mobile` | `system` | required | Downloaded on mobile app install |
+| Surface   | Group     | Type     | Description                                 |
+|-----------|-----------|----------|---------------------------------------------|
+| `mobile`  | `system`  | required | Downloaded on mobile app install            |
 | `desktop` | `builtin` | required | Packaged with desktop binary (compile time) |
-| `desktop` | `system` | required | Downloaded on desktop app install |
+| `desktop` | `system`  | required | Downloaded on desktop app install           |
 
 Admin setup: `remix.remixlabs.com/e/edit/_rmx_sync/setup_admin` (node 58, "system groups")
 
@@ -193,31 +199,32 @@ Admin setup: `remix.remixlabs.com/e/edit/_rmx_sync/setup_admin` (node 58, "syste
 
 **Workspace:** server `agt`, workspace `remix_labs`
 
-| App | Purpose |
-|-----|---------|
+| App           | Purpose                             |
+|---------------|-------------------------------------|
 | `_rmx_search` | Official catalog (federated search) |
 
 ### 3. Per-Customer / Org Setup
 
-Each new customer gets a random workspace ID. A workspace is created and registered with `_rmx_ws_router` via `save_route` agent (currently manual: `remix.remixlabs.com/e/edit/_rmx_ws_router/save_route`).
+Each new customer gets a random workspace ID. A workspace is created and registered with `_rmx_ws_router` via `save_route` agent (currently manual:
+`remix.remixlabs.com/e/edit/_rmx_ws_router/save_route`).
 
 **Required apps per org workspace:**
 
-| App | Purpose | Key Permissions |
-|-----|---------|-----------------|
-| `_rmx_prefs` | User preferences (catalog list for builder search, etc.) | `get_prefs`, `set_prefs`: all auth'd; `set_default_prefs`: admin |
-| `_rmx_search` | Org catalog (federated search) | All query/get agents: all auth'd |
-| `_rmx_files` | Org file hosting | Admin only |
-| `_rmx_auth` | Org login page + OAuth provider config | Update router record after changes |
-| `_rmx_sync` | App distribution for org users | See below |
+| App           | Purpose                                                  | Key Permissions                                                  |
+|---------------|----------------------------------------------------------|------------------------------------------------------------------|
+| `_rmx_prefs`  | User preferences (catalog list for builder search, etc.) | `get_prefs`, `set_prefs`: all auth'd; `set_default_prefs`: admin |
+| `_rmx_search` | Org catalog (federated search)                           | All query/get agents: all auth'd                                 |
+| `_rmx_files`  | Org file hosting                                         | Admin only                                                       |
+| `_rmx_auth`   | Org login page + OAuth provider config                   | Update router record after changes                               |
+| `_rmx_sync`   | App distribution for org users                           | See below                                                        |
 
 **`_rmx_sync` groups (per org):**
 
-| Surface | Group | Type | Description |
-|---------|-------|------|-------------|
-| `mobile` | `default` | optional | Apps synced to all org users on mobile |
-| `desktop` | `default` | optional | Apps synced to all org users on desktop (includes home app) |
-| `mobile` | `<user email>` | optional | User-specific apps on mobile |
+| Surface   | Group          | Type     | Description                                                 |
+|-----------|----------------|----------|-------------------------------------------------------------|
+| `mobile`  | `default`      | optional | Apps synced to all org users on mobile                      |
+| `desktop` | `default`      | optional | Apps synced to all org users on desktop (includes home app) |
+| `mobile`  | `<user email>` | optional | User-specific apps on mobile                                |
 
 Permissions: `get_apps`, `set_apps`, `set_user_groups`: all auth'd; `*_admin` variants: admin only.
 
@@ -264,12 +271,12 @@ Auto-syncs .remix apps to mobile/desktop. Only apps compatible with the installe
 
 **User agents** (any auth'd user):
 
-| Agent | Input | Output | Purpose |
-|-------|-------|--------|---------|
-| `get_apps` | `{channel, version, surface}` | `{channel, version, surface, user, groups[]}` | Get all synced apps for current user (resolved URLs) |
-| `set_app` | `{surface, home, apps[]}` | `{success}` | Set apps for current user's personal group |
-| `set_user_groups` | `{groups[]}` | `{success}` | Set named group subscriptions |
-| `get_apps_for_group` | `{channel, version, surface, name}` | `{...name, apps[]}` | Get apps for one specific group |
+| Agent                | Input                               | Output                                        | Purpose                                              |
+|----------------------|-------------------------------------|-----------------------------------------------|------------------------------------------------------|
+| `get_apps`           | `{channel, version, surface}`       | `{channel, version, surface, user, groups[]}` | Get all synced apps for current user (resolved URLs) |
+| `set_app`            | `{surface, home, apps[]}`           | `{success}`                                   | Set apps for current user's personal group           |
+| `set_user_groups`    | `{groups[]}`                        | `{success}`                                   | Set named group subscriptions                        |
+| `get_apps_for_group` | `{channel, version, surface, name}` | `{...name, apps[]}`                           | Get apps for one specific group                      |
 
 **Admin agents**: `get_apps_admin`, `set_app_admin`, `set_user_groups_admin` — same as above but can target any user/group.
 
@@ -299,11 +306,11 @@ Syncs user preferences across devices/surfaces via a 3-layer cascade.
 
 ### Agent API (`_rmx_prefs` app, deployed on org's primary workspace)
 
-| Agent | Input | Output | Access | Notes |
-|-------|-------|--------|--------|-------|
-| `get_prefs` | (none) | `{prefs}` | All auth'd | Returns merged system + default + user prefs |
-| `set_prefs` | `{prefs}` | `{prefs}` | All auth'd | Merge semantics; `null` deletes a pref |
-| `set_default_prefs` | `{prefs}` | `{prefs}` | Admin | Set workspace-wide defaults; `null` resets to system |
+| Agent               | Input     | Output    | Access     | Notes                                                |
+|---------------------|-----------|-----------|------------|------------------------------------------------------|
+| `get_prefs`         | (none)    | `{prefs}` | All auth'd | Returns merged system + default + user prefs         |
+| `set_prefs`         | `{prefs}` | `{prefs}` | All auth'd | Merge semantics; `null` deletes a pref               |
+| `set_default_prefs` | `{prefs}` | `{prefs}` | Admin      | Set workspace-wide defaults; `null` resets to system |
 
 - Builder app: `remix.remixlabs.com/e/edit/_rmx_prefs`
 
@@ -317,15 +324,15 @@ URL scheme: `com.remixlabs.runtime://localhost/...`
 
 ### Unified (Mobile + Desktop)
 
-| Action | URL | Notes |
-|--------|-----|-------|
+| Action                 | URL                                                     | Notes                                         |
+|------------------------|---------------------------------------------------------|-----------------------------------------------|
 | Download & open .remix | `/run-remix-file?url=<url>&workspace&app&screen&params` | Downloads, shows confirmation, installs, runs |
-| Open installed screen | `/open-screen?workspace&app&screen&params` | `screen` defaults to `home` |
+| Open installed screen  | `/open-screen?workspace&app&screen&params`              | `screen` defaults to `home`                   |
 
 ### Desktop Only
 
-| Action | URL | Notes |
-|--------|-----|-------|
+| Action        | URL                       | Notes                                                              |
+|---------------|---------------------------|--------------------------------------------------------------------|
 | Open artifact | `/open-artifact?url&mode` | `mode` default = `configure` (switches to `run` if no config node) |
 
 `workspace` param only meaningful on desktop.
@@ -339,6 +346,7 @@ URL scheme: `com.remixlabs.runtime://localhost/...`
 iOS widgets simulate HTML/CSS rendering (imperfect emulation — must test on device).
 
 **Fast workflow** (vs traditional build→airdrop→install cycle):
+
 1. Tweak widget in builder
 2. Use "save as dyn widget" component (from `remix-libraries` library) to invoke save action
 3. On device: add dynamic widget to home screen or use widget debugger (right-swipe menu)
@@ -361,6 +369,7 @@ Ask in `#bugbash` or `#dumbquestionsanswered` Slack channels. Search existing Gi
 ### Step 2 — Provide a repro
 
 For builder bugs especially. Most useful:
+
 - Link to cloud builder screen exhibiting the bug
 - Minimal `.remix` file, or step-by-step from scratch
 - Product/surface + version + OS + browser
@@ -374,12 +383,12 @@ Engineering team either: (a) works immediately + links PR in thread, or (b) crea
 
 React to original `#bugbash` post:
 
-| Reaction | Meaning |
-|----------|---------|
-| ✅ | Fixed |
-| 👍 | Expected behavior |
-| 📝 | Ticket created / already existed |
-| 🚧 | Content bug, working on it |
+| Reaction | Meaning                          |
+|----------|----------------------------------|
+| ✅        | Fixed                            |
+| 👍       | Expected behavior                |
+| 📝       | Ticket created / already existed |
+| 🚧       | Content bug, working on it       |
 
 ---
 
@@ -393,17 +402,17 @@ Process for submitting artifacts (flows, builder nodes, auth configs) for review
 
 1. Install the **"Tasks"** app via **Workspace Tools** builder plugin → **App Hub**
 2. Configure Tasks to point to your workspace:
-   - **Prod US:** `remix.remixlabs.com/tasks/start`
-   - **Prod India:** `remix-india.remixlabs.com/tasks/start`
+    - **Prod US:** `remix.remixlabs.com/tasks/start`
+    - **Prod India:** `remix-india.remixlabs.com/tasks/start`
 3. Go to **Set workspace** → enter the workspace for storing/managing tasks
 
 ### Supported Artifact Types
 
-| Type | Description |
-|------|-------------|
-| **Auth Configuration** | JSON payload of an auth configuration |
-| **MCP Tools** | A .remix file containing agents accessible through MCP |
-| **Builder Asset** | A builder node (screen, agent, component, etc.) |
+| Type                   | Description                                            |
+|------------------------|--------------------------------------------------------|
+| **Auth Configuration** | JSON payload of an auth configuration                  |
+| **MCP Tools**          | A .remix file containing agents accessible through MCP |
+| **Builder Asset**      | A builder node (screen, agent, component, etc.)        |
 
 ### Workflow
 
@@ -429,16 +438,16 @@ Prerequisite: Latest Remix Desktop app installed and running.
 ### Steps
 
 1. **Create the service** — Build your MCP service agent
-   - Example: `remix.remixlabs.com/e/edit/wc_tools/pong` (returns "pong")
+    - Example: `remix.remixlabs.com/e/edit/wc_tools/pong` (returns "pong")
 
 2. **Generate MCP configuration** — JSON schema for your service
-   - Use the library asset for auto-generation: `remix.app/remix/asset?source=https://agt.remixlabs.com/ws/com_remixlabs_wilber/CNbG46sMWSbhQg5j4iEkkcj26Y2wRGG6`
-   - Pass `record` parameter (example of valid input params) → most of the JSON schema auto-generated
-   - Review for accuracy; add tool name and agent name where needed
+    - Use the library asset for auto-generation: `remix.app/remix/asset?source=https://agt.remixlabs.com/ws/com_remixlabs_wilber/CNbG46sMWSbhQg5j4iEkkcj26Y2wRGG6`
+    - Pass `record` parameter (example of valid input params) → most of the JSON schema auto-generated
+    - Review for accuracy; add tool name and agent name where needed
 
 3. **Save MCP configs** — Save into the same project as the services, with `_rmx_type = mcp_tool`
-   - Example: `remix.remixlabs.com/e/edit/wc_tools/mcp_tools`
-   - Alternative install method: Workspace plugin tool → navigate to target workspace → "Deploy App" → enable "Include MCP Tools" → Deploy
+    - Example: `remix.remixlabs.com/e/edit/wc_tools/mcp_tools`
+    - Alternative install method: Workspace plugin tool → navigate to target workspace → "Deploy App" → enable "Include MCP Tools" → Deploy
 
 4. **Restart Claude** — Tool appears after restart. Test by invoking the tool.
 
@@ -452,13 +461,13 @@ Guide for writing effective MCP tool descriptions. Tool prompts must focus on pr
 
 ### Required Sections (in order)
 
-| Section | Purpose | Example |
-|---------|---------|---------|
-| `[TOOL PURPOSE]` | What the tool does | "Generates a summary of a Parquet file from a URL using DuckDB." |
-| `[WHEN TO USE]` | Scenarios to invoke + boundaries | "Use when users need to understand structure of a remote Parquet file. Do not use for detailed data analysis." |
-| `[OUTPUT]` | What data is returned | "Returns column info (names, types, null %, sample values) + file metadata (total rows, columns)." |
-| `[PRESENTATION]` | Formatting instructions | "ALWAYS format as markdown table with file metadata bullet points above." |
-| `[ERROR HANDLING]` | How to handle/communicate errors | "Do NOT attempt workarounds. Translate errors clearly for users." |
+| Section            | Purpose                          | Example                                                                                                        |
+|--------------------|----------------------------------|----------------------------------------------------------------------------------------------------------------|
+| `[TOOL PURPOSE]`   | What the tool does               | "Generates a summary of a Parquet file from a URL using DuckDB."                                               |
+| `[WHEN TO USE]`    | Scenarios to invoke + boundaries | "Use when users need to understand structure of a remote Parquet file. Do not use for detailed data analysis." |
+| `[OUTPUT]`         | What data is returned            | "Returns column info (names, types, null %, sample values) + file metadata (total rows, columns)."             |
+| `[PRESENTATION]`   | Formatting instructions          | "ALWAYS format as markdown table with file metadata bullet points above."                                      |
+| `[ERROR HANDLING]` | How to handle/communicate errors | "Do NOT attempt workarounds. Translate errors clearly for users."                                              |
 
 ### JSON Tool Definition Format
 

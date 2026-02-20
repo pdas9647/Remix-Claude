@@ -153,11 +153,11 @@ Company Name, Company Domain Name, Industry, Phone Number, Type, City, State/Reg
 
 Browser-based push notifications using **Google Firebase**. Supports foreground + background messaging. Requires explicit user permission.
 
-| Platform | Browser | Status |
-|----------|---------|--------|
-| iOS | Safari ("added to desktop" required) | Works (no pure background data notifications?) |
-| Android, Windows, macOS, Linux | Chrome, Firefox | Works |
-| Others | — | Untested |
+| Platform                       | Browser                              | Status                                         |
+|--------------------------------|--------------------------------------|------------------------------------------------|
+| iOS                            | Safari ("added to desktop" required) | Works (no pure background data notifications?) |
+| Android, Windows, macOS, Linux | Chrome, Firefox                      | Works                                          |
+| Others                         | —                                    | Untested                                       |
 
 **Open TODOs:** parameterize Firebase config, test more OS/browser combos, other messaging platforms.
 

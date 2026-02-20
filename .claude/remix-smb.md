@@ -29,11 +29,11 @@ The Remix SMB Catalog provides assets for assemblers to build applications for s
 
 Three transaction models supported:
 
-| # | Model | Example |
-|---|-------|---------|
-| 1 | **Ordering from a catalog** | Ordering from a restaurant menu |
+| # | Model                                  | Example                                    |
+|---|----------------------------------------|--------------------------------------------|
+| 1 | **Ordering from a catalog**            | Ordering from a restaurant menu            |
 | 2 | **Booking services provided by staff** | Hair salon appointment, dental appointment |
-| 3 | **Booking resources** | Hotel room, restaurant table |
+| 3 | **Booking resources**                  | Hotel room, restaurant table               |
 
 ---
 
@@ -70,6 +70,7 @@ Catalog
 ```
 
 **Design decisions:**
+
 - Item Variants are NOT reusable across Items
 - Option Groups are NOT reusable — they are copied
 - Single Item cannot map to multiple Categories
@@ -102,12 +103,14 @@ For service-based SMBs (hair salons, dental offices):
 Orders have two status attributes:
 
 **Payment Status:**
+
 - `Paid` — Payment received
 - `Authorized` — Credit card authorized by processor (e.g. Stripe)
 - `Unpaid` — Payment not yet received (cash orders)
 - `Refunded` — Payment refunded (credit card: authorization released, not actually charged)
 
 **Order Status:**
+
 - `Pending` — Received, not yet reviewed
 - `Processing` — Accepted, being fulfilled
 - `Rejected` — Rejected by business
@@ -119,67 +122,67 @@ Orders have two status attributes:
 
 **Cash orders:**
 
-| Combination | Meaning |
-|-------------|---------|
-| Unpaid-Pending | Placed, not yet reviewed |
-| Unpaid-Processing | Accepted, being fulfilled |
-| Unpaid-Rejected | Rejected, never paid |
-| Unpaid-Canceled | Canceled post-acceptance |
-| Unpaid-Expired | Not reviewed in time |
-| Paid-Processing | Payment made, not yet fulfilled |
-| Paid-Completed | Done |
+| Combination       | Meaning                         |
+|-------------------|---------------------------------|
+| Unpaid-Pending    | Placed, not yet reviewed        |
+| Unpaid-Processing | Accepted, being fulfilled       |
+| Unpaid-Rejected   | Rejected, never paid            |
+| Unpaid-Canceled   | Canceled post-acceptance        |
+| Unpaid-Expired    | Not reviewed in time            |
+| Paid-Processing   | Payment made, not yet fulfilled |
+| Paid-Completed    | Done                            |
 
 **Credit card orders:**
 
-| Combination | Meaning |
-|-------------|---------|
-| Unpaid-Expired | Buyer abandoned Stripe session |
-| Authorized-Pending | Placed with card auth, not yet reviewed |
-| Paid-Processing | Accepted (acceptance triggers payment capture) |
-| Refunded-Rejected | Rejected, authorization released |
-| Refunded-Canceled | Canceled, payment refunded |
-| Refunded-Expired | Expired, payment refunded |
-| Paid-Completed | Done |
+| Combination        | Meaning                                        |
+|--------------------|------------------------------------------------|
+| Unpaid-Expired     | Buyer abandoned Stripe session                 |
+| Authorized-Pending | Placed with card auth, not yet reviewed        |
+| Paid-Processing    | Accepted (acceptance triggers payment capture) |
+| Refunded-Rejected  | Rejected, authorization released               |
+| Refunded-Canceled  | Canceled, payment refunded                     |
+| Refunded-Expired   | Expired, payment refunded                      |
+| Paid-Completed     | Done                                           |
 
 ### Order Attributes
 
-| Attribute | Type | Notes |
-|-----------|------|-------|
-| `entity` | string | Always `"order"` |
-| `order_number` | string | e.g. `"0998"` |
-| `status` | string | Order status (see above) |
-| `payment_status` | string | Payment status (see above) |
-| `payment_method` | string | `"cash"`, `"card"`, etc. |
-| `filter_status` | string | Combined e.g. `"processing-unpaid"` |
-| `currency_code` | string | e.g. `"GBP"` |
-| `fulfilment_method` | string | e.g. `"takeaway"` |
-| `fulfilment_time` | dateTime | Expected fulfilment time |
-| `ordered_at` | dateTime | When order was placed |
-| `customer` | object | `{name, phone, email, address}` |
-| `line_items` | array | Array of line items |
-| `sub_total` | number | In minor units (pence/cents) |
-| `tax_total` | number | In minor units |
-| `delivery_fee` | number | In minor units |
-| `total` | number | In minor units |
-| `discounts` | array | Applied discounts |
-| `codes` | array | Promo/voucher codes |
-| `campaign_id` | string | Marketing campaign reference |
+| Attribute           | Type     | Notes                               |
+|---------------------|----------|-------------------------------------|
+| `entity`            | string   | Always `"order"`                    |
+| `order_number`      | string   | e.g. `"0998"`                       |
+| `status`            | string   | Order status (see above)            |
+| `payment_status`    | string   | Payment status (see above)          |
+| `payment_method`    | string   | `"cash"`, `"card"`, etc.            |
+| `filter_status`     | string   | Combined e.g. `"processing-unpaid"` |
+| `currency_code`     | string   | e.g. `"GBP"`                        |
+| `fulfilment_method` | string   | e.g. `"takeaway"`                   |
+| `fulfilment_time`   | dateTime | Expected fulfilment time            |
+| `ordered_at`        | dateTime | When order was placed               |
+| `customer`          | object   | `{name, phone, email, address}`     |
+| `line_items`        | array    | Array of line items                 |
+| `sub_total`         | number   | In minor units (pence/cents)        |
+| `tax_total`         | number   | In minor units                      |
+| `delivery_fee`      | number   | In minor units                      |
+| `total`             | number   | In minor units                      |
+| `discounts`         | array    | Applied discounts                   |
+| `codes`             | array    | Promo/voucher codes                 |
+| `campaign_id`       | string   | Marketing campaign reference        |
 
 ### Line Item Attributes
 
-| Attribute | Type | Notes |
-|-----------|------|-------|
-| `item_id` | _rmx_id ref | Reference to Catalog Item |
-| `name` | string | Item name |
-| `category` | object | `{entity, id, name}` |
-| `quantity` | number | |
-| `price` | number | In minor units |
-| `original_price` | number | Pre-discount price |
-| `variant` | object | `{entity, id, name, price}` — empty if no variant |
-| `options` | array | Selected option groups with `option_group` + `selected_options` |
-| `discounts` | array | Line-level discounts |
-| `description` | string | Auto-generated summary of variant + options |
-| `image` | string | Item image URL |
+| Attribute        | Type        | Notes                                                           |
+|------------------|-------------|-----------------------------------------------------------------|
+| `item_id`        | _rmx_id ref | Reference to Catalog Item                                       |
+| `name`           | string      | Item name                                                       |
+| `category`       | object      | `{entity, id, name}`                                            |
+| `quantity`       | number      |                                                                 |
+| `price`          | number      | In minor units                                                  |
+| `original_price` | number      | Pre-discount price                                              |
+| `variant`        | object      | `{entity, id, name, price}` — empty if no variant               |
+| `options`        | array       | Selected option groups with `option_group` + `selected_options` |
+| `discounts`      | array       | Line-level discounts                                            |
+| `description`    | string      | Auto-generated summary of variant + options                     |
+| `image`          | string      | Item image URL                                                  |
 
 **Note:** Prices in minor units (e.g. 490 = GBP 4.90). DateTime values use Remix tagged type `{tag}case:calendar.dateTime`.
 
@@ -193,33 +196,33 @@ All UI assets are in the `_rmx_drafts` library.
 
 ### UI Assets
 
-| Category | Asset | Description | Status |
-|----------|-------|-------------|--------|
-| **Business Setup** | Business profile | Edit/view business name, email, phone, social media | Available |
-| | Business settings | Timezone, time/date format, currency | Available |
-| | Address - UK | Business venue address (getaddress.io) | Targeted |
-| | Business hours | Opening hours per day, multiple periods | Available |
-| | Holidays | Override normal business hours | Targeted |
-| **Catalog** | Inventory availability (toggle) | Mark items available/unavailable | Available |
-| | Inventory availability (quantity) | Track item quantities | Available |
-| **Ordering** | Shopping cart - simple | Basic cart | Available |
-| | Shopping cart - with loyalty | Cart with loyalty program | Available |
-| | Shopping cart - with inventory | Cart with inventory checks | Available |
-| | Order list | List of orders | Available |
-| | Order detail | Single order view | Available |
-| | Local delivery areas/fees - list | Delivery zone management | Available |
-| | Local delivery area - detail | Single zone config | Available |
-| | Local delivery area - delete | Zone removal | Available |
-| | Catalog layout - simple | Basic catalog display | Available |
-| | Catalog layout - inventory | Catalog with stock levels | Available |
-| | Stripe setup | Payment configuration | Targeted |
-| **Customer** | Customer list / detail | Customer management | Available |
-| | Loyalty program (view/setup/edit) | 3 assets for loyalty config | Available |
-| | Order list / detail | Customer order history | Available |
-| | Order analytics | Order reporting | Available |
-| **Misc** | Printer list | POS printer management | Targeted |
-| | Print - customer | Customer receipt commands | Available |
-| | Print - kitchen | Kitchen chit commands | Available |
+| Category           | Asset                             | Description                                         | Status    |
+|--------------------|-----------------------------------|-----------------------------------------------------|-----------|
+| **Business Setup** | Business profile                  | Edit/view business name, email, phone, social media | Available |
+|                    | Business settings                 | Timezone, time/date format, currency                | Available |
+|                    | Address - UK                      | Business venue address (getaddress.io)              | Targeted  |
+|                    | Business hours                    | Opening hours per day, multiple periods             | Available |
+|                    | Holidays                          | Override normal business hours                      | Targeted  |
+| **Catalog**        | Inventory availability (toggle)   | Mark items available/unavailable                    | Available |
+|                    | Inventory availability (quantity) | Track item quantities                               | Available |
+| **Ordering**       | Shopping cart - simple            | Basic cart                                          | Available |
+|                    | Shopping cart - with loyalty      | Cart with loyalty program                           | Available |
+|                    | Shopping cart - with inventory    | Cart with inventory checks                          | Available |
+|                    | Order list                        | List of orders                                      | Available |
+|                    | Order detail                      | Single order view                                   | Available |
+|                    | Local delivery areas/fees - list  | Delivery zone management                            | Available |
+|                    | Local delivery area - detail      | Single zone config                                  | Available |
+|                    | Local delivery area - delete      | Zone removal                                        | Available |
+|                    | Catalog layout - simple           | Basic catalog display                               | Available |
+|                    | Catalog layout - inventory        | Catalog with stock levels                           | Available |
+|                    | Stripe setup                      | Payment configuration                               | Targeted  |
+| **Customer**       | Customer list / detail            | Customer management                                 | Available |
+|                    | Loyalty program (view/setup/edit) | 3 assets for loyalty config                         | Available |
+|                    | Order list / detail               | Customer order history                              | Available |
+|                    | Order analytics                   | Order reporting                                     | Available |
+| **Misc**           | Printer list                      | POS printer management                              | Targeted  |
+|                    | Print - customer                  | Customer receipt commands                           | Available |
+|                    | Print - kitchen                   | Kitchen chit commands                               | Available |
 
 ### Cloud Agents
 
@@ -236,7 +239,9 @@ Cloud agents table exists but is mostly empty (placeholder for Customers categor
 Two components for POS printer integration:
 
 ### Print Customer Chit
+
 Generates detailed customer receipts via API call. Includes:
+
 - Order details (items, quantity, description, price, discounts)
 - Customer info (name, contact)
 - Payment details (method, total, tax, tips)
@@ -244,7 +249,9 @@ Generates detailed customer receipts via API call. Includes:
 - Additional notes (instructions, coupons, comments)
 
 ### Print Kitchen Chit
+
 Generates kitchen order chits for meal preparation. Includes:
+
 - Order breakdown (items, quantities, modifications, customizations)
 - Customer info (order number for prioritization)
 - Payment details (optional — prepaid vs pay later)
@@ -261,6 +268,7 @@ Both components: no dependencies, generate print commands for POS printers.
 Container page. Ordering channels supported: Web, Phone, WhatsApp, Mobile app, POS, Kiosk, QR code.
 
 Sub-areas (from sidebar navigation):
+
 - Shopping cart
 - Address entry (getaddress.io)
 - Payments (Stripe)

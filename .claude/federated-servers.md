@@ -80,11 +80,11 @@ The `source` object comes from the source info binding of the remote asset.
 
 Remix publishes component libraries to a workspace `remix-libraries` on US production agent servers (`https://agt.remixlabs.com/`).
 
-| Library | Description | Federated Search URL |
-|---------|-------------|----------------------|
-| Remix Design | Base Remix library of UI components, layouts and styles | `https://agt.remixlabs.com/ws/remix-libraries/_rmx_design` |
+| Library       | Description                                                                                              | Federated Search URL                                        |
+|---------------|----------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| Remix Design  | Base Remix library of UI components, layouts and styles                                                  | `https://agt.remixlabs.com/ws/remix-libraries/_rmx_design`  |
 | Remix HubSpot | Toolkit for building HubSpot-connected apps (also needs HubSpot Connector + Configurator apps/templates) | `https://agt.remixlabs.com/ws/remix-libraries/_rmx_hubspot` |
-| Remix Drafts | Components in draft stages of development and review | `https://agt.remixlabs.com/ws/remix-libraries/_rmx_drafts` |
+| Remix Drafts  | Components in draft stages of development and review                                                     | `https://agt.remixlabs.com/ws/remix-libraries/_rmx_drafts`  |
 
 ### Setup Steps
 
@@ -94,7 +94,8 @@ Remix publishes component libraries to a workspace `remix-libraries` on US produ
 4. Close SYSTEM PREFERENCES
 5. **IMPORTANT:** Refresh the browser page to trigger federated search cache refresh
 
-**Note:** This is distinct from the `remix_labs` catalog library (`https://agt.remixlabs.com/ws/remix_labs`) used for service agents, AI agents, and internal assets. The `remix-libraries` workspace hosts the externally published UI component libraries.
+**Note:** This is distinct from the `remix_labs` catalog library (`https://agt.remixlabs.com/ws/remix_labs`) used for service agents, AI agents, and internal assets. The `remix-libraries` workspace
+hosts the externally published UI component libraries.
 
 ---
 

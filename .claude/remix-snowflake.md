@@ -9,22 +9,25 @@
 > Source: [Remix in Snowflake/Snowpark](https://www.notion.so/2841d464528f804ba6fbe2d8feb7a963)
 > GitHub: https://github.com/remixlabs/remix-issues/issues/143
 
-Spike on a "self-host" Remix deployable entirely within **Snowpark Container Service**, so Snowflake-using customers have a deployment contained entirely within Snowflake. Separate from the main desktop product.
+Spike on a "self-host" Remix deployable entirely within **Snowpark Container Service**, so Snowflake-using customers have a deployment contained entirely within Snowflake. Separate from the main
+desktop product.
 
 ### Snowflake Workspaces
 
-| Name | Workspace ID | Snowflake Account | Account URL |
-|------|-------------|-------------------|-------------|
-| Snowflake Remix Demo | `6Xj36DfSbF` | `REMIX_DEMO` | `app.snowflake.com/oxfsvki/remix_demo` |
-| Snowflake Internal Demo | `vuVXGsZuxW` | `SNOWFLAKE_DEMO` | `app.snowflake.com/oxfsvki/snowflake_demo` |
+| Name                    | Workspace ID | Snowflake Account | Account URL                                |
+|-------------------------|--------------|-------------------|--------------------------------------------|
+| Snowflake Remix Demo    | `6Xj36DfSbF` | `REMIX_DEMO`      | `app.snowflake.com/oxfsvki/remix_demo`     |
+| Snowflake Internal Demo | `vuVXGsZuxW` | `SNOWFLAKE_DEMO`  | `app.snowflake.com/oxfsvki/snowflake_demo` |
 
-Both have dedicated Snowflake auth flows. Sign-in requires a user in the corresponding Snowflake account. Remix identity = email on Snowflake user profile; sign-in uses Snowflake credentials (username + password/passkey).
+Both have dedicated Snowflake auth flows. Sign-in requires a user in the corresponding Snowflake account. Remix identity = email on Snowflake user profile; sign-in uses Snowflake credentials (
+username + password/passkey).
 
 ---
 
 ## Remix Snowflake Reference Implementation (Spike)
 
-> Source: [Remix Snowflake reference implementation](https://www.notion.so/2931d464528f80cc9da8ede348733125) — WIP spike, sub-page: [Alteryx scenarios](https://www.notion.so/24a1d464528f808ca6e3d9ae5022b64d)
+> Source: [Remix Snowflake reference implementation](https://www.notion.so/2931d464528f80cc9da8ede348733125) — WIP spike,
+> sub-page: [Alteryx scenarios](https://www.notion.so/24a1d464528f808ca6e3d9ae5022b64d)
 
 A spike for a self-hosted Remix deployment entirely within **Snowpark Container Services**, so Snowflake customers have a deployment contained within Snowflake. Separate from the main desktop product.
 
@@ -32,11 +35,11 @@ A spike for a self-hosted Remix deployment entirely within **Snowpark Container 
 
 - **Unistore** — Unify transactional + analytical workloads in Snowflake
 - **Cortex AI** — Primary focus for Remix+Snowflake demos:
-  - Cortex Search Service (lexical + semantic/vector search)
-  - Cortex Analyst (automatic semantic model generation)
-  - Cortex Agents
-  - Document processing pipeline (chunking + vector embeddings built-in)
-  - Snowflake Intelligence (conversational AI over structured + unstructured data; queries Salesforce/ZenDesk via Snowflake connectivity)
+    - Cortex Search Service (lexical + semantic/vector search)
+    - Cortex Analyst (automatic semantic model generation)
+    - Cortex Agents
+    - Document processing pipeline (chunking + vector embeddings built-in)
+    - Snowflake Intelligence (conversational AI over structured + unstructured data; queries Salesforce/ZenDesk via Snowflake connectivity)
 - **Snowpark** — Code execution environments
 - **Marketplace** — Third-party data sources
 
@@ -50,12 +53,12 @@ A spike for a self-hosted Remix deployment entirely within **Snowpark Container 
 
 Snowflake widgets (iOS/Android, API key auth, AI: Anthropic):
 
-| Widget | Output | Project URL |
-|--------|--------|-------------|
-| Snowflake List | AI-generated title + list of rows with AI-selected columns | `remix-india.remixlabs.com/e/edit/snowflake/list` |
+| Widget              | Output                                                          | Project URL                                            |
+|---------------------|-----------------------------------------------------------------|--------------------------------------------------------|
+| Snowflake List      | AI-generated title + list of rows with AI-selected columns      | `remix-india.remixlabs.com/e/edit/snowflake/list`      |
 | Snowflake Aggregate | AI-generated title + aggregated values (prices, salaries, etc.) | `remix-india.remixlabs.com/e/edit/snowflake/aggregate` |
-| Snowflake Details | AI-generated title + row detail view | `remix-india.remixlabs.com/e/edit/snowflake/detail` |
-| Snowflake Chart | AI-generated title + bar chart (e.g. top 3 by price) | `remix-india.remixlabs.com/e/edit/snowflake/chart` |
+| Snowflake Details   | AI-generated title + row detail view                            | `remix-india.remixlabs.com/e/edit/snowflake/detail`    |
+| Snowflake Chart     | AI-generated title + bar chart (e.g. top 3 by price)            | `remix-india.remixlabs.com/e/edit/snowflake/chart`     |
 
 **Configurator fields:** database, schema, table, human prompt, widget title
 
@@ -65,10 +68,10 @@ Snowflake widgets (iOS/Android, API key auth, AI: Anthropic):
 
 > See also: [remix-product.md](./remix-product.md) Connectors section for full connector inventory
 
-| Connector | Auth Method | Auth Config Name | Capabilities |
-|-----------|-------------|-----------------|-------------|
-| Snowflake (OAuth) | Snowflake custom OAuth integration | `snowflake_connect` | Run queries as signed-in user (PUBLIC role default) |
-| Snowflake (Service Acct) | Key-pair JWT auth | — | Programmatic API access, key-pair auth |
+| Connector                | Auth Method                        | Auth Config Name    | Capabilities                                        |
+|--------------------------|------------------------------------|---------------------|-----------------------------------------------------|
+| Snowflake (OAuth)        | Snowflake custom OAuth integration | `snowflake_connect` | Run queries as signed-in user (PUBLIC role default) |
+| Snowflake (Service Acct) | Key-pair JWT auth                  | —                   | Programmatic API access, key-pair auth              |
 
 ---
 
@@ -89,20 +92,20 @@ Step-by-step guide for storing data in Snowflake and enabling **Cortex Search** 
 
 Create an AI-powered search index on your table using the Cortex Service creation worksheet template (re-fetch Notion page for full SQL). Key parameters:
 
-| Parameter | Description |
-|-----------|-------------|
-| `service_name` | Name of the Cortex Search service (referenced in `cortex_search` agent) |
-| `database_name` / `schema_name` / `table_name` | Target table |
-| `embedding_columns` | Columns used as embeddings in searches (comma-separated) |
-| `returned_columns` | Columns returned in search results (comma-separated) |
-| `target_lag` | How up-to-date the index stays (e.g. `1 hour`, `1 minute`) |
-| `embedding_model` | Default: `snowflake-arctic-embed-l-v2.0` |
+| Parameter                                      | Description                                                             |
+|------------------------------------------------|-------------------------------------------------------------------------|
+| `service_name`                                 | Name of the Cortex Search service (referenced in `cortex_search` agent) |
+| `database_name` / `schema_name` / `table_name` | Target table                                                            |
+| `embedding_columns`                            | Columns used as embeddings in searches (comma-separated)                |
+| `returned_columns`                             | Columns returned in search results (comma-separated)                    |
+| `target_lag`                                   | How up-to-date the index stays (e.g. `1 hour`, `1 minute`)              |
+| `embedding_model`                              | Default: `snowflake-arctic-embed-l-v2.0`                                |
 
 ### Agents
 
-| Agent | Description | Library Asset |
-|-------|-------------|---------------|
-| `upsert_record` | Takes raw data, inserts or updates a row keyed by unique ID | [asset](https://remix.app/remix/asset?source=https://agt.remixlabs.com/ws/remix_labs/pTJneCrLzA7lhz6v75LoXzcaMwSPfcC9) |
+| Agent           | Description                                                                          | Library Asset                                                                                                          |
+|-----------------|--------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| `upsert_record` | Takes raw data, inserts or updates a row keyed by unique ID                          | [asset](https://remix.app/remix/asset?source=https://agt.remixlabs.com/ws/remix_labs/pTJneCrLzA7lhz6v75LoXzcaMwSPfcC9) |
 | `cortex_search` | Takes query string + data projection + limit, returns top results by relevance score | [asset](https://remix.app/remix/asset?source=https://agt.remixlabs.com/ws/remix_labs/eUyIoYFTHkceAvdsBcVgWVhUHnUlGJ45) |
 
 ### Typical Workflow

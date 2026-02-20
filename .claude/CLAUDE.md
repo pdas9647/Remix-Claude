@@ -6,23 +6,31 @@ This file serves as persistent context for working on Remix Labs tasks. When mem
 
 ## Topic Files
 
-- [glossary.md](./glossary.md) — Remix Studio terminology, navigation levels (L0-L3), module types, Mix language, agents, build/deploy concepts, nodegraph mechanics, complete node type catalog (color coding, 3 escape hatches)
+- [glossary.md](./glossary.md) — Remix Studio terminology, navigation levels (L0-L3), module types, Mix language, agents, build/deploy concepts, nodegraph mechanics, complete node type catalog (color
+  coding, 3 escape hatches)
 - [collaboration-assembly.md](./collaboration-assembly.md) — Steel thread: 3-persona pipeline (Developer > Assembler > Consumer), config points, edge personalisation
-- [federated-servers.md](./federated-servers.md) — Federated search architecture, external libraries (Amp/Workspace), asset sync (push/pull), L2SourceNode clipboard format, published Remix libraries (remix-libraries workspace: Design/HubSpot/Drafts)
+- [federated-servers.md](./federated-servers.md) — Federated search architecture, external libraries (Amp/Workspace), asset sync (push/pull), L2SourceNode clipboard format, published Remix libraries (
+  remix-libraries workspace: Design/HubSpot/Drafts)
 - [variants.md](./variants.md) — Variants (config assets): base/config/instance model, deep sync, L2SourceNode variant format, creation lifecycle
 - [l1-catalog-assets.md](./l1-catalog-assets.md) — L1-level catalog publish/search/sync, Amp vs cloud hosting constraints, JSON unpacking challenges
 - [funda.md](./funda.md) — Funda customer project: member directory, workspace sEt2qxPydL, apps (DBP/Admin/Member), LinkedIn clipper, services
-- [customer-projects-other.md](./customer-projects-other.md) — Orderly (hotel concierge), 5 Star Music (Twilio IVR), Bomisco (LinkedIn→HubSpot), Tapped In (student events, push messaging), all workspace IDs
+- [customer-projects-other.md](./customer-projects-other.md) — Orderly (hotel concierge), 5 Star Music (Twilio IVR), Bomisco (LinkedIn→HubSpot), Tapped In (student events, push messaging), all
+  workspace IDs
 - [lumber.md](./lumber.md) — Lumber: job costing (lfi_ tables), Workforce Junction (h_ tables), payroll (prl_ 38 tables, 50+ functions), Snowflake migration
 - [remix-product.md](./remix-product.md) — Scope, personas, desktop concepts, pricing/SKU, runtime strategy, sub-page index
-- [remix-catalog.md](./remix-catalog.md) — Widget catalog, base catalog (Table Component, Charts), HubSpot research, remix_labs library guidance, connectors (MCP tools), AI agents (Anthropic/OpenAI/Gemini), GTM patterns, T1/T2 categories
+- [remix-catalog.md](./remix-catalog.md) — Widget catalog, base catalog (Table Component, Charts), HubSpot research, remix_labs library guidance, connectors (MCP tools), AI agents (
+  Anthropic/OpenAI/Gemini), GTM patterns, T1/T2 categories
 - [hubspot-toolkit.md](./hubspot-toolkit.md) — HubSpot toolkit: Connector/Configurator/Library/Example apps, asset versions, OAuth setup (required scopes), installation steps, use case scenarios
-- [remix-infra.md](./remix-infra.md) — Auth (workspace-based), Unified Login, Org/System Setup, _rmx_sync (app/group/subscription model, hosting, channel promotion, agent API), _rmx_prefs (3-layer cascade), deeplinks, iOS widget debugging, bug reporting, asset submission, MCP tools
-- [remix-snowflake.md](./remix-snowflake.md) — Snowflake/Snowpark spike, reference implementation (Cortex AI), Cortex Search catalog (upsert_record/cortex_search agents), Snowflake workspaces, connectors, widgets
+- [remix-infra.md](./remix-infra.md) — Auth (workspace-based), Unified Login, Org/System Setup, _rmx_sync (app/group/subscription model, hosting, channel promotion, agent API), _rmx_prefs (3-layer
+  cascade), deeplinks, iOS widget debugging, bug reporting, asset submission, MCP tools
+- [remix-snowflake.md](./remix-snowflake.md) — Snowflake/Snowpark spike, reference implementation (Cortex AI), Cortex Search catalog (upsert_record/cortex_search agents), Snowflake workspaces,
+  connectors, widgets
 - [duckdb.md](./duckdb.md) — DuckDB catalog: DuckLake attach + query (Parquet-backed), requires Desktop app
 - [oauth.md](./oauth.md) — Third-party OAuth flows for Desktop (popup), Chrome Extension (hosted handler + publish agent), Mobile Widgets (device browser), OAuth Handler library asset
-- [remix-smb.md](./remix-smb.md) — SMB catalog: 3 transaction models (ordering/booking services/booking resources), data model (business/venue/catalog/order), order lifecycle (dual status), UI assets (_rmx_drafts library), printer integration, Stripe/getaddress.io integrations
-- [remix-dbp.md](./remix-dbp.md) — Digital Business Profile / About Us catalog: media (video players, galleries), text lists, review assets (Yelp/clipper), forms (lead/contact), banners (4 types), design library on remix-india-beta
+- [remix-smb.md](./remix-smb.md) — SMB catalog: 3 transaction models (ordering/booking services/booking resources), data model (business/venue/catalog/order), order lifecycle (dual status), UI
+  assets (_rmx_drafts library), printer integration, Stripe/getaddress.io integrations
+- [remix-dbp.md](./remix-dbp.md) — Digital Business Profile / About Us catalog: media (video players, galleries), text lists, review assets (Yelp/clipper), forms (lead/contact), banners (4 types),
+  design library on remix-india-beta
 
 ---
 
@@ -32,7 +40,7 @@ This file serves as persistent context for working on Remix Labs tasks. When mem
 
 - [Remix product](https://www.notion.so/27e1d464528f802291b6d5a093fbc10d) — Product hub (stored in remix-product.md)
 - [Global Task List](https://www.notion.so/1d71d464528f80a69c47d21033bc498c) — Task tracking database, schema + views (stored in remix-product.md)
-- Sub-pages: most fetched and stored across remix-product.md / remix-infra.md / remix-snowflake.md. Remaining unfetched: Widget framework, Template format, Bootstrapped apps, Claude↔builder (tldraw-only), Roadmap
+- Sub-pages: most fetched and stored across remix-product.md / remix-infra.md / remix-snowflake.md
 
 ### Design Zone
 
@@ -78,7 +86,8 @@ This file serves as persistent context for working on Remix Labs tasks. When mem
 
 - [AI](https://www.notion.so/2991d464528f8043b82ff22040962cc2) — AI library agents (Anthropic, OpenAI, Gemini) setup + inventory (stored in remix-catalog.md)
 - [AI (catalog page)](https://www.notion.so/2991d464528f80178a49fb6079af7441) — Same content with asset URLs, adds openai_embeddings (stored in remix-catalog.md)
-- [Accessing Remix libraries](https://www.notion.so/13c1d464528f8039beb0c08aa8413722) — Published libraries (Design/HubSpot/Drafts) on remix-libraries workspace, setup steps (stored in federated-servers.md)
+- [Accessing Remix libraries](https://www.notion.so/13c1d464528f8039beb0c08aa8413722) — Published libraries (Design/HubSpot/Drafts) on remix-libraries workspace, setup steps (stored in
+  federated-servers.md)
 - [Base catalog](https://www.notion.so/1051d464528f80c3952fd7cd198da342) — Hub for published base components (stored in remix-product.md)
     - [Table Component](https://www.notion.so/f66595ea7c7146d895513e296da96275) — Editable/display table widget, cell click events (stored in remix-product.md)
     - [Charts](https://www.notion.so/d1b57c77c9014194b59b6f5a23b7f188) — WebComponent data viz using Chart.js (stored in remix-product.md)
@@ -127,8 +136,10 @@ This file serves as persistent context for working on Remix Labs tasks. When mem
 
 - [Remix Documentation (root)](https://www.notion.so/fe31096a438b4f29b103c189bc9a7fb8) — not yet fetched
 - [Blog and updates](https://www.notion.so/ba9d06c6f70c4d349be54bfcdb8eaed4) — Empty hub (release notes: 18 Sep, 25 Sep 2024). Reveals doc sidebar structure.
-- [Getting Started in Remix Studio](https://www.notion.so/1051d464528f8008b584dd33015fd5b3) — 9-step tutorial (all steps read); stable concepts stored in glossary.md: module anatomy, bindings, database record format, nodegraph mechanics, complete node catalog
-- [Mobile/Desktop .remix file syncing](https://www.notion.so/25d1d464528f806b8c82e873d275aab7) — _rmx_sync architecture: app/group/subscription model, hosting types, channel promotion, agent API (stored in remix-infra.md)
+- [Getting Started in Remix Studio](https://www.notion.so/1051d464528f8008b584dd33015fd5b3) — 9-step tutorial (all steps read); stable concepts stored in glossary.md: module anatomy, bindings,
+  database record format, nodegraph mechanics, complete node catalog
+- [Mobile/Desktop .remix file syncing](https://www.notion.so/25d1d464528f806b8c82e873d275aab7) — _rmx_sync architecture: app/group/subscription model, hosting types, channel promotion, agent API (
+  stored in remix-infra.md)
 - [Mobile/Desktop deeplinks](https://www.notion.so/27a1d464528f803db94ac980a0bd84eb) — URL scheme reference for mobile/desktop (stored in remix-infra.md)
 - [Synced preferences](https://www.notion.so/2871d464528f80ae96dfeff9a738ca67) — _rmx_prefs: 3-layer cascade (system→default→user), agent API (stored in remix-infra.md)
 - [iOS widget debugging/testing](https://www.notion.so/2091d464528f806bb14ffa0bb037851b) — Dynamic widget fast dev cycle (stored in remix-infra.md)

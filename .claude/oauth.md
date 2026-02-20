@@ -5,7 +5,7 @@
 > - [Remix Desktop Third Party OAuth](https://www.notion.so/29c1d464528f80b4aba2f4414a2656ce)
 > - [Remix Extension Third Party OAuth](https://www.notion.so/29c1d464528f80648125fe390838fe0e)
 > - [Remix Widgets Third Party OAuth](https://www.notion.so/29c1d464528f808f8b86cf7a7d860239)
-> Parent: Remix Documentation > Remix Catalogs and Toolkits
+    > Parent: Remix Documentation > Remix Catalogs and Toolkits
 
 ---
 
@@ -42,13 +42,14 @@ Uses a **popup window** pattern within the Desktop app.
 4. User authenticates on 3rd-party platform
 5. 3rd party redirects back to `confirmation` screen in `_rmx_artifact`
 6. `confirmation` screen:
-   - Publishes a message the artifact config view is listening for (sign-in complete)
-   - Closes the popup
+    - Publishes a message the artifact config view is listening for (sign-in complete)
+    - Closes the popup
 7. Artifact config view receives completion message → flow complete
 
 ### Dependencies
 
 `_rmx_artifact` must include two screens:
+
 - **`oauth_signin`** — middleware redirect to 3rd-party OAuth URLs
 - **`confirmation`** — publishes completion message + closes popup
 
@@ -111,6 +112,7 @@ Uses the **device default browser** pattern, orchestrated by the Remix Container
 ### Dependencies
 
 `_rmx_widgets` must include two screens:
+
 - **`oauth_signin`** — opens OAuth URL in device browser
 - **`confirmation`** — reloads widgets + navigates to home
 
@@ -124,11 +126,11 @@ Screens location: `https://remix.remixlabs.com/e/edit/_rmx_widgets`
 
 ## Flow Comparison
 
-| Aspect | Desktop | Chrome Extension | Mobile Widgets |
-|--------|---------|-----------------|----------------|
-| Auth trigger | Button in artifact config | Button in extension screen | Tap on widget |
-| Popup/browser | Popup window | Browser popup | Device default browser |
-| Intermediate screen | `oauth_signin` in `_rmx_artifact` | None (direct to 3rd party) | `oauth_signin` in `_rmx_widgets` |
-| Callback handler | `confirmation` in `_rmx_artifact` | `remix.app/remix/oauth_handler` → publish agent | `confirmation` in `_rmx_widgets` |
-| Notification method | Publishes message directly | Service agent publishes message | Reloads all widgets |
-| Container app | `_rmx_artifact` | N/A | `_rmx_widgets` + `_rmx_home` |
+| Aspect              | Desktop                           | Chrome Extension                                | Mobile Widgets                   |
+|---------------------|-----------------------------------|-------------------------------------------------|----------------------------------|
+| Auth trigger        | Button in artifact config         | Button in extension screen                      | Tap on widget                    |
+| Popup/browser       | Popup window                      | Browser popup                                   | Device default browser           |
+| Intermediate screen | `oauth_signin` in `_rmx_artifact` | None (direct to 3rd party)                      | `oauth_signin` in `_rmx_widgets` |
+| Callback handler    | `confirmation` in `_rmx_artifact` | `remix.app/remix/oauth_handler` → publish agent | `confirmation` in `_rmx_widgets` |
+| Notification method | Publishes message directly        | Service agent publishes message                 | Reloads all widgets              |
+| Container app       | `_rmx_artifact`                   | N/A                                             | `_rmx_widgets` + `_rmx_home`     |

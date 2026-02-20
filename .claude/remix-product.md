@@ -1,7 +1,8 @@
 # Remix Product — Scope, Personas, Desktop, Pricing
 
 > Source: [Remix product](https://www.notion.so/27e1d464528f802291b6d5a093fbc10d)
-> See also: [remix-catalog.md](./remix-catalog.md) (widgets, libraries, connectors, AI agents, GTM), [remix-infra.md](./remix-infra.md) (auth, login, setup, engineering process), [remix-snowflake.md](./remix-snowflake.md) (Snowflake integration)
+> See also: [remix-catalog.md](./remix-catalog.md) (widgets, libraries, connectors, AI agents, GTM), [remix-infra.md](./remix-infra.md) (auth, login, setup, engineering
+> process), [remix-snowflake.md](./remix-snowflake.md) (Snowflake integration)
 
 ---
 
@@ -14,31 +15,31 @@ Notion database tracking all engineering/product tasks across Remix.
 
 ### Schema
 
-| Property       | Type         | Options / Notes                                                        |
-|----------------|--------------|------------------------------------------------------------------------|
-| Task           | title        | Task name                                                              |
-| Status         | status       | New/unprioritized, Not started, In progress, In review, Done           |
-| Priority       | select       | high, medium, low, Never                                               |
-| Product        | multi_select | Platform, Server (Snowflake), Mobile apps, Server, Extension, Desktop  |
-| Customer       | multi_select | Orderly, Snowflake Marketplace, Funda, Bomisco, Lumber                 |
-| Work Stream    | multi_select | Marketing, Infrastructure, Catalog, Desktop                            |
+| Property       | Type         | Options / Notes                                                           |
+|----------------|--------------|---------------------------------------------------------------------------|
+| Task           | title        | Task name                                                                 |
+| Status         | status       | New/unprioritized, Not started, In progress, In review, Done              |
+| Priority       | select       | high, medium, low, Never                                                  |
+| Product        | multi_select | Platform, Server (Snowflake), Mobile apps, Server, Extension, Desktop     |
+| Customer       | multi_select | Orderly, Snowflake Marketplace, Funda, Bomisco, Lumber                    |
+| Work Stream    | multi_select | Marketing, Infrastructure, Catalog, Desktop                               |
 | area           | multi_select | extension, content, platform, desktop, builder, mobile, backend, frontend |
-| Assigned To    | person       | —                                                                      |
-| Current sprint | checkbox     | Filters the "Current sprint" view                                      |
-| Date           | date         | Optional date/range                                                    |
-| Parent item    | relation     | Self-relation (parent task)                                            |
-| Sub-item       | relation     | Self-relation (child tasks)                                            |
-| issue          | url          | Link to external issue tracker                                         |
-| notes          | text         | Free-text notes                                                        |
+| Assigned To    | person       | —                                                                         |
+| Current sprint | checkbox     | Filters the "Current sprint" view                                         |
+| Date           | date         | Optional date/range                                                       |
+| Parent item    | relation     | Self-relation (parent task)                                               |
+| Sub-item       | relation     | Self-relation (child tasks)                                               |
+| issue          | url          | Link to external issue tracker                                            |
+| notes          | text         | Free-text notes                                                           |
 
 ### Views
 
-| View             | Description                                           |
-|------------------|-------------------------------------------------------|
-| Task List        | All tasks, grouped by Status                          |
-| Current sprint   | Filtered to Desktop product + Current sprint checked  |
-| Platform tasks   | Grouped by Status, sorted by Priority ascending       |
-| Lumber tasks     | Grouped by Status, sorted by Priority ascending       |
+| View           | Description                                          |
+|----------------|------------------------------------------------------|
+| Task List      | All tasks, grouped by Status                         |
+| Current sprint | Filtered to Desktop product + Current sprint checked |
+| Platform tasks | Grouped by Status, sorted by Priority ascending      |
+| Lumber tasks   | Grouped by Status, sorted by Priority ascending      |
 
 ---
 
@@ -55,16 +56,19 @@ Notion database tracking all engineering/product tasks across Remix.
 ### Three Personas (First Release)
 
 **IT:**
+
 - Remix = software vendor with a `Remix instance` on a `Remix server` made of 1+ `workspaces`
 - One `central workspace` with `auth server` + central `service agents`
 - Uses `IT admin tools` for user management, service agent management, workspace management
 
 **Contributors:**
+
 - Work in `Remix Desktop`, connect to central server/workspace to login
 - Access `libraries` with `iOS/Android widget templates` and `Chrome Extension templates`
 - `Configure` templates → `publish` widgets/flows back to the library
 
 **End Users:**
+
 - Install `Remix mobile app` and/or `Remix Chrome Extension`
 - Login with org's Remix server + central workspace
 - `Give access` to org systems (HubSpot etc.) via `OAuth`
@@ -72,28 +76,29 @@ Notion database tracking all engineering/product tasks across Remix.
 
 ### Key Terms (Customer-Facing)
 
-| Term | Definition |
-|------|-----------|
-| Remix instance | The installation of the Remix platform for an organization |
-| Widget | A configured and published instance of a widget template (iOS/Android) |
-| Flow | A configured Chrome Extension flow (not called "widget" even if informational) |
-| Widget template | A library asset with a configurator, openable in Remix Desktop |
-| Remix clients | 3 container apps: Remix Desktop, Remix mobile app, Remix Chrome Extension. Run flows/widgets locally on user's edge device. |
-| End user surfaces | iOS/Android widgets + Chrome Extension flows (mobile app flows in next release) |
-| Workspace | Server-side namespace: databases, service agents, files, secrets. Central workspace runs auth server + central service agents. |
-| Library | Specialized workspace for storing assets, with built-in sync/management agents |
-| Widget template library | Provided by Remix CS at install, periodically updated |
-| Widget library | Set of configured widgets available to the customer |
-| User's chosen widgets | Subset the user has selected for their Chrome Extension (iPhone/Android selection not tracked by Remix) |
-| Remix IT tools | Web app for: AI service config, service agent permissions, usage monitoring |
-| Remix widget mgmt tool | Part of Remix Desktop: browse template catalog, browse/edit/delete widgets |
-| Service agent | Cloud lambda function in a workspace with an ACL — primary auth/authz mechanism |
-| Agentic workflow | Business flow of 2-6 steps, one or more done by an agent |
-| MCP | Model Context Protocol — LLM tool/resource access, built into Remix Desktop, configurable by IT |
+| Term                    | Definition                                                                                                                     |
+|-------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| Remix instance          | The installation of the Remix platform for an organization                                                                     |
+| Widget                  | A configured and published instance of a widget template (iOS/Android)                                                         |
+| Flow                    | A configured Chrome Extension flow (not called "widget" even if informational)                                                 |
+| Widget template         | A library asset with a configurator, openable in Remix Desktop                                                                 |
+| Remix clients           | 3 container apps: Remix Desktop, Remix mobile app, Remix Chrome Extension. Run flows/widgets locally on user's edge device.    |
+| End user surfaces       | iOS/Android widgets + Chrome Extension flows (mobile app flows in next release)                                                |
+| Workspace               | Server-side namespace: databases, service agents, files, secrets. Central workspace runs auth server + central service agents. |
+| Library                 | Specialized workspace for storing assets, with built-in sync/management agents                                                 |
+| Widget template library | Provided by Remix CS at install, periodically updated                                                                          |
+| Widget library          | Set of configured widgets available to the customer                                                                            |
+| User's chosen widgets   | Subset the user has selected for their Chrome Extension (iPhone/Android selection not tracked by Remix)                        |
+| Remix IT tools          | Web app for: AI service config, service agent permissions, usage monitoring                                                    |
+| Remix widget mgmt tool  | Part of Remix Desktop: browse template catalog, browse/edit/delete widgets                                                     |
+| Service agent           | Cloud lambda function in a workspace with an ACL — primary auth/authz mechanism                                                |
+| Agentic workflow        | Business flow of 2-6 steps, one or more done by an agent                                                                       |
+| MCP                     | Model Context Protocol — LLM tool/resource access, built into Remix Desktop, configurable by IT                                |
 
 ### MoSCoW Scope (First Release)
 
 **Must Have:**
+
 - Auth: Google, Office365, Apple (LinkedIn dropped)
 - Remix Desktop on Mac + Windows
 - Remix mobile app on App Store + Play Store
@@ -108,6 +113,7 @@ Notion database tracking all engineering/product tasks across Remix.
 - Description and tags on widgets
 
 **Won't Have (first release):**
+
 - SSO
 - Safari/Edge extensions
 - Mac/Windows widgets
@@ -121,7 +127,8 @@ Notion database tracking all engineering/product tasks across Remix.
 
 ### Self-Serve vs Remix Customer Success
 
-**Remix CS (initial setup):** workspace setup, service agent install + permissions, IT web app setup, client install links, widget template library customization + install, testing, first-user onboarding
+**Remix CS (initial setup):** workspace setup, service agent install + permissions, IT web app setup, client install links, widget template library customization + install, testing, first-user
+onboarding
 
 **Customer IT (initial setup):** system-of-record config (e.g. HubSpot app permissions), AI service config (API key, model), service agent permissions
 
@@ -137,13 +144,13 @@ Notion database tracking all engineering/product tasks across Remix.
 
 Personas are based on **tasks they do** and **tools they use**. An individual person may perform tasks across personas.
 
-| Persona | Actual Roles | Remix Surface | What They Do (Q4 2025+) |
-|---------|-------------|---------------|--------------------------|
-| **IT** | Central IT, or dept admin/config personnel | Remix web app (IT tools) | **Outside Remix:** gatekeeper of SoR permissions (HubSpot etc.), mobile device mgmt, Chrome browser policies, SSO admin. **Inside Remix:** workspace setup, service agent install/config/permissions, security compliance, usage monitoring. **Never:** domain expert in end-user workflows, building libraries/assets. |
-| **Builders** | IT team or dept personnel willing to learn Studio | Remix Desktop Studio + Web Studio | Net new asset creation + publication to shared library. Highly skilled in Remix platform. Collaborate with Assemblers via shared libraries. Usually don't have deep domain knowledge — provide reference implementations. Maintain quality through rigorous testing. In almost all implementations = Remix Labs services arm. |
-| **Assemblers** | — | Desktop Studio or enhanced live artifact | Business domain experts. Assemble apps from library assets. Configure assets for business needs, create specialized assets. Not expected to be Remix platform experts. Contact Builder for missing assets. Combine library assets into screens + service agents, heavily AI-augmented. May create specializable templates for Contributors. |
-| **Contributors** | Marketing ops, sales person (creates survey, SOCL query, etc.) | Desktop live artifacts, Mobile live artifacts, Extension variants & data tiles | Contribute assets back to library for IT/Assemblers/automated processes to include in apps. Employees of the business. Runtimes set up for them by IT with training. |
-| **End Users** | — | Web, App Clips (NOT live artifacts or Studio) | Participate in workflows and move on. Apps and service agents serve their workflows. |
+| Persona          | Actual Roles                                                   | Remix Surface                                                                  | What They Do (Q4 2025+)                                                                                                                                                                                                                                                                                                                     |
+|------------------|----------------------------------------------------------------|--------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **IT**           | Central IT, or dept admin/config personnel                     | Remix web app (IT tools)                                                       | **Outside Remix:** gatekeeper of SoR permissions (HubSpot etc.), mobile device mgmt, Chrome browser policies, SSO admin. **Inside Remix:** workspace setup, service agent install/config/permissions, security compliance, usage monitoring. **Never:** domain expert in end-user workflows, building libraries/assets.                     |
+| **Builders**     | IT team or dept personnel willing to learn Studio              | Remix Desktop Studio + Web Studio                                              | Net new asset creation + publication to shared library. Highly skilled in Remix platform. Collaborate with Assemblers via shared libraries. Usually don't have deep domain knowledge — provide reference implementations. Maintain quality through rigorous testing. In almost all implementations = Remix Labs services arm.               |
+| **Assemblers**   | —                                                              | Desktop Studio or enhanced live artifact                                       | Business domain experts. Assemble apps from library assets. Configure assets for business needs, create specialized assets. Not expected to be Remix platform experts. Contact Builder for missing assets. Combine library assets into screens + service agents, heavily AI-augmented. May create specializable templates for Contributors. |
+| **Contributors** | Marketing ops, sales person (creates survey, SOCL query, etc.) | Desktop live artifacts, Mobile live artifacts, Extension variants & data tiles | Contribute assets back to library for IT/Assemblers/automated processes to include in apps. Employees of the business. Runtimes set up for them by IT with training.                                                                                                                                                                        |
+| **End Users**    | —                                                              | Web, App Clips (NOT live artifacts or Studio)                                  | Participate in workflows and move on. Apps and service agents serve their workflows.                                                                                                                                                                                                                                                        |
 
 ---
 
@@ -155,7 +162,8 @@ Early design decisions log (May 2025, largely superseded). Key concepts:
 
 - **Menubar:** switch to native (OOS at the time)
 - **"My artifacts":** local list of live artifacts created via Claude chat
-  - Open design questions around artifact identity: no clear 1-1 between prompt sequence and artifact; need clear asset ID + save semantics; support creating multiple artifacts in same chat; resuming work on a previous artifact
+    - Open design questions around artifact identity: no clear 1-1 between prompt sequence and artifact; need clear asset ID + save semantics; support creating multiple artifacts in same chat;
+      resuming work on a previous artifact
 - **"My tools":** tools management view (TBD)
 - **Share dialog:** critical, needed alignment on process
 - **Website project:** `remix.remixlabs.com/e/edit/remixlabs`
@@ -169,7 +177,8 @@ Early design decisions log (May 2025, largely superseded). Key concepts:
 
 ### Asset Specialization
 
-When templates and AI instructions are attached to assets, it is possible to create customized versions (specialization) without using Studio. Specialized assets get pushed to the Library and used like any other asset. Relevant personas: Contributors (specializers), Assemblers.
+When templates and AI instructions are attached to assets, it is possible to create customized versions (specialization) without using Studio. Specialized assets get pushed to the Library and used
+like any other asset. Relevant personas: Contributors (specializers), Assemblers.
 
 ### Home App
 
@@ -178,6 +187,7 @@ IT specifies the default app that loads when users open any container app. Can b
 ### Edge Analytics for SMB (DuckDB + Parquet)
 
 Remix's approach to lightweight analytics without cloud compute costs:
+
 - Log events inside service agents
 - System generates Parquet files from logs, uploaded to object storage
 - Apps run DuckDB queries at the edge to query Parquet files
@@ -195,12 +205,12 @@ Remix's approach to lightweight analytics without cloud compute costs:
 
 ### Pricing / SKU Model (Aug 2025 discussion)
 
-| SKU | Price | Notes |
-|-----|-------|-------|
-| Community workspace | Free | Only Remix-sanctioned content |
-| Widget workspace | $100/mo | Unlimited free users, widget collaboration only |
-| Service agent workspace | $500/mo | $20/user, near-full platform |
-| Enterprise | $1,000/mo | $50/user, packs of 100, BYOI, security questionnaire |
+| SKU                     | Price     | Notes                                                |
+|-------------------------|-----------|------------------------------------------------------|
+| Community workspace     | Free      | Only Remix-sanctioned content                        |
+| Widget workspace        | $100/mo   | Unlimited free users, widget collaboration only      |
+| Service agent workspace | $500/mo   | $20/user, near-full platform                         |
+| Enterprise              | $1,000/mo | $50/user, packs of 100, BYOI, security questionnaire |
 
 Widgets free; everything else paid. Trial on desktop only (no free cloud workspace trial).
 
