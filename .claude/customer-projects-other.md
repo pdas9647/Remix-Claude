@@ -117,6 +117,54 @@ Company Name, Company Domain Name, Industry, Phone Number, Type, City, State/Reg
 
 ---
 
+## Tapped In (External Developer / Partner)
+
+> Source: [Tapped In Interactions](https://www.notion.so/10c1d464528f804bb97fd9f061d7fbf2)
+> Sub-page: [Push messaging](https://www.notion.so/19f1d464528f80a781c5cbaa4e2412d3)
+
+### Context
+
+- 3 students from University of Alabama built a student event platform using Remix Studio (summer 2024, ~3 months)
+- Previously had a Wordpress prototype (~18 months prior)
+- Business objective: all-in-one student platform, starting with events
+- Revenue model: local business ads and deals targeted at students/groups
+- Events scoped by audience: group-only, university-wide (.edu verification), or public
+
+### Key Features Demonstrated
+
+- Apple Wallet integration: save event QR code + user profile to Apple Wallet
+- Admin view for event creation with audience targeting
+- Complex cloud agent server screens in Remix Studio
+- Tooling for pushing app to TestFlight
+
+### Remix Suggestions (from demo review)
+
+- Trigger Apple Wallet when approaching event venue (location-based)
+- Google Maps integration (tap to open)
+- App Clips for events
+- Chrome Extension for scraping events from websites/university calendars
+- Live Widgets
+- Federated Search to pull newer library components
+
+### Push Messaging (Platform Capability)
+
+> Source: [Push messaging](https://www.notion.so/19f1d464528f80a781c5cbaa4e2412d3)
+> GitHub: `remixlabs/turntable` repo — [webapp push messaging docs](https://github.com/remixlabs/turntable/tree/main/webapp#push-messaging--browser-notifications)
+
+Browser-based push notifications using **Google Firebase**. Supports foreground + background messaging. Requires explicit user permission.
+
+| Platform | Browser | Status |
+|----------|---------|--------|
+| iOS | Safari ("added to desktop" required) | Works (no pure background data notifications?) |
+| Android, Windows, macOS, Linux | Chrome, Firefox | Works |
+| Others | — | Untested |
+
+**Open TODOs:** parameterize Firebase config, test more OS/browser combos, other messaging platforms.
+
+Flutter/Native app push: not yet documented.
+
+---
+
 ## All Workspace IDs (Quick Reference)
 
 | Customer         | Workspace ID |
