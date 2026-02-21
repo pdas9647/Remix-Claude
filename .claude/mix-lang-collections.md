@@ -328,3 +328,80 @@ module end
 - **Kind creation**: `uniqArray.kind(elem -> elem._rmx_id, prefLeft)` for records keyed by `_rmx_id`
 - Common kinds: `(s:string) -> s` for strings, `(n:number) -> "" + n` for numbers
 - **Future**: `forKind` helper planned (like `gset.forKind`) to avoid passing kind to every call
+
+---
+
+## `circuitarray`
+
+> Source: [circuitarray](https://www.notion.so/1061d464528f81f0a2cef0f7d2f7e850)
+> Parent: [The Mix Standard Library](https://www.notion.so/1061d464528f8010b0cfc60836c20290)
+
+Instantiates a Mix module **once per row** in an input array — like `array.map` but for entire reactive modules (with their own cells/state). The result is a "circuit array" from which you extract individual cell values via `circuitarray.extract`.
+
+### Basic usage
+
+```
+import circuitarray
+import M   // M(i:data, x:data) ... cell view = ... module end
+
+private cell rows = [ 1, 2, 3 ]
+private cell ca = circuitarray.make((i,x) -> M(i,x), rows)
+alias M_views = circuitarray.extract(ca, m -> m.view)
+```
+
+- `circuitarray.make(factory, rows)` — creates a new circuitarray every time rows change (even if content is identical)
+- `circuitarray.extract(ca, m -> m.view)` — extracts a cell value from each module instance
+
+### `circuitarray.makeCached` (since PR #321)
+
+```
+private cell ca = circuitarray.makeCached(link(ca), (i,x) -> M(i,x), rows)
+```
+
+- Only recreates the circuitarray when **row contents** change (not on every recomputation)
+- First param: `link(ca)` — self-reference to the defining cell (required for caching)
+- Last param must be a **cell name**, not an arbitrary expression
+
+### `circuitarray.makeOnce` (since PR #282)
+
+```
+private cell ca = circuitarray.makeOnce(link(ca), (i,x) -> M(i,x), rows)
+```
+
+- Creates the circuitarray **only once**; row changes are **not** reflected (static snapshot)
+- Use when rows never change after initial load
+
+### `circuitarray.makeWithKeyedRowCache` (since PR #632)
+
+Keyed cache: reuses component modules across propagation cycles when row identity (by key) is stable.
+
+```
+private cell ca =
+  circuitarray.makeWithKeyedRowCache(link(ca),
+                                     (idx,key,vc,x) -> M(key,vc,x),
+                                     (idx,x) -> x._rmx_content_hash,
+                                     rows)
+```
+
+**Factory function params**: `(idx, key, vc, x) -> M(...)`
+- `idx` — numeric index at creation time; do **not** pass to M (position can change without notification)
+- `key` — string key (from projection function); stable across repositioning
+- `vc` — `link` to a `var cell` with current numeric index; alias inside M to track repositioning
+- `x` — input row element (i.e. `rows[idx]`)
+
+**Projection function**: `(idx, x) -> string_key`
+- Returns a string key for caching; keys identify rows in the cache
+- Return `undefined` or `""` to mark row as non-cacheable (module recreated every time)
+- Typical: `(idx, x) -> x._rmx_content_hash`
+
+**Cache age**: By default, cache lives for one propagation cycle. Extend with:
+```
+def _ = circuitarray.setMaxAge(n)   // n = number of propagation cycles
+```
+Note: `setMaxAge` is **global** — affects all circuitarrays in the spreadsheet.
+
+### Key behaviors
+
+- Position stability: `makeWithKeyedRowCache` is designed for reorderable lists; cached modules survive position changes
+- The visible output of `makeCached` and `makeWithKeyedRowCache` is identical to `make` — only performance differs
+- Do not pass `idx` (creation-time position) into module `M` when using keyed cache; use `vc` if position is needed

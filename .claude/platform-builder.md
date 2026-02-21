@@ -270,3 +270,24 @@ Designate the **configurator node** via the **footer menu of a card** — same m
 `_rmx_mode=run-fullscreen` or `_rmx_mode=configure-fullscreen` — hides the navbar completely.
 
 **Caution:** Once in fullscreen mode there is no easy way to exit (navbar with mode switcher is not shown).
+
+---
+
+## `_rmx_init` Screen (since PR 1201)
+
+> Source: [screen-rmx-init](https://www.notion.so/1061d464528f81fda16dc22e3f0ab4b0)
+
+If the executable contains a module named `_rmx_init`, it is **activated on session startup** before any other screen. Its output is discarded — it is only for running global app initializations. It also runs when an agent is invoked.
+
+```
+module _rmx_init(p:data, t:data)
+  // global initialization actions here
+module end
+```
+
+Parameters:
+- `p.reqName` — name of the initially requested screen or agent
+- `p.reqParams` — array of module parameters for the initial request (typically `[paramObject, transitionObject]`)
+- `t` — always empty object `{}`
+
+If both `_rmx_init` and `_rmx_entry` are present: `_rmx_init` runs first, then `_rmx_entry`.

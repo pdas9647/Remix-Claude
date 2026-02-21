@@ -109,6 +109,7 @@ module end
 
 ### Key Behaviors
 
+- **Mutability**: Streams are mutable. `stream.first(s)` **consumes** (removes) the first element; `skip`/`skipn` also consume elements. The same stream variable `s` is shorter after each consuming call.
 - **Laziness**: Most operations only consume input as needed. Exception: `sort`, `rev`, `lastn`, `deduplicateKeepLast`, `reduce` consume the entire input.
 - **Array to stream**: `a[]` operator converts array to stream. Slices: `a[p..]`, `a[..q]`, `a[p..q]`.
 - **Concatenation**: `s ++ t` — drains `s` then `t`.
@@ -216,6 +217,18 @@ module xml
   def htmlEntities : null -> map(string)    // full HTML entity set (from whatwg)
 module end
 ```
+
+### Tree Representation
+
+> Source: [xml (representation)](https://www.notion.so/1061d464528f8123bbf7fd135d3e6c7f)
+
+Each XML element maps to `elementNode({name, space, prefix, local, props, children})`. Text content maps to `textNode(string)`. Key rules:
+- `xmlns`/`xmlns:prefix` attributes are **not** in the tree — namespace info is only in `space` fields; formatter re-adds `xmlns` attributes
+- Only `name` and `space` are authoritative; `prefix` and `local` are parser convenience (extracted from `name`)
+- `space = ""` → element/attribute is outside any namespace
+- `namespaces` map in `parse` normalizes prefixes (e.g. URI → preferred prefix `"abc"` even if XML used `"p"`)
+- Simplified `props` format accepted by formatter: `props: { att1: "one" }` — no namespace support in this form
+- Processing instructions, directives, and comments are ignored
 
 ### Key Behaviors
 

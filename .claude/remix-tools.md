@@ -5,6 +5,28 @@
 
 ---
 
+## `mix_client` — Mix REPL
+
+> Source: [gettingstarted](https://www.notion.so/855fbfd7dc8140269ed3a30224acf692)
+
+Command-line REPL for Mix development and debugging against a live amp server.
+
+**Installation prerequisites:**
+```
+brew upgrade gnutls
+brew upgrade rlwrap
+```
+Then obtain the `mix_client` binary from the team.
+
+**Usage:**
+```
+rlwrap ./mix_client -url https://amp.remixlabs.com/dev -app <appname>
+```
+
+**Exit:** `#quit`, CTRL-C, or CTRL-D.
+
+---
+
 ## Bug Reporting Process
 
 > Source: [Bug reporting](https://www.notion.so/3061d464528f80cdacf7eed2612bad07)
