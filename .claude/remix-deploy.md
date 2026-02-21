@@ -44,11 +44,11 @@ A monolithic, self-hosted deployment option for Remix apps and backend services.
 
 #### Via remix.app
 
-| Method          | URL Pattern                                    | Notes                       |
-|-----------------|------------------------------------------------|-----------------------------|
-| **By key**      | `https://remix.app/<collection>/<item>`        | Registered Remix Clip       |
+| Method          | URL Pattern                                   | Notes                       |
+|-----------------|-----------------------------------------------|-----------------------------|
+| **By key**      | `https://remix.app/<collection>/<item>`       | Registered Remix Clip       |
 | **By URL**      | `https://remix.app/run?_rmx_url=<.remix URL>` | Any hosted .remix file      |
-| **Drag & Drop** | `https://remix.app/run`                        | Drop .remix file in browser |
+| **Drag & Drop** | `https://remix.app/run`                       | Drop .remix file in browser |
 
 #### Embedded on a Web Page
 
@@ -127,28 +127,30 @@ iOS widgets simulate HTML/CSS rendering (imperfect emulation — must test on de
 > Parent: Remix Studio User Guide
 > Runtime details: [mix-rs-runtime-for-shortcuts-and-widgets](https://github.com/remixlabs/turntable/wiki/mix-rs-runtime-for-shortcuts-and-widgets)
 
-iOS Widgets and Shortcuts are **special agents** compiled to `executable_standalone` format via a separate static compilation process. They run on a **WASM+Rust runtime** (distinct from the standard Mix VM).
+iOS Widgets and Shortcuts are **special agents** compiled to `executable_standalone` format via a separate static compilation process. They run on a **WASM+Rust runtime** (distinct from the standard
+Mix VM).
 
 ### Widget Agents
 
-Widget records live in the `_rmx_widgets` db. A default agent called `new` takes users to a widget creation screen, which stores `widget` entities with fields: `name` (String), `description`, `database`, `agent`, `sizes` (List of String), `config`.
+Widget records live in the `_rmx_widgets` db. A default agent called `new` takes users to a widget creation screen, which stores `widget` entities with fields: `name` (String), `description`,
+`database`, `agent`, `sizes` (List of String), `config`.
 
 The widget infrastructure reads these records and invokes the `agent` from `database` with the `config` params.
 
 **In Params:**
 
-| Param | Type | Description |
-|-------|------|-------------|
-| `size` | String | `small` \| `medium` \| `large` \| `extra-large` (iPad) \| `circular` (lock screen) \| `rectangular` (lock screen) |
-| `isPreview` | Bool | Always false except for the default widget in the iOS Widget picker |
-| `config` | Object | From the `config` field of the widget record (except for default widget) |
-| `widget_id` | Ref | `_rmx_id` of the widget record. Can be passed as URL param to a screen (`ontap` target) to load widget metadata |
+| Param       | Type   | Description                                                                                                       |
+|-------------|--------|-------------------------------------------------------------------------------------------------------------------|
+| `size`      | String | `small` \| `medium` \| `large` \| `extra-large` (iPad) \| `circular` (lock screen) \| `rectangular` (lock screen) |
+| `isPreview` | Bool   | Always false except for the default widget in the iOS Widget picker                                               |
+| `config`    | Object | From the `config` field of the widget record (except for default widget)                                          |
+| `widget_id` | Ref    | `_rmx_id` of the widget record. Can be passed as URL param to a screen (`ontap` target) to load widget metadata   |
 
 **Out Params:**
 
-| Param | Type | Description |
-|-------|------|-------------|
-| `refresh` | Number (optional) | Unix timestamp (seconds since epoch) when widget should next refresh |
+| Param      | Type                      | Description                                                                                           |
+|------------|---------------------------|-------------------------------------------------------------------------------------------------------|
+| `refresh`  | Number (optional)         | Unix timestamp (seconds since epoch) when widget should next refresh                                  |
 | `timeline` | List of Object (optional) | Array of `{date: Number (unix timestamp), view: Card}` — widget shows each view at its scheduled time |
 
 **Clickable zones** (medium and larger): add a `url` property on a group leaf card element to make it tappable.
@@ -157,14 +159,14 @@ The widget infrastructure reads these records and invokes the `agent` from `data
 
 **In Params:**
 
-| Param | Type | Description |
-|-------|------|-------------|
+| Param   | Type   | Description                                                             |
+|---------|--------|-------------------------------------------------------------------------|
 | `input` | String | Only used if the agent name contains `_input`; value passed by the user |
 
 **Out Params:**
 
-| Param | Type | Description |
-|-------|------|-------------|
-| `success` | Bool (required) | Whether the task succeeded. If false, subsequent shortcut actions are skipped |
-| `output` | String (required) | Return value if `success=true`, or error message if `success=false` |
-| `reloadWidgets` | Bool (optional, default false) | Whether to reload all widgets after running |
+| Param           | Type                           | Description                                                                   |
+|-----------------|--------------------------------|-------------------------------------------------------------------------------|
+| `success`       | Bool (required)                | Whether the task succeeded. If false, subsequent shortcut actions are skipped |
+| `output`        | String (required)              | Return value if `success=true`, or error message if `success=false`           |
+| `reloadWidgets` | Bool (optional, default false) | Whether to reload all widgets after running                                   |

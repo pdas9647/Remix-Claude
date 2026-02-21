@@ -7,7 +7,7 @@
 > - [driver-compilerExe](https://www.notion.so/1061d464528f816aabfae867d32f1519)
 > - [driver-compilerDriver](https://www.notion.so/1061d464528f81c99495c44203b5ecec)
 > - [driver-compilerREPL](https://www.notion.so/1061d464528f81f08bd0c528f7b07fde)
-> Parent: The Mix Programming Language
+    > Parent: The Mix Programming Language
 
 The `driver` library is an extra core library (part of `mixc`), separate from the Mix stdlib. It deals
 with compiler internals and build infrastructure. All modules since PR1831 unless noted.
@@ -21,6 +21,7 @@ Manages Mix compiler build rules stored in the database (library/executable buil
 ### Types
 
 **`rule`** — Full DB record:
+
 ```
 { name: string,               // library name
   modules: map(string),       // module name → file record hash
@@ -36,6 +37,7 @@ Manages Mix compiler build rules stored in the database (library/executable buil
 ```
 
 **`ruleContent`** — Net content without derived fields:
+
 ```
 { name: string,
   modules: map(string),
@@ -46,23 +48,25 @@ Manages Mix compiler build rules stored in the database (library/executable buil
 ```
 
 **`scanFilter`** — Filter for scanning rules:
+
 ```
 { part: option(string), name: option(string) }
 ```
+
 Use `emptyScanFilter` for default (no filter).
 
 ### API
 
-| Function | Signature | Notes |
-|---|---|---|
-| `setPart` | `string -> rule -> rule` | Set `part` field on a rule |
-| `scan` | `db.database -> scanFilter -> stream(rule)` | Scan rules from DB |
-| `load` | `db.database -> db.recordID -> rule` | Load single rule by ID |
-| `save` | `appstate -> db.database -> rule -> rule` | Save rule to DB |
-| `delete` | `appstate -> db.database -> rule -> null` | Delete rule from DB |
-| `makeLibRule` | `string -> array(compilerFile.file) -> rule` | Create rule for files under a library name |
-| `saveLibRule` | `appstate -> db.database -> option(string) -> string -> array(compilerFile.file) -> [rule, bool]` | Save lib rule; returns `[rule, isNewOrOutOfDate]` |
-| `getExeRuleHash` | `array(rule) -> string` | Compute hash for hypothetical executable from rules |
+| Function         | Signature                                                                                         | Notes                                               |
+|------------------|---------------------------------------------------------------------------------------------------|-----------------------------------------------------|
+| `setPart`        | `string -> rule -> rule`                                                                          | Set `part` field on a rule                          |
+| `scan`           | `db.database -> scanFilter -> stream(rule)`                                                       | Scan rules from DB                                  |
+| `load`           | `db.database -> db.recordID -> rule`                                                              | Load single rule by ID                              |
+| `save`           | `appstate -> db.database -> rule -> rule`                                                         | Save rule to DB                                     |
+| `delete`         | `appstate -> db.database -> rule -> null`                                                         | Delete rule from DB                                 |
+| `makeLibRule`    | `string -> array(compilerFile.file) -> rule`                                                      | Create rule for files under a library name          |
+| `saveLibRule`    | `appstate -> db.database -> option(string) -> string -> array(compilerFile.file) -> [rule, bool]` | Save lib rule; returns `[rule, isNewOrOutOfDate]`   |
+| `getExeRuleHash` | `array(rule) -> string`                                                                           | Compute hash for hypothetical executable from rules |
 
 **`makeLibRule(libName, files)`** — Creates a rule for `files` all associated to `libName`. Error if any
 file is not associated to that library.
@@ -81,19 +85,20 @@ Note: `ruleType` is currently always `"library"`. Executable rules may be added 
 Manages Mix source file records stored in the database. Referenced by `compilerRule`.
 
 **Types:**
+
 - `file` — Full DB record: `{ name, library, loadAlways: bool, code: string, hash, imports: array(string), part: option(string), _rmx_id }`
 - `fileContent` — Core content only: `{ name, library, loadAlways: bool, code: string }`
 - `scanFilter` — `{ part: option(string), library: option(string), name: option(string) }`
 
 **API:**
 
-| Function | Signature | Notes |
-|---|---|---|
-| `setPart` | `string -> file -> file` | Set `part` field |
-| `scan` | `db.database -> scanFilter -> stream(file)` | Scan files from DB |
-| `load` | `db.database -> db.recordID -> file` | Load single file by ID |
-| `save` | `appstate -> db.database -> file -> file` | Save file to DB |
-| `make` | `appstate -> compilerDriver.session -> fileContent -> result(string, file)` | Create full `file` from content; uses session to compute `imports` |
+| Function  | Signature                                                                   | Notes                                                              |
+|-----------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
+| `setPart` | `string -> file -> file`                                                    | Set `part` field                                                   |
+| `scan`    | `db.database -> scanFilter -> stream(file)`                                 | Scan files from DB                                                 |
+| `load`    | `db.database -> db.recordID -> file`                                        | Load single file by ID                                             |
+| `save`    | `appstate -> db.database -> file -> file`                                   | Save file to DB                                                    |
+| `make`    | `appstate -> compilerDriver.session -> fileContent -> result(string, file)` | Create full `file` from content; uses session to compute `imports` |
 
 ---
 
@@ -115,7 +120,8 @@ Manages compiled library records in the database. Works with types from the `com
 - **Publish:** `publish(appstate, lib, topic, [code, dbg]) -> libraryAtTopic` | `publishFromDB(appstate, lib, topic)` — publishes at `topic`, debug at `topic + ".dbg"`
 - **Publish meta:** `publishMeta(appstate, lib, topic)` | `restoreMeta(appstate, topic) -> option(libraryAtTopic)`
 - **Remove:** `remove(appstate, topic, haveDbg)` | `removeMeta(appstate, topic)`
-- **Dependency:** `closure(map(libraryInDB), array(libID)) -> result(string, array(libID))` — topological sort; checks all required libs are present. `closureFor(f, map(L), libIDs)` — generalized variant.
+- **Dependency:** `closure(map(libraryInDB), array(libID)) -> result(string, array(libID))` — topological sort; checks all required libs are present. `closureFor(f, map(L), libIDs)` — generalized
+  variant.
 
 ---
 
@@ -129,10 +135,12 @@ Types from `compiler` module: `compiler.executable`, `compiler.executableInDB`, 
 **Key API groups (same pattern as compilerLib plus):**
 
 - **Modifications:** `setPart`, `setPartDB`, `setRuleHash`, `setRuleHashDB`, `setName`, `setNameDB`
-- **Scanning:** `scan(db, app, variant, exeName, filter)` | `scanID(db, variant, name, filter)` | `scanName(db, variant, filter) -> stream([exeName, recordID])` | `exeStoredIDs(exe) -> array(recordID)`
+- **Scanning:** `scan(db, app, variant, exeName, filter)` | `scanID(db, variant, name, filter)` | `scanName(db, variant, filter) -> stream([exeName, recordID])` |
+  `exeStoredIDs(exe) -> array(recordID)`
 - **Load:** `get(db, app, variant, name, id) -> option(executableInDB)` | `load(db, app, variant, name) -> option(executableInDB)` (loads most recent) | `loadBlobs`
 - **Save / Delete / Publish / Remove** — same pattern as `compilerLib`; `deleteAllExcept(appstate, exe)` keeps only `exe`
-- **Relink:** `createExeFromLibs(appstate, opts, db, app, variant, map(libraryInDB), array(libID)) -> result(string, executableInDB)` — creates dynamically linked exe from libs. `opts.deleteOtherExecutables: bool`. **Requires FFI only available in amp** (builder, amp-backed web, flutter mobile). Not available in browser without amp or appclip/widget.
+- **Relink:** `createExeFromLibs(appstate, opts, db, app, variant, map(libraryInDB), array(libID)) -> result(string, executableInDB)` — creates dynamically linked exe from libs.
+  `opts.deleteOtherExecutables: bool`. **Requires FFI only available in amp** (builder, amp-backed web, flutter mobile). Not available in browser without amp or appclip/widget.
 
 ---
 
@@ -141,6 +149,7 @@ Types from `compiler` module: `compiler.executable`, `compiler.executableInDB`, 
 The main module for driving the Mix compiler. Creates sessions, compiles code, manages publish/save lifecycle.
 
 **Types:**
+
 - `options` — compiler config: `lib_create`, `lib_name`, `lib_version`, `lib_autoExpose`, `lib_autoExport`, `exe_ignoreOnDemandLibs`, `lang_warnings`, `lang_infos`, `link_static`
 - `config` — session config: `app`, `variant`, `options`, `database`, `libFilter: option([string, string])`, `sendAllLibVersions: bool`
 - `session` — opaque compiler session handle
@@ -150,18 +159,19 @@ The main module for driving the Mix compiler. Creates sessions, compiles code, m
 
 **Result combinators (`res(T)`):**
 
-| Function | Notes |
-|---|---|
-| `success(lastReq, v)` | Wrap a value |
-| `simpleError(lastReq, msg)` | Create an error |
-| `andThen(f, r)` | Chain: calls `f` only on success |
-| `resMap(f, r)` | Map wrapped value |
-| `resConcat(array(res(T)))` | Collect array of results; fails if any fails |
-| `anyway(f, r)` | Call `f()` regardless of success/failure; returns `r` |
-| `toResult(r)` | Convert to `result(string, T)` (drops logs) |
-| `getPayload(r)` | Extract value (or fail) |
+| Function                    | Notes                                                 |
+|-----------------------------|-------------------------------------------------------|
+| `success(lastReq, v)`       | Wrap a value                                          |
+| `simpleError(lastReq, msg)` | Create an error                                       |
+| `andThen(f, r)`             | Chain: calls `f` only on success                      |
+| `resMap(f, r)`              | Map wrapped value                                     |
+| `resConcat(array(res(T)))`  | Collect array of results; fails if any fails          |
+| `anyway(f, r)`              | Call `f()` regardless of success/failure; returns `r` |
+| `toResult(r)`               | Convert to `result(string, T)` (drops logs)           |
+| `getPayload(r)`             | Extract value (or fail)                               |
 
 **Sessions:**
+
 - `createSession(appstate, config) -> session` — scans DB for visible libs
 - `createSessionWithLibs(appstate, config, array(libraryInDB)) -> session` — uses provided libs, no DB scan
 - `destroySession(appstate, session)`
@@ -170,17 +180,20 @@ The main module for driving the Mix compiler. Creates sessions, compiles code, m
 **Publishing config:** `pubConfig(session, libMode, exeMode) -> compiler.pubConfig` — controls topic paths (private vs shared storage). Used with `getLibTopic`, `getExeTopic`, `getExeMetaTopic`.
 
 **Publish libs/exes from DB:**
+
 - `publishLibInDB(appstate, pubConfig, libraryInDB) -> libraryAtTopic`
 - `publishExeInDB(appstate, pubConfig, executableInDB) -> executableAtTopic`
 - `restoreSharedLibrary` / `restoreSharedExecutable` — restore if already at shared topic
 - `publishRequiredLibs(appstate, session, pubConfig, array(libID))` — publishes all required libs; checks preferred libs first, then DB, then stdlib
 
 **Compile code:**
+
 - `compilePhrases(appstate, session, array(string))` — send array of Mix phrases to compiler
 - `compileModules(appstate, session, map(string))` — send map of module name → source
 - `imports(appstate, session, map(string)) -> map(array(string))` — parse source, return imports per module
 
 **Save/publish compiled output:**
+
 - `saveLibrary(appstate, session, libAuxProps) -> libraryInDB` | `publishLibrary -> libraryAtTopic`
 - `saveExecutable(appstate, session, exeAuxProps) -> executableInDB` | `publishExecutable -> executableAtTopic`
 - `libAuxProps`: `{ ruleHash, part }` | `exeAuxProps`: `{ ruleHash, part, name: exeName }`
@@ -193,10 +206,10 @@ The main module for driving the Mix compiler. Creates sessions, compiles code, m
 
 *(Since PR1831.)* Helpers for sending compiled code to a VM via a connector.
 
-| Function | Signature | Notes |
-|---|---|---|
-| `sendCodeFromCompiler` | `appstate -> vm.connector -> compilerDriver.session -> option(string) -> bool -> null` | Send compiled code from session to VM; also publishes required libs |
-| `eval` | `appstate -> vm.connector -> compilerDriver.session -> option(string) -> array(string) -> null` | Compile `phrases` then send to VM |
+| Function               | Signature                                                                                       | Notes                                                               |
+|------------------------|-------------------------------------------------------------------------------------------------|---------------------------------------------------------------------|
+| `sendCodeFromCompiler` | `appstate -> vm.connector -> compilerDriver.session -> option(string) -> bool -> null`          | Send compiled code from session to VM; also publishes required libs |
+| `eval`                 | `appstate -> vm.connector -> compilerDriver.session -> option(string) -> array(string) -> null` | Compile `phrases` then send to VM                                   |
 
 - `echoOpt`: see `vm.sendCode`
 - `doInit`: see `vm.sendCode`
@@ -218,11 +231,15 @@ Source: [driver-compilerBuild](https://www.notion.so/1061d464528f81389251c1c4642
 Wraps `compilerDriver` into a high-level build pipeline for libraries and executables.
 
 **Types:**
-- `mixcOptions` — subset of `compilerDriver.options`: `lib_autoExpose`, `lib_autoExport`, `exe_ignoreOnDemandLibs`, `lang_exposeInternals`, `lang_warnings`, `lang_infos`, `link_static` (ignored for libs)
-- `buildRequest` — `{ database, app, part: option(string), options: mixcOptions, variant, targetLibs: array(string), targetExe: option(array(string)), targetSAExes: array(string), extraLibs: array(libID), linkParts: array(string), stopOnFirstError: bool }`
+
+- `mixcOptions` — subset of `compilerDriver.options`: `lib_autoExpose`, `lib_autoExport`, `exe_ignoreOnDemandLibs`, `lang_exposeInternals`, `lang_warnings`, `lang_infos`, `link_static` (ignored for
+  libs)
+- `buildRequest` —
+  `{ database, app, part: option(string), options: mixcOptions, variant, targetLibs: array(string), targetExe: option(array(string)), targetSAExes: array(string), extraLibs: array(libID), linkParts: array(string), stopOnFirstError: bool }`
 - `buildProgress` — `{ libs: map(res(libraryInDB)), exes: map(res(executableInDB)) }`
 
 **Build request builder (pipeline pattern):**
+
 ```
 let req =
   compilerBuild.request(database, app, variant)
@@ -230,23 +247,25 @@ let req =
   |> compilerBuild.buildMainExe
 ```
 
-| Function | Notes |
-|---|---|
-| `request(db, app, variant)` | Create minimal request |
-| `setPart(p, req)` | Isolate to a part |
-| `setOptions(opts, req)` | Set compiler options |
-| `setStopOnFirstError(bool, req)` | Halt on first error vs continue |
-| `useExtraLibs(libIDs, req)` | Make extra libs visible + link into exe |
-| `linkParts(parts, req)` | Link other parts' screens/agents into exe (code not accessible, only globally exposed modules) |
-| `buildLibraries(libs, req)` | Build named libs + their dependencies |
-| `buildMainExe(req)` | Build main exe from all libs |
-| `buildMainExeOnlyFrom(libs, req)` | Build main exe from specific libs only |
-| `buildStandaloneExes(targets, req)` | Build standalone exes for named targets |
+| Function                            | Notes                                                                                          |
+|-------------------------------------|------------------------------------------------------------------------------------------------|
+| `request(db, app, variant)`         | Create minimal request                                                                         |
+| `setPart(p, req)`                   | Isolate to a part                                                                              |
+| `setOptions(opts, req)`             | Set compiler options                                                                           |
+| `setStopOnFirstError(bool, req)`    | Halt on first error vs continue                                                                |
+| `useExtraLibs(libIDs, req)`         | Make extra libs visible + link into exe                                                        |
+| `linkParts(parts, req)`             | Link other parts' screens/agents into exe (code not accessible, only globally exposed modules) |
+| `buildLibraries(libs, req)`         | Build named libs + their dependencies                                                          |
+| `buildMainExe(req)`                 | Build main exe from all libs                                                                   |
+| `buildMainExeOnlyFrom(libs, req)`   | Build main exe from specific libs only                                                         |
+| `buildStandaloneExes(targets, req)` | Build standalone exes for named targets                                                        |
 
 **Execute:**
+
 - `execute(appstate, req) -> [buildProgress, bool]` — run from scratch
 - `execOn(appstate, req, progress) -> [buildProgress, bool]` — continue with existing progress
-- `execEmbedImports(appstate, req, searchBase) -> [buildProgress, bool]` — special: links dynamically imported libs into exe. Requires: request must target a `part`; non-static main exe. Standalone exes do NOT get dynamic import resolution. Imported libs compiled fresh (stdlib compat not an issue).
+- `execEmbedImports(appstate, req, searchBase) -> [buildProgress, bool]` — special: links dynamically imported libs into exe. Requires: request must target a `part`; non-static main exe. Standalone
+  exes do NOT get dynamic import resolution. Imported libs compiled fresh (stdlib compat not an issue).
 
 On full success, new binaries replace old ones in DB. On failure, new binaries are rolled back, keeping prior versions.
 
@@ -294,22 +313,27 @@ Source: [driver-remixFile](https://www.notion.so/1571d464528f806dadfecfaa18a004b
 Assembles `.remix` package zip files in the database, then packs them to a blob record.
 
 **Add raw entries:**
+
 - `addBinary(appstate, db, zipName, path, binary)`
 - `addString(appstate, db, zipName, path, string)`
 - `addViaRef(appstate, db, zipName, path, recordID)` — reads blob from DB record
 
 **Add msgPacked entries** (binary-serialized map(data)):
+
 - `addMsgPacked(appstate, db, zipName, name, bool, number, map(data))`
 - `addMsgPackedJSON`, `addMsgPackedViaRef`, `addMsgPackedViaIndirRef` — variants
 
 **Add compiled binaries:**
+
 - `addLibrary(appstate, db, zipName, libraryInDB)`
 - `addExecutable(appstate, db, zipName, executableInDB)`
 
 **Add builder assets:**
+
 - `addBuilderRecordFromDB` / `addBuilderRecordIndirFromDB`
 
 **Manifest** (`manifest.json` in zip):
+
 ```
 type manifest = { apps: map(bool), records: map(array(recordID)), setup: string,
                   metadata: data, builderAssets: array(string), bare: array(string),
@@ -322,6 +346,7 @@ def addManifest(appstate, db, zipName, manifest)
 ```
 
 **Runtime** (`runtime.json`):
+
 ```
 type runtime = { dbName, appName: string, settings: map(data), styles: map(data), debugInfo }
 type debugInfo = { debugObjectRegistryURL, errorReportURL, errorViewURL, org, workspace: string }
@@ -330,6 +355,7 @@ def addRuntime(appstate, db, zipName, runtime)
 ```
 
 **App meta:**
+
 ```
 type appMeta = { _rmx_type, _rmx_access_level, name, display_name, settings, styles,
                  asset_type, app_state, collaborators, derivedData, errors, last_published_at }
@@ -339,11 +365,13 @@ def addAppMeta(appstate, db, zipName, appMeta)
 ```
 
 **Files and user records:**
+
 - `addFile` / `addFileFromDB` — add files at given path
 - `addUserRecord(appstate, db, zipName, key, map(data), manifest) -> manifest`
 - `addUserRecordIndirFromDB` — via DB reference
 
 **Finalize:**
+
 - `pack(appstate, db, zipName) -> result(string, recordID)` — compress all entries into blob record
 - `clean(appstate, db, zipName)` — remove all temp zip-specific entities from DB
 
@@ -356,12 +384,14 @@ Source: [driver-remixRecipe](https://www.notion.so/1571d464528f8034a9a0fa0ad6f09
 Defines the data model for a declarative recipe that describes how to build `.remix` packages. Types only — no functions.
 
 **Key types:**
+
 - `escValue = data` — a value with escaping (escJSON format)
 - `record = map(escValue)` — a DB record
 - `patch` — scenegraph patch: `{ relNodeId, relPath: array(word), isStyle: bool, basePatch: { type, key, val }, isOn: bool }`
 - `simpleModule` — `{ modType, origin, originalName, appMeta: { derivedData } }`
 - `fullModule` — like `simpleModule` + `constants: map(escValue)`, `patches: array(patch)`
-- `bundle` — top-level build unit: `{ bundle, database, title, surfaces: array(string), setup, setupData, settings, parameters, includeDebug, includeBuilderAssets, appMeta, globalScope: { modules, constants, styles, mixModules: map(string) }, moduleScope: map(fullModule), saveOptions, selectedRecords, selectedFiles }`
+- `bundle` — top-level build unit:
+  `{ bundle, database, title, surfaces: array(string), setup, setupData, settings, parameters, includeDebug, includeBuilderAssets, appMeta, globalScope: { modules, constants, styles, mixModules: map(string) }, moduleScope: map(fullModule), saveOptions, selectedRecords, selectedFiles }`
 - `assets` — `{ records: map(array(record)), files: array(file) }`
 - `recipe` — `{ bundles: map(bundle), assets: assets }`
 

@@ -12,13 +12,16 @@
 Command-line REPL for Mix development and debugging against a live amp server.
 
 **Installation prerequisites:**
+
 ```
 brew upgrade gnutls
 brew upgrade rlwrap
 ```
+
 Then obtain the `mix_client` binary from the team.
 
 **Usage:**
+
 ```
 rlwrap ./mix_client -url https://amp.remixlabs.com/dev -app <appname>
 ```
@@ -182,7 +185,8 @@ Container page for builder-integrated tools. Child pages: Cloud Workspace Tool, 
 
 > Source: [Cloud Workspace Tool](https://www.notion.so/12c1d464528f809b9f58e6a707b93fe1)
 
-Tool for managing cloud workspaces. Available as a **builder plugin** (Plugins menu → "Cloud Workspace POC") or on the [web](https://remixlabs.com/app.html?src=https://agt.files.remix.app/remix/files/poc/cloud_workspace_poc.remix).
+Tool for managing cloud workspaces. Available as a **builder plugin** (Plugins menu → "Cloud Workspace POC") or on
+the [web](https://remixlabs.com/app.html?src=https://agt.files.remix.app/remix/files/poc/cloud_workspace_poc.remix).
 
 **Prerequisite:** Access to a cloud workspace (request from Remix admin if needed).
 

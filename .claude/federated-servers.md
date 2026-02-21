@@ -143,9 +143,9 @@ A standard Remix app exported to GCS via "Host on GCS". Two sections:
   }
   ```
 - **Copy/Insert button**: from `community` federated library, search `catalog copy/insert`
-  - Input: `content` binding (the L2SourceNode JSON)
-  - Detects env via `client_surface` variable: `plugin` → insert into screen; `app` → copy to clipboard
-  - App creator doesn't need to handle this distinction
+    - Input: `content` binding (the L2SourceNode JSON)
+    - Detects env via `client_surface` variable: `plugin` → insert into screen; `app` → copy to clipboard
+    - App creator doesn't need to handle this distinction
 
 ### Component Metadata Setup
 
@@ -165,8 +165,8 @@ A standard Remix app exported to GCS via "Host on GCS". Two sections:
 - Target specific screen: add `&screen=<screen-name>` to embed URL
 - Universal runner: `https://remixlabs.com/run.html?src=<GCS link>`
 - Example icon component: [Example of a catalog page for an Icon Component](https://www.notion.so/f806cab33faf4872810f9fbe04c654d1) (embed only, no text)
-  - Builder: `https://remix-beta.remixlabs.com/e/edit/catalog-page-icon-component/home`
-  - GCS .remix: `https://storage.googleapis.com/rmx-static/draft/catalog-page-icon-component.remix`
+    - Builder: `https://remix-beta.remixlabs.com/e/edit/catalog-page-icon-component/home`
+    - GCS .remix: `https://storage.googleapis.com/rmx-static/draft/catalog-page-icon-component.remix`
 
 ---
 
@@ -231,5 +231,5 @@ New workspace-based catalog implementation (deployed Q1 2025), supersedes Catalo
 **Migrating screens that use V1 assets:**
 
 - Open screen → migration banner appears with two counts:
-  - **Orange (auto-migrate)**: unique name match in V2 → press orange button or migrate node-by-node via sync menu
-  - **Red (manual)**: ambiguous or missing in V2 → use swap mode search or contact asset maintainer
+    - **Orange (auto-migrate)**: unique name match in V2 → press orange button or migrate node-by-node via sync menu
+    - **Red (manual)**: ambiguous or missing in V2 → use swap mode search or contact asset maintainer

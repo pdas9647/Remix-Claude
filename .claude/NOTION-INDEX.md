@@ -63,7 +63,8 @@
 
 - [AI](https://www.notion.so/2991d464528f8043b82ff22040962cc2) — AI library agents (Anthropic, OpenAI, Gemini) setup + inventory (stored in remix-catalog.md)
 - [AI (catalog page)](https://www.notion.so/2991d464528f80178a49fb6079af7441) — Same content with asset URLs, adds openai_embeddings (stored in remix-catalog.md)
-- [Accessing Remix libraries](https://www.notion.so/13c1d464528f8039beb0c08aa8413722) — Published libraries (Design/HubSpot/Drafts) on remix-libraries workspace, setup steps (stored in federated-servers.md)
+- [Accessing Remix libraries](https://www.notion.so/13c1d464528f8039beb0c08aa8413722) — Published libraries (Design/HubSpot/Drafts) on remix-libraries workspace, setup steps (stored in
+  federated-servers.md)
 - [Base catalog](https://www.notion.so/1051d464528f80c3952fd7cd198da342) — Hub for published base components (stored in remix-product.md)
     - [Table Component](https://www.notion.so/f66595ea7c7146d895513e296da96275) — Editable/display table widget, cell click events (stored in remix-product.md)
     - [Charts](https://www.notion.so/d1b57c77c9014194b59b6f5a23b7f188) — WebComponent data viz using Chart.js (stored in remix-product.md)
@@ -166,8 +167,10 @@
     - [Cloud Workspace Tool](https://www.notion.so/12c1d464528f809b9f58e6a707b93fe1) — Workspace management: deploy apps, permissions, App Hub (stored in remix-infra.md)
     - [Repository Tool](https://www.notion.so/2e91d464528f800985eee93ec9fd5842) — Version control: create/list/pull/push projects (stored in remix-infra.md)
 - [Remix Studio User Guide](https://www.notion.so/1051d464528f8007a5f5d40969c49427) — not yet fetched (top-level)
-    - [Self-hosted Remix Server](https://www.notion.so/22a1d464528f8019be54edf3f3b1f576) — Monolithic self-hosted deployment: Docker/AWS AMI/Snowpark, OAuth config, S3-compatible files (stored in remix-infra.md)
-    - [Working with State](https://www.notion.so/1431d464528f8060964ecdcbfba99fd7) — 3 state scopes (Local/Screen/App), State/Get State/Set State nodes, static vs dynamic paths (stored in remix-nodes.md)
+    - [Self-hosted Remix Server](https://www.notion.so/22a1d464528f8019be54edf3f3b1f576) — Monolithic self-hosted deployment: Docker/AWS AMI/Snowpark, OAuth config, S3-compatible files (stored in
+      remix-infra.md)
+    - [Working with State](https://www.notion.so/1431d464528f8060964ecdcbfba99fd7) — 3 state scopes (Local/Screen/App), State/Get State/Set State nodes, static vs dynamic paths (stored in
+      remix-nodes.md)
     - [Enable anonymous access](https://www.notion.so/14c1d464528f8079b1bcd79c5fdbf4c6) — Anonymous screen setup, _rmx_auth transition, remix/user-signin Client Action (stored in platform-topics.md)
     - Studio Server
         - [Auth integrations](https://www.notion.so/11f1d464528f8070b010f945a0b0e7af) — OAuth/OIDC/Apple/SFDC plugin config, callback URLs, token storage, auth0 setup (stored in server-apis.md)
@@ -188,13 +191,18 @@
             - [Annotations](https://www.notion.so/1051d464528f8018a17fd69389243631) — blank page (stored in remix-nodes.md)
     - [Mixed Auth](https://www.notion.so/1741d464528f808cbb5ff371d571c437) — fullscreen vs embedded `_rmx_auth`, fullscreen-embedded rmx-remix host page pattern (stored in platform-builder.md)
         - [Mixed auth test](https://www.notion.so/1b91d464528f802ebf9efe3417f1ea6f) — embedded test previews (Dev/Beta/Prod) only; no stable content
-    - [Macros](https://www.notion.so/2161d464528f801f8ddaf479d816d99f) — builder remote control: macro tiles, Mix macro module commands, ndType/bdType/operator reference, createNodeFromAst (stored in platform-builder.md)
-    - [External Actions](https://www.notion.so/2161d464528f8014ac9ce7eda3a134ab) — runtime→host communication via onEvent map; default/mobile/local-storage/payment action catalog; moving to Client Actions (stored in platform-builder.md)
-    - [iOS Widget & Shortcut Agents](https://www.notion.so/2161d464528f803f867fe9bc1d4b61a6) — widget agent in/out params, shortcut agent params, clickable zones, _rmx_widgets db schema (stored in remix-infra.md)
-    - [Edit / Run / Configure modes](https://www.notion.so/2251d464528f808da28df02fbd305915) — 3 L2 view modes, URL param `_rmx_mode`, configurator node setup, fullscreen variants (stored in platform-builder.md)
+    - [Macros](https://www.notion.so/2161d464528f801f8ddaf479d816d99f) — builder remote control: macro tiles, Mix macro module commands, ndType/bdType/operator reference, createNodeFromAst (stored in
+      platform-builder.md)
+    - [External Actions](https://www.notion.so/2161d464528f8014ac9ce7eda3a134ab) — runtime→host communication via onEvent map; default/mobile/local-storage/payment action catalog; moving to Client
+      Actions (stored in platform-builder.md)
+    - [iOS Widget & Shortcut Agents](https://www.notion.so/2161d464528f803f867fe9bc1d4b61a6) — widget agent in/out params, shortcut agent params, clickable zones, _rmx_widgets db schema (stored in
+      remix-infra.md)
+    - [Edit / Run / Configure modes](https://www.notion.so/2251d464528f808da28df02fbd305915) — 3 L2 view modes, URL param `_rmx_mode`, configurator node setup, fullscreen variants (stored in
+      platform-builder.md)
     - [Service Agent modules](https://www.notion.so/22d1d464528f80278259e3f6ee68dcd1) — "Edit Cloud Server" navbar button; preview vs installed workspace (stored in remix-nodes.md)
 - [Cloud Agent Server docs](https://www.notion.so/1061d464528f80f18e46dd27895aeda2) — not yet fetched (top-level)
-    - [Cloud Agent Server API](https://www.notion.so/1061d464528f8022aa1cec129096c82b) — Mixer API: workspace/app management, agent execution, cloud queries, .remix generation (stored in server-apis.md)
+    - [Cloud Agent Server API](https://www.notion.so/1061d464528f8022aa1cec129096c82b) — Mixer API: workspace/app management, agent execution, cloud queries, .remix generation (stored in
+      server-apis.md)
     - [Cloud Agent Server v1 API](https://www.notion.so/1bd1d464528f80cb97cde448c9e2a944) — v1 API: introspection, permissions CRUD, files, signals, workspace import/export (stored in server-apis.md)
 - [Mix Language docs](https://www.notion.so/259ede6504e34505982dde5dc4b63d10) — not yet fetched (top-level)
     - [The Mix Standard Library](https://www.notion.so/1061d464528f8010b0cfc60836c20290) — 60+ modules index (stored in mix-std-lib.md)

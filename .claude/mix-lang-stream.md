@@ -4,7 +4,7 @@
 > - [stream](https://www.notion.so/1061d464528f81fd8334c07f89c15b0f)
 > - [xml](https://www.notion.so/11ca20aeafb348a38dde4f513b146001)
 > - [websocket](https://www.notion.so/1061d464528f81e8af3dd2ed1d92f1fb)
-> Parent: [The Mix Standard Library](https://www.notion.so/1061d464528f8010b0cfc60836c20290)
+    > Parent: [The Mix Standard Library](https://www.notion.so/1061d464528f8010b0cfc60836c20290)
 
 ---
 
@@ -109,7 +109,8 @@ module end
 
 ### Key Behaviors
 
-- **Mutability**: Streams are mutable. `stream.first(s)` **consumes** (removes) the first element; `skip`/`skipn` also consume elements. The same stream variable `s` is shorter after each consuming call.
+- **Mutability**: Streams are mutable. `stream.first(s)` **consumes** (removes) the first element; `skip`/`skipn` also consume elements. The same stream variable `s` is shorter after each consuming
+  call.
 - **Laziness**: Most operations only consume input as needed. Exception: `sort`, `rev`, `lastn`, `deduplicateKeepLast`, `reduce` consume the entire input.
 - **Array to stream**: `a[]` operator converts array to stream. Slices: `a[p..]`, `a[..q]`, `a[p..q]`.
 - **Concatenation**: `s ++ t` — drains `s` then `t`.
@@ -223,6 +224,7 @@ module end
 > Source: [xml (representation)](https://www.notion.so/1061d464528f8123bbf7fd135d3e6c7f)
 
 Each XML element maps to `elementNode({name, space, prefix, local, props, children})`. Text content maps to `textNode(string)`. Key rules:
+
 - `xmlns`/`xmlns:prefix` attributes are **not** in the tree — namespace info is only in `space` fields; formatter re-adds `xmlns` attributes
 - Only `name` and `space` are authoritative; `prefix` and `local` are parser convenience (extracted from `name`)
 - `space = ""` → element/attribute is outside any namespace

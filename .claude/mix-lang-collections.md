@@ -259,9 +259,11 @@ module end
 
 Predefined kinds: `gset.stringKind`, `gset.numberKind`.
 
-The `forKind` result provides the **same API surface as `set`**: `empty`, `singleton`, `add`, `remove`, `ofStream`, `ofArray`, `isEmpty`, `isNotEmpty`, `length`, `toStream`, `toArray`, `toString`, `reduce`, `map`, `iter`, `filter`, `exists`, `contains`, `union`, `intersection`, `difference`, `isSubset`.
+The `forKind` result provides the **same API surface as `set`**: `empty`, `singleton`, `add`, `remove`, `ofStream`, `ofArray`, `isEmpty`, `isNotEmpty`, `length`, `toStream`, `toArray`, `toString`,
+`reduce`, `map`, `iter`, `filter`, `exists`, `contains`, `union`, `intersection`, `difference`, `isSubset`.
 
 **Builder recommendation**: define a code module with your custom sets:
+
 ```
 def boolSet = gset.forKind(gset.makeKind(false -> "f" | true -> "t"))
 def numberSet = gset.forKind(gset.numberKind)
@@ -323,8 +325,8 @@ module end
 ### Key behaviors
 
 - **Duplicate resolution** via `pref` parameter:
-  - `prefLeft` — keeps leftmost occurrence; adding after existing = silently dropped
-  - `prefRight` — keeps rightmost occurrence; adding before existing = silently dropped
+    - `prefLeft` — keeps leftmost occurrence; adding after existing = silently dropped
+    - `prefRight` — keeps rightmost occurrence; adding before existing = silently dropped
 - **Kind creation**: `uniqArray.kind(elem -> elem._rmx_id, prefLeft)` for records keyed by `_rmx_id`
 - Common kinds: `(s:string) -> s` for strings, `(n:number) -> "" + n` for numbers
 - **Future**: `forKind` helper planned (like `gset.forKind`) to avoid passing kind to every call
@@ -336,7 +338,8 @@ module end
 > Source: [circuitarray](https://www.notion.so/1061d464528f81f0a2cef0f7d2f7e850)
 > Parent: [The Mix Standard Library](https://www.notion.so/1061d464528f8010b0cfc60836c20290)
 
-Instantiates a Mix module **once per row** in an input array — like `array.map` but for entire reactive modules (with their own cells/state). The result is a "circuit array" from which you extract individual cell values via `circuitarray.extract`.
+Instantiates a Mix module **once per row** in an input array — like `array.map` but for entire reactive modules (with their own cells/state). The result is a "circuit array" from which you extract
+individual cell values via `circuitarray.extract`.
 
 ### Basic usage
 
@@ -384,20 +387,24 @@ private cell ca =
 ```
 
 **Factory function params**: `(idx, key, vc, x) -> M(...)`
+
 - `idx` — numeric index at creation time; do **not** pass to M (position can change without notification)
 - `key` — string key (from projection function); stable across repositioning
 - `vc` — `link` to a `var cell` with current numeric index; alias inside M to track repositioning
 - `x` — input row element (i.e. `rows[idx]`)
 
 **Projection function**: `(idx, x) -> string_key`
+
 - Returns a string key for caching; keys identify rows in the cache
 - Return `undefined` or `""` to mark row as non-cacheable (module recreated every time)
 - Typical: `(idx, x) -> x._rmx_content_hash`
 
 **Cache age**: By default, cache lives for one propagation cycle. Extend with:
+
 ```
 def _ = circuitarray.setMaxAge(n)   // n = number of propagation cycles
 ```
+
 Note: `setMaxAge` is **global** — affects all circuitarrays in the spreadsheet.
 
 ### Key behaviors

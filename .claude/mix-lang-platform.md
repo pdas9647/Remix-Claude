@@ -15,7 +15,7 @@
 > - [co](https://www.notion.so/1061d464528f8116b68ad82588e6b6c4)
 > - [embed](https://www.notion.so/1061d464528f814fbda0e472a2642cd0)
 > - [track](https://www.notion.so/0d937a3ad10043c597a3f6b3ef39f3f6)
-> Parent: [The Mix Standard Library](https://www.notion.so/1061d464528f8010b0cfc60836c20290)
+    > Parent: [The Mix Standard Library](https://www.notion.so/1061d464528f8010b0cfc60836c20290)
 
 ---
 
@@ -41,18 +41,22 @@ module end
 ```
 
 ### Agent Types
+
 - **One-shot** (`localAgent(name)`, `remoteAgent(baseURL, app, name)`): session created per request, torn down after result. Cannot persist state between calls (use `db` for that).
 - **Persistent** (`localPersistentAgent`, `remotePersistentAgent`): session stays alive; the same spreadsheet handles all requests.
 
 ### Identity
+
 `asUser(userName, userCreds, descriptor)` — change caller identity. `userCreds` is `currentToken` (pass through current user token) or `thisToken(token)` (explicit token).
 
 ### Call Options
+
 - `enforceSessionIsolation: true` — always run in a separate session (not merged with caller's)
 - `enforceServerExecution: true` — force run on amp server (since PR1657; also implies isolation)
 - `onceKey: some("key")` — cache result per agent+key (local agents only, since PR1657)
 
 ### Agent Module Convention (manual coding)
+
 ```
 module NAME(p:data)
   var cell m_params = p
@@ -60,9 +64,11 @@ module NAME(p:data)
   cell output = ...
 module end
 ```
+
 Cells `m_params` and `output` names are fixed.
 
 ### Examples
+
 ```
 // One-shot local agent
 agent.call(agent.localAgent("myTest"), {}, {x:"hello"}) |> result.get
@@ -156,8 +162,10 @@ module end
 ```
 
 ### Key Notes
+
 - `get_env()` in user code is **deprecated**; use `env.get` instead.
-- `backendBaseURL` vs `client_backendBaseURL`: the former is the standard public URL; the latter is what this particular client is using (may involve proxying). `client_*` variables require a connected browser session.
+- `backendBaseURL` vs `client_backendBaseURL`: the former is the standard public URL; the latter is what this particular client is using (may involve proxying). `client_*` variables require a
+  connected browser session.
 - `cloudAgentBaseURLFor("agt-dev", "remix")` → `"https://agt-dev.remixlabs.com/run-agent/remix"`.
 - `runtimeURL(b, f, app, screen, params)` — adds `base` param if non-current backend, appends `params` as query string. In builder context returns preview URL.
 - Auth redirect: `env.authRedirectURL(env.backendBaseURL, "myplugin", redirect)`.
@@ -235,7 +243,9 @@ module end
 ```
 
 ### Track API (msg_introspect_debug)
+
 Commands sent via `{ _rmx_type: "msg_introspect_debug", session: "...", command: {name: "..."} }`:
+
 - `profile_enable/disable/clear/get/save/status`
 - `trace_enable/disable/status/setLevels/getLevels`
 - `stats_clear/get/get_clear`
@@ -250,15 +260,18 @@ Response comes back as `$debugResponse` cell message.
 Single-threaded cooperative concurrency. Coroutines must explicitly yield control.
 
 ### Coroutines
+
 ```
 def create : (routine -> null) -> routine    // background
 def createFG : (routine -> null) -> routine  // foreground
 def exit : null -> null
 def yield : null -> null
 ```
+
 A coroutine exits on: function return, `co.exit()`, runtime error, `fail(msg)`, dead channel write, or waiting on owned-by-other channel.
 
 ### Channels
+
 ```
 def channelCreate : null -> channel(T)
 def channelEmit : channel(T) -> T -> null
@@ -269,9 +282,11 @@ def channelOwn : channel(T) -> null
 def channelFrom : ((T -> null) -> null) -> channel(T)      // control flow inversion
 def channelFromEH : ((T -> null) -> null) -> channel(result(rawErrorObject,T))
 ```
+
 Ownership: a coroutine owns a channel while waiting on it. When owner exits, channel dies; producers writing to dead channels also exit — enables automatic pipeline cleanup.
 
 ### Error Handling
+
 ```
 def onError : (string -> routine -> null) -> routine -> routine
 def apply : (S -> T) -> S -> result(T, string)
@@ -280,15 +295,18 @@ def fail : string -> A
 // Advanced (since PR1403)
 def onErrorRaw / onErrorDebug / applyRaw / applyDebug / failAgain
 ```
+
 `apply` runs `f(arg)` in a new coroutine; returns `ok(result)` or `error(msg)`. `failAgain` re-throws combining backtraces.
 
 ### Time
+
 ```
 def sleep : number -> null
 def applyWithTimeout : number -> (S -> T) -> S -> (result(string,T) | timeout | terminated)
 ```
 
 ### Mutexes
+
 ```
 def mutexCreate : null -> mutex
 def mutexLock / mutexUnlock : mutex -> null
@@ -296,12 +314,15 @@ def critical : mutex -> (null -> T) -> T
 ```
 
 ### Live Cells
+
 ```
 def consume : T* -> T
 ```
+
 In a `live cell`, re-evaluates each time the stream produces a new value.
 
 ### Pub/Sub
+
 ```
 def pubsubCreate : T -> pubsub(T)
 def pubsubConnect : pubsub(data) -> string -> null    // connect to broker topic
@@ -319,6 +340,7 @@ def pubsubOfSubscription : subscription(T) -> pubsub(T)  // since PR1956
 ```
 
 **Topic path prefixes** (used with `pubsubConnect`):
+
 - `$workspace/<sub>` — any authenticated user, any app in workspace
 - `$wsUser/<sub>` — current user, any app in workspace
 - `$app/<sub>` — any user allowed to open the current app
@@ -351,6 +373,7 @@ Extends `viewstack`. Manages embedded screens by name, enforcing one-visible-per
 - `placeholderStream()` — use while embedded screen is hidden to keep a live cell active.
 
 **Typical usage pattern** (dropdown/tabbed):
+
 1. Create embedded screen that calls `viewstack.close(retval)` on user action
 2. In main screen, use `co.consume` / `live cell` to consume DOM stream
 3. Pass DOM into a container card at overlay position (`position:absolute; zIndex:1`)
@@ -391,6 +414,7 @@ module end
 ```
 
 ### Key Concepts
+
 - `createRemote({baseURL, app, token})` — `baseURL` is the amp workspace HTTP URL, e.g. `"https://staging.remixlabs.com/staging/amp"`.
 - `close` closes the connection but **does not destroy the session** (sessions time out automatically; prefer `msgSessionDestroy`).
 - `writeClose` sends an orderly close; wait for response close to confirm.
@@ -480,6 +504,7 @@ module end
 > Source: [calendar](https://www.notion.so/1061d464528f81e581d3ddbb419d8df0)
 
 ### Types
+
 - `t_date` — whole calendar day
 - `t_dateTime` — date + time (no timezone)
 - `t_timestamp` — date + time + timezone
@@ -488,6 +513,7 @@ module end
 - `errorMode` = `failIfBad | undefIfBad | normIfBad` (normIfBad normalises out-of-range values, e.g. Feb 29 → Mar 1)
 
 ### Constructors
+
 ```
 makeDate(emode, year, month, day)
 makeDateTime(emode, year, month, day, hour, minute, second)
@@ -499,16 +525,20 @@ importDate/DateTime/Timestamp(emode, {year,month,day,...})
 ```
 
 ### Key Functions
+
 - **Projections**: `year`, `month`, `day`, `hour`, `minute`, `second`, `tzName`, `tzOffset`
-- **Conversions**: `toDate`, `toDateTime`, `toTimestamp(tzName, t)`, `toTime`, `toString` (ISO-8601), `toDBString` (UTC), `parse`, `parseResult`, `export` ({year,month,day,...}), `format(strftimePattern, t)`
+- **Conversions**: `toDate`, `toDateTime`, `toTimestamp(tzName, t)`, `toTime`, `toString` (ISO-8601), `toDBString` (UTC), `parse`, `parseResult`, `export` ({year,month,day,...}),
+  `format(strftimePattern, t)`
 - **Updaters**: `setDay/Month/Year/Hour/Minute/Second`, `setTimezone(name, ts)` — adapts offset to new zone
 - **Addition**: `addDays/Months/Years/Hours/Minutes/Seconds/Times`
 - **Subtraction**: `subDays/Months/Years/Hours/Minutes/Seconds/Times`
 - **Difference**: `diffDays/Months/Years/Hours/Minutes/Seconds` — positive = first arg is later
-- **Helpers**: `isLeapYear(y)`, `numDaysOfYear(y)`, `numDaysOfMonth(y, m)`, `firstDayOfMonth/Year`, `lastDayOfMonth/Year`, `dayOfYear`, `daysSinceEpoch`, `secondsSinceEpoch`, `now()` (UTC timestamp), `localNow()` (client timezone), `epoch` / `epochDate` / `epochDateTime` (1970-01-01)
+- **Helpers**: `isLeapYear(y)`, `numDaysOfYear(y)`, `numDaysOfMonth(y, m)`, `firstDayOfMonth/Year`, `lastDayOfMonth/Year`, `dayOfYear`, `daysSinceEpoch`, `secondsSinceEpoch`, `now()` (UTC timestamp),
+  `localNow()` (client timezone), `epoch` / `epochDate` / `epochDateTime` (1970-01-01)
 - **Day loop**: `dayRange(d1, d2) → t_date*` stream
 
 ### Weeks
+
 - Two kinds: `weekUS` (Sun=0..Sat=6), `weekISO` (Mon=1..Sun=7)
 - `weekDay(kind, d)`, `weekInfoOfDate(kind, d)` → `{weekDay, weekNumber, weekYear, weekKind}`
 - `weekTable(kind, d1, d2)` → `array(array(t_date))` — outer=weeks, inner=7 days
@@ -516,10 +546,12 @@ importDate/DateTime/Timestamp(emode, {year,month,day,...})
 - US week 1 = week containing Jan 1; ISO week 1 = week of first Thursday
 
 ### Periods (generalised weeks)
+
 `makePeriod(n, first, anchor)` — n-day recurring period, numbered `first..first+n-1`, anchored to a date.
 `periodInfoOfDate(p, d)` → `{day, year, iteration, iterationOfYear}`; `periodRange(p, d1, d2)` → stream.
 
 ### Quarters
+
 `makeQuarter(startMonth)` / `naturalQuarter` (Jan start); `quarterInfoOfDate(q, d)` → `{day, quarter, year, iteration}`; `quarterRange(q, d1, d2)` → stream; `diffQuarters(q, d1, d2)`.
 
 ---
@@ -529,9 +561,12 @@ importDate/DateTime/Timestamp(emode, {year,month,day,...})
 > Source: [color](https://www.notion.so/1061d464528f819fa83bd801557d90ca) (since PR 1085)
 
 ### Color Spaces
-Four spaces, all with double-precision + alpha: **linear RGB** (physical intensity 0..1), **SRGB** (gamma ~2.2, web standard), **HSL** (hue 0..360, sat/light 0..1), **HWB** (hue 0..360, white/black 0..1).
+
+Four spaces, all with double-precision + alpha: **linear RGB** (physical intensity 0..1), **SRGB** (gamma ~2.2, web standard), **HSL** (hue 0..360, sat/light 0..1), **HWB** (hue 0..360, white/black
+0..1).
 
 ### Create
+
 ```
 SRGB_unit(r,g,b) / SRGBA_unit(r,g,b,a)    — values 0..1
 SRGB_8bit(r,g,b) / SRGBA_8bit(r,g,b,a)    — values 0..255
@@ -541,22 +576,26 @@ HWB(h,w,b) / HWBA(h,w,b,a)                 — hue 0..360, rest 0..1
 ```
 
 ### Import / Export
+
 - `importSRGB_unit/8bit/LinRGB/HSL/HWB(data)` — from record with named fields
 - `exportSRGB_unit/8bit/LinRGB/HSL/HWB(t)` → `{red,green,blue,alpha}` or `{hue,sat,light,alpha}` etc.
 
 ### Convert / Parse / Print
+
 - `toSRGB / toLinRGB / toHSL / toHWB` — convert between spaces
 - `parseHex(s)` — accepts 3/4/6/8 hex digits → SRGB
 - `formatHex(c)` — 6 digits (no alpha) or 8 digits; converts to SRGB first
 - `formatCSS(c)` — e.g. `rgb(10% 20% 70%)`; LinRGB → SRGB first
 
 ### Mixing
+
 - `add(c1, c2)` — additive mix (result in c1's space, c1's alpha)
 - `sub(c1, c2)` — subtractive mix
 - `blend(c1, c2, p1)` — weighted average; `p1=0.5` → 50/50
 - `blendMany(array([color, weight]))` — multi-color weighted blend
 
 ### Brightness & Tone
+
 - `lighter(n, c)` / `darker(n, c)` / `updateLightness(f, c)` — operate in HSL
 - `addWhite/subWhite/addBlack/subBlack/updateWhiteness/updateBlackness` — operate in HWB
 - `luminance(c)` → relative luminance 0..1 (SRGB)
@@ -566,6 +605,7 @@ HWB(h,w,b) / HWBA(h,w,b,a)                 — hue 0..360, rest 0..1
 - `contrastRatio(c1, c2)` → WCAG contrast ratio
 
 ### Alpha
+
 - `alpha(c)` → 0..1; `updateAlpha(f, c)` — transform alpha value
 
 ---
@@ -622,34 +662,43 @@ module end
 ```
 
 ### Retained vs Non-Retained
+
 - **Retained** (`set`/`get`): last message stored in broker; new subscribers receive it immediately. Behaves like a global observable variable.
 - **Non-retained** (`send`): broker does not store; only live subscribers receive it. Use for event/protocol messaging.
 
 ### Subscribing
+
 - `subscribe(topic, defaultVal)` → `co.subscription` — returns default if nothing published yet.
 - `co.pubsubGetStream(sub)` — stream of retained updates; `co.pubsubRecvStream(sub)` — stream of non-retained.
 - `subscribeFG(topic, defaultVal)` — foreground subscription; blocks coroutine until messages arrive; max one per topic; must terminate with `close`.
 - `co.pubsubUnsubscribe(sub)` or `messaging.unsubscribe(sub)` — stop subscription.
 
 ### Live Queries
+
 `subscribeToQuery(q, {watchOtherSessions, sessionScope})`:
+
 - Emits `true` when the query result set changes.
 - `watchOtherSessions: true` — also detect changes from other sessions (default: only own session).
 - `sessionScope: true` — subscription lives for session (default: view lifetime).
 
 ### Remote Orgs
+
 ```
 messaging.mountOrg("my-org", {url: "wss://remix-dev.remixlabs.com/a/x/broker.ws", user: "...", token: ...})
 ```
+
 Mounts remote org topics for the session lifetime. Then use `remoteWsTopic` etc. to construct topic paths.
 
 ### Cloud Topics
+
 Published from cloud agents using short paths (`$cloudAppUser/<path>`, `$cloudAppShared/<path>`, `$cloudAppPublic/<path>`). Subscribed from client apps using absolute paths:
+
 - `/cloud/<host>/ws/<ws>/app/<app>/user/<user>/<path>` — user-scoped
 - `/cloud/<host>/ws/<ws>/app/<app>/shared/application/<path>` — app-shared (any user)
 - `/cloud/<host>/ws/<ws>/app/<app>/public/application/<path>` — no auth required
 
 ### Topic Path Rules
+
 - No leading/trailing slashes; no `//`; no `+` or `#` characters (MQTT reserved).
 - Topics are translated to MQTT paths internally, e.g. `userTopic("foo")` → `/org/staging/ws/staging/app/sample/user/gerd/application/foo`.
 
@@ -675,26 +724,33 @@ module end
 ```
 
 ### Usage
+
 ```
 loader.load(appstate, sources, libraries, exposedObjects, options) |> result.get
 ```
 
 ### Sources
+
 List of DB references (same format as `db` module):
+
 ```
 [ {"type": "rmx", "scope": "global", "db": "myapp"} ]
 ```
+
 - Special `{"type": "loaded"}` — refers to already-loaded libraries (use to pin versions, no newer loading).
 - **Only regular global databases** (no in-mem or special DBs) supported currently.
 
 ### Libraries
+
 - By name: `"person"` — loads newest version from sources.
 - By full ID: `"list-20220405@abcd"` — loads exact version.
 - Dependencies resolved automatically.
 - Loaded Mix modules appear in `reflect.modules()` (prefixed by library ID) even if not exposed.
 
 ### Exposed Objects
+
 List of triples `[type, name, option]`:
+
 - **type**: `global.modScreen`, `global.modAgent`, `global.modComponent`
 - **name**: plain name or `"*"` to expose all of that type
 - **option**: `null` (keep name) | `exposeAs(newName)` | `exposeWithDifferentPrefix([oldPrefix, newPrefix])`
@@ -702,7 +758,9 @@ List of triples `[type, name, option]`:
 - Exposed screens → navigable + in `reflect.screens()`; agents → invocable + in `reflect.agents()`; components → usable by name + in `reflect.components()`.
 
 ### Screen Meta Declarations (PR1406)
+
 Screens can pre-declare components to load in `_meta_`:
+
 ```
 _meta_ { modType: "screen",
   loadComponents: [
@@ -714,24 +772,31 @@ _meta_ { modType: "screen",
   ]
 }
 ```
+
 - **Screens only** (not components). Screen must declare all components recursively.
 - **Currently only components** can be loaded this way (not agents).
 
 ### Dynamic Import (PR1386)
+
 Modules with `_dynamicExport_` directive can be imported at runtime:
+
 ```
 _dynamicImport_(modSpace, name, type(P1 -> P2 -> {field: Type, ...}))
 ```
+
 - `modSpace`: `global.modPhysical` (by `"libID.ModName"`) or `global.modComponent` (by exposed name)
 - Returns a function; call it to instantiate the module.
 
 Dynamic component import:
+
 ```
 _dynamicComponentImport_(exposedName, {inputs: ["DisplayName1", ...], outputs: ["cellName1", ...]})
 ```
+
 Returns `link(data) -> data -> {output: link(data), _content_: link(data)}` (or as declared).
 
 ### Scoping & Restrictions
+
 - Multiple Mix module versions can coexist; each version's code uses its own compile-time references.
 - Screens/agents/components have a **flat namespace** — only one instance per name allowed.
 - Cannot load libraries compiled against a different stdlib version.

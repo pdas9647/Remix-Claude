@@ -224,7 +224,7 @@ History params: `includeHistory=true` (old versions), `includeDeleted=true` (tom
 
 - Old versions: `db.includeSuperseded(true)` processor, or `db.all()` source
 - Tombstones: `db.includeDeleted(true)` — tombstones lack content fields; query on `_rmx_id` or follow `_rmx_previous` ref
-  - Example: `db.filter(._rmx_deleted == true && ._rmx_previous.entity == "person")`
+    - Example: `db.filter(._rmx_deleted == true && ._rmx_previous.entity == "person")`
 
 ### Auto-Refresh (Live Query)
 
@@ -453,6 +453,7 @@ Requires: **DB location** + **ref** of the record to delete.
 > Parent: Remix Studio User Guide
 > See also: [Agent Connect tiles](https://www.notion.so/12f1d464528f80a4a372e439a6d074f4)
 
-Service Agent modules have an additional **"Edit Cloud Server"** button in the Navbar. Clicking it lets you see the details of a Cloud Server that has data on it — all queries, save actions, and delete actions are then run against that server. This makes building new agents against a remote dataset much easier.
+Service Agent modules have an additional **"Edit Cloud Server"** button in the Navbar. Clicking it lets you see the details of a Cloud Server that has data on it — all queries, save actions, and
+delete actions are then run against that server. This makes building new agents against a remote dataset much easier.
 
 **Important:** Choosing a Cloud Server here does **not** change the generated code — all nodes will still point to the workspace where they are installed (not the preview server).

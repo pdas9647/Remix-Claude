@@ -4,7 +4,7 @@
 > - [http](https://www.notion.so/1061d464528f81b69f0ef59a0c715d69)
 > - [file](https://www.notion.so/1061d464528f8136b486db76ee013016)
 > - [binary](https://www.notion.so/1061d464528f81e481afc195d8d6d92b)
-> Parent: [The Mix Standard Library](https://www.notion.so/1061d464528f8010b0cfc60836c20290)
+    > Parent: [The Mix Standard Library](https://www.notion.so/1061d464528f8010b0cfc60836c20290)
 
 ---
 
@@ -48,17 +48,17 @@ module end
 
 All verb functions accept a final `configMap` (can be `null` / empty):
 
-| Key | Type | Description |
-|-----|------|-------------|
-| `params` | `map` | Query parameters (string→string). Alternative to inline URL params — choose one. |
-| `basicAuth` | `{username, password}` | HTTP Basic Auth |
-| `oauthToken` | `string` | Sets `Authorization: Bearer <token>`. Accepts plain string or opaque amp token from `get_env().token`. |
-| `clientTLS` | `{key, certificate}` | PEM-format client TLS cert. PKCS1/PKCS8/SEC1 EC supported. Not available in client VM. |
-| `headers` | `map` | Arbitrary request headers |
-| `timeout` | `number` | Seconds before failure. Timed-out response has `error` key only. Not available in client VM. |
-| `sendFrom` | `"auto"` / `"server"` / `"client"` | Where to execute request. Default `"auto"` = same side as running VM. |
-| `returnBinaryResponseBody` | `bool` | Force `body` as `binary` type (accepts non-UTF-8). |
-| `mediaTypes` | `map(mode)` | Fine-grained content-type → text/binary mode map. Wildcard `*` supported. |
+| Key                        | Type                               | Description                                                                                            |
+|----------------------------|------------------------------------|--------------------------------------------------------------------------------------------------------|
+| `params`                   | `map`                              | Query parameters (string→string). Alternative to inline URL params — choose one.                       |
+| `basicAuth`                | `{username, password}`             | HTTP Basic Auth                                                                                        |
+| `oauthToken`               | `string`                           | Sets `Authorization: Bearer <token>`. Accepts plain string or opaque amp token from `get_env().token`. |
+| `clientTLS`                | `{key, certificate}`               | PEM-format client TLS cert. PKCS1/PKCS8/SEC1 EC supported. Not available in client VM.                 |
+| `headers`                  | `map`                              | Arbitrary request headers                                                                              |
+| `timeout`                  | `number`                           | Seconds before failure. Timed-out response has `error` key only. Not available in client VM.           |
+| `sendFrom`                 | `"auto"` / `"server"` / `"client"` | Where to execute request. Default `"auto"` = same side as running VM.                                  |
+| `returnBinaryResponseBody` | `bool`                             | Force `body` as `binary` type (accepts non-UTF-8).                                                     |
+| `mediaTypes`               | `map(mode)`                        | Fine-grained content-type → text/binary mode map. Wildcard `*` supported.                              |
 
 **URL restriction:** Must use `https` scheme. Cannot point to local network names (blocks amp admin port / internal Kubernetes). Override with `-dangerous-http-mode` amp flag.
 
@@ -128,6 +128,7 @@ register(appstate, designator, path, clientUrl, metadata)
 ```
 
 `designator` type:
+
 ```
 null                      // default = same as workspace_app(env.app)
 | some(app)               // backward-compat, same as workspace_app
@@ -136,6 +137,7 @@ null                      // default = same as workspace_app(env.app)
 ```
 
 Returns a `file` struct with `kind: "client"` and `metadata._rmx_upload_url` — a signed URL for the client to PUT the file directly to mixer. Example response:
+
 ```json
 {
   "app": "cloud-agent",
@@ -263,6 +265,7 @@ module end
 ```
 
 **Usage pattern:**
+
 ```
 import wasm; import resource; import result
 def ffi = resource.get(null, "m.wasm") |> result.get |> wasm.load

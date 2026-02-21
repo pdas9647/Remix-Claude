@@ -9,26 +9,26 @@ Most of this applies to **strict typing mode** (`_pragma_ {strictTyping:true}`).
 
 ## Type Hierarchy Overview
 
-| Type | Values | Notes |
-|------|--------|-------|
-| `null` | `null` | Bottom type for data |
-| `bool` | `true`, `false` | |
-| `number` | integers, floats | |
-| `string` | string literals | |
-| `word` | all `number` ∪ `string` | |
-| `data` | `null`, `bool`, `number`, `string`, and any tuple/array/record/map of `data` | Serializable values; cast from `data` to smaller type generates compiler warning |
-| `any` | every value | Top type; do not use in your own code |
-| `undefined` | — | Element of **all** types |
+| Type        | Values                                                                       | Notes                                                                            |
+|-------------|------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| `null`      | `null`                                                                       | Bottom type for data                                                             |
+| `bool`      | `true`, `false`                                                              |                                                                                  |
+| `number`    | integers, floats                                                             |                                                                                  |
+| `string`    | string literals                                                              |                                                                                  |
+| `word`      | all `number` ∪ `string`                                                      |                                                                                  |
+| `data`      | `null`, `bool`, `number`, `string`, and any tuple/array/record/map of `data` | Serializable values; cast from `data` to smaller type generates compiler warning |
+| `any`       | every value                                                                  | Top type; do not use in your own code                                            |
+| `undefined` | —                                                                            | Element of **all** types                                                         |
 
 ### Type accessors by kind
 
-| Kind | Value literal | Type notation | Access |
-|------|--------------|--------------|--------|
-| tuple | `[1, "hello"]` | `[number, string]` | pattern `let [a,b] = t` or `t[#0 of 2]` |
-| labeled tuple | `[#name:"Tom", #age:28]:person` | `[#name:string, #age:number]` | `p.[#name]` |
-| array | `[1,2,3]:array` | `array(number)` | `a[i]` (computed index); `a[i]?` (membership) |
-| record | `{f1:10, f2:true}` | `{f1:number, f2:bool}` | `r.field` or `r."field"` (no `r.(expr)`) |
-| map | any record upcast: `{f1:10}:map` | `map(number)` | `m.(key)`; `m.(key)?` (membership) |
+| Kind          | Value literal                    | Type notation                 | Access                                        |
+|---------------|----------------------------------|-------------------------------|-----------------------------------------------|
+| tuple         | `[1, "hello"]`                   | `[number, string]`            | pattern `let [a,b] = t` or `t[#0 of 2]`       |
+| labeled tuple | `[#name:"Tom", #age:28]:person`  | `[#name:string, #age:number]` | `p.[#name]`                                   |
+| array         | `[1,2,3]:array`                  | `array(number)`               | `a[i]` (computed index); `a[i]?` (membership) |
+| record        | `{f1:10, f2:true}`               | `{f1:number, f2:bool}`        | `r.field` or `r."field"` (no `r.(expr)`)      |
+| map           | any record upcast: `{f1:10}:map` | `map(number)`                 | `m.(key)`; `m.(key)?` (membership)            |
 
 In **strict mode**, bracket literals `[...]` default to **tuples**; reinterpreted as arrays when the context demands (e.g. `array.length([1,2])`).
 
@@ -36,12 +36,12 @@ In **strict mode**, bracket literals `[...]` default to **tuples**; reinterprete
 
 ## Type Variables
 
-| Notation | Meaning |
-|----------|---------|
-| `T` | Unconstrained — starts with uppercase; replaced by any type on instantiation |
-| `_` | Anonymous — each `_` is a fresh unconstrained variable |
-| `T@datarange` | Constrained to `data` |
-| `T@wordrange` | Constrained to `word` |
+| Notation      | Meaning                                                                      |
+|---------------|------------------------------------------------------------------------------|
+| `T`           | Unconstrained — starts with uppercase; replaced by any type on instantiation |
+| `_`           | Anonymous — each `_` is a fresh unconstrained variable                       |
+| `T@datarange` | Constrained to `data`                                                        |
+| `T@wordrange` | Constrained to `word`                                                        |
 
 (Other constrained forms are used internally by the compiler and not exposed to users.)
 
@@ -76,7 +76,9 @@ type color = red | green | blue     // union type
 
 ### Private cases
 
-`private case rgb(data)` — the constructor cannot be called from outside the module; the module controls all possible representations. The **deconstructor** (`rgb^`) and **pattern matching** remain accessible from outside:
+`private case rgb(data)` — the constructor cannot be called from outside the module; the module controls all possible representations. The **deconstructor** (`rgb^`) and **pattern matching** remain
+accessible from outside:
+
 ```
 module color
   private case rgb(data)
@@ -94,12 +96,15 @@ module end
 ### Data compatibility
 
 Any **parameterless** case, or any case whose parameter is a **subtype of `data`**, is also a subtype of `data`:
+
 ```
 case myTag          // subtype of data ✓
 case age(number)    // subtype of data ✓ (number is data)
 case fun(S -> T)    // NOT data — function param is not data
 ```
+
 This means data-compatible cases can be stored in `data`-typed cells or database records. Recover the original type with a type assertion:
+
 ```
 cell mycol : data = color.create(12,45,198)     // store as data
 cell realcol : color.t = mycol |> type(color.t) // downcast back
@@ -124,6 +129,7 @@ type result(S, T) = ok(S) | error(T)
 
 case unset    // alternative to null for "not yet initialized"; distinct from any operating value
 ```
+
 `unset` is useful when a `var cell` must start with a placeholder that is distinct from every valid operating value.
 
 ### Caveats
@@ -151,11 +157,13 @@ cell c : data = null
 ```
 
 **When to use hints:**
+
 - `null` literal gets type `null` by default — hint needed when a larger type is required
 - Type errors produce confusing messages — hints simplify them
 - Type checker gets on the wrong track — hints guide it
 
 ### var cell pattern — always hint
+
 ```
 var cell x = null      // BAD: type is `null`, can only ever assign null
 var cell x : person = null  // GOOD: can assign any person value
@@ -174,20 +182,21 @@ type(T)                        // as a function (for use with |>)
 ```
 
 Constraints:
+
 - Only assertable: `bool`, `number`, `string`, tuples, arrays, records, maps
 - **Cannot** assert: functions, streams, or any non-data type
 - Type term `T` may only contain `_` (anonymous variable), not named variables
-  - Allowed: `type([_,_])` (assert it's a pair)
-  - Forbidden: `type([T,T])` (can't check element equality)
+    - Allowed: `type([_,_])` (assert it's a pair)
+    - Forbidden: `type([T,T])` (can't check element equality)
 
 ### Type hint vs type assertion
 
-| | Type Hint | Type Assertion |
-|--|-----------|----------------|
-| When | Compile-time only | Runtime check |
-| Code generated? | No | Yes |
-| Can hint functions? | Yes | No |
-| Input type required? | Known | Any (even untyped) |
+|                      | Type Hint         | Type Assertion     |
+|----------------------|-------------------|--------------------|
+| When                 | Compile-time only | Runtime check      |
+| Code generated?      | No                | Yes                |
+| Can hint functions?  | Yes               | No                 |
+| Input type required? | Known             | Any (even untyped) |
 
 ---
 
@@ -205,6 +214,7 @@ def x1 = x |> type(number)     // x1 : number
 ```
 
 The type inference engine auto-generates `word` and `data` when generalizing:
+
 - Heterogeneous tuple → array: element types unified to `word` or `data`
 - Heterogeneous record → map: values unified to `data`
 
@@ -233,14 +243,15 @@ If the type is not known, add a type hint: `let p:person = ...`
 
 `+` is overloaded — return type depends on operand types:
 
-| Operands | Result |
-|----------|--------|
-| `number + number` | `number` |
-| `word + word` (at least one non-number) | `string` (e.g. `"x" + 10` → `"x10"`) |
-| `array + array` | concatenated array |
-| `map + map` | merged map (second map wins on conflict) |
+| Operands                                | Result                                   |
+|-----------------------------------------|------------------------------------------|
+| `number + number`                       | `number`                                 |
+| `word + word` (at least one non-number) | `string` (e.g. `"x" + 10` → `"x10"`)     |
+| `array + array`                         | concatenated array                       |
+| `map + map`                             | merged map (second map wins on conflict) |
 
 For polymorphic definitions, the return type is written `A + B` (delayed resolution):
+
 ```
 def incr = (n -> n+1)
 // incr : A -> A + number

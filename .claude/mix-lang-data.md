@@ -6,7 +6,7 @@
 > - [dbRemote](https://www.notion.so/1061d464528f81ceb14cc634b40da637)
 > - [minidb](https://www.notion.so/1061d464528f81b18087c5c5b68df646)
 > - [query](https://www.notion.so/1061d464528f818b9732d6b6f321f187)
-> Parent: [The Mix Standard Library](https://www.notion.so/1061d464528f8010b0cfc60836c20290)
+    > Parent: [The Mix Standard Library](https://www.notion.so/1061d464528f8010b0cfc60836c20290)
 
 ---
 
@@ -23,15 +23,16 @@ type query = <opaque>
 
 ### Database Kinds
 
-| Kind         | On Disk | Platform Server | Browser | Helper function                    | Notes                                                |
-|--------------|---------|-----------------|---------|------------------------------------|------------------------------------------------------|
-| main         | ✅      | ✅              | ✅      | `db.mainDB` / `null`               | Default database of the app                          |
-| app DB       | ✅      | ✅              | ✅      | `db.appDB(name)`                   |                                                      |
-| session DB   | ❌      | ✅              | ❌      | `db.localInMemDB(name)`            | In-memory, session-scoped                            |
-| in-mem app   | ❌      | ✅              | ❌      | `db.globalInMemDB(name)`           | Global in-mem, tied to global app DB                 |
-| remote DB    | N/A     | ✅              | ✅      | `db.remoteDB(url, name)`           | HTTP protocol; live queries not supported            |
+| Kind       | On Disk | Platform Server | Browser | Helper function          | Notes                                     |
+|------------|---------|-----------------|---------|--------------------------|-------------------------------------------|
+| main       | ✅       | ✅               | ✅       | `db.mainDB` / `null`     | Default database of the app               |
+| app DB     | ✅       | ✅               | ✅       | `db.appDB(name)`         |                                           |
+| session DB | ❌       | ✅               | ❌       | `db.localInMemDB(name)`  | In-memory, session-scoped                 |
+| in-mem app | ❌       | ✅               | ❌       | `db.globalInMemDB(name)` | Global in-mem, tied to global app DB      |
+| remote DB  | N/A     | ✅               | ✅       | `db.remoteDB(url, name)` | HTTP protocol; live queries not supported |
 
 **Database type as map:**
+
 - `{ "type": "rmx", "scope": "main" }` — main on-disk DB
 - `{ "type": "rmx", "scope": "session", "db": "name" }` — session in-mem DB
 - `{ "type": "rmx", "scope": "global", "db": "name" }` — global on-disk DB
@@ -40,6 +41,7 @@ type query = <opaque>
 - `null` — same as main DB
 
 **Save Options** (as `"options"` array in database map):
+
 - `KeepOriginal` — stores original metadata under `_rmx_original/`
 - `OriginalIdAlways` — always stores `_rmx_original_id` and `_rmx_original_rev`
 - `DontUseId` — disables preserving well-formed `_rmx_id` values from input
@@ -162,6 +164,7 @@ module end
 - `deref`: loads record if param looks like an ID; otherwise returns param unchanged
 
 **Temporary refs** — save multiple mutually-referencing records:
+
 ```
 [{"_rmx_id": db.makeRef("p"), "entity": "parent"},
  {"entity": "child", "parent": db.makeRef("p")}]
@@ -171,6 +174,7 @@ module end
 ### Filter Compilability Rules
 
 `db.filter` compiles filters to db engine queries. Supported:
+
 - Equality: `r.field == value`, `r.field != value` (strings, bools, null only; deep fields: `r.a.b`)
 - Existence: `r.field?`
 - Prefix: `string.startsWith(r.field, prefix)`
@@ -185,21 +189,25 @@ Use `db.filterWithFallback` for unsupported ops (e.g. `>=`). Use `db.toStream | 
 
 ### Query Pipeline Structure
 
-Valid sequence: `db.head/all/query` → (optional) `db.filter` (multiple) → (optional) `db.map` (once) → then `db.filterWithFallback`, `db.mapWithFallback`, `db.sort` in any order → finally execute (`db.toArray`, `db.toStream`, etc.)
+Valid sequence: `db.head/all/query` → (optional) `db.filter` (multiple) → (optional) `db.map` (once) → then `db.filterWithFallback`, `db.mapWithFallback`, `db.sort` in any order → finally execute (
+`db.toArray`, `db.toStream`, etc.)
 
 `db.map` cannot follow `db.filterWithFallback` (use `db.mapWithFallback` instead).
 
 ### Live Queries
 
 Live queries via the `messaging` module. Syntax:
+
 ```
 live cell q = db.head() |> db.filter(.entity == "news") |> db.toArray
 ```
+
 `db.head`, `db.all`, or `db.query` must appear directly on the right-hand side of `live cell`.
 
 ### References
 
-`db.makeRef("")` → null; `db.makeRef(id)` → `db.ref(id)`. Use `db.stringRef` to extract ID. `db.isRef` checks if value is reference. JSON encoding: `{"_rmx_type": "{tag}case:db.ref", "_rmx_value": "<id>"}`.
+`db.makeRef("")` → null; `db.makeRef(id)` → `db.ref(id)`. Use `db.stringRef` to extract ID. `db.isRef` checks if value is reference. JSON encoding:
+`{"_rmx_type": "{tag}case:db.ref", "_rmx_value": "<id>"}`.
 
 ---
 
@@ -211,7 +219,8 @@ Key differences from the old db module:
 
 1. **Functions moved into module**: `db_save` → `db.save`, `db_save_one` → `db.saveOne`, etc.
 
-2. **`query` is no longer a stream**: Must call `db.toStream`, `db.toArray`, `db.first`, etc. to execute. Old style `db.head() | stream.map(...)` no longer works — insert `db.toStream` before stream operations.
+2. **`query` is no longer a stream**: Must call `db.toStream`, `db.toArray`, `db.first`, etc. to execute. Old style `db.head() | stream.map(...)` no longer works — insert `db.toStream` before stream
+   operations.
 
 3. **No auto-fallback in `db.filter`**: Unsupported ops (e.g. `>=`) cause compile-time error. Use `db.filterWithFallback` or convert to stream first.
 
@@ -220,7 +229,8 @@ Key differences from the old db module:
    db.head() |> db.map(_ -> db.eval(query.cloneMembersWithExpansion)) |> db.toStream
    ```
 
-5. **`db.map` projection pushdown**: Field accesses in map projections are executed by db engine; non-field-access parts run in Mix. Deep field accesses and dbref traversal supported in projections (not in filters yet).
+5. **`db.map` projection pushdown**: Field accesses in map projections are executed by db engine; non-field-access parts run in Mix. Deep field accesses and dbref traversal supported in projections (
+   not in filters yet).
 
 6. **Live query simplification**: Just use `live cell` — the db query is detected automatically. No extra wrapping needed.
 
@@ -231,17 +241,21 @@ Key differences from the old db module:
 > Source: [dbRemote](https://www.notion.so/1061d464528f81ceb14cc634b40da637)
 
 Provides same CRUD operations as `db` but forces HTTP protocol. Database parameter must be:
+
 ```
 { "type": "rmx_remote", "url": "baseURL", "db": "dbname" }
 ```
+
 Create via `db.remoteDB("baseURL", "dbname")`. Alternatively, use corresponding `db.*` functions directly with a remote database value — `dbRemote` functions are the explicit HTTP-only variants.
 
 Additional function:
+
 ```
 def queryASTToStream : db.database -> array(data) -> bool -> bool -> stream(db.record)
 ```
 
 **Limitations vs local db:**
+
 - Live queries (db subscriptions): not supported
 - Requires appropriate server privileges
 
@@ -252,6 +266,7 @@ def queryASTToStream : db.database -> array(data) -> bool -> bool -> stream(db.r
 > Source: [minidb](https://www.notion.so/1061d464528f81b18087c5c5b68df646) — *Note: marked "Not yet merged" at time of doc*
 
 ### Characteristics
+
 - Session-only — not persisted to disk
 - No indexes except `_rmx_id` — suited for small datasets only
 - Pure Mix implementation — works in WebAssembly mode
@@ -286,21 +301,25 @@ module end
 ### Usage
 
 Use `minidb.DB` (= `{ "type": "minidb" }`) as the database param with any `db.*` function:
+
 ```
 db.head(minidb.DB) |> db.filter(r -> r.name == "Vijay") |> db.toArray
 ```
 
 **Populate** — fast load from previous session export (do not use with records from the regular DB):
+
 ```
 minidb.populate(_, previousRecords)
 ```
 
 **Copy from regular DB** (IDs change on save):
+
 ```
 db.head() |> db.filter(r -> r.entity?) |> db.toStream |> db.save(minidb.DB)
 ```
 
 **Transactions:**
+
 - `minidb.commit` — accept current changes
 - `minidb.rollback` — drop changes since last commit
 - `committedRecords` — last committed state
@@ -387,15 +406,16 @@ Example: `.field == "foo"` → `q.eq("field", "foo")`
 - `objectMember(null, "fieldname")` — access field from current record; nest for deep access
 - `followRef(valueAst)` — follow db reference to full record
 - `object([...])` — create new object from members:
-  - `cloneMembers` — copy all current fields
-  - `cloneMembersWithExpansion` — copy + expand all refs recursively
-  - `assignMember("key", valueAst)` — set field
-  - `removeMember("key")` — remove field
+    - `cloneMembers` — copy all current fields
+    - `cloneMembersWithExpansion` — copy + expand all refs recursively
+    - `assignMember("key", valueAst)` — set field
+    - `removeMember("key")` — remove field
 - `scalarIndexed(v)` / `scalarFallback(v)` — typed scalar values
 - `listIndexed(a)` / `listFallback(a)` — typed lists
 - `invoke("funcName", [args])` — db engine function (e.g. `invoke("count", [])`)
 
 Example: projection `{ cde: { *, -bar } }`:
+
 ```
 q.object([q.assignMember("cde", q.object([q.cloneMembers, q.removeMember("bar")]))])
 ```
@@ -409,6 +429,7 @@ q.object([q.assignMember("cde", q.object([q.cloneMembers, q.removeMember("bar")]
 ### Using ASTs
 
 Three ways to use AST nodes:
+
 1. Inside `db.filter(r -> db.eval(q.afterWatermark(wm)))` — filter AST at right place
 2. Inside `db.map(r -> db.eval(q.object([...])))` — projection AST
 3. Directly via `db.process(ast)` or `db.processPipeline([ast1, ast2])` in the pipeline
@@ -432,7 +453,8 @@ module end
 
 First arg: optional DB name (`null` = current DB). Second arg: resource name. `bundleUrl` takes path inside bundle as third arg.
 
-**Storage:** Resources stored as `_rmx_type == "resource"` records in DB during development. At compile time, a `resource.json` snapshot is created. At runtime, only `resource.json` is read. URLs are environment-specific: `https://` on web, `file://` in widgets.
+**Storage:** Resources stored as `_rmx_type == "resource"` records in DB during development. At compile time, a `resource.json` snapshot is created. At runtime, only `resource.json` is read. URLs are
+environment-specific: `https://` on web, `file://` in widgets.
 
 ---
 
@@ -461,6 +483,7 @@ registry.find(k) |> type(any) |> (some(myFn(f)) -> f | _ -> fail("not found"))
 ```
 
 **`addOnce`** — stores only on first call (subsequent calls are no-ops for the same invocation site). Use for module-level singletons like sequence generators:
+
 ```
 private def key = registry.addOnce(genstored(gentype(stream.enumUnbound())))
 ```

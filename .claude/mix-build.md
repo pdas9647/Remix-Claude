@@ -8,6 +8,7 @@
 ## Library vs Executable
 
 Both are compiled Mix artifacts stored as DB records. Distinguished by `_rmx_type`:
+
 - `"library"` — reusable compiled module set
 - `"executable"` — runnable program (has `isexe` flag in header)
 
@@ -81,13 +82,13 @@ mixc -app myapp -url http://localhost:8001 -clean
 - Every library and executable depends on the **stdlib** (built into `mixc`)
 - `lib_stdlib` identifies the stdlib version; updating the compiler → rebuild all libs
 - When importing a module not in source: compiler searches all compatible libs in DB
-  - All libs with same compiler version are searched
-  - Higher version number + same name shadows lower versions
-  - Ties are undefined (avoid having the same module in two libs)
+    - All libs with same compiler version are searched
+    - Higher version number + same name shadows lower versions
+    - Ties are undefined (avoid having the same module in two libs)
 - Dependencies are recursive but never circular
 - Linking: only libs actually referenced in source are linked into executable
-  - Use a bare `import M` (without doing anything with it) to force-link a lib
-  - `declare` is **not** sufficient to force-link
+    - Use a bare `import M` (without doing anything with it) to force-link a lib
+    - `declare` is **not** sufficient to force-link
 
 ---
 
@@ -104,6 +105,7 @@ mixc -app myapp -url http://localhost:8001 -clean
 ## Track API — Creating Libraries
 
 Via `msg_compile_store` (deprecated — see incremental build doc):
+
 ```json
 {
   "_rmx_type": "msg_compile_store",
@@ -112,6 +114,7 @@ Via `msg_compile_store` (deprecated — see incremental build doc):
   "options": { "lib_create": true, "lib_name": "foo", "lib_version": 20180328121314 }
 }
 ```
+
 On success, `_rmx_id` of new library in the `executable` field of the response.
 
 ---
@@ -119,6 +122,7 @@ On success, `_rmx_id` of new library in the `executable` field of the response.
 ## Inspecting lib_header
 
 To find module params from a library:
+
 - Decode `lib_header` string as JSON
 - Look in `provides` array: `[{ modiname: "ModName", modiparams: [{ mpname, mptyp, mpserializable }] }]`
 - `mptyp` is the Mix type as string; `mpserializable` = true means data param (vs function)

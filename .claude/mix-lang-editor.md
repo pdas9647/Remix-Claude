@@ -6,7 +6,7 @@
 > - [editor-screen](https://www.notion.so/1061d464528f81dea0d3d7ef8eb5a157)
 > - [editor-types](https://www.notion.so/1061d464528f815a9b59eca2599c6b7e)
 > - [reflect](https://www.notion.so/1ec2708f02674490843320f09c45ed20)
-> Parent: [The Mix Standard Library](https://www.notion.so/1061d464528f8010b0cfc60836c20290)
+    > Parent: [The Mix Standard Library](https://www.notion.so/1061d464528f8010b0cfc60836c20290)
 
 ---
 
@@ -15,29 +15,36 @@
 > Source: [dom](https://www.notion.so/1061d464528f81e4b0b6f274bd0e53be) (since PR 781/786)
 
 ### DOM Literal Syntax
+
 ```
 { _rmx_type: "dom_group",
   props: { style: { color: "red" }, events: { onClick: handler }, key: val },
   children: [ ... ]
 }:dom
 ```
+
 - `_rmx_type` must be a literal string.
 - `style` and `events` inside `props` should be literal objects, or `domProps` values from `dom.propertyMap`.
 - Children can be a literal array or a factored-out variable.
 - **Do NOT transmit `dom` values between sessions** — symbol table is session-local.
 
 ### `sync cell`
+
 ```
 sync cell x = <dom expression>
 ```
+
 Special cell containing DOM, transmitted to client via sync protocol. When referenced from another cell, produces a **cell reference** rather than inlining the DOM:
+
 ```
 cell y = { _rmx_type: "dom_group", children: [x] }:dom
 // y contains a cell reference to x, not x's DOM directly
 ```
+
 `domUtil.restore(y)` → `{_rmx_type:"dom_group", children:[{_rmx_type:"cell", index:<n>}]}`
 
 ### Property Lists
+
 ```
 dom.propertyEmpty : domProps
 dom.propertyMap : map(data) -> domProps      // creates domProps (has some cost vs literals)
@@ -46,6 +53,7 @@ dom.restoreProperties : domProps -> map(data)
 ```
 
 ### Create Dynamically
+
 ```
 dom.empty : dom                              // missing/null DOM
 dom.createNode : string -> map(data) -> map(data) -> map(data) -> map(data) -> map(data) -> array(dom) -> dom
@@ -57,6 +65,7 @@ dom.createTree : data -> dom                 // slowest; converts whole nested o
 ```
 
 ### Access
+
 ```
 dom.children : dom -> array(dom)
 dom.rmxType : dom -> string
@@ -64,12 +73,14 @@ dom.props / dom.style / dom.events : dom -> domProps
 ```
 
 ### Serialize (session-local symbol references)
+
 ```
 dom.toStream / dom.toArray : dom -> number* / array(number)
 dom.fromStream / dom.fromArray : number* / array(number) -> dom
 ```
 
 ### Helpers
+
 ```
 dom.isDom : data -> bool
 dom.toDom : data -> option(dom)      // typed as dom if true
@@ -77,12 +88,15 @@ dom.isEmpty / dom.isNode / dom.isCellRef : data -> bool
 ```
 
 ### Symbol Table
+
 Constants and accessors for low-level DOM serialisation format:
+
 - Control symbols: `emptyControlSymbol`, `firstChildControlSymbol`, `nextChildControlSymbol`, `endChildControlSymbol`, `dynamicControlSymbol`, `singleCellRefControlSymbol`
 - `numControlSymbols`=16, `numIntegerLiterals`=2001 (0–2000), `symbolOffset`=2048, `integerOffset`=16
 - `dom.symbolNumber(n)` — symbol for integer n; `dom.symbol(d)` — symbol for any data; `dom.lookup(sym)` — value for symbol
 
 ### `domUtil`
+
 ```
 domUtil.deref : dom -> dom                             // follow cell references
 domUtil.restore : dom -> data                          // dom → conventional object (recursive)
@@ -97,27 +111,34 @@ domUtil.restoreArrayIf : bool -> array(dom) -> array(data)
 > Source: [dom-sync-compress](https://www.notion.so/1061d464528f8112bf01fd7c1d32e2f6)
 
 ### `sync cell` keyword
+
 Marks a `dom`-typed cell for automatic synchronization to the client:
+
 ```
 sync cell p = {_rmx_type:"foo"}:dom    // value must be dom type
 ```
+
 - When content changes, the cell is retransmitted automatically
 - When a `sync cell` is referenced in another cell, it's included **by reference** (as `{_rmx_type:"cell", index:N}`), not by value — only the referenced cell is re-sent on change
 - Requires `syncProtocol: 1` in `msg_session_create` to enable
 
 ### Enabling sync in session creation
+
 ```json
 { "_rmx_type": "msg_session_create", "syncProtocol": 1, ... }
 ```
 
 ### Protocol messages
+
 - `$sync = [sheet, index1, value1, index2, value2, ...]` — transmits new cell contents as arrays of symbols for a named spreadsheet
 - `$syncSwitch = "view-N"` — switches current spreadsheet (top of viewstack); bare cell refs use this as target sheet
 - `$syncDrop = "view-N"` — drops a closed spreadsheet (when popping views)
 - `$symbols = [v1, v2, ...]` — extends the symbol table; values can be: scalars, `{literal:[...]}` wrapped arrays/maps, or key/value lists (alternating key/val symbol pairs for static props)
 
 ### Symbol encoding
+
 Symbols ≥ 2048 → index into symbol table (offset 2048). Range 16–2016 → integer literals (16=0, 17=1, ...). Range 0–15 → control symbols:
+
 - `0` = empty DOM node (`dom.empty`)
 - `1` / `2` / `3` = firstChild / nextChild / endChildren markers
 - `4` = dynamic properties/styles/events follow
@@ -276,16 +297,20 @@ module end
 
 ### Key Notes
 
-**Module names (since PR1213):** `modules()` returns qualified names like `foo-20221213@abcdef.M`. Pass these to `moduleInfo`. The `space` field: `modPhysical` for real modules; `modScreen/modAgent/modComponent` for meshes.
+**Module names (since PR1213):** `modules()` returns qualified names like `foo-20221213@abcdef.M`. Pass these to `moduleInfo`. The `space` field: `modPhysical` for real modules;
+`modScreen/modAgent/modComponent` for meshes.
 
 **`reflect.spreadsheet(filter)`** → map of cell records:
+
 ```
 { "cellName": { value, mode, mixName, meta, fullName, frozen, dependsOn, aliasOf } }
 ```
+
 - `mode`: `"in"` (var), `"out"`, `"prop"` (private propagating), etc.
 - Use `reflect.spreadsheet({fullName: cellName(x)})` to query a specific cell.
 
-**`reflect.push(name, params)`** — navigate to a screen by name dynamically. Returns value when the pushed screen is popped. Can fail if: name unknown, wrong param count, non-serializable params, or module too simple.
+**`reflect.push(name, params)`** — navigate to a screen by name dynamically. Returns value when the pushed screen is popped. Can fail if: name unknown, wrong param count, non-serializable params, or
+module too simple.
 
 **`reflect.decomposeCase(v)`** → `some(["caseName", some(arg)])` or `null` if not a case value. E.g. `decomposeCase(some(123))` → `some(["some", some(123)])`.
 
@@ -294,6 +319,7 @@ module end
 **`reflect.moduleCheck(v)`** — returns `some({name: "X"})` if `v` is a module instance, otherwise `null`.
 
 **Spreadsheet statistics** (`reflect.statistics()`):
+
 ```
 { cells, inCells, outCells, propCells, undefCells, frozenCells,
   redefinitions, aliases, updates, outputs, inversions, actionClosures }
@@ -349,6 +375,7 @@ module end
 A **slate** is a live screen built from simple elements without compilation. Defined via a `mesh`.
 
 ### Types
+
 ```
 type node / nodeType / mesh
 type screenParam = { name: string, vty: editorTypes.visualType, value: data }
@@ -357,6 +384,7 @@ case mandatoryValue   // PR1363: marks required inputs (runtime error if left un
 ```
 
 ### Create Mesh & Nodes
+
 ```
 createMesh() → mesh
 createScreenParams(m, [screenParam])  → node   // in-params tile (one per mesh)
@@ -374,6 +402,7 @@ createNode(m, nodeType, comment) → node  // generic; use n[#nodeType] to dupli
 ```
 
 ### Labels
+
 ```
 addLabel(m, node, label)          // node can have multiple labels; label moved if reused
 renameLabel(m, oldLabel, newLabel)
@@ -382,6 +411,7 @@ lookupMatch(m, pattern) → array(node)  // pattern supports "*" wildcard (not d
 ```
 
 ### Wire / Unwire
+
 ```
 // Wire (inNode.inBinding ← outNode.outBinding)
 connectInWithOut(m, inNode, inBd, outNode, outBd)
@@ -396,6 +426,7 @@ disconnectNodes / disconnectNodesLabel(m, node1, node2)
 ```
 
 ### Compose, Transform, Export
+
 ```
 addMesh(m1, labelPrefix, m2)         // add copy of m2 into m1; labels prefixed with "prefix."
 strip(m) → mesh                      // clean up: eliminate disconnect log
@@ -428,14 +459,17 @@ module end
 ```
 
 - `register(appstate, screenName, mesh)` — screen becomes navigable; appears in `reflect.screens()`. Re-registering overrides for new pushes only. Slower than compiled screens.
-- `registerWithUpdate(appstate, screenName, mesh, topic)` — also accept live mesh updates via messaging topic (exported mesh as message). Updated mesh should be derived from original (don't create fresh).
+- `registerWithUpdate(appstate, screenName, mesh, topic)` — also accept live mesh updates via messaging topic (exported mesh as message). Updated mesh should be derived from original (don't create
+  fresh).
 - `registerAgent(appstate, agentName, mesh)` — mesh must have output params node.
 - `registerComponent(appstate, compName, mesh)` — mesh must have screen card + output params node.
 
 ### `loadCollections`
+
 ```
 loadCollections(appstate, sources, collections)
 ```
+
 - `sources`: `{ collectionName: {type:"rmx", scope:"global", db:"bar"} }` (optionally + `library` field)
 - Since PR1430: collection name can be `<dbname>/<libname>` shorthand.
 - After load, components are available for `createComponentInstance` / `createComponentInstanceV2`.
@@ -519,13 +553,16 @@ toStreamPairs(c) → stream([key, val])
 > Source: [viewstack](https://www.notion.so/1061d464528f819e83a0e22a35b2dde7)
 
 ### AppViewRequest
+
 Create with `appView M(p1,p2)` syntax, or dynamically:
+
 - `dynamicAppView(name, params)` — screen if called from screen, agent if from agent
 - `screenAppView / moduleAppView / agentAppView(name, params)` — explicit type (PR1201)
 - `currentAppView()` — request that created the current view (runtime only)
 - `entryRedirection(req)` / `screenRedirection(screenName, req)` — route via `_rmx_entry` (PR1404)
 
 ### Stack Manipulation (immediate effect)
+
 ```
 load(req)                                    // replace entire stack with new view
 push(req) → data                             // push new view; returns pop value
@@ -541,12 +578,14 @@ refresh()                                    // recompute cells using onRefresh
 ```
 
 ### Invisible View Manipulation
+
 ```
 drop(k)       // remove view at index k (k >= 1)
 swap(j, k)    // swap views at indices j and k
 ```
 
 ### Inspection
+
 ```
 length() → number         // always >= 1
 get(k) → data             // description of view at index k
@@ -555,13 +594,16 @@ currentViewId() → string
 ```
 
 ### Schedule Actions
+
 ```
 schedule(action, arg)    // inherits FG/BG from caller
 scheduleFG / scheduleBG(action, arg)
 ```
+
 Useful for triggering loops via `on` — each scheduled action is a new user interaction.
 
 ### Embedded Views
+
 ```
 embed(req) → embeddedView
 embedWithOptions(req, {trace:bool}) → embeddedView
@@ -575,6 +617,7 @@ selfTerminate(appstate)             // terminate own embedded viewstack (PR1657)
 ```
 
 ### Embedded Compiler Sessions (PR909)
+
 ```
 embedCompiler({baseURL, app, token, options}) → embeddedView
 getSessionOfRemote(ev) → track.sid
@@ -584,6 +627,7 @@ logMessages(ev) → stream(data)
 ```
 
 ### Propagation
+
 ```
 propagate(appstate)   // force immediate cell propagation mid-action
 flush(appstate)       // propagate + flush output buffers to client
@@ -607,6 +651,7 @@ debugMirror(app, channel) → stream(data)    // DOM output of target app
 **Opening a debug channel:** append `?_rmx_debugChannel=xyz` to any app URL, or send `cmd_debugChannel_enable("xyz")` via `track.msgViewInvoke`.
 
 **Command builders** (pass result to `debugCommand`):
+
 - Profile: `cmd_profile_enable/disable/clear/get/save/status`
 - Trace: `cmd_trace_enable/disable/status/setLevels/getLevels`
 - Stats: `cmd_stats_clear/get/get_clear`

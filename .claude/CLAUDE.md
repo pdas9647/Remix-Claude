@@ -50,16 +50,27 @@ Full Notion sub-page hierarchy: [NOTION-INDEX.md](./NOTION-INDEX.md)
 - [remix-nodes.md](./remix-nodes.md) — Remix Studio User Guide, Nodes section: In Params/Out Params (reorder bindings, agent error out-params), Cards & Components (style units, text input
   debounce, headless components, triggered components), File Uploading (Local File Controller, accept/multiple props, directory drop), Data Objects/Values/Transforms (Join node), Queries (QB 2.0,
   DB architecture, 3 query methods, Mix API, HTTP endpoint, live query, index-capable ops, history), Query Syntax (full filter/projection/aggregation/calculation reference), Actions (File Register,
-  Agent Connect tiles: Service/Local/Amp types, Api node: token/multipart/client-side, Database Save/Delete), Service Agent modules ("Edit Cloud Server" navbar button, preview server vs installed workspace)
+  Agent Connect tiles: Service/Local/Amp types, Api node: token/multipart/client-side, Database Save/Delete), Service Agent modules ("Edit Cloud Server" navbar button, preview server vs installed
+  workspace)
 - [server-apis.md](./server-apis.md) — Auth integrations (OAuth/OIDC/Apple/SFDC plugin config, callback URLs, token storage, auth0 setup), Legacy Platform Server API (document CRUD, queries,
   app management, multi-app actions, .remix file endpoints, files API, agents/webhooks/lambda, resources, auth/token endpoints), Cloud Agent Server API (workspace/app management, agent execution,
   cloud queries, permissions, cloud topic subscription, .remix generation), Cloud Agent Server v1 API (workspace/app/agent introspection, permissions CRUD, files, signals, workspace import/export)
-- [mix-agent.md](./mix-agent.md) — Mix special agents (in static-agents.mixexe): `_rmx_sessionAgent` (compiler+VM session driver: compilerOptions/database/variant/localAgentsConfig params, MQTT control via sessionTopic/machineTopic, msg_compile_runPhrases, idle action pattern), `_rmx_agentAgent` (on-demand agent VM spawner, used by sessionAgent), `_rmx_makeAgent` (build agent: targetLibs/targetExe/targetStandaloneExes, sources/database/filestore input, full deploy pipeline with deployMode/deployToServer/storeRemixFile)
-- [mix-screen.md](./mix-screen.md) — Mix special screens: `_rmx_auth` (auth flow, params: reqName/reqParams/authRequest), `_rmx_error`/`_rmx_errorFallback` (error recovery, enable_error_page client var), `_rmx_entry` (external request interceptor, entryRedirection PR1404), `_rmx_debugShell` (test automation stub)
-- [mix-driver.md](./mix-driver.md) — Mix `driver` extra core library: `compilerRule` (build rule records: rule/ruleContent/scanFilter types, scan/load/save/delete/makeLibRule/saveLibRule/getExeRuleHash)
-- [mix-build.md](./mix-build.md) — Mix build system: library/executable DB record format (name+version+hash, lib_header/lib_stdlib/dataRef), mixc CLI (mklib/ldd/list-libs/clean), dependency rules (stdlib versioning, compatible lib search, force-link with import), track API for library creation, inspecting lib_header params
-- [mix-type.md](./mix-type.md) — Mix type system: type hierarchy (null/bool/number/string/word/data/any/undefined), type variables (unconstrained/anonymous/constrained), type definitions (aliases with params), case/union types, type hints (compile-time, no code) vs type assertions (type(T)/runtime check, data-range only), labeled tuples (require type def, labels compile-time only), word/data/any upcasting/downcasting, + operator overloading, typed queries pattern (type() at end), locally polymorphic types (~forall, since PR#1424)
-- [mix-syntax.md](./mix-syntax.md) — Mix language syntax reference: modules/imports, cells (var/private/live/alias), initializers, observers (on/when/cellUpdated/cellChanged), defs (functional/recursive/foreign), statements (let/var/if/switch/while/for/assignments), actions (appstate), expressions (let alias/do/if/undefined/literals/lambda/currying/try/operators), patterns (destructure/cases/data types/guards/@-capture/~multiple), types, cases (union/inverse ^), short projections; PLUS: stmt-vs-expr rules (what's forbidden in exprs, do blocks, appstate cell mutation), undefined semantics (bubbling/Kleene &&||/filters/JSON serialization), operator semantics (null handling/== deep equality/ordering/datacase/debug)
+- [mix-agent.md](./mix-agent.md) — Mix special agents (in static-agents.mixexe): `_rmx_sessionAgent` (compiler+VM session driver: compilerOptions/database/variant/localAgentsConfig params, MQTT
+  control via sessionTopic/machineTopic, msg_compile_runPhrases, idle action pattern), `_rmx_agentAgent` (on-demand agent VM spawner, used by sessionAgent), `_rmx_makeAgent` (build agent:
+  targetLibs/targetExe/targetStandaloneExes, sources/database/filestore input, full deploy pipeline with deployMode/deployToServer/storeRemixFile)
+- [mix-screen.md](./mix-screen.md) — Mix special screens: `_rmx_auth` (auth flow, params: reqName/reqParams/authRequest), `_rmx_error`/`_rmx_errorFallback` (error recovery, enable_error_page client
+  var), `_rmx_entry` (external request interceptor, entryRedirection PR1404), `_rmx_debugShell` (test automation stub)
+- [mix-driver.md](./mix-driver.md) — Mix `driver` extra core library: `compilerRule` (build rule records: rule/ruleContent/scanFilter types,
+  scan/load/save/delete/makeLibRule/saveLibRule/getExeRuleHash)
+- [mix-build.md](./mix-build.md) — Mix build system: library/executable DB record format (name+version+hash, lib_header/lib_stdlib/dataRef), mixc CLI (mklib/ldd/list-libs/clean), dependency rules (
+  stdlib versioning, compatible lib search, force-link with import), track API for library creation, inspecting lib_header params
+- [mix-type.md](./mix-type.md) — Mix type system: type hierarchy (null/bool/number/string/word/data/any/undefined), type variables (unconstrained/anonymous/constrained), type definitions (aliases with
+  params), case/union types, type hints (compile-time, no code) vs type assertions (type(T)/runtime check, data-range only), labeled tuples (require type def, labels compile-time only), word/data/any
+  upcasting/downcasting, + operator overloading, typed queries pattern (type() at end), locally polymorphic types (~forall, since PR#1424)
+- [mix-syntax.md](./mix-syntax.md) — Mix language syntax reference: modules/imports, cells (var/private/live/alias), initializers, observers (on/when/cellUpdated/cellChanged), defs (
+  functional/recursive/foreign), statements (let/var/if/switch/while/for/assignments), actions (appstate), expressions (let alias/do/if/undefined/literals/lambda/currying/try/operators), patterns (
+  destructure/cases/data types/guards/@-capture/~multiple), types, cases (union/inverse ^), short projections; PLUS: stmt-vs-expr rules (what's forbidden in exprs, do blocks, appstate cell mutation),
+  undefined semantics (bubbling/Kleene &&||/filters/JSON serialization), operator semantics (null handling/== deep equality/ordering/datacase/debug)
 - [mix-std-lib.md](./mix-std-lib.md) — Mix Standard Library master index: all ~60 module names with 1-line descriptions, links to detail files
 - [mix-lang-core.md](./mix-lang-core.md) — Mix stdlib scalar types & utilities: bool (Kleenean logic), number (arithmetic/math/format/bitsets), string (immutable Unicode,
   split/concat/JSON/patterns), option (null/some), result (error/ok), bitset (integer sets), passThrough (anonymous cells), regex (compile/find/replace/split/templates/lexer)
@@ -88,11 +99,13 @@ Full Notion sub-page hierarchy: [NOTION-INDEX.md](./NOTION-INDEX.md)
   builders for profile/trace/stats/messaging/viewstack/view/testing), testing (startRecording/stopRecording; createTestSequence; snapshots snapshotCreate/Restore/List; replayTest/Visually/
   InSession/AllTests; BRP brpPull/brpInstruct with resume|abort|acceptChange), compiler (type module: libID/library/executable/storedBinary/header/pubMode; formatLibID/parseLibID; blobLoad/Save),
   vm (memstats; preferences; create/destroy connector; outputStream/outputFind; sendCode; load/invoke/introspect_spreadsheet)
-- [mix-lang-advanced.md](./mix-lang-advanced.md) — Mix advanced patterns: recursion (mutual recursion, `recurse`/`recurse2`, cells-can't-recurse), stream mutability (first/skip consume), pattern-matching additions (optional field `?`, limitations), modules advanced (singleton, `currentInstanceId`, `cellSessionScope`/`cellScreenScope`, module type vars, REPL commands)
+- [mix-lang-advanced.md](./mix-lang-advanced.md) — Mix advanced patterns: recursion (mutual recursion, `recurse`/`recurse2`, cells-can't-recurse), stream mutability (first/skip consume),
+  pattern-matching additions (optional field `?`, limitations), modules advanced (singleton, `currentInstanceId`, `cellSessionScope`/`cellScreenScope`, module type vars, REPL commands)
 - [mix-lang-platform.md](./mix-lang-platform.md) — Mix stdlib platform modules: agent (local/remote/persistent descriptors, call options, asUser), auth (emptyToken, signIn/Up, resetPassword via
   auth0), env (runtime identity, hostEnvironment types, base URLs, URL builders, client props), secrets (per-user encrypted storage, OAuth token retrieval, tokenExtra), logging (info/warning/error
   → client console), metrics (timers 0–4, profiling cells/views/actions, tracing spreadsheet/action/pubsub, statistics, Mix event log level, Track API debug commands), co (coroutines
-  create/createFG/exit/yield, channels emit/channelFrom/channelFromEH, error handling apply/onError/applyRaw, sleep/applyWithTimeout, mutexes, consume live cells, pub/sub pubsubCreate/Connect/Subscribe
+  create/createFG/exit/yield, channels emit/channelFrom/channelFromEH, error handling apply/onError/applyRaw, sleep/applyWithTimeout, mutexes, consume live cells, pub/sub
+  pubsubCreate/Connect/Subscribe
   with $workspace/$wsUser/$app/$user/$session topic scopes), embed (show/hide/toggle by group+instance, onclose callback, placeholderStream, dropdown/tabbed pattern), track (amp session control via
   WebSocket: createRemote, msgSessionCreate/Compile/View message builders, response extractors), memo (mutable add/remove container, unique ordered handles, addBy for self-ref, no replacement), random
   (pseudoRandomInt/Float/String seeded at session start, cryptoRandomString for session IDs, predefined alphabet constants), util (withDefault/noDefault global helpers, isDefined/isUndefined,
@@ -111,10 +124,12 @@ Full Notion sub-page hierarchy: [NOTION-INDEX.md](./NOTION-INDEX.md)
 > Full sub-page hierarchy with descriptions: [NOTION-INDEX.md](./NOTION-INDEX.md)
 
 ### Remix Product
+
 - [Remix product](https://www.notion.so/27e1d464528f802291b6d5a093fbc10d) → remix-product.md
 - [Global Task List](https://www.notion.so/1d71d464528f80a69c47d21033bc498c) → remix-product.md
 
 ### Design Zone
+
 - [Glossary](https://www.notion.so/3bea488f743e43f38c4b4c2b44d58000) → glossary.md
 - [Collaboration & Assembly](https://www.notion.so/44d11988dfb24d0ea32fb8871637e72a) → collaboration-assembly.md
 - [Federated Servers](https://www.notion.so/6496884844e74752af5b94d933afb22a) → federated-servers.md
@@ -122,6 +137,7 @@ Full Notion sub-page hierarchy: [NOTION-INDEX.md](./NOTION-INDEX.md)
 - [Design Proposal - L1 catalog assets](https://www.notion.so/13f1d464528f80f4a2ecceedce5a0051) → l1-catalog-assets.md
 
 ### Customer Success Projects
+
 - [Customer Success Projects](https://www.notion.so/26f1d464528f80f3a6fffc1fe4cf294e) — hub page (all workspace IDs)
 - [Funda](https://www.notion.so/26f1d464528f807f9782d5bffc5401a5) → funda.md
 - [Lumber](https://www.notion.so/28c1d464528f801bac72d6c064d30db2) → lumber.md (sub-pages: Workforce Junction, Schema, Job Costing, Payroll)
@@ -131,11 +147,13 @@ Full Notion sub-page hierarchy: [NOTION-INDEX.md](./NOTION-INDEX.md)
 - [Tapped In Interactions](https://www.notion.so/10c1d464528f804bb97fd9f061d7fbf2) → customer-projects-other.md
 
 ### GTM & Content Operations
+
 - [Remix Next GTM](https://www.notion.so/2001d464528f803293aaebc066f1acb4) → remix-product.md
 - [Tasks - Asset Submission Guide](https://www.notion.so/2111d464528f8031a05fd76e687b6379) → remix-infra.md
 - [MCP Tools](https://www.notion.so/2141d464528f8070b79bfdece10ff94f) → remix-tools.md (sub-pages: Tool Prompting, Installation Guide)
 
 ### Library & Content Assets
+
 - [AI agents](https://www.notion.so/2991d464528f8043b82ff22040962cc2) → remix-catalog.md
 - [HubSpot toolkit](https://www.notion.so/1371d464528f809b9f51cf5b4337a137) → hubspot-toolkit.md (sub-pages: assets, OAuth setup, install instructions)
 - [DuckDB](https://www.notion.so/2991d464528f80429000f327b27d8845) → duckdb.md
@@ -145,6 +163,7 @@ Full Notion sub-page hierarchy: [NOTION-INDEX.md](./NOTION-INDEX.md)
 - [Business Profile / About Us Catalog](https://www.notion.so/1051d464528f801e975cc2bf6cd715b9) → remix-dbp-media.md / remix-dbp-components.md / remix-dbp-assembly.md
 
 ### Documentation
+
 - [Remix Documentation (root)](https://www.notion.so/fe31096a438b4f29b103c189bc9a7fb8) — not yet fetched
 - [Getting Started in Remix Studio](https://www.notion.so/1051d464528f8008b584dd33015fd5b3) → glossary.md
 - [User Guides and Tutorials](https://www.notion.so/3e247ff418a94194a8376371117c6bb2) → platform-topics.md / platform-builder.md / federated-servers.md / remix-dbp-assembly.md
@@ -155,9 +174,11 @@ Full Notion sub-page hierarchy: [NOTION-INDEX.md](./NOTION-INDEX.md)
 - [Mix Language docs](https://www.notion.so/259ede6504e34505982dde5dc4b63d10) → mix-std-lib.md + mix-lang-*.md
 - [Mix Syntax](https://www.notion.so/1061d464528f81d492f4e1b0f8c8adf4) → mix-syntax.md
 - [Type system](https://www.notion.so/1061d464528f81c0ba7bdc8fc2ce8556) → mix-type.md
-- [directives](https://www.notion.so/1061d464528f81c08c15e5ae817171ee) → mix-syntax.md (lexing directives #line/#push/#pop, _source_ redirect, ;; double semicolon, all pragmas: warningFilter/autoTypeAssertion/autoMakeStream/autoMakeLink/strictContainerTyping/strictTyping/withCells)
+- [directives](https://www.notion.so/1061d464528f81c08c15e5ae817171ee) → mix-syntax.md (lexing directives #line/#push/#pop, _source_ redirect, ;; double semicolon, all pragmas:
+  warningFilter/autoTypeAssertion/autoMakeStream/autoMakeLink/strictContainerTyping/strictTyping/withCells)
 - [cells](https://www.notion.so/1061d464528f81b7afc2e999931a3c8a) → mix-syntax.md (var/normal/private cell details, visibility rule in defs, cellSelectNotNull/NotUnset, freeze)
-- [cells-links-and-aliases](https://www.notion.so/1061d464528f81cba83fddeb2e80a3af) → mix-syntax.md (links conceptual model, module link params vs data params, shared link pattern, double-link alias syntax)
+- [cells-links-and-aliases](https://www.notion.so/1061d464528f81cba83fddeb2e80a3af) → mix-syntax.md (links conceptual model, module link params vs data params, shared link pattern, double-link alias
+  syntax)
 - [case-types](https://www.notion.so/1061d464528f81dcaf60cf82adc1d1e9) → mix-syntax.md + mix-type.md (private cases, data compatibility, union constraints, unset)
 - [Builtin operations](https://www.notion.so/1061d464528f81a5a5bbff09ca40f2cf) → mix-syntax.md (operator semantics: null handling, +/-/*/% rules, == deep equality, ordering, datacase, debug)
 - [undefined](https://www.notion.so/1061d464528f81c1bb53e27eb10a9aea) → mix-syntax.md (undefined semantics: bubbling, Kleene &&/||, filters, JSON serialization)
@@ -166,22 +187,29 @@ Full Notion sub-page hierarchy: [NOTION-INDEX.md](./NOTION-INDEX.md)
 - [styleguide](https://www.notion.so/1061d464528f819099d2e81ae669855d) → mix-syntax.md (indentation rules, bracket layout, function call formatting, comma rules, let sequences)
 - [actionclosures](https://www.notion.so/1061d464528f818cb833fd55e9077e77) → mix-syntax.md (serialized format msg_view_invoke, chain of actions API, closures as agent entry points)
 - [examples](https://www.notion.so/1061d464528f815fad1ed849ced729c1) → mix-lang-advanced.md (db.all vs db.head distinction, def redefinition scoping behavior)
-- [escjson](https://www.notion.so/1061d464528f8110aae4ef61230e4783) → mix-lang-advanced.md (full tag reference: bin/undefined/nan/posinf/neginf/int/float/bool, blob generator, case format; canonical db ref = {tag}case:db.ref)
-- [embedding-viewstacks](https://www.notion.so/1061d464528f81a7a3a0e65bf1f509f6) → mix-lang-advanced.md (secondary viewstack: embed/terminate/cellMessages, DOM stream filtering, co.consumeWithActions live cell pattern, embed/replace action template)
+- [escjson](https://www.notion.so/1061d464528f8110aae4ef61230e4783) → mix-lang-advanced.md (full tag reference: bin/undefined/nan/posinf/neginf/int/float/bool, blob generator, case format; canonical
+  db ref = {tag}case:db.ref)
+- [embedding-viewstacks](https://www.notion.so/1061d464528f81a7a3a0e65bf1f509f6) → mix-lang-advanced.md (secondary viewstack: embed/terminate/cellMessages, DOM stream filtering, co.consumeWithActions
+  live cell pattern, embed/replace action template)
 - [screen-rmx-init](https://www.notion.so/1061d464528f81fda16dc22e3f0ab4b0) → platform-builder.md (_rmx_init module: global app init on startup, p.reqName/reqParams, runs before _rmx_entry)
-- [links](https://www.notion.so/1061d464528f8159bc12ea2ae03ecbad) → mix-lang-advanced.md (link doesn't create dependency, assign to link vars, inCellName, dependentLink, mapLinkArray, no links between views)
-- [json-changes](https://www.notion.so/1061d464528f817aacb5db1a7d575617) → mix-lang-advanced.md ({tag} escape format, formatEscJSON/parseEscJSON, db refs, _escJSON_ notation, Track protocol escape behavior)
+- [links](https://www.notion.so/1061d464528f8159bc12ea2ae03ecbad) → mix-lang-advanced.md (link doesn't create dependency, assign to link vars, inCellName, dependentLink, mapLinkArray, no links between
+  views)
+- [json-changes](https://www.notion.so/1061d464528f817aacb5db1a7d575617) → mix-lang-advanced.md ({tag} escape format, formatEscJSON/parseEscJSON, db refs, _escJSON_ notation, Track protocol escape
+  behavior)
 - [imperative](https://www.notion.so/1061d464528f81de9e27c7f475f0071a) → mix-lang-advanced.md (outdated page; effects-cannot-escape constraint: def with var cannot return function)
 - [gettingstarted](https://www.notion.so/855fbfd7dc8140269ed3a30224acf692) → mix-lang-advanced.md (comments // and /* */); remix-tools.md (mix_client binary install + rlwrap usage)
 - [recursion](https://www.notion.so/1061d464528f81a793f6f06a4c38da21) → mix-lang-advanced.md (mutual recursion, recurse/recurse2 combinators, cells cannot be recursive)
 - [programming-with-streams](https://www.notion.so/1061d464528f8145b58dfe16d3c998c5) → mix-lang-advanced.md + mix-lang-stream.md (stream mutability, O(1) ++, recursive stream patterns)
 - [pattern-matching](https://www.notion.so/1061d464528f8155b917f627971aafb9) → mix-lang-advanced.md (optional field `key?:v`, var not supported, no pattern in def args)
-- [modules](https://www.notion.so/1061d464528f813c927efa13f30e9e65) → mix-lang-advanced.md (singleton static module, cellSessionScope/cellScreenScope, currentInstanceId, module type vars [A], REPL #load/#push/#input)
+- [modules](https://www.notion.so/1061d464528f813c927efa13f30e9e65) → mix-lang-advanced.md (singleton static module, cellSessionScope/cellScreenScope, currentInstanceId, module type vars [A], REPL
+  #load/#push/#input)
 - [Libraries-and-executables](https://www.notion.so/1061d464528f81edb8f2f39d035c38f7) → mix-build.md (library/executable DB records, mixc CLI, dependency rules, lib_header, track API)
 - [dom-sync-compress](https://www.notion.so/1061d464528f8112bf01fd7c1d32e2f6) → mix-lang-editor.md (sync cell keyword, $sync/$syncSwitch/$syncDrop protocol, symbol table encoding)
-- [agent-sessionAgent](https://www.notion.so/1061d464528f817d9ae0db9dda6c6b0f) → mix-agent.md (_rmx_sessionAgent: compiler+VM session driver, MQTT protocol, msg_compile_runPhrases, idle action, issue format)
+- [agent-sessionAgent](https://www.notion.so/1061d464528f817d9ae0db9dda6c6b0f) → mix-agent.md (_rmx_sessionAgent: compiler+VM session driver, MQTT protocol, msg_compile_runPhrases, idle action, issue
+  format)
 - [agent-agentAgent](https://www.notion.so/1061d464528f8183bb27d729af8358b4) → mix-agent.md (_rmx_agentAgent: on-demand agent VM spawner, used by sessionAgent localAgentsConfig)
-- [agent-makeAgent](https://www.notion.so/1f11d464528f80d7b7fbfba55aecd426) → mix-agent.md (_rmx_makeAgent: build agent; targetLibs/targetExe/sources/database/filestore/deployMode/storeRemixFile; outputs: logs/warnings/errors/builtLibs/remixFile)
+- [agent-makeAgent](https://www.notion.so/1f11d464528f80d7b7fbfba55aecd426) → mix-agent.md (_rmx_makeAgent: build agent; targetLibs/targetExe/sources/database/filestore/deployMode/storeRemixFile;
+  outputs: logs/warnings/errors/builtLibs/remixFile)
 - [_rmx_auth](https://www.notion.so/1821d464528f802a877be36fb7b69fdb) → mix-screen.md (_rmx_auth screen protocol: reqName/reqParams/authRequest params, Trigger User Sign-In, navigate back)
 - [screen-rmx-error](https://www.notion.so/1061d464528f813a889ae582452bbf64) → mix-screen.md (_rmx_error/_rmx_errorFallback: enable_error_page client var, message+details params, recovery patterns)
 - [screen-rmx-entry](https://www.notion.so/1061d464528f813792f3c132856512a5) → mix-screen.md (_rmx_entry: external request interceptor, reqName/reqParams, entryRedirection since PR1404)
@@ -191,11 +219,14 @@ Full Notion sub-page hierarchy: [NOTION-INDEX.md](./NOTION-INDEX.md)
 - [driver-compilerFile](https://www.notion.so/1061d464528f81239450ed3112cf974c) → mix-driver.md (compilerFile: file/fileContent/scanFilter types, scan/load/save/make via session)
 - [driver-compilerLib](https://www.notion.so/1061d464528f8150a0ffc79f50b4fc16) → mix-driver.md (compilerLib: library/libraryInDB/libraryAtTopic, scan/load/save/strip/publish/closure)
 - [driver-compilerExe](https://www.notion.so/1061d464528f816aabfae867d32f1519) → mix-driver.md (compilerExe: executable/executableInDB/executableAtTopic, scan/load/save/publish/createExeFromLibs)
-- [driver-compilerDriver](https://www.notion.so/1061d464528f81c99495c44203b5ecec) → mix-driver.md (compilerDriver: options/config/session/res(T) types, createSession/compilePhrases/compileModules/imports/saveLibrary/saveExecutable/pubConfig)
+- [driver-compilerDriver](https://www.notion.so/1061d464528f81c99495c44203b5ecec) → mix-driver.md (compilerDriver: options/config/session/res(T) types,
+  createSession/compilePhrases/compileModules/imports/saveLibrary/saveExecutable/pubConfig)
 - [driver-compilerREPL](https://www.notion.so/1061d464528f81f08bd0c528f7b07fde) → mix-driver.md (compilerREPL: sendCodeFromCompiler/eval — compile+send phrases to VM via connector)
 - [driver-compilerClean](https://www.notion.so/1061d464528f81858188f7ae55868e2e) → mix-driver.md (compilerClean: stub, no API documented yet)
-- [driver-compilerBuild](https://www.notion.so/1061d464528f81389251c1c46425fe2d) → mix-driver.md (compilerBuild: mixcOptions/buildRequest/buildProgress types, pipeline builder, execute/execOn/execEmbedImports)
+- [driver-compilerBuild](https://www.notion.so/1061d464528f81389251c1c46425fe2d) → mix-driver.md (compilerBuild: mixcOptions/buildRequest/buildProgress types, pipeline builder,
+  execute/execOn/execEmbedImports)
 - [driver-codegenDriver](https://www.notion.so/1571d464528f8012a46ee165203c279d) → mix-driver.md (codegenDriver: generate Mix source from editor screen records; scanScreens/loadScreen/generate)
 - [driver-codegenUtil](https://www.notion.so/1571d464528f805cbcb8d017c9338563) → mix-driver.md (codegenUtil: mkStylesRecord/mkFileMetaRecord)
 - [driver-remixFile](https://www.notion.so/1571d464528f806dadfecfaa18a004b6) → mix-driver.md (remixFile: build .remix zip; addBinary/addLibrary/addManifest/addRuntime/addAppMeta/pack/clean)
-- [driver-remixRecipe](https://www.notion.so/1571d464528f8034a9a0fa0ad6f090ea) → mix-driver.md (remixRecipe: declarative .remix recipe types — bundle/assets/recipe/patch/fullModule; parameter substitution <<BUNDLE.NAME>>)
+- [driver-remixRecipe](https://www.notion.so/1571d464528f8034a9a0fa0ad6f090ea) → mix-driver.md (remixRecipe: declarative .remix recipe types — bundle/assets/recipe/patch/fullModule; parameter
+  substitution <<BUNDLE.NAME>>)

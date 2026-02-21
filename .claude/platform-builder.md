@@ -244,11 +244,11 @@ Keys namespaced with `rmx-local-data--` prefix.
 
 Three L2 view modes controlling how the nodegraph is presented:
 
-| Mode | Description |
-|------|-------------|
-| **edit** (default) | Regular L2 with all nodes + bindings visible |
-| **run** | Screen node shown fullscreen (used by AI to build a screen) |
-| **configure** | Configurator node shown fullscreen (guided/simpler build experience) |
+| Mode               | Description                                                          |
+|--------------------|----------------------------------------------------------------------|
+| **edit** (default) | Regular L2 with all nodes + bindings visible                         |
+| **run**            | Screen node shown fullscreen (used by AI to build a screen)          |
+| **configure**      | Configurator node shown fullscreen (guided/simpler build experience) |
 
 ### Switching Modes
 
@@ -277,7 +277,8 @@ Designate the **configurator node** via the **footer menu of a card** — same m
 
 > Source: [screen-rmx-init](https://www.notion.so/1061d464528f81fda16dc22e3f0ab4b0)
 
-If the executable contains a module named `_rmx_init`, it is **activated on session startup** before any other screen. Its output is discarded — it is only for running global app initializations. It also runs when an agent is invoked.
+If the executable contains a module named `_rmx_init`, it is **activated on session startup** before any other screen. Its output is discarded — it is only for running global app initializations. It
+also runs when an agent is invoked.
 
 ```
 module _rmx_init(p:data, t:data)
@@ -286,6 +287,7 @@ module end
 ```
 
 Parameters:
+
 - `p.reqName` — name of the initially requested screen or agent
 - `p.reqParams` — array of module parameters for the initial request (typically `[paramObject, transitionObject]`)
 - `t` — always empty object `{}`

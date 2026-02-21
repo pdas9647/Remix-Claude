@@ -84,25 +84,25 @@ module end
 
 `number.format(options, n)` — options object fields:
 
-| Field       | Description                                           | Default        |
-|-------------|-------------------------------------------------------|----------------|
-| `locale`    | Locale (only `en-US` supported so far)                | `en-US`        |
-| `format`    | Pattern string (see below)                            | `"-#.###############"` |
-| `decimal`   | Decimal separator string                              | locale-dependent |
-| `group`     | Group separator string                                | locale-dependent |
-| `plusSign`   | Positive sign string                                  | locale-dependent |
-| `minusSign`  | Negative sign string                                  | locale-dependent |
+| Field       | Description                            | Default                |
+|-------------|----------------------------------------|------------------------|
+| `locale`    | Locale (only `en-US` supported so far) | `en-US`                |
+| `format`    | Pattern string (see below)             | `"-#.###############"` |
+| `decimal`   | Decimal separator string               | locale-dependent       |
+| `group`     | Group separator string                 | locale-dependent       |
+| `plusSign`  | Positive sign string                   | locale-dependent       |
+| `minusSign` | Negative sign string                   | locale-dependent       |
 
 **Pattern characters:**
 
-| Char | Meaning                                                                    |
-|------|----------------------------------------------------------------------------|
-| `+`  | Print plusSign if non-negative                                             |
-| `-`  | Print minusSign if negative                                                |
-| `0`  | Required digit (padded with zero). Only directly before/after decimal.     |
-| `#`  | Optional digit. Before decimal: grouping position. After: max precision.   |
-| `.`  | Decimal separator position                                                 |
-| `,`  | Group separator position                                                   |
+| Char | Meaning                                                                  |
+|------|--------------------------------------------------------------------------|
+| `+`  | Print plusSign if non-negative                                           |
+| `-`  | Print minusSign if negative                                              |
+| `0`  | Required digit (padded with zero). Only directly before/after decimal.   |
+| `#`  | Optional digit. Before decimal: grouping position. After: max precision. |
+| `.`  | Decimal separator position                                               |
+| `,`  | Group separator position                                                 |
 
 Examples: `"-0.00"` → 2 decimal places with minus; `"#,###.0#####"` → grouped thousands, 1-6 decimals; `"+-#,###.00"` with `decimal:","`, `group:"."` → European format.
 
@@ -350,16 +350,16 @@ module end
 
 ### Regex syntax (ERE-based)
 
-| Pattern          | Meaning                                          |
-|------------------|--------------------------------------------------|
-| `.`              | Any char (not newline in `(?m)` mode)            |
-| `[xyz]`/`[^xyz]` | Character class / negated                       |
-| `[[:alpha:]]`    | ASCII class (alnum/alpha/digit/space/upper/lower/word/xdigit/...) |
-| `xy`             | Sequence                                         |
-| `x\|y`           | Alternation (prefer x)                           |
-| `x*`/`x+`/`x?`  | Repetitions (longest match)                      |
-| `x{n,m}`/`x{n,}`/`x{n}` | Bounded repetitions                     |
-| `(re)`           | Capturing group                                  |
-| `(?i)`           | Case-insensitive flag (Wasm VM: beginning only)  |
-| `(?m)`           | Multi-line: `^`/`$` match line boundaries; `.` excludes `\n` |
-| `^`/`$`          | Start/end anchors                                |
+| Pattern                 | Meaning                                                           |
+|-------------------------|-------------------------------------------------------------------|
+| `.`                     | Any char (not newline in `(?m)` mode)                             |
+| `[xyz]`/`[^xyz]`        | Character class / negated                                         |
+| `[[:alpha:]]`           | ASCII class (alnum/alpha/digit/space/upper/lower/word/xdigit/...) |
+| `xy`                    | Sequence                                                          |
+| `x\|y`                  | Alternation (prefer x)                                            |
+| `x*`/`x+`/`x?`          | Repetitions (longest match)                                       |
+| `x{n,m}`/`x{n,}`/`x{n}` | Bounded repetitions                                               |
+| `(re)`                  | Capturing group                                                   |
+| `(?i)`                  | Case-insensitive flag (Wasm VM: beginning only)                   |
+| `(?m)`                  | Multi-line: `^`/`$` match line boundaries; `.` excludes `\n`      |
+| `^`/`$`                 | Start/end anchors                                                 |
