@@ -18,32 +18,38 @@ This file serves as persistent context for working on Remix Labs tasks. When mem
 - [customer-projects-other.md](./customer-projects-other.md) — Orderly (hotel concierge), 5 Star Music (Twilio IVR), Bomisco (LinkedIn→HubSpot), Tapped In (student events, push messaging), all
   workspace IDs
 - [lumber.md](./lumber.md) — Lumber: job costing (lfi_ tables), Workforce Junction (h_ tables), payroll (prl_ 38 tables, 50+ functions), Snowflake migration
-- [remix-product.md](./remix-product.md) — Scope, personas, desktop concepts, pricing/SKU, runtime strategy, sub-page index
+- [remix-product.md](./remix-product.md) — Global Task List (schema/views), desktop design concepts, pricing/SKU, runtime strategy, edge analytics, sub-page index
+- [remix-product-scope.md](./remix-product-scope.md) — First release scope (alignment, key terms, MoSCoW), personas (IT/Builders/Assemblers/Contributors/End Users), self-serve vs CS responsibilities
 - [remix-catalog.md](./remix-catalog.md) — Widget catalog, base catalog (Table Component, Charts), HubSpot research, remix_labs library guidance, connectors (MCP tools), AI agents (
   Anthropic/OpenAI/Gemini + embeddings), GTM patterns, T1/T2 categories
 - [hubspot-toolkit.md](./hubspot-toolkit.md) — HubSpot toolkit: Connector/Configurator/Library/Example apps, asset versions, OAuth setup (required scopes), installation steps, use case scenarios
 - [remix-infra.md](./remix-infra.md) — Auth (workspace-based), Unified Login, Org/System Setup, _rmx_sync (app/group/subscription model, hosting, channel promotion, agent API), _rmx_prefs (3-layer
-  cascade), deeplinks, iOS widget debugging, bug reporting, asset submission, MCP tools, deployment methods (10 surfaces), running .remix files (remix.app/embedded), creating iOS/Android widgets,
-  Remix Tools (Cloud Workspace Tool, Repository Tool)
+  cascade), deeplinks
+- [remix-deploy.md](./remix-deploy.md) — Deployment methods (10 surfaces), self-hosted Remix server (Docker/AWS AMI/Snowpark), running .remix files (remix.app/embedded), creating iOS/Android widgets,
+  iOS widget debugging, iOS Widget & Shortcut Agents (widget/shortcut agent in/out param spec, _rmx_widgets db, timeline, clickable zones)
+- [remix-tools.md](./remix-tools.md) — Bug reporting, asset submission, MCP tools (installation + prompting best practices), Remix Tools (Cloud Workspace Tool, Repository Tool)
 - [remix-snowflake.md](./remix-snowflake.md) — Snowflake/Snowpark spike, reference implementation (Cortex AI), Cortex Search catalog (upsert_record/cortex_search agents), Snowflake workspaces,
   connectors, widgets
 - [duckdb.md](./duckdb.md) — DuckDB catalog: DuckLake attach + query (Parquet-backed), requires Desktop app
 - [oauth.md](./oauth.md) — Third-party OAuth flows for Desktop (popup), Chrome Extension (hosted handler + publish agent), Mobile Widgets (device browser), OAuth Handler library asset
 - [remix-smb.md](./remix-smb.md) — SMB catalog: 3 transaction models (ordering/booking services/booking resources), data model (business/venue/catalog/order), order lifecycle (dual status), UI
   assets (_rmx_drafts library), printer integration, Stripe/getaddress.io integrations
-- [remix-dbp.md](./remix-dbp.md) — Digital Business Profile / About Us catalog: media (video players, galleries, images), data visualization (quote/percentage/bar graph), buttons (
-  simple/complex/appclip
-  share/email+phone), overlay modal, text lists, review assets (Yelp/clipper), forms (lead/contact), banners (4 types), layout, basic info data tile, footers (simple/bottom nav bar), admin contact
-  details (submission list/personal detail), beacon setup (tracking/fetch data), design library on remix-india-beta; Assemble About Us tutorial (workspace/agent setup, screen assembly steps)
-- [platform-topics.md](./platform-topics.md) — Builder/platform mechanics: Web Components (manifest format, hosting, slots), Wasm Functions (manifest, Rust/WASI patterns, mixer wasm build),
+- [remix-dbp-media.md](./remix-dbp-media.md) — DBP media & data visualization: video players (Remix/embedded, overlay variants), video lists, image galleries (hero/no-hero/single-row),
+  images (full screen/caption), data viz (quote component, percentage visualizer, bar graph); design library on remix-india-beta
+- [remix-dbp-components.md](./remix-dbp-components.md) — DBP interactive components: buttons (simple/complex/appclip share/email+phone), overlay modal, text lists, review assets (Yelp/clipper),
+  forms (lead/contact), banners (4 types: back/logo+button/profile/home)
+- [remix-dbp-assembly.md](./remix-dbp-assembly.md) — DBP layout & admin: layout templates, basic info data tile, footers (simple/bottom nav bar), admin contact details (submission list/personal
+  detail), beacon setup (tracking/fetch data), Assemble About Us tutorial (workspace/agent setup, screen assembly steps)
+- [platform-topics.md](./platform-topics.md) — Extension points & security: Web Components (manifest format, hosting, slots), Wasm Functions (manifest, Rust/WASI patterns, mixer wasm build),
   Working with Files from Users (Local File type, upload methods), Cloud Agent Pubsub (server→client push), Component Overriding (overridable/callable pattern), Permissions Management
-  (screen-level anonymous access), Public/Private/Ephemeral Files (path-prefix routing), Storing Secrets and Tokens (secrets/tokens API, OAuth originalToken endpoint), Mixed Auth
-  (fullscreen vs embedded `_rmx_auth`, fullscreen-embedded rmx-remix pattern), Macros (builder remote control: macro tiles + Mix macro module commands, node/binding/component manipulation,
-  ndType/bdType/operator reference, createNodeFromAst), External Actions (runtime→host communication via onEvent map, default/mobile/local-storage/payment action catalog, moving to Client Actions)
+  (screen-level anonymous access), Public/Private/Ephemeral Files (path-prefix routing), Storing Secrets and Tokens (secrets/tokens API, OAuth originalToken endpoint)
+- [platform-builder.md](./platform-builder.md) — Builder automation & runtime: Mixed Auth (fullscreen vs embedded `_rmx_auth`, fullscreen-embedded rmx-remix pattern), Macros (builder remote control:
+  macro tiles + Mix macro module commands, node/binding/component manipulation, ndType/bdType/operator reference, createNodeFromAst), External Actions (runtime→host communication via onEvent map,
+  default/mobile/local-storage/payment action catalog, moving to Client Actions), Edit/Run/Configure modes (3 L2 view modes, URL param, configurator node setup, fullscreen variants)
 - [remix-nodes.md](./remix-nodes.md) — Remix Studio User Guide, Nodes section: In Params/Out Params (reorder bindings, agent error out-params), Cards & Components (style units, text input
   debounce, headless components, triggered components), File Uploading (Local File Controller, accept/multiple props, directory drop), Data Objects/Values/Transforms (Join node), Queries (QB 2.0,
   DB architecture, 3 query methods, Mix API, HTTP endpoint, live query, index-capable ops, history), Query Syntax (full filter/projection/aggregation/calculation reference), Actions (File Register,
-  Agent Connect tiles: Service/Local/Amp types, Api node: token/multipart/client-side, Database Save/Delete)
+  Agent Connect tiles: Service/Local/Amp types, Api node: token/multipart/client-side, Database Save/Delete), Service Agent modules ("Edit Cloud Server" navbar button, preview server vs installed workspace)
 - [server-apis.md](./server-apis.md) — Auth integrations (OAuth/OIDC/Apple/SFDC plugin config, callback URLs, token storage, auth0 setup), Legacy Platform Server API (document CRUD, queries,
   app management, multi-app actions, .remix file endpoints, files API, agents/webhooks/lambda, resources, auth/token endpoints), Cloud Agent Server API (workspace/app management, agent execution,
   cloud queries, permissions, cloud topic subscription, .remix generation), Cloud Agent Server v1 API (workspace/app/agent introspection, permissions CRUD, files, signals, workspace import/export)
@@ -56,7 +62,7 @@ This file serves as persistent context for working on Remix Labs tasks. When mem
 
 - [Remix product](https://www.notion.so/27e1d464528f802291b6d5a093fbc10d) — Product hub (stored in remix-product.md)
 - [Global Task List](https://www.notion.so/1d71d464528f80a69c47d21033bc498c) — Task tracking database, schema + views (stored in remix-product.md)
-- Sub-pages: most fetched and stored across remix-product.md / remix-infra.md / remix-snowflake.md
+- Sub-pages: most fetched and stored across remix-product.md / remix-product-scope.md / remix-infra.md / remix-snowflake.md
 
 ### Design Zone
 
@@ -130,49 +136,45 @@ This file serves as persistent context for working on Remix Labs tasks. When mem
             - [JSON for an Order](https://www.notion.so/11c1d464528f803ea04ff017e590c4c3) — Full JSON example (stored in remix-smb.md)
     - [Ordering and order management](https://www.notion.so/10b1d464528f807e9d03efef673da2cb) — Container page: ordering channels, payments, cart (stored in remix-smb.md)
         - [Printer Integration](https://www.notion.so/e0e420eb2e254a2293cba1f4a337c138) — Customer chit + kitchen chit POS components (stored in remix-smb.md)
-- [Business Profile / About Us Catalog](https://www.notion.so/1051d464528f801e975cc2bf6cd715b9) — DBP media/content catalog hub (not yet fetched; sub-pages stored in remix-dbp.md)
-    - [Media](https://www.notion.so/500fd31c62d5457ca4044a26782adda5) — Container for media assets (stored in remix-dbp.md)
-        - [Video Players](https://www.notion.so/ec18a532129e4dd6a4f37ae9d445387d) — Remix + embedded video players, overlay variants (stored in remix-dbp.md)
-        - [List of videos](https://www.notion.so/a96d7f9e95a545b080d788ff5d40d8e2) — Video list components (stored in remix-dbp.md)
-        - [image galleries](https://www.notion.so/7c82e8be64384df7b6277edec1f14df7) — 3 gallery types: hero, no-hero, single-row (stored in remix-dbp.md)
-        - [List of images with text](https://www.notion.so/d09fa785ff5541df9ab50b74500cc93e) — Image grid with 2-line text per image (stored in remix-dbp.md)
-        - [images](https://www.notion.so/e1816e3726314bf49950c736b82af61f) — 2 image assets: full screen + with caption (stored in remix-dbp.md)
-    - [List of texts](https://www.notion.so/417c0e30d8044b659221751a4337088b) — 3 text list assets: points/steps, paragraph, bullet (stored in remix-dbp.md)
-    - [Review assets](https://www.notion.so/7c3dabb3f1644d6c8bd6b5c749ed163f) — Yelp API + clipper review components (stored in remix-dbp.md)
-    - [Forms](https://www.notion.so/2a835f37d2874066accbb2d4a02f7cbf) — Container for form assets (stored in remix-dbp.md)
-        - [Lead form](https://www.notion.so/f99a82543fd74668928f01fffdd29df6) — Name/email/company/title capture + overlay (stored in remix-dbp.md)
-        - [Simple Contact Form](https://www.notion.so/1d071e04ab5b49f48f28a312adb025c2) — Name/email/phone capture + overlay (stored in remix-dbp.md)
-    - [Data visualization](https://www.notion.so/34977c23361e4959bb9761a1fc808715) — Container for data viz assets (stored in remix-dbp.md)
-        - [Quote Component](https://www.notion.so/8e60cce591b0457baf0a1363290170f5) — Quote display card (stored in remix-dbp.md)
-        - [Percentage Visualizer](https://www.notion.so/fd575a58f204424fadcbe26fcee81ecc) — Key stats with dynamic styling (stored in remix-dbp.md)
-        - [Bar Graph](https://www.notion.so/fcd1254f1b464ecd9803b8dc8a7f593a) — Configurable horizontal bar graph (stored in remix-dbp.md)
-    - [Buttons](https://www.notion.so/a9628c8c35ac4026a77cccd7bfebd3fa) — Container for button assets (stored in remix-dbp.md)
-        - [Complex/multi buttons](https://www.notion.so/ad588615b7b64d439d68c54605443975) — 3 multi-element button variants (stored in remix-dbp.md)
-        - [Simple buttons](https://www.notion.so/a93a998c46d64a489860af1839f716f0) — 3 single/dual button variants (stored in remix-dbp.md)
-        - [Appclip Share](https://www.notion.so/c6eba32b63484d60abd0b373cfdf96da) — Share sheet for appclip URLs (stored in remix-dbp.md)
-        - [Email and Phone buttons](https://www.notion.so/608e91e4cd59454286402090df06c4f7) — Contact action buttons (stored in remix-dbp.md)
-    - [Overlay Modal](https://www.notion.so/1aa20ff3c50e4569b08f19c74069ea7a) — Generic modal container for overlays (stored in remix-dbp.md)
-    - [Banners](https://www.notion.so/cda4a08e28874f42987417dd4f79f2e5) — Container for banner assets (stored in remix-dbp.md)
-        - [Banners with back buttons](https://www.notion.so/6336070433614ec389f973ce7bb6fa3f) — Sub-page banners (stored in remix-dbp.md)
-        - [Banners with logos and buttons](https://www.notion.so/969074b8bbaa45a78591bed8f6a25ec5) — Home/splash banners with CTA (stored in remix-dbp.md)
-        - [Profile page banners](https://www.notion.so/bc6c2faf2fe74ee8be6f3a794e9a744f) — Profile headers, optional LinkedIn (stored in remix-dbp.md)
-        - [Banners with home button](https://www.notion.so/3952d0976c014436bb17ee8a3565f1f9) — Home/splash/contact banners (stored in remix-dbp.md)
-    - [Layout](https://www.notion.so/ba77f5d722d143298f3b10a28a0acdd8) — Screen layout templates for About Us clips (stored in remix-dbp.md)
+- [Business Profile / About Us Catalog](https://www.notion.so/1051d464528f801e975cc2bf6cd715b9) — DBP media/content catalog hub (sub-pages stored in remix-dbp-media/components/assembly.md)
+    - [Media](https://www.notion.so/500fd31c62d5457ca4044a26782adda5) — Container for media assets (stored in remix-dbp-media.md)
+        - [Video Players](https://www.notion.so/ec18a532129e4dd6a4f37ae9d445387d) — Remix + embedded video players, overlay variants (stored in remix-dbp-media.md)
+        - [List of videos](https://www.notion.so/a96d7f9e95a545b080d788ff5d40d8e2) — Video list components (stored in remix-dbp-media.md)
+        - [image galleries](https://www.notion.so/7c82e8be64384df7b6277edec1f14df7) — 3 gallery types: hero, no-hero, single-row (stored in remix-dbp-media.md)
+        - [List of images with text](https://www.notion.so/d09fa785ff5541df9ab50b74500cc93e) — Image grid with 2-line text per image (stored in remix-dbp-media.md)
+        - [images](https://www.notion.so/e1816e3726314bf49950c736b82af61f) — 2 image assets: full screen + with caption (stored in remix-dbp-media.md)
+    - [List of texts](https://www.notion.so/417c0e30d8044b659221751a4337088b) — 3 text list assets: points/steps, paragraph, bullet (stored in remix-dbp-components.md)
+    - [Review assets](https://www.notion.so/7c3dabb3f1644d6c8bd6b5c749ed163f) — Yelp API + clipper review components (stored in remix-dbp-components.md)
+    - [Forms](https://www.notion.so/2a835f37d2874066accbb2d4a02f7cbf) — Container for form assets (stored in remix-dbp-components.md)
+        - [Lead form](https://www.notion.so/f99a82543fd74668928f01fffdd29df6) — Name/email/company/title capture + overlay (stored in remix-dbp-components.md)
+        - [Simple Contact Form](https://www.notion.so/1d071e04ab5b49f48f28a312adb025c2) — Name/email/phone capture + overlay (stored in remix-dbp-components.md)
+    - [Data visualization](https://www.notion.so/34977c23361e4959bb9761a1fc808715) — Container for data viz assets (stored in remix-dbp-media.md)
+        - [Quote Component](https://www.notion.so/8e60cce591b0457baf0a1363290170f5) — Quote display card (stored in remix-dbp-media.md)
+        - [Percentage Visualizer](https://www.notion.so/fd575a58f204424fadcbe26fcee81ecc) — Key stats with dynamic styling (stored in remix-dbp-media.md)
+        - [Bar Graph](https://www.notion.so/fcd1254f1b464ecd9803b8dc8a7f593a) — Configurable horizontal bar graph (stored in remix-dbp-media.md)
+    - [Buttons](https://www.notion.so/a9628c8c35ac4026a77cccd7bfebd3fa) — Container for button assets (stored in remix-dbp-components.md)
+        - [Complex/multi buttons](https://www.notion.so/ad588615b7b64d439d68c54605443975) — 3 multi-element button variants (stored in remix-dbp-components.md)
+        - [Simple buttons](https://www.notion.so/a93a998c46d64a489860af1839f716f0) — 3 single/dual button variants (stored in remix-dbp-components.md)
+        - [Appclip Share](https://www.notion.so/c6eba32b63484d60abd0b373cfdf96da) — Share sheet for appclip URLs (stored in remix-dbp-components.md)
+        - [Email and Phone buttons](https://www.notion.so/608e91e4cd59454286402090df06c4f7) — Contact action buttons (stored in remix-dbp-components.md)
+    - [Overlay Modal](https://www.notion.so/1aa20ff3c50e4569b08f19c74069ea7a) — Generic modal container for overlays (stored in remix-dbp-components.md)
+    - [Banners](https://www.notion.so/cda4a08e28874f42987417dd4f79f2e5) — Container for banner assets (stored in remix-dbp-components.md)
+        - [Banners with back buttons](https://www.notion.so/6336070433614ec389f973ce7bb6fa3f) — Sub-page banners (stored in remix-dbp-components.md)
+        - [Banners with logos and buttons](https://www.notion.so/969074b8bbaa45a78591bed8f6a25ec5) — Home/splash banners with CTA (stored in remix-dbp-components.md)
+        - [Profile page banners](https://www.notion.so/bc6c2faf2fe74ee8be6f3a794e9a744f) — Profile headers, optional LinkedIn (stored in remix-dbp-components.md)
+        - [Banners with home button](https://www.notion.so/3952d0976c014436bb17ee8a3565f1f9) — Home/splash/contact banners (stored in remix-dbp-components.md)
+    - [Layout](https://www.notion.so/ba77f5d722d143298f3b10a28a0acdd8) — Screen layout templates for About Us clips (stored in remix-dbp-assembly.md)
     - [Image selector](https://www.notion.so/ffba147ee2a141149dc35ac5bddf05c6) — Blank page (no content yet)
-    - [Basic info data tile](https://www.notion.so/0b4f7aec91804465b8228290035bfd44) — Constants data tile for About Us info (stored in remix-dbp.md)
-    - [Footers](https://www.notion.so/bcb639d07b4c4f17922c11d077714f09) — Container for footer assets (stored in remix-dbp.md)
-        - [Simple Footers](https://www.notion.so/3595525273514f18891ae5bab011c1d6) — 3 footer variants (stored in remix-dbp.md)
-        - [Bottom navigation bar](https://www.notion.so/d047130659ba4dab8cf1a759c1b1d7db) — Screen nav bar with tab config (stored in remix-dbp.md)
-    - [Admin Contact details](https://www.notion.so/d4209d1c03534a86ae037b5a0bfc2e9d) — Container for admin contact assets (stored in remix-dbp.md)
-        - [Contact Submission list](https://www.notion.so/d8c09a0c58174efeb19e1db9c454ba8b) — Admin list of form submissions (stored in remix-dbp.md)
-        - [Personal Detail card](https://www.notion.so/115057feedc84691ab67df99c0d9ce52) — Single submission detail view (stored in remix-dbp.md)
-    - [Beacon setup](https://www.notion.so/ef2d07acb85140139ac8925087e571ad) — Container for beacon/analytics assets (stored in remix-dbp.md)
-        - [Beacon](https://www.notion.so/2cd954d02a8d41f49bcbd64790199fb7) — Appclip stats tracking beacons (stored in remix-dbp.md)
-        - [Fetch beacon data](https://www.notion.so/606a224c224342f0bb1c974ad4ecf806) — Admin beacon data visualization (stored in remix-dbp.md)
-        - [Banners with back buttons](https://www.notion.so/6336070433614ec389f973ce7bb6fa3f) — Sub-page banners (stored in remix-dbp.md)
-        - [Banners with logos and buttons](https://www.notion.so/969074b8bbaa45a78591bed8f6a25ec5) — Home/splash banners with CTA (stored in remix-dbp.md)
-        - [Profile page banners](https://www.notion.so/bc6c2faf2fe74ee8be6f3a794e9a744f) — Profile headers, optional LinkedIn (stored in remix-dbp.md)
-        - [Banners with home button](https://www.notion.so/3952d0976c014436bb17ee8a3565f1f9) — Home/splash/contact banners (stored in remix-dbp.md)
+    - [Basic info data tile](https://www.notion.so/0b4f7aec91804465b8228290035bfd44) — Constants data tile for About Us info (stored in remix-dbp-assembly.md)
+    - [Footers](https://www.notion.so/bcb639d07b4c4f17922c11d077714f09) — Container for footer assets (stored in remix-dbp-assembly.md)
+        - [Simple Footers](https://www.notion.so/3595525273514f18891ae5bab011c1d6) — 3 footer variants (stored in remix-dbp-assembly.md)
+        - [Bottom navigation bar](https://www.notion.so/d047130659ba4dab8cf1a759c1b1d7db) — Screen nav bar with tab config (stored in remix-dbp-assembly.md)
+    - [Admin Contact details](https://www.notion.so/d4209d1c03534a86ae037b5a0bfc2e9d) — Container for admin contact assets (stored in remix-dbp-assembly.md)
+        - [Contact Submission list](https://www.notion.so/d8c09a0c58174efeb19e1db9c454ba8b) — Admin list of form submissions (stored in remix-dbp-assembly.md)
+        - [Personal Detail card](https://www.notion.so/115057feedc84691ab67df99c0d9ce52) — Single submission detail view (stored in remix-dbp-assembly.md)
+    - [Beacon setup](https://www.notion.so/ef2d07acb85140139ac8925087e571ad) — Container for beacon/analytics assets (stored in remix-dbp-assembly.md)
+        - [Beacon](https://www.notion.so/2cd954d02a8d41f49bcbd64790199fb7) — Appclip stats tracking beacons (stored in remix-dbp-assembly.md)
+        - [Fetch beacon data](https://www.notion.so/606a224c224342f0bb1c974ad4ecf806) — Admin beacon data visualization (stored in remix-dbp-assembly.md)
 
 ### Documentation
 
@@ -186,7 +188,7 @@ This file serves as persistent context for working on Remix Labs tasks. When mem
 - [Synced preferences](https://www.notion.so/2871d464528f80ae96dfeff9a738ca67) — _rmx_prefs: 3-layer cascade (system→default→user), agent API (stored in remix-infra.md)
 - [iOS widget debugging/testing](https://www.notion.so/2091d464528f806bb14ffa0bb037851b) — Dynamic widget fast dev cycle (stored in remix-infra.md)
 - [User Guides and Tutorials](https://www.notion.so/3e247ff418a94194a8376371117c6bb2) — not yet fetched
-    - [Topics](https://www.notion.so/11b1d464528f801480a8d529a2297527) — Container page; all sub-pages stored across platform-topics.md, federated-servers.md, remix-dbp.md
+    - [Topics](https://www.notion.so/11b1d464528f801480a8d529a2297527) — Container page; sub-pages stored across platform-topics.md, platform-builder.md, federated-servers.md, remix-dbp-assembly.md
         - [Web Components](https://www.notion.so/1141d464528f8056a818e8b84c9c10d6) — manifest.json format, Studio setup, slots, publishing/updating (stored in platform-topics.md)
         - [Wasm Functions](https://www.notion.so/1191d464528f803e8538d6d0783b58a1) — manifest format, Rust/WASI, mixer wasm build (stored in platform-topics.md)
         - [Working with files from users](https://www.notion.so/1191d464528f8032b146ed778c80c2e6) — Local File type, drag-and-drop, upload methods (stored in platform-topics.md)
@@ -201,7 +203,7 @@ This file serves as persistent context for working on Remix Labs tasks. When mem
             - [Faceted Search](https://www.notion.so/10d1d464528f80ad8d5bf181ea499394) — Side-panel filters for L2 search (stored in federated-servers.md)
             - [Example of a catalog page for an Icon Component](https://www.notion.so/f806cab33faf4872810f9fbe04c654d1) — Embed-only example (stored in federated-servers.md)
             - [Catalog V2](https://www.notion.so/1a51d464528f80db82b8d7d4555f117a) — Workspace-based catalog, V1 migration guide (stored in federated-servers.md)
-        - [Assemble About Us](https://www.notion.so/b2ad31b63fe8415382958c4e14b08b8e) — DBP assembly tutorial: workspace setup, screen assembly steps (stored in remix-dbp.md)
+        - [Assemble About Us](https://www.notion.so/b2ad31b63fe8415382958c4e14b08b8e) — DBP assembly tutorial: workspace setup, screen assembly steps (stored in remix-dbp-assembly.md)
 - [Deploying Remix applications](https://www.notion.so/11b1d464528f8030a107dc7f5e8d27cc) — 10 deployment methods hub (stored in remix-infra.md)
     - [Running .remix files](https://www.notion.so/1971d464528f80e5bed2ec2a380d331f) — remix.app URLs, embedding, drag & drop (stored in remix-infra.md)
     - [Deploying a flow to the Remix mobile app](https://www.notion.so/1051d464528f80b7b98dd77ab6c388bf) — Blank page (no content yet)
@@ -232,12 +234,17 @@ This file serves as persistent context for working on Remix Labs tasks. When mem
             - [Api](https://www.notion.so/1571d464528f80e9a9fee7fbbf80a0c5) — HTTP action node: token, multipart, form-urlencoded, client-side upload (stored in remix-nodes.md)
             - [Database Actions: Save and Delete](https://www.notion.so/1151d464528f8047b20fd8809e2bb766) — Delete requires DB location + ref; Create/Update placeholder (stored in remix-nodes.md)
             - [Annotations](https://www.notion.so/1051d464528f8018a17fd69389243631) — blank page (stored in remix-nodes.md)
-    - [Mixed Auth](https://www.notion.so/1741d464528f808cbb5ff371d571c437) — fullscreen vs embedded `_rmx_auth`, fullscreen-embedded rmx-remix host page pattern (stored in platform-topics.md)
+    - [Mixed Auth](https://www.notion.so/1741d464528f808cbb5ff371d571c437) — fullscreen vs embedded `_rmx_auth`, fullscreen-embedded rmx-remix host page pattern (stored in platform-builder.md)
         - [Mixed auth test](https://www.notion.so/1b91d464528f802ebf9efe3417f1ea6f) — embedded test previews (Dev/Beta/Prod) only; no stable content
     - [Macros](https://www.notion.so/2161d464528f801f8ddaf479d816d99f) — builder remote control: macro tiles (Node Search, Screen Search, Make Agent, ArtifactSaveAs/Save, Get Module Signature), Mix
-      macro module commands, ndType/bdType/operator reference, createNodeFromAst (stored in platform-topics.md)
+      macro module commands, ndType/bdType/operator reference, createNodeFromAst (stored in platform-builder.md)
     - [External Actions](https://www.notion.so/2161d464528f8014ac9ce7eda3a134ab) — runtime→host communication via onEvent map; default/mobile/local-storage/payment action catalog; moving to Client
-      Actions (stored in platform-topics.md)
+      Actions (stored in platform-builder.md)
+    - [iOS Widget & Shortcut Agents](https://www.notion.so/2161d464528f803f867fe9bc1d4b61a6) — widget agent in/out params (size/isPreview/config/widget_id, refresh/timeline), shortcut agent params,
+      clickable zones, _rmx_widgets db schema (stored in remix-infra.md)
+    - [Edit / Run / Configure modes](https://www.notion.so/2251d464528f808da28df02fbd305915) — 3 L2 view modes (edit/run/configure), URL param `_rmx_mode`, configurator node setup, fullscreen variants
+      (stored in platform-builder.md)
+    - [Service Agent modules](https://www.notion.so/22d1d464528f80278259e3f6ee68dcd1) — "Edit Cloud Server" navbar button; run queries/saves against preview server; code gen unchanged (stored in remix-nodes.md)
 - [Cloud Agent Server docs](https://www.notion.so/1061d464528f80f18e46dd27895aeda2) — not yet fetched (top-level)
     - [Cloud Agent Server API](https://www.notion.so/1061d464528f8022aa1cec129096c82b) — Mixer API: workspace/app management, agent execution, cloud queries, .remix generation (stored in
       server-apis.md)

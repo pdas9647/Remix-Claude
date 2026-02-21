@@ -32,17 +32,29 @@
   "token_url": "<token_endpoint>",
   "userinfo_url": "<userinfo_endpoint>",
   "endpoint": "<oidc_discovery_endpoint>",
-  "scopes": ["openid", "email", ...],
+  "scopes": [
+    "openid",
+    "email",
+    ...
+  ],
   "default": false,
   "use_for_amp_login": false,
   "store_token": false,
   "offline": false,
   "domain": "<auto_attach_domain>",
-  "token_extras": ["instance_url"],
+  "token_extras": [
+    "instance_url"
+  ],
   "token_lifetime": 0,
   "force_refresh_after": 0,
-  "auth_url_params": {"prompt": "consent"},
-  "headers": {"user-agent": ["com.remixlabs.runtime/1.0"]},
+  "auth_url_params": {
+    "prompt": "consent"
+  },
+  "headers": {
+    "user-agent": [
+      "com.remixlabs.runtime/1.0"
+    ]
+  },
   "callback": "<override_callback_url>"
 }
 ```
