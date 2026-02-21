@@ -115,6 +115,7 @@ hosts the externally published UI component libraries.
 ### Overview
 
 A **catalog app** (Notion page, full Remix app, or custom website) lets users:
+
 1. Browse and search asset collections (components, cards, function nodes, etc.)
 2. Configure assets via an embedded .remix configuration app
 3. View showcase examples
@@ -127,9 +128,11 @@ Builder L2 sidebar search is a lightweight catalog — shows a green `Configure`
 A standard Remix app exported to GCS via "Host on GCS". Two sections:
 
 **Examples** — pre-configured instances of the component:
+
 - Data node (binding values) + component with bindings connected + source info revealed + function node combining source + bindings + copy/insert button
 
 **Build your own** — form elements → live preview → copy/insert:
+
 - Form elements wired to component in-bindings
 - "Reveal source info" in node footer sync menu → new `source` outbinding
 - Function node assembles the L2SourceNode JSON:
@@ -153,6 +156,7 @@ A standard Remix app exported to GCS via "Host on GCS". Two sections:
 5. Once set: `Edit` button becomes green `Configure` button; L2 search shows `Configure` button
 
 **Catch 22 on first setup:**
+
 - Host configuration app on GCS first → get the GCS link → update component metadata → update source → resync instances in config app → republish app on GCS (one-time only)
 
 ### Catalog Page Setup
@@ -175,11 +179,11 @@ Side panel alongside regular search results in L2 node search (Shift+Space).
 
 ### Filter Sections
 
-| Filter | Description |
-|--------|-------------|
-| `with configurator` | Only items with a linked configurator app |
-| `with preview` | Only items with a visual thumbnail |
-| `Location` | Hierarchical: server → library → collection |
+| Filter              | Description                                 |
+|---------------------|---------------------------------------------|
+| `with configurator` | Only items with a linked configurator app   |
+| `with preview`      | Only items with a visual thumbnail          |
+| `Location`          | Hierarchical: server → library → collection |
 
 - Selections on left panel update right panel results, and vice versa
 - Numbers next to each section auto-update as you type in search
@@ -204,10 +208,12 @@ New workspace-based catalog implementation (deployed Q1 2025), supersedes Catalo
 ### Setup
 
 **Workspace:**
+
 1. Cloud Workspace Tool → App Hub → install **Federated Search** app
 2. Workspace can now host library assets
 
 **Builder:**
+
 1. Avatar menu → System Preferences (or search panel settings icon)
 2. Add library URLs (one per line, format: `<server>/ws/<workspace>`)
 3. Start with: `https://agt.remixlabs.com/ws/remix-libraries`
@@ -215,12 +221,15 @@ New workspace-based catalog implementation (deployed Q1 2025), supersedes Catalo
 ### Migration (V1 → V2)
 
 **Assets you have locally:**
+
 - Use **"Bulk Publish Selected"** tool → select nodes → choose target V2 library → add tags → publish
 
 **Assets only in V1 library:**
+
 - Use **"Catalog V1 Migration"** tool (avatar menu) → download V1 collection as local screen → then use Bulk Publish
 
 **Migrating screens that use V1 assets:**
+
 - Open screen → migration banner appears with two counts:
   - **Orange (auto-migrate)**: unique name match in V2 → press orange button or migrate node-by-node via sync menu
   - **Red (manual)**: ambiguous or missing in V2 → use swap mode search or contact asset maintainer

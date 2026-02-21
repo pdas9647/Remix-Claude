@@ -136,7 +136,8 @@ Two image display assets:
 
 > Source: [Data visualization](https://www.notion.so/34977c23361e4959bb9761a1fc808715)
 
-Container page for data visualization components. Sub-pages: Quote Component, Percentage Visualizer, Bar Graph. All in design library at `remix-india-beta.remixlabs.com/e/edit/about_us/data_visualizer`.
+Container page for data visualization components. Sub-pages: Quote Component, Percentage Visualizer, Bar Graph. All in design library at
+`remix-india-beta.remixlabs.com/e/edit/about_us/data_visualizer`.
 
 ### Quote Component
 
@@ -147,9 +148,9 @@ Display card for quotes. In-bindings: quote text, person name, job title/descrip
 
 **Dependencies:** None
 
-| Release | Date        | Notes            |
-|---------|-------------|------------------|
-| R1.0    | 02 Sep 2024 | First release    |
+| Release | Date        | Notes             |
+|---------|-------------|-------------------|
+| R1.0    | 02 Sep 2024 | First release     |
 | R1.1    | 04 Sep 2024 | Smaller font size |
 
 ### Percentage Visualizer
@@ -157,7 +158,8 @@ Display card for quotes. In-bindings: quote text, person name, job title/descrip
 > Source: [Percentage Visualizer](https://www.notion.so/fd575a58f204424fadcbe26fcee81ecc)
 > Developer: riju@remixlabs.com
 
-Displays key stats/results with dynamic styling. In-bindings: value, label, description, increase/decrease toggle. Background color darkens and chevron count increases with higher values. Two design variants: 1-line and 2-line text. Usable as single card or list.
+Displays key stats/results with dynamic styling. In-bindings: value, label, description, increase/decrease toggle. Background color darkens and chevron count increases with higher values. Two design
+variants: 1-line and 2-line text. Usable as single card or list.
 
 **Dependencies:** None
 
@@ -192,19 +194,19 @@ Container page for button components. All in design library at `remix-india-beta
 
 Three variants with header text and additional elements:
 
-| Variant                                        | Description                                                           |
-|------------------------------------------------|-----------------------------------------------------------------------|
-| **Icon button with share clip option + header** | Header + icon button (customizable color/icon) + share appclip URL   |
-| **3 icon buttons with header**                  | Header + 3 icon buttons (no share clip). Each has event out-binding  |
-| **Icon button with 3 lines of text**            | 3 lines of text + icon button. Has **overlay variation**             |
+| Variant                                         | Description                                                         |
+|-------------------------------------------------|---------------------------------------------------------------------|
+| **Icon button with share clip option + header** | Header + icon button (customizable color/icon) + share appclip URL  |
+| **3 icon buttons with header**                  | Header + 3 icon buttons (no share clip). Each has event out-binding |
+| **Icon button with 3 lines of text**            | 3 lines of text + icon button. Has **overlay variation**            |
 
 **Dependencies:** None
 
-| Release | Date        | Notes                                        |
-|---------|-------------|----------------------------------------------|
-| R1.0    | 23 Sep 2024 | First release                                |
+| Release | Date        | Notes                                             |
+|---------|-------------|---------------------------------------------------|
+| R1.0    | 23 Sep 2024 | First release                                     |
 | R1.1    | 24 Sep 2024 | Icon color matches button color in 3-line variant |
-| R2.0    | 04 Oct 2024 | Icon button with 3 lines overlay variant added |
+| R2.0    | 04 Oct 2024 | Icon button with 3 lines overlay variant added    |
 
 ### Simple Buttons
 
@@ -213,17 +215,17 @@ Three variants with header text and additional elements:
 
 Three variants of single/dual buttons:
 
-| Variant                            | Description                                                      |
-|------------------------------------|------------------------------------------------------------------|
+| Variant                                | Description                                                       |
+|----------------------------------------|-------------------------------------------------------------------|
 | **Icon button with dark custom color** | Customizable color, label, icon. Event out-binding for navigation |
-| **Icon button white**               | White background, icon color customizable only                   |
-| **Two horizontal buttons**          | Two side-by-side buttons, each with customizable color and label |
+| **Icon button white**                  | White background, icon color customizable only                    |
+| **Two horizontal buttons**             | Two side-by-side buttons, each with customizable color and label  |
 
 **Dependencies:** None
 
-| Release | Date        | Notes                                         |
-|---------|-------------|-----------------------------------------------|
-| R1.0    | 23 Sep 2024 | First release                                 |
+| Release | Date        | Notes                                          |
+|---------|-------------|------------------------------------------------|
+| R1.0    | 23 Sep 2024 | First release                                  |
 | R1.1    | 24 Sep 2024 | Icon color customization added to dark variant |
 
 ### Appclip Share
@@ -243,10 +245,10 @@ Opens a native share sheet for end users to share a URL (typically an appclip li
 
 Two variants for contact actions:
 
-| Variant                              | Description                                               |
-|--------------------------------------|-----------------------------------------------------------|
+| Variant                                | Description                                              |
+|----------------------------------------|----------------------------------------------------------|
 | **Email and phone button with header** | Email + phone buttons; opens mail/phone app respectively |
-| **Email button with header**          | Email button only; opens mail app                        |
+| **Email button with header**           | Email button only; opens mail app                        |
 
 In-bindings: email address, phone number, header, icon color, icons.
 
@@ -265,9 +267,9 @@ Generic modal container for overlay screens. Cross/close button is outside the m
 **Dependencies:** Requires a card to be placed inside (no purpose on its own)
 **Design library:** `remix-india-beta.remixlabs.com/e/edit/about_us/modals`
 
-| Release | Date        | Notes                                                   |
-|---------|-------------|---------------------------------------------------------|
-| R1.0    | 20 Sep 2024 | First release                                           |
+| Release | Date        | Notes                                                  |
+|---------|-------------|--------------------------------------------------------|
+| R1.0    | 20 Sep 2024 | First release                                          |
 | R1.1    | 03 Oct 2024 | Back button navigation pre-configured inside component |
 
 ---
@@ -434,10 +436,10 @@ For **home/splash/contact screens** (also usable in admin flows). Background ima
 
 Screen layout templates for About Us clips. Two variants:
 
-| Variant                             | Description                                            |
-|-------------------------------------|--------------------------------------------------------|
-| **Default layout**                  | For screens requiring a clear header + back button     |
-| **Splash/home screen layout**      | For screens with a banner                              |
+| Variant                       | Description                                        |
+|-------------------------------|----------------------------------------------------|
+| **Default layout**            | For screens requiring a clear header + back button |
+| **Splash/home screen layout** | For screens with a banner                          |
 
 **Dependencies:** None
 **Design library:** `remix-india-beta.remixlabs.com/e/edit/about_us/modals`
@@ -450,7 +452,8 @@ Screen layout templates for About Us clips. Two variants:
 > Source: [Basic info data tile](https://www.notion.so/0b4f7aec91804465b8228290035bfd44)
 > Developer: riju@remixlabs.com
 
-Data tile for centralizing About Us clip information. Add to the Constants screen, connect outbinding to the constant, then use "bind a constant value" in in-bindings of display assets. Configurable via configurator or in-bindings.
+Data tile for centralizing About Us clip information. Add to the Constants screen, connect outbinding to the constant, then use "bind a constant value" in in-bindings of display assets. Configurable
+via configurator or in-bindings.
 
 **Dependencies:** None
 **Design library:** `remix-india-beta.remixlabs.com/e/edit/about_us/data`
@@ -471,25 +474,26 @@ Container page for footer components. All in design library at `remix-india-beta
 
 Recommended for splash screens. Three variants:
 
-| Variant                      | Description                   |
-|------------------------------|-------------------------------|
-| **Simple footer**            | Basic footer                  |
-| **Simple footer with image** | Footer with an image          |
-| **Powered by Remix**         | Remix branding footer         |
+| Variant                      | Description           |
+|------------------------------|-----------------------|
+| **Simple footer**            | Basic footer          |
+| **Simple footer with image** | Footer with an image  |
+| **Powered by Remix**         | Remix branding footer |
 
 **Dependencies:** None
 
-| Release | Date        | Notes                             |
-|---------|-------------|-----------------------------------|
-| R1.0    | 02 Sep 2024 | First release                     |
-| R1.1    | 09 Sep 2024 | Added powered by Remix footer     |
+| Release | Date        | Notes                         |
+|---------|-------------|-------------------------------|
+| R1.0    | 02 Sep 2024 | First release                 |
+| R1.1    | 09 Sep 2024 | Added powered by Remix footer |
 
 ### Bottom Navigation Bar
 
 > Source: [Bottom navigation bar](https://www.notion.so/d047130659ba4dab8cf1a759c1b1d7db)
 > Developer: riju@remixlabs.com
 
-Screen navigation bar for switching screens in clips/.remix files. Configure via table in configurator: `value` (screen name), `label` (display name), `icon`. Customizable primary color. Automatically highlights current screen if screen name matches table entry. Override with `selected_tab` in-binding.
+Screen navigation bar for switching screens in clips/.remix files. Configure via table in configurator: `value` (screen name), `label` (display name), `icon`. Customizable primary color. Automatically
+highlights current screen if screen name matches table entry. Override with `selected_tab` in-binding.
 
 **Dependencies:** Target screens must exist before configuring
 **Release:** R1.0 — 21 Oct 2024
@@ -517,7 +521,8 @@ Admin asset showing the list of contact form submissions from appclips. Configur
 > Source: [Personal Detail card](https://www.notion.so/115057feedc84691ab67df99c0d9ce52)
 > Developer: riju@remixlabs.com
 
-Admin asset showing full details of a single contact submission. The screen hosting this asset must have **`ref_id`** in its In Params, connected to the asset's `ref_id` in-binding. Color customizable via configurator.
+Admin asset showing full details of a single contact submission. The screen hosting this asset must have **`ref_id`** in its In Params, connected to the asset's `ref_id` in-binding. Color customizable
+via configurator.
 
 **Dependencies:** Requires Contact Submission List asset
 **Release:** R1.0 — 21 Oct 2024
@@ -537,13 +542,13 @@ Container page for analytics beacon assets. Tracks appclip statistics (installs,
 
 Stats beacons for tracking appclip usage. Just add to a screen to start tracking. Two variants:
 
-| Variant                | Description                    |
-|------------------------|--------------------------------|
-| **Home screen beacon** | For the home/splash screen     |
-| **Default beacon**     | For all other screens          |
+| Variant                | Description                |
+|------------------------|----------------------------|
+| **Home screen beacon** | For the home/splash screen |
+| **Default beacon**     | For all other screens      |
 
 **Dependencies:** Cloud agent setup required; agent details must be in project constants
-**Design library:** `remix-india-beta.remixlabs.com/e/edit/about_us/beacon`
+**Design library:** `https://remix-india-beta.remixlabs.com/e/edit/about_us/beacon`
 **Release:** R1.0 — 20 Sep 2024
 
 ### Fetch Beacon Data
@@ -559,12 +564,6 @@ Admin asset for visualizing all beacon data/statistics.
 
 ---
 
-## Unfetched Sub-pages
-
-- [Image selector](https://www.notion.so/ffba147ee2a141149dc35ac5bddf05c6) — Blank page (no content yet)
-
----
-
 ## Assemble About Us — Tutorial
 
 > Source: [Assemble About Us](https://www.notion.so/b2ad31b63fe8415382958c4e14b08b8e)
@@ -574,10 +573,10 @@ Admin asset for visualizing all beacon data/statistics.
 
 Add cloud agents based on features needed, then publish and deploy to workspace:
 
-| Feature | Agents |
-|---------|--------|
+| Feature      | Agents                                                                                                           |
+|--------------|------------------------------------------------------------------------------------------------------------------|
 | Contact form | `cloud_save`, `cloud_delete`, `cloud_query`, `cloud_record_info`, `cloud_save_multiple`, `cloud_delete_multiple` |
-| Beacon | `get_events`, `log` |
+| Beacon       | `get_events`, `log`                                                                                              |
 
 **Important:** `cloud_save`, `cloud_save_multiple`, `log` → set to **anonymous access** (required for appclip).
 
@@ -591,6 +590,7 @@ Add cloud agents based on features needed, then publish and deploy to workspace:
 **Beacons:** Add `home beacon` to home screen, `beacon` to all other screens.
 
 **Home screen:**
+
 1. Search "Banner" in Find → select from About Us section
 2. Search "Button" (e.g. icon button with share clip option)
 3. Search "Footer" → add to flow
@@ -598,20 +598,22 @@ Add cloud agents based on features needed, then publish and deploy to workspace:
 5. Navigation: use "Push to Screen"; video navigation: add screen name to `button_navigation_screen` binding of banner
 
 **Video screen:**
+
 - "Embedded video player" for YouTube/Vimeo; "Remix video player" for workspace-hosted files
 - Add thumbnail and video URL in-bindings
 - Add "Modal" overlay from About Us section → connect video → connect modal to screen
 
 **Contact screen:**
+
 - Add Profile banner (e.g. with LinkedIn option) → set LinkedIn URL in-binding
 - Add email/phone button → set email address
 - Optional: add Button for Contact Us form navigation
 - Add Footer
 
 **Contact Us Form screen:**
+
 - Add "Lead form" or "Simple contact form"
 
 ### Publishing
 
 Publish project → Host on GCS → create Appclip if required.
-

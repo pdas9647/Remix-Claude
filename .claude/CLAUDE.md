@@ -10,7 +10,8 @@ This file serves as persistent context for working on Remix Labs tasks. When mem
   coding, 3 escape hatches)
 - [collaboration-assembly.md](./collaboration-assembly.md) — Steel thread: 3-persona pipeline (Developer > Assembler > Consumer), config points, edge personalisation
 - [federated-servers.md](./federated-servers.md) — Federated search architecture, external libraries (Amp/Workspace), asset sync (push/pull), L2SourceNode clipboard format, published Remix libraries (
-  remix-libraries workspace: Design/HubSpot/Drafts); Catalog and Collections (configurator app pattern, copy/insert button, component metadata); Faceted Search; Catalog V2 (workspace-based, V1 migration)
+  remix-libraries workspace: Design/HubSpot/Drafts); Catalog and Collections (configurator app pattern, copy/insert button, component metadata); Faceted Search; Catalog V2 (workspace-based, V1
+  migration)
 - [variants.md](./variants.md) — Variants (config assets): base/config/instance model, deep sync, L2SourceNode variant format, creation lifecycle
 - [l1-catalog-assets.md](./l1-catalog-assets.md) — L1-level catalog publish/search/sync, Amp vs cloud hosting constraints, JSON unpacking challenges
 - [funda.md](./funda.md) — Funda customer project: member directory, workspace sEt2qxPydL, apps (DBP/Admin/Member), LinkedIn clipper, services
@@ -30,7 +31,8 @@ This file serves as persistent context for working on Remix Labs tasks. When mem
 - [oauth.md](./oauth.md) — Third-party OAuth flows for Desktop (popup), Chrome Extension (hosted handler + publish agent), Mobile Widgets (device browser), OAuth Handler library asset
 - [remix-smb.md](./remix-smb.md) — SMB catalog: 3 transaction models (ordering/booking services/booking resources), data model (business/venue/catalog/order), order lifecycle (dual status), UI
   assets (_rmx_drafts library), printer integration, Stripe/getaddress.io integrations
-- [remix-dbp.md](./remix-dbp.md) — Digital Business Profile / About Us catalog: media (video players, galleries, images), data visualization (quote/percentage/bar graph), buttons (simple/complex/appclip
+- [remix-dbp.md](./remix-dbp.md) — Digital Business Profile / About Us catalog: media (video players, galleries, images), data visualization (quote/percentage/bar graph), buttons (
+  simple/complex/appclip
   share/email+phone), overlay modal, text lists, review assets (Yelp/clipper), forms (lead/contact), banners (4 types), layout, basic info data tile, footers (simple/bottom nav bar), admin contact
   details (submission list/personal detail), beacon setup (tracking/fetch data), design library on remix-india-beta; Assemble About Us tutorial (workspace/agent setup, screen assembly steps)
 - [platform-topics.md](./platform-topics.md) — Builder/platform mechanics: Web Components (manifest format, hosting, slots), Wasm Functions (manifest, Rust/WASI patterns, mixer wasm build),
@@ -208,8 +210,10 @@ This file serves as persistent context for working on Remix Labs tasks. When mem
     - [Cloud Workspace Tool](https://www.notion.so/12c1d464528f809b9f58e6a707b93fe1) — Workspace management: deploy apps, permissions, App Hub (stored in remix-infra.md)
     - [Repository Tool](https://www.notion.so/2e91d464528f800985eee93ec9fd5842) — Version control: create/list/pull/push projects (stored in remix-infra.md)
 - [Remix Studio User Guide](https://www.notion.so/1051d464528f8007a5f5d40969c49427) — not yet fetched (top-level)
-    - [Self-hosted Remix Server](https://www.notion.so/22a1d464528f8019be54edf3f3b1f576) — Monolithic self-hosted deployment: Docker/AWS AMI/Snowpark, OAuth config, S3-compatible files (stored in remix-infra.md)
-    - [Working with State](https://www.notion.so/1431d464528f8060964ecdcbfba99fd7) — 3 state scopes (Local/Screen/App), State/Get State/Set State nodes, static vs dynamic paths (stored in remix-nodes.md)
+    - [Self-hosted Remix Server](https://www.notion.so/22a1d464528f8019be54edf3f3b1f576) — Monolithic self-hosted deployment: Docker/AWS AMI/Snowpark, OAuth config, S3-compatible files (stored in
+      remix-infra.md)
+    - [Working with State](https://www.notion.so/1431d464528f8060964ecdcbfba99fd7) — 3 state scopes (Local/Screen/App), State/Get State/Set State nodes, static vs dynamic paths (stored in
+      remix-nodes.md)
     - [Enable anonymous access](https://www.notion.so/14c1d464528f8079b1bcd79c5fdbf4c6) — Anonymous screen setup, _rmx_auth transition, remix/user-signin Client Action (stored in platform-topics.md)
     - Studio Server
         - [Auth integrations](https://www.notion.so/11f1d464528f8070b010f945a0b0e7af) — OAuth/OIDC/Apple/SFDC plugin config, callback URLs, token storage, auth0 setup (stored in server-apis.md)
@@ -230,9 +234,12 @@ This file serves as persistent context for working on Remix Labs tasks. When mem
             - [Annotations](https://www.notion.so/1051d464528f8018a17fd69389243631) — blank page (stored in remix-nodes.md)
     - [Mixed Auth](https://www.notion.so/1741d464528f808cbb5ff371d571c437) — fullscreen vs embedded `_rmx_auth`, fullscreen-embedded rmx-remix host page pattern (stored in platform-topics.md)
         - [Mixed auth test](https://www.notion.so/1b91d464528f802ebf9efe3417f1ea6f) — embedded test previews (Dev/Beta/Prod) only; no stable content
-    - [Macros](https://www.notion.so/2161d464528f801f8ddaf479d816d99f) — builder remote control: macro tiles (Node Search, Screen Search, Make Agent, ArtifactSaveAs/Save, Get Module Signature), Mix macro module commands, ndType/bdType/operator reference, createNodeFromAst (stored in platform-topics.md)
-    - [External Actions](https://www.notion.so/2161d464528f8014ac9ce7eda3a134ab) — runtime→host communication via onEvent map; default/mobile/local-storage/payment action catalog; moving to Client Actions (stored in platform-topics.md)
+    - [Macros](https://www.notion.so/2161d464528f801f8ddaf479d816d99f) — builder remote control: macro tiles (Node Search, Screen Search, Make Agent, ArtifactSaveAs/Save, Get Module Signature), Mix
+      macro module commands, ndType/bdType/operator reference, createNodeFromAst (stored in platform-topics.md)
+    - [External Actions](https://www.notion.so/2161d464528f8014ac9ce7eda3a134ab) — runtime→host communication via onEvent map; default/mobile/local-storage/payment action catalog; moving to Client
+      Actions (stored in platform-topics.md)
 - [Cloud Agent Server docs](https://www.notion.so/1061d464528f80f18e46dd27895aeda2) — not yet fetched (top-level)
-    - [Cloud Agent Server API](https://www.notion.so/1061d464528f8022aa1cec129096c82b) — Mixer API: workspace/app management, agent execution, cloud queries, .remix generation (stored in server-apis.md)
+    - [Cloud Agent Server API](https://www.notion.so/1061d464528f8022aa1cec129096c82b) — Mixer API: workspace/app management, agent execution, cloud queries, .remix generation (stored in
+      server-apis.md)
     - [Cloud Agent Server v1 API](https://www.notion.so/1bd1d464528f80cb97cde448c9e2a944) — v1 API: introspection, permissions CRUD, files, signals, workspace import/export (stored in server-apis.md)
 - [Mix Language docs](https://www.notion.so/259ede6504e34505982dde5dc4b63d10) — not yet fetched

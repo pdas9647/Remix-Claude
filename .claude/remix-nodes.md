@@ -1,9 +1,11 @@
 # Remix Nodes — Studio User Guide: Nodes Section
 
-> Parent: Remix Documentation > User Guides and Tutorials > [Remix Studio User Guide](https://www.notion.so/1051d464528f8007a5f5d40969c49427) > [Nodes](https://www.notion.so/13b1d464528f802c90b7c60485b36842)
+> Parent: Remix Documentation > User Guides and
+> Tutorials > [Remix Studio User Guide](https://www.notion.so/1051d464528f8007a5f5d40969c49427) > [Nodes](https://www.notion.so/13b1d464528f802c90b7c60485b36842)
 
 **Nodes section pages (fetched):** In Params/Out Params, Cards & Components, Data Objects/Values/Transforms, Queries, Query Syntax, Working with State
-**Not yet fetched:** Decisions & State Machines (1051d464528f80a48689d2743814b1af), Functions & Code Modules (8c02beb038ec40fea16762bbd8aabfe8), Actions (1051d464528f80c9b498daa44df9b685), Annotations (1051d464528f8018a17fd69389243631)
+**Not yet fetched:** Decisions & State Machines (1051d464528f80a48689d2743814b1af), Functions & Code Modules (8c02beb038ec40fea16762bbd8aabfe8), Actions (1051d464528f80c9b498daa44df9b685),
+Annotations (1051d464528f8018a17fd69389243631)
 
 ---
 
@@ -13,15 +15,18 @@
 
 ### Reordering Bindings
 
-Bindings in in/out-params nodes can be reordered with up/down arrows. After reordering and publishing, **Push, Navigate, and Agent Connect nodes** referencing those params are automatically "patched" to reflect the updated order when next opened.
+Bindings in in/out-params nodes can be reordered with up/down arrows. After reordering and publishing, **Push, Navigate, and Agent Connect nodes** referencing those params are automatically "patched"
+to reflect the updated order when next opened.
 
 ### Agent Error Out-Params
 
 Out-params in agents have 2 extra bindings beyond the normal data bindings:
+
 - **error trigger** — invoke this to make the agent return an error
 - **error string** — the error message returned
 
 In the calling code:
+
 - The `error next` binding fires
 - The `error data` binding holds the error string
 
@@ -41,9 +46,11 @@ Normal data bindings (0 or more) are returned only if the agent ran correctly.
 
 ### Components
 
-**Headless Components** — Components that return only data, not card data for display. Mark via: In/Out-Params → "Set as Headless" option. The Card node marked as "Screen" changes format; above in the stack, the component view shows in/out param bindings in a more useful manner.
+**Headless Components** — Components that return only data, not card data for display. Mark via: In/Out-Params → "Set as Headless" option. The Card node marked as "Screen" changes format; above in the
+stack, the component view shows in/out param bindings in a more useful manner.
 
 **Triggered Components (advanced)** — Similar to screens: no action in/out bindings. A runner can start and stop these components externally.
+
 - Runner workspace: `https://agt.remixlabs.com/ws/com_remixlabs_simon`
 - Example: `https://remix-dev.remixlabs.com/e/edit/builder-examples/triggered_comp`
 
@@ -53,15 +60,16 @@ Normal data bindings (0 or more) are returned only if the agent ran correctly.
 > See also: page [1571d464528f80e9a9fee7fbbf80a0c5](https://www.notion.so/1571d464528f80e9a9fee7fbbf80a0c5) (unfetched)
 
 **Setup requires two nodes:**
+
 - **Local File Controller** — provides `Local File` output to the app; set on its own node
 - **Card with File Input and/or dropzone** — bound to the `default-screen` binding
 
 **Controller properties:**
 
-| Property | Description |
-|----------|-------------|
-| `multiple` | Whether one or several files can be selected (applies to drag & drop too) |
-| `accept` | File type filter; see [MDN accept attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept) |
+| Property   | Description                                                                                                       |
+|------------|-------------------------------------------------------------------------------------------------------------------|
+| `multiple` | Whether one or several files can be selected (applies to drag & drop too)                                         |
+| `accept`   | File type filter; see [MDN accept attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept) |
 
 **Important:** Switching from multiple to single file → also toggle the action binding.
 
@@ -86,11 +94,11 @@ The **Join** node performs an **inner join** (SQL inner join semantics). It proj
 
 ### Three State Scopes
 
-| Scope | Description | Use Case |
-|-------|-------------|----------|
-| **Local State** | Operates at one level in the component graph | Component-local data |
-| **Screen State** | Available throughout the component stack of a screen | Building autonomous components for assembly |
-| **App State** | Available across screen navigation (global) | Persistent data across navigation; powerful but hard to debug, potential performance issues |
+| Scope            | Description                                          | Use Case                                                                                    |
+|------------------|------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| **Local State**  | Operates at one level in the component graph         | Component-local data                                                                        |
+| **Screen State** | Available throughout the component stack of a screen | Building autonomous components for assembly                                                 |
+| **App State**    | Available across screen navigation (global)          | Persistent data across navigation; powerful but hard to debug, potential performance issues |
 
 Get State / Set State nodes work with all three types.
 
@@ -106,9 +114,11 @@ A read/write object where you specify fields (and/or enable arbitrary location a
 
 **Static locations:** Update specified values in state. Available on value out-bindings of actions, in-params, and components.
 
-**Dynamic locations:** The Set State action node enables setting values at dynamically configured fields or paths. A path is an array of field names/indexes, e.g. `["output", "name"]` sets `.output.name` within the state.
+**Dynamic locations:** The Set State action node enables setting values at dynamically configured fields or paths. A path is an array of field names/indexes, e.g. `["output", "name"]` sets
+`.output.name` within the state.
 
 **How to use:**
+
 1. Add "Set State" node: `+ NEW` → `Actions` → `SET STATE`
 2. Select target state cell: "Screen State" or a named state node
 3. Set or delete values at a top-level "Field" or at a "Path" in the cell
@@ -128,6 +138,7 @@ A read/write object where you specify fields (and/or enable arbitrary location a
 ### Query Builder 2.0 (introduced October 2025)
 
 Significant changes vs QB1:
+
 - **Richer projections**: designed to get all data in one query — speeds up screens
 - **Simpler advanced mode**: easier to add expression power when needed
 - **No Mix post-processing**: all post-processing removed from queries; must be handled by users. Function projections no longer supported. Certain filters also removed.
@@ -136,15 +147,16 @@ Significant changes vs QB1:
 
 ### DB Architecture
 
-Every Remix runtime has a **linear record store + automatic dynamic index**. No user control over which fields are indexed — every indexable field is indexed automatically. Records are untyped and can include any serializable Mix `data`.
+Every Remix runtime has a **linear record store + automatic dynamic index**. No user control over which fields are indexed — every indexable field is indexed automatically. Records are untyped and can
+include any serializable Mix `data`.
 
 ### 3 Ways to Query
 
-| Method | Use |
-|--------|-----|
-| **Query AST** | JSON array passed directly; used in registered queries |
-| **Query string** | Parseable to AST; simple but adds parsing overhead. **Never use with user-provided input** (injection risk) |
-| **Mix rewriting** | Compiler rewrites `db.filter`/`db.map` Mix lambdas into query AST |
+| Method            | Use                                                                                                         |
+|-------------------|-------------------------------------------------------------------------------------------------------------|
+| **Query AST**     | JSON array passed directly; used in registered queries                                                      |
+| **Query string**  | Parseable to AST; simple but adds parsing overhead. **Never use with user-provided input** (injection risk) |
+| **Mix rewriting** | Compiler rewrites `db.filter`/`db.map` Mix lambdas into query AST                                           |
 
 ### Query Execution Layers
 
@@ -155,27 +167,32 @@ Every Remix runtime has a **linear record store + automatic dynamic index**. No 
 ### Mix Query API
 
 **Sources:**
+
 - `db.head(dbConfig)` — all current records (`db.head()` = main DB)
 - `db.all(dbConfig)` — same but includes old versions
 - `db.query(dbConfig, queryStr)` — start from an arbitrary query string
 
 **Processors:**
+
 - `db.process(ast)` — add one AST element
 - `db.processWithFallback(ast, fallback)` — for uncertain expressions
 - `db.postprocess(stream.fn)` — Mix-side processing (after this, only postprocess or processWithFallback allowed)
 
 **Filter/map rewriting:**
+
 - `db.filter(r -> ...)` / `db.map(r -> ...)` — compiler rewrites to query AST
 - `db.filterWithFallback(r -> ...)` / `db.mapWithFallback(r -> ...)` — both paths generated
 - Record expressions supported: `db.filter(.entity == "person")`, `db.map({name: .first_name})`
 
 **Output functions:**
+
 - `db.toArray` — materialize full result array
 - `db.toStream` — lazy stream (better when not consuming all results)
 - `db.first` — first result (error if empty)
 - `db.length` — count
 
 **Example:**
+
 ```plain text
 db.head() |> db.filter(.entity == "person") |> db.map({first_name: .first_name, last_name: .last_name, name: .first_name + " " + .last_name}) |> db.toArray
 ```
@@ -230,25 +247,25 @@ The query layer is a `filter → projection` pipeline. `|` separates stages in s
 
 ### Filter Operations
 
-| Operation | String | AST opcode | Mix (`db.filter(r -> ___)`)|
-|-----------|--------|------------|----------------------------|
-| equals | `key == val` | `["comparison", "==", key, val]` | `r.key == val` |
-| not equals | `key != val` | `["comparison", "!=", key, val]` | `r.key != val` |
-| greater than | `key > val` | `["comparison", ">", key, val]` | `r.key > val` |
-| less than | `key < val` | `["comparison", "<", key, val]` | `r.key < val` |
-| contains | `key contains val` | `["comparison", "contains", key, val]` | `string.contains(val, r.key)` |
-| prefix | `key like val` | `["comparison", "like", key, val]` | `string.hasPrefix(val, .key)` |
-| exists | `exists key` | `["exists", key]` | `r.key?` |
-| after | `after val` | `["after", val]` | not supported |
+| Operation    | String             | AST opcode                             | Mix (`db.filter(r -> ___)`)   |
+|--------------|--------------------|----------------------------------------|-------------------------------|
+| equals       | `key == val`       | `["comparison", "==", key, val]`       | `r.key == val`                |
+| not equals   | `key != val`       | `["comparison", "!=", key, val]`       | `r.key != val`                |
+| greater than | `key > val`        | `["comparison", ">", key, val]`        | `r.key > val`                 |
+| less than    | `key < val`        | `["comparison", "<", key, val]`        | `r.key < val`                 |
+| contains     | `key contains val` | `["comparison", "contains", key, val]` | `string.contains(val, r.key)` |
+| prefix       | `key like val`     | `["comparison", "like", key, val]`     | `string.hasPrefix(val, .key)` |
+| exists       | `exists key`       | `["exists", key]`                      | `r.key?`                      |
+| after        | `after val`        | `["after", val]`                       | not supported                 |
 
 **Array filters:**
 
-| Operation | String | AST opcode |
-|-----------|--------|------------|
-| any value in key is in array | `key in [...]` | `["comparison", "in", key, [...]]` |
-| key values include all of array | `key all in [...]` | `["comparison", "all_in", key, [...]]` |
-| key value is NOT in array | `key not in [...]` | `["comparison", "not_in", key, [...]]` |
-| no values are in array | `key not all in [...]` | `["comparison", "not_all_in", key, [...]]` |
+| Operation                       | String                 | AST opcode                                 |
+|---------------------------------|------------------------|--------------------------------------------|
+| any value in key is in array    | `key in [...]`         | `["comparison", "in", key, [...]]`         |
+| key values include all of array | `key all in [...]`     | `["comparison", "all_in", key, [...]]`     |
+| key value is NOT in array       | `key not in [...]`     | `["comparison", "not_in", key, [...]]`     |
+| no values are in array          | `key not all in [...]` | `["comparison", "not_all_in", key, [...]]` |
 
 **Boolean:** `and`/`&&`, `or`/`||`, `not`/`!`; no-op = `["nullFilter"]`
 
@@ -256,53 +273,54 @@ The query layer is a `filter → projection` pipeline. `|` separates stages in s
 
 ### Key Types
 
-| Key | String | AST |
-|-----|--------|-----|
-| Bare string | `"field"` | `"field"` |
-| Token | `field` | `["token", "field"]` |
-| Object member | `.field` | `["objectMember", null, ["token", "field"]]` |
-| Nested | `inner.field` | `["objectMember", ["objectMember", null, "inner"], ["token", "field"]]` |
-| Parameter | `$field` | `["param", "field"]` |
+| Key           | String        | AST                                                                     |
+|---------------|---------------|-------------------------------------------------------------------------|
+| Bare string   | `"field"`     | `"field"`                                                               |
+| Token         | `field`       | `["token", "field"]`                                                    |
+| Object member | `.field`      | `["objectMember", null, ["token", "field"]]`                            |
+| Nested        | `inner.field` | `["objectMember", ["objectMember", null, "inner"], ["token", "field"]]` |
+| Parameter     | `$field`      | `["param", "field"]`                                                    |
 
 **Nested projection note:** `field` refers to current object; `.field` refers to root object.
 
 ### Value Types and Indexability
 
-| Type | Indexed? |
-|------|----------|
-| null, undefined, bool, string (≤256 chars), ref | yes |
-| int, number | no |
-| list | yes, per element |
-| map | no (but nested indexable fields are indexed) |
-| Mix case types | only if argument has `_rmx_index` field |
+| Type                                            | Indexed?                                     |
+|-------------------------------------------------|----------------------------------------------|
+| null, undefined, bool, string (≤256 chars), ref | yes                                          |
+| int, number                                     | no                                           |
+| list                                            | yes, per element                             |
+| map                                             | no (but nested indexable fields are indexed) |
+| Mix case types                                  | only if argument has `_rmx_index` field      |
 
 ### Projections
 
-| Member | String | AST |
-|--------|--------|-----|
-| key: value | `key: value` | `["assignMember", "key", value]` |
-| with default | `key: value ?? "default"` | `["assignMember", "key", value, "default"]` |
-| copy field | `field` | `["assignMember", "field", "field"]` |
-| clone all fields | `*` | `["cloneMembers"]` |
-| clone all + expand refs | `**` | `["cloneMembersWithExpansion"]` |
-| remove field | `-key` | `["removeMember", "key"]` |
-| follow single ref | `+key` | `["followRef", key]` |
-| follow recursively | `++key` | not supported |
+| Member                  | String                    | AST                                         |
+|-------------------------|---------------------------|---------------------------------------------|
+| key: value              | `key: value`              | `["assignMember", "key", value]`            |
+| with default            | `key: value ?? "default"` | `["assignMember", "key", value, "default"]` |
+| copy field              | `field`                   | `["assignMember", "field", "field"]`        |
+| clone all fields        | `*`                       | `["cloneMembers"]`                          |
+| clone all + expand refs | `**`                      | `["cloneMembersWithExpansion"]`             |
+| remove field            | `-key`                    | `["removeMember", "key"]`                   |
+| follow single ref       | `+key`                    | `["followRef", key]`                        |
+| follow recursively      | `++key`                   | not supported                               |
 
 ### Aggregations
 
-| Operation | String | Mix |
-|-----------|--------|-----|
-| count | `count()` | `db.length` |
-| group by key | `group(key)` | not available |
-| order ascending | `orderAsc(key)` | `db.sort(.key)` |
-| order descending | `orderDesc(key)` | `db.dirSort(true, .key)` |
+| Operation            | String            | Mix                         |
+|----------------------|-------------------|-----------------------------|
+| count                | `count()`         | `db.length`                 |
+| group by key         | `group(key)`      | not available               |
+| order ascending      | `orderAsc(key)`   | `db.sort(.key)`             |
+| order descending     | `orderDesc(key)`  | `db.dirSort(true, .key)`    |
 | order with direction | `order(key, dir)` | `db.dirSort(not dir, .key)` |
-| reverse | `reverse()` | not available |
+| reverse              | `reverse()`       | not available               |
 
 ### Calculations
 
 Wrapped as `["calculation", calc]`. Arithmetic: `+`, `-`, `*`, `/`, `%`.
+
 - Any operation with `null` → `null`
 - Any operation with `undefined` → `undefined`
 - `+` also concatenates strings, lists, maps
@@ -354,11 +372,11 @@ Used as part of a flow to upload files to a remote mixer. Visual implementation 
 
 Agents are modules called with parameters that return values. Three types:
 
-| Type | Description | Setup |
-|------|-------------|-------|
-| **Service Agent** | Deployed on a cloud server | Enter Cloud URL → Refresh → select workspace/app/agent |
-| **Local Agent** | Runs on same server as caller (cloud server if from cloud agent; Amp if from Amp screen) | No URL needed |
-| **Amp Agent** | Rarely used; targets a specific Amp server | Provide `ampPrefix` (URL to Amp server) |
+| Type              | Description                                                                              | Setup                                                  |
+|-------------------|------------------------------------------------------------------------------------------|--------------------------------------------------------|
+| **Service Agent** | Deployed on a cloud server                                                               | Enter Cloud URL → Refresh → select workspace/app/agent |
+| **Local Agent**   | Runs on same server as caller (cloud server if from cloud agent; Amp if from Amp screen) | No URL needed                                          |
+| **Amp Agent**     | Rarely used; targets a specific Amp server                                               | Provide `ampPrefix` (URL to Amp server)                |
 
 **Refresh button** — updates agent bindings when the agent's signature changes or when pointing to a different agent. In/out-params are mirrored on the action node.
 
@@ -395,8 +413,10 @@ Set the `Content-Type` header accordingly and pass an object as the body — enc
 ### Client-Side Operation
 
 Runs the API request from the **client** (browser/app) rather than the VM server. Useful when:
+
 - Calling `localhost` (e.g. local MCP server)
-- Uploading local files — client does the upload directly without passing data into VM (significant performance benefit). Use together with the [File Upload pattern](https://www.notion.so/12e1d464528f8088900dcf2f4154cc24).
+- Uploading local files — client does the upload directly without passing data into VM (significant performance benefit). Use together with
+  the [File Upload pattern](https://www.notion.so/12e1d464528f8088900dcf2f4154cc24).
 
 ### Params
 

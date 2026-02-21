@@ -94,7 +94,8 @@ Moving to decentralized auth because:
 
 > Source: [Unified Login](https://www.notion.so/2901d464528f8096a29ccd062758e637)
 > See
-> also: [Org / System Setup](https://www.notion.so/2871d464528f8079b692edaa589da6b8), [Unified login diagram (draw.io)](https://drive.google.com/file/d/14naLAJarPRn7n0dAvYx0I_VlQJXXqPls/view?usp=sharing)
+>
+also: [Org / System Setup](https://www.notion.so/2871d464528f8079b692edaa589da6b8), [Unified login diagram (draw.io)](https://drive.google.com/file/d/14naLAJarPRn7n0dAvYx0I_VlQJXXqPls/view?usp=sharing)
 > Debug notes: [Login debug page](https://www.notion.so/2c41d464528f808ab1e4d162b4a22039)
 
 Full login flow implemented by all surfaces (desktop, mobile, extension, web, amp).
@@ -483,7 +484,9 @@ Guide for writing effective MCP tool descriptions. Tool prompts must focus on pr
         "type": "string"
       }
     },
-    "required": ["<param>"],
+    "required": [
+      "<param>"
+    ],
     "type": "object"
   },
   "name": "<tool-name>"
@@ -539,10 +542,10 @@ A monolithic, self-hosted deployment option for Remix apps and backend services.
 
 #### Via remix.app
 
-| Method         | URL Pattern                                    | Notes                       |
-|----------------|------------------------------------------------|-----------------------------|
-| **By key**     | `https://remix.app/<collection>/<item>`        | Registered Remix Clip       |
-| **By URL**     | `https://remix.app/run?_rmx_url=<.remix URL>` | Any hosted .remix file      |
+| Method          | URL Pattern                                   | Notes                       |
+|-----------------|-----------------------------------------------|-----------------------------|
+| **By key**      | `https://remix.app/<collection>/<item>`       | Registered Remix Clip       |
+| **By URL**      | `https://remix.app/run?_rmx_url=<.remix URL>` | Any hosted .remix file      |
 | **Drag & Drop** | `https://remix.app/run`                       | Drop .remix file in browser |
 
 #### Embedded on a Web Page
@@ -550,11 +553,13 @@ A monolithic, self-hosted deployment option for Remix apps and backend services.
 Load the Remix runtime directly in any web page:
 
 ```html
-<link href="https://remix.app/static/rmx-fullscreen.css" rel="stylesheet" />
+
+<link href="https://remix.app/static/rmx-fullscreen.css" rel="stylesheet"/>
 <script type="module">
-  import { load } from "https://dev.remix.app/js/rmx-app-record.js";
-  const appRecord = "about/remix"; // or a full AppRecord object
-  load(appRecord, "https://dev.remix.app/static/mixcore.wasm", {});
+    import {load} from "https://dev.remix.app/js/rmx-app-record.js";
+
+    const appRecord = "about/remix"; // or a full AppRecord object
+    load(appRecord, "https://dev.remix.app/static/mixcore.wasm", {});
 </script>
 ```
 
@@ -609,21 +614,22 @@ Container page for builder-integrated tools. Child pages: Cloud Workspace Tool, 
 
 > Source: [Cloud Workspace Tool](https://www.notion.so/12c1d464528f809b9f58e6a707b93fe1)
 
-Tool for managing cloud workspaces. Available as a **builder plugin** (Plugins menu → "Cloud Workspace POC") or on the [web](https://remixlabs.com/app.html?src=https://agt.files.remix.app/remix/files/poc/cloud_workspace_poc.remix).
+Tool for managing cloud workspaces. Available as a **builder plugin** (Plugins menu → "Cloud Workspace POC") or on
+the [web](https://remixlabs.com/app.html?src=https://agt.files.remix.app/remix/files/poc/cloud_workspace_poc.remix).
 
 **Prerequisite:** Access to a cloud workspace (request from Remix admin if needed).
 
 #### Screens
 
-| Screen                     | Purpose                                                                                                         |
-|----------------------------|-----------------------------------------------------------------------------------------------------------------|
-| **Workspace entry**        | Enter workspace ID to manage. Pin button to auto-navigate on next open.                                        |
-| **Workspace overview**     | Menu of management options. Cloud button returns to entry screen.                                               |
-| **Deploy App**             | Install apps from **Builder** (last published state, can include builder assets for library hosting) or **Hosted** (.remix URL) |
-| **Workspace permissions**  | Search users by email, view/add workspace-level roles. Add multiple users (one email per line).                 |
-| **App Hub**                | Install pre-configured apps: **Files** (file management), **Federated Search** (component search from workspace libraries). Blue icon = not installed, Green icon = update available. |
-| **App overview**           | Per-app user permissions, agent permissions, delete app (requires confirmation code).                           |
-| **Agent permissions**      | Per-agent access types: **Whitelist** (specific auth'd users), **Anonymous** (anyone), **Authenticated** (any auth'd user). Agents without permissions don't appear. |
+| Screen                    | Purpose                                                                                                                                                                               |
+|---------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Workspace entry**       | Enter workspace ID to manage. Pin button to auto-navigate on next open.                                                                                                               |
+| **Workspace overview**    | Menu of management options. Cloud button returns to entry screen.                                                                                                                     |
+| **Deploy App**            | Install apps from **Builder** (last published state, can include builder assets for library hosting) or **Hosted** (.remix URL)                                                       |
+| **Workspace permissions** | Search users by email, view/add workspace-level roles. Add multiple users (one email per line).                                                                                       |
+| **App Hub**               | Install pre-configured apps: **Files** (file management), **Federated Search** (component search from workspace libraries). Blue icon = not installed, Green icon = update available. |
+| **App overview**          | Per-app user permissions, agent permissions, delete app (requires confirmation code).                                                                                                 |
+| **Agent permissions**     | Per-agent access types: **Whitelist** (specific auth'd users), **Anonymous** (anyone), **Authenticated** (any auth'd user). Agents without permissions don't appear.                  |
 
 ---
 
@@ -645,11 +651,11 @@ Version control system for builder projects. Repository data lives in a workspac
 
 #### Four Plugins
 
-| Plugin             | Purpose                                                                                          |
-|--------------------|--------------------------------------------------------------------------------------------------|
-| **create_project** | Check in a local builder project as a new repository project. Also used to switch to a different repository. |
-| **list_projects**  | Browse repository projects, view revisions, edit project details, clone head or specific revision. |
-| **pull**           | Download changes from repository. Two modes: **Discard** (reset local to match repo exactly) or **Keep** (merge non-conflicting local changes). |
+| Plugin             | Purpose                                                                                                                                                |
+|--------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **create_project** | Check in a local builder project as a new repository project. Also used to switch to a different repository.                                           |
+| **list_projects**  | Browse repository projects, view revisions, edit project details, clone head or specific revision.                                                     |
+| **pull**           | Download changes from repository. Two modes: **Discard** (reset local to match repo exactly) or **Keep** (merge non-conflicting local changes).        |
 | **push**           | Upload local changes to repository. Conflict prevention: must pull first if another contributor pushed since your last sync. Supports commit comments. |
 
 #### Workflow
