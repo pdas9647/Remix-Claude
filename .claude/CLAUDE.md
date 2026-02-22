@@ -76,7 +76,8 @@ Notion page index (split by teamspace, load only what's needed):
 - [mix-std-lib.md](./mix-std-lib.md) — ~60 module master index with descriptions
 - [mix-lang-core.md](./mix-lang-core.md) — bool, number, string, option, result, bitset, passThrough, regex
 - [mix-lang-collections.md](./mix-lang-collections.md) — array, set, map, gset, uniqArray, circuitarray
-- [mix-lang-data.md](./mix-lang-data.md) — db, db-changes, dbRemote, minidb, query, registry, resource
+- [mix-lang-db.md](./mix-lang-db.md) — db, db-changes, dbRemote, minidb (CRUD, query pipeline, live queries, filter compilability, references)
+- [mix-lang-query.md](./mix-lang-query.md) — query AST builder (filter/projection/aggregation nodes, map constructors), resource (deprecated), registry (experimental)
 - [mix-lang-io.md](./mix-lang-io.md) — http, file, binary, crypto, wasm, mime
 - [mix-lang-stream.md](./mix-lang-stream.md) — stream, xml, websocket
 - [mix-lang-editor-dom.md](./mix-lang-editor-dom.md) — dom/domUtil, sync cell protocol, editorTypes, editorNode, editorScreen
@@ -87,14 +88,3 @@ Notion page index (split by teamspace, load only what's needed):
 - [mix-lang-platform-runtime.md](./mix-lang-platform-runtime.md) — agent, auth, env, secrets (runtime identity, invocation, OAuth tokens)
 - [mix-lang-platform-concurrency.md](./mix-lang-platform-concurrency.md) — logging, metrics, co (coroutines/channels/pubsub), embed, track, memo, random, util
 - [mix-lang-platform-messaging.md](./mix-lang-platform-messaging.md) — calendar, color, messaging (pub/sub topics, cloud/remote), loader (dynamic library loading)
-
----
-
-## Maintenance Notes
-
-- **Phase 3 pending**: Split 8 oversized topic files (>18KB) into smaller sub-files for better context efficiency.
-  Files to split: mix-lang-data.md (19K)
-  Already split: mix-lang-platform.md → 3 files, mix-lang-editor.md → 4 files, mix-syntax.md → 4 files, server-apis.md → 3 files, remix-nodes.md → 3 files, mix-driver.md → 2 files
-  Already split: mix-lang-platform.md → 3 files, mix-lang-editor.md → 4 files, mix-syntax.md → 4 files, server-apis.md → 3 files
-- **Weekly update cadence**: Check Notion pages modified in last 7 days, Slack channels for last 3-4 days
-- **Last refreshed**: 2026-02-21

@@ -25,9 +25,9 @@
 | `compiler`         | Library/executable type defs: libID, library, executable, storedBinary                             | mix-lang-editor.md      |
 | `container`        | Array & map ops: safeGet/descend, pathUpdate, shallowMap/deepMap, merge                            | mix-lang-editor.md      |
 | `crypto`           | Hashing (MD5/SHA/HMAC/RSA), AES-GCM encryption                                                     | mix-lang-io.md          |
-| `db`               | Primary DB: CRUD, query pipeline, live queries                                                     | mix-lang-data.md        |
-| `db-changes`       | Migration notes: old→new db module API                                                             | mix-lang-data.md        |
-| `dbRemote`         | HTTP-protocol DB access (remote only)                                                              | mix-lang-data.md        |
+| `db`               | Primary DB: CRUD, query pipeline, live queries                                                     | mix-lang-db.md          |
+| `db-changes`       | Migration notes: old→new db module API                                                             | mix-lang-db.md          |
+| `dbRemote`         | HTTP-protocol DB access (remote only)                                                              | mix-lang-db.md          |
 | `debugger`         | Remote debug commands, Mix event stream, DOM mirror stream                                         | mix-lang-editor.md      |
 | `dom`              | DOM type: create/access/serialize nodes, sync cells, symbol table                                  | mix-lang-editor.md      |
 | `editor-node`      | Nodegraph node introspection: bindings, connections, traversal                                     | mix-lang-editor.md      |
@@ -45,16 +45,16 @@
 | `messaging-pubsub` | High-level pub/sub: topics, retained set/get, non-retained send, live queries, remote/cloud topics | mix-lang-platform.md    |
 | `metrics`          | Timers, profiling, tracing, statistics, Mix event log                                              | mix-lang-platform.md    |
 | `mime`             | MIME headers, media types, multipart/form-data                                                     | mix-lang-io.md          |
-| `minidb`           | In-session pure-Mix DB, Wasm-compatible                                                            | mix-lang-data.md        |
+| `minidb`           | In-session pure-Mix DB, Wasm-compatible                                                            | mix-lang-db.md          |
 | `option`           | Option type: null/some(x), map/andThen                                                             | mix-lang-core.md        |
 | `passThrough`      | Wrap value in anonymous cell for link()                                                            | mix-lang-core.md        |
-| `query`            | AST builder for db filters and projections                                                         | mix-lang-data.md        |
+| `query`            | AST builder for db filters and projections                                                         | mix-lang-query.md       |
 | `random`           | Pseudo/crypto random ints, floats, strings; alphabet constants                                     | mix-lang-platform.md    |
 | `reflect`          | Module/screen/agent introspection, push navigation, spreadsheet inspect                            | mix-lang-editor.md      |
 | `reflectComponent` | Instantiate registered component by name → output+view                                             | mix-lang-editor.md      |
 | `regex`            | Regex: compile/find/replace/split/templates/lex                                                    | mix-lang-core.md        |
-| `registry`         | Session-scoped case value store (experimental)                                                     | mix-lang-data.md        |
-| `resource`         | Static resource URLs *(deprecated → use file)*                                                     | mix-lang-data.md        |
+| `registry`         | Session-scoped case value store (experimental)                                                     | mix-lang-query.md       |
+| `resource`         | Static resource URLs *(deprecated → use file)*                                                     | mix-lang-query.md       |
 | `result`           | Result type: error/ok, map/andThen/orElse                                                          | mix-lang-core.md        |
 | `secrets`          | Per-user encrypted secret/token storage                                                            | mix-lang-platform.md    |
 | `set`              | Immutable sets of strings, set-theoretic ops                                                       | mix-lang-collections.md |
@@ -106,7 +106,8 @@ Source: [parsing-csv](https://www.notion.so/1451d464528f80688a22ca276faf82d9)
 
 - [mix-lang-core.md](./mix-lang-core.md) — Scalar types & utilities: bool, number, string, option, result, bitset, passThrough, regex
 - [mix-lang-collections.md](./mix-lang-collections.md) — Collection types: array, set, map, gset, uniqArray, circuitarray
-- [mix-lang-data.md](./mix-lang-data.md) — db, db-changes, dbRemote, minidb, query, registry, resource (deprecated)
+- [mix-lang-db.md](./mix-lang-db.md) — db, db-changes, dbRemote, minidb (CRUD, query pipeline, live queries, filter compilability, references)
+- [mix-lang-query.md](./mix-lang-query.md) — query AST builder (filter/projection/aggregation nodes, map constructors), resource (deprecated), registry (experimental)
 - [mix-lang-io.md](./mix-lang-io.md) — http, file, binary, crypto, wasm, mime
 - [mix-lang-stream.md](./mix-lang-stream.md) — stream (lazy ops: map/filter/reduce/sort/zip/join/tee), xml (parse/navigate/search, server-only), websocket (client: read/write/channels)
 - [mix-lang-platform.md](./mix-lang-platform.md) — agent, auth, env, secrets, logging, metrics, co, embed, track, memo, random, util, calendar, color, messaging, loader
