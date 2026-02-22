@@ -105,18 +105,18 @@ Markers: → file.md = content captured | ○ = not yet fetched | ✗ = blank/sk
 
 ### Mix Syntax & Semantics
 
-- [Mix Syntax](https://www.notion.so/1061d464528f81d492f4e1b0f8c8adf4) → mix-syntax.md
+- [Mix Syntax](https://www.notion.so/1061d464528f81d492f4e1b0f8c8adf4) → mix-syntax-core.md
 - [Type system](https://www.notion.so/1061d464528f81c0ba7bdc8fc2ce8556) → mix-type.md
-- [directives](https://www.notion.so/1061d464528f81c08c15e5ae817171ee) → mix-syntax.md
-- [cells](https://www.notion.so/1061d464528f81b7afc2e999931a3c8a) → mix-syntax.md
-- [cells-links-and-aliases](https://www.notion.so/1061d464528f81cba83fddeb2e80a3af) → mix-syntax.md
-- [case-types](https://www.notion.so/1061d464528f81dcaf60cf82adc1d1e9) → mix-syntax.md + mix-type.md
-- [Builtin operations](https://www.notion.so/1061d464528f81a5a5bbff09ca40f2cf) → mix-syntax.md
-- [undefined](https://www.notion.so/1061d464528f81c1bb53e27eb10a9aea) → mix-syntax.md
-- [syntax-stmt-expr](https://www.notion.so/1061d464528f8150a392ddc30fbdbb9a) → mix-syntax.md
+- [directives](https://www.notion.so/1061d464528f81c08c15e5ae817171ee) → mix-syntax-style.md
+- [cells](https://www.notion.so/1061d464528f81b7afc2e999931a3c8a) → mix-syntax-core.md
+- [cells-links-and-aliases](https://www.notion.so/1061d464528f81cba83fddeb2e80a3af) → mix-syntax-core.md
+- [case-types](https://www.notion.so/1061d464528f81dcaf60cf82adc1d1e9) → mix-syntax-expressions.md + mix-type.md
+- [Builtin operations](https://www.notion.so/1061d464528f81a5a5bbff09ca40f2cf) → mix-syntax-semantics.md
+- [undefined](https://www.notion.so/1061d464528f81c1bb53e27eb10a9aea) → mix-syntax-semantics.md
+- [syntax-stmt-expr](https://www.notion.so/1061d464528f8150a392ddc30fbdbb9a) → mix-syntax-semantics.md
 - [xml (representation)](https://www.notion.so/1061d464528f8123bbf7fd135d3e6c7f) → mix-lang-stream.md
-- [styleguide](https://www.notion.so/1061d464528f819099d2e81ae669855d) → mix-syntax.md
-- [actionclosures](https://www.notion.so/1061d464528f818cb833fd55e9077e77) → mix-syntax.md
+- [styleguide](https://www.notion.so/1061d464528f819099d2e81ae669855d) → mix-syntax-style.md
+- [actionclosures](https://www.notion.so/1061d464528f818cb833fd55e9077e77) → mix-syntax-semantics.md
 
 ### Mix Advanced Topics
 
@@ -183,8 +183,11 @@ Markers: → file.md = content captured | ○ = not yet fetched | ✗ = blank/sk
 **Streaming** → mix-lang-stream.md:
 - [stream](https://www.notion.so/1061d464528f81fd8334c07f89c15b0f), [xml](https://www.notion.so/11ca20aeafb348a38dde4f513b146001), [websocket](https://www.notion.so/1061d464528f81e8af3dd2ed1d92f1fb)
 
-**Editor & Reflection** → mix-lang-editor.md:
-- dom, editorTypes, editorNode, editorScreen, reflect, reflectComponent, slateComponent, slateDef, slateDyn, slateGen, container, viewstack, debugger, testing, compiler, vm
+**Editor & Reflection**:
+- dom, domUtil, sync cell, editorTypes, editorNode, editorScreen → mix-lang-editor-dom.md
+- reflect, reflectComponent, slateComponent → mix-lang-editor-reflect.md
+- slateDef, slateDyn, slateGen → mix-lang-editor-slate.md
+- container, viewstack, debugger, testing, compiler, vm → mix-lang-editor-runtime.md
 
 **Platform**:
 - agent, auth, env, secrets → mix-lang-platform-runtime.md

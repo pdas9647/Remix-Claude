@@ -56,7 +56,10 @@ Notion page index (split by teamspace, load only what's needed):
 
 ### Mix Language
 
-- [mix-syntax.md](./mix-syntax.md) — Syntax: modules, cells, defs, statements, expressions, patterns, operators, undefined, styleguide, directives
+- [mix-syntax-core.md](./mix-syntax-core.md) — modules/imports, cells (links/aliases/observers/live), defs (foreign/recursive), statements, actions
+- [mix-syntax-expressions.md](./mix-syntax-expressions.md) — expressions, literals, lambdas, operators, patterns, types, cases, short projections
+- [mix-syntax-semantics.md](./mix-syntax-semantics.md) — undefined semantics (Kleene &&/||, bubbling, filters), operator semantics, stmt-vs-expr, action closures
+- [mix-syntax-style.md](./mix-syntax-style.md) — directives (#line/#push/#pop), pragmas (typing/warning), _meta_, code style guide
 - [mix-type.md](./mix-type.md) — Type system: hierarchy, type vars, definitions, case/union, hints vs assertions, labeled tuples
 - [mix-build.md](./mix-build.md) — Build system: library/executable records, mixc CLI, dependency rules, lib_header
 - [mix-agent.md](./mix-agent.md) — _rmx_sessionAgent, _rmx_agentAgent, _rmx_makeAgent (build/deploy pipeline)
@@ -71,7 +74,10 @@ Notion page index (split by teamspace, load only what's needed):
 - [mix-lang-data.md](./mix-lang-data.md) — db, db-changes, dbRemote, minidb, query, registry, resource
 - [mix-lang-io.md](./mix-lang-io.md) — http, file, binary, crypto, wasm, mime
 - [mix-lang-stream.md](./mix-lang-stream.md) — stream, xml, websocket
-- [mix-lang-editor.md](./mix-lang-editor.md) — dom, editorTypes, editorNode, editorScreen, reflect, slateComponent/Def/Dyn/Gen, container, viewstack, debugger, testing, compiler, vm
+- [mix-lang-editor-dom.md](./mix-lang-editor-dom.md) — dom/domUtil, sync cell protocol, editorTypes, editorNode, editorScreen
+- [mix-lang-editor-reflect.md](./mix-lang-editor-reflect.md) — reflect, reflectComponent, slateComponent
+- [mix-lang-editor-slate.md](./mix-lang-editor-slate.md) — slateDef, slateDyn, slateGen
+- [mix-lang-editor-runtime.md](./mix-lang-editor-runtime.md) — container, viewstack, debugger, testing, compiler, vm
 - [mix-lang-advanced.md](./mix-lang-advanced.md) — Recursion, stream mutability, pattern matching, modules advanced, links, EscJSON, embedding viewstacks
 - [mix-lang-platform-runtime.md](./mix-lang-platform-runtime.md) — agent, auth, env, secrets (runtime identity, invocation, OAuth tokens)
 - [mix-lang-platform-concurrency.md](./mix-lang-platform-concurrency.md) — logging, metrics, co (coroutines/channels/pubsub), embed, track, memo, random, util
