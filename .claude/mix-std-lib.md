@@ -79,21 +79,21 @@
 
 Not part of the stdlib; must be explicitly imported. Details in separate files.
 
-| Library        | Module           | Description                                                                                   | Detail File          |
-|----------------|------------------|-----------------------------------------------------------------------------------------------|----------------------|
-| `mixc/parsing` | `csv`            | Parse RFC-4180 CSV → `array(array(string))`                                                   | mix-lang-advanced.md |
-| `driver`       | `compilerRule`   | Build rule records: scan/load/save/makeLibRule/saveLibRule/getExeRuleHash                     | mix-driver.md        |
-| `driver`       | `compilerFile`   | Source file records: scan/load/save/make (computes imports via session)                       | mix-driver.md        |
-| `driver`       | `compilerLib`    | Library DB records: scan/load/save/strip/publish/closure (topo sort)                          | mix-driver.md        |
-| `driver`       | `compilerExe`    | Executable DB records: scan/load/save/publish/createExeFromLibs (amp only)                    | mix-driver.md        |
-| `driver`       | `compilerDriver` | Session orchestration: createSession/compilePhrases/compileModules/saveLibrary/saveExecutable | mix-driver.md        |
-| `driver`       | `compilerREPL`   | Send compiled code to VM via connector: eval/sendCodeFromCompiler                             | mix-driver.md        |
-| `driver`       | `compilerClean`  | Cleanup (no API documented yet)                                                               | mix-driver.md        |
-| `driver`       | `compilerBuild`  | High-level build pipeline: execute/execOn/execEmbedImports                                    | mix-driver.md        |
-| `driver`       | `codegenDriver`  | Generate Mix source from editor screen DB records                                             | mix-driver.md        |
-| `driver`       | `codegenUtil`    | mkStylesRecord/mkFileMetaRecord                                                               | mix-driver.md        |
-| `driver`       | `remixFile`      | Build .remix zip files: add entries, pack to blob                                             | mix-driver.md        |
-| `driver`       | `remixRecipe`    | Declarative .remix recipe types (bundle/assets/recipe)                                        | mix-driver.md        |
+| Library        | Module           | Description                                                                                   | Detail File            |
+|----------------|------------------|-----------------------------------------------------------------------------------------------|------------------------|
+| `mixc/parsing` | `csv`            | Parse RFC-4180 CSV → `array(array(string))`                                                   | mix-lang-advanced.md   |
+| `driver`       | `compilerRule`   | Build rule records: scan/load/save/makeLibRule/saveLibRule/getExeRuleHash                     | mix-driver-compiler.md |
+| `driver`       | `compilerFile`   | Source file records: scan/load/save/make (computes imports via session)                       | mix-driver-compiler.md |
+| `driver`       | `compilerLib`    | Library DB records: scan/load/save/strip/publish/closure (topo sort)                          | mix-driver-compiler.md |
+| `driver`       | `compilerExe`    | Executable DB records: scan/load/save/publish/createExeFromLibs (amp only)                    | mix-driver-compiler.md |
+| `driver`       | `compilerDriver` | Session orchestration: createSession/compilePhrases/compileModules/saveLibrary/saveExecutable | mix-driver-compiler.md |
+| `driver`       | `compilerREPL`   | Send compiled code to VM via connector: eval/sendCodeFromCompiler                             | mix-driver-compiler.md |
+| `driver`       | `compilerClean`  | Cleanup (no API documented yet)                                                               | mix-driver-compiler.md |
+| `driver`       | `compilerBuild`  | High-level build pipeline: execute/execOn/execEmbedImports                                    | mix-driver-build.md    |
+| `driver`       | `codegenDriver`  | Generate Mix source from editor screen DB records                                             | mix-driver-build.md    |
+| `driver`       | `codegenUtil`    | mkStylesRecord/mkFileMetaRecord                                                               | mix-driver-build.md    |
+| `driver`       | `remixFile`      | Build .remix zip files: add entries, pack to blob                                             | mix-driver-build.md    |
+| `driver`       | `remixRecipe`    | Declarative .remix recipe types (bundle/assets/recipe)                                        | mix-driver-build.md    |
 
 **`csv.parse(s: string) -> array(array(string))`** — Outer array = lines, inner array = fields per line.
 Example: `csv.parse("a,b\nc,d")` → `[["a","b"],["c","d"]]`

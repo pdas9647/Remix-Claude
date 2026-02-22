@@ -68,7 +68,8 @@ Notion page index (split by teamspace, load only what's needed):
 - [mix-build.md](./mix-build.md) — Build system: library/executable records, mixc CLI, dependency rules, lib_header
 - [mix-agent.md](./mix-agent.md) — _rmx_sessionAgent, _rmx_agentAgent, _rmx_makeAgent (build/deploy pipeline)
 - [mix-screen.md](./mix-screen.md) — _rmx_auth, _rmx_error/_rmx_errorFallback, _rmx_entry, _rmx_debugShell
-- [mix-driver.md](./mix-driver.md) — Driver lib: compilerRule/File/Lib/Exe/Driver/REPL/Clean/Build, codegenDriver/Util, remixFile, remixRecipe
+- [mix-driver-compiler.md](./mix-driver-compiler.md) — Driver lib: compilerRule/File/Lib/Exe (DB records), compilerDriver (session orchestration), compilerREPL (send to VM), compilerClean
+- [mix-driver-build.md](./mix-driver-build.md) — Driver lib: compilerBuild (high-level build pipeline), codegenDriver/Util (Mix source from screens), remixFile (.remix zip builder), remixRecipe (declarative recipe types)
 
 ### Mix Standard Library
 
@@ -92,8 +93,8 @@ Notion page index (split by teamspace, load only what's needed):
 ## Maintenance Notes
 
 - **Phase 3 pending**: Split 8 oversized topic files (>18KB) into smaller sub-files for better context efficiency.
-  Files to split: mix-driver.md (22K), mix-lang-data.md (19K)
-  Already split: mix-lang-platform.md → 3 files, mix-lang-editor.md → 4 files, mix-syntax.md → 4 files, server-apis.md → 3 files, remix-nodes.md → 3 files
+  Files to split: mix-lang-data.md (19K)
+  Already split: mix-lang-platform.md → 3 files, mix-lang-editor.md → 4 files, mix-syntax.md → 4 files, server-apis.md → 3 files, remix-nodes.md → 3 files, mix-driver.md → 2 files
   Already split: mix-lang-platform.md → 3 files, mix-lang-editor.md → 4 files, mix-syntax.md → 4 files, server-apis.md → 3 files
 - **Weekly update cadence**: Check Notion pages modified in last 7 days, Slack channels for last 3-4 days
 - **Last refreshed**: 2026-02-21
