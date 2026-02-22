@@ -3,6 +3,7 @@
 Persistent context for Remix Labs tasks. When memory is insufficient, read the relevant topic file below, then fetch linked Notion pages if still needed.
 
 Notion page index (split by teamspace, load only what's needed):
+
 - [notion-index-general.md](./notion-index-general.md) — General teamspace (Product, Connectors, GTM, MCP)
 - [notion-index-customer.md](./notion-index-customer.md) — Customer Success (Funda, Lumber, Orderly, etc.)
 - [notion-index-doc-studio.md](./notion-index-doc-studio.md) — Documentation: Studio & Platform (User Guide, Nodes, Server APIs, Deploying, Tools)
@@ -53,8 +54,10 @@ Notion page index (split by teamspace, load only what's needed):
 - [remix-deploy.md](./remix-deploy.md) — 10 deployment surfaces, self-hosted server, .remix files, iOS/Android widgets, widget debugging
 - [remix-tools.md](./remix-tools.md) — mix_client REPL, bug reporting, asset submission, MCP tools, Cloud Workspace Tool, Repository Tool
 - [platform-topics.md](./platform-topics.md) — Web Components, Wasm Functions, files, pubsub, component overriding, permissions, secrets/tokens
-- [platform-builder-runtime.md](./platform-builder-runtime.md) — Mixed Auth (fullscreen vs embedded _rmx_auth, rmx-remix host page pattern), External Actions (runtime→host onEvent map, default/mobile/local-storage/payment catalog, moving to Client Actions)
-- [platform-builder-macros.md](./platform-builder-macros.md) — Macros (builder remote control: macro tiles + Mix macro module, ndType/bdType/operator reference, createNodeFromAst), Edit/Run/Configure modes (3 L2 view modes, URL param, configurator node setup, fullscreen variants), _rmx_init
+- [platform-builder-runtime.md](./platform-builder-runtime.md) — Mixed Auth (fullscreen vs embedded _rmx_auth, rmx-remix host page pattern), External Actions (runtime→host onEvent map,
+  default/mobile/local-storage/payment catalog, moving to Client Actions)
+- [platform-builder-macros.md](./platform-builder-macros.md) — Macros (builder remote control: macro tiles + Mix macro module, ndType/bdType/operator reference, createNodeFromAst), Edit/Run/Configure
+  modes (3 L2 view modes, URL param, configurator node setup, fullscreen variants), _rmx_init
 - [remix-nodes-basics.md](./remix-nodes-basics.md) — Nodes: In/Out Params, Cards & Components, File Uploading, Data Objects/Transforms, Working with State
 - [remix-nodes-queries.md](./remix-nodes-queries.md) — Queries (QB 2.0, DB architecture, Mix/HTTP query API, live query), Query Syntax (filter/projection/aggregation/calculation)
 - [remix-nodes-actions.md](./remix-nodes-actions.md) — Actions: File Register, Agent Connect (Service/Local/Amp), Api node (multipart/client-side), Database Save/Delete, Service Agent modules
@@ -73,7 +76,23 @@ Notion page index (split by teamspace, load only what's needed):
 - [mix-agent.md](./mix-agent.md) — _rmx_sessionAgent, _rmx_agentAgent, _rmx_makeAgent (build/deploy pipeline)
 - [mix-screen.md](./mix-screen.md) — _rmx_auth, _rmx_error/_rmx_errorFallback, _rmx_entry, _rmx_debugShell
 - [mix-driver-compiler.md](./mix-driver-compiler.md) — Driver lib: compilerRule/File/Lib/Exe (DB records), compilerDriver (session orchestration), compilerREPL (send to VM), compilerClean
-- [mix-driver-build.md](./mix-driver-build.md) — Driver lib: compilerBuild (high-level build pipeline), codegenDriver/Util (Mix source from screens), remixFile (.remix zip builder), remixRecipe (declarative recipe types)
+- [mix-driver-build.md](./mix-driver-build.md) — Driver lib: compilerBuild (high-level build pipeline), codegenDriver/Util (Mix source from screens), remixFile (.remix zip builder), remixRecipe (
+  declarative recipe types)
+
+## Slack Channels
+
+- [slack-general.md](./slack-general.md) — #general: team structure, standups, GTM pipeline, platform incidents, key decisions (Dec 2025–Feb 2026)
+- [slack-announcements.md](./slack-announcements.md) — #announcements: Lumber coordination, Salesforce demo, desktop readiness, theme migration, WebAuthn design (Dec 2025–Feb 2026)
+- [slack-bugbash.md](./slack-bugbash.md) — #bugbash: open bugs, in-progress fixes, recently resolved (Jan–Feb 2026)
+- [slack-design.md](./slack-design.md) — #design: library sync, theme overhaul, TUI grid, L0 desktop org, tailwind fixes, UX bug reports (Dec 2025–Feb 2026)
+- [slack-desktop.md](./slack-desktop.md) — #desktop: native vs browser debate, app sync, auth bugs, Tauri limitations, release channels (Dec 2025–Feb 2026)
+- [slack-dumbquestionsanswered.md](./slack-dumbquestionsanswered.md) — #dumbquestionsanswered: env.runtimeURL deprecation, desktop /a/x/apps equivalent, platform Q&A (Feb 2026)
+- [slack-extension.md](./slack-extension.md) — #extension: Chrome extension release log (Jan–Feb 2026)
+- [slack-flutter.md](./slack-flutter.md) — #flutter: mobile app releases, widgets iOS/Android, federated search, deeplinks (Jan–Feb 2026)
+- [slack-ops.md](./slack-ops.md) — #ops: weekly production promotion workflow, harmony PRs, TF build log (Feb 2026)
+- [slack-rmx-delivery-5starmusic.md](./slack-rmx-delivery-5starmusic.md) — #rmx-delivery-5starmusic: IVR+CRM build, go-live Nov 2025, SMS architecture, field trips, post-launch (Oct 2025–Feb 2026)
+
+---
 
 ### Mix Standard Library
 

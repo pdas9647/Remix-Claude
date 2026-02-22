@@ -72,6 +72,23 @@
 - Voice recordings: M4A → convert to MP3 → upload to Twilio assets
 - IVR built in Twilio Studio
 - Call forwarding: landline carrier forwards unconditionally to Twilio number
+- **Twilio number:** (650) 855-2764
+- **SMS delivery (current):** outbound SMS sent via Wilber's Android phone (not Twilio); Twilio SMS migration flagged as next step
+- **Call forwarding set:** Xfinity landline → Twilio 650 number (set in-person Nov 13)
+- **Default email on Mark's Samsung must be Outlook** for the "send email to contact" flow to work
+
+### CRM App (built by Sirshendu)
+
+- Contact status: **new** (default) → **read** (auto on open) → **closed** (manually marked)
+- Search and filter by new/all contacts; confirmation screen on delete
+- HubSpot integration removed; cloud DBs on workspace `Hafoe2ekMN` (prod)
+- Auth: Google + Microsoft login both enabled
+
+### Delivery Status
+
+- **Went live:** Nov 13–14, 2025 (Mukund field trip to Mark's office)
+- **Pending feature request:** push notification when contact form submitted (Mark asked; deferred)
+- **Post-launch:** 3 inbound calls in first week; caller numbers visible in Twilio log; low contact form completion rate initially
 
 ---
 
