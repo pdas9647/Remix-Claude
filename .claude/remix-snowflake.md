@@ -128,3 +128,155 @@ CREATE OR REPLACE SECURITY INTEGRATION snowflake_connect
   ENABLED = TRUE
   OAUTH_ISSUE_REFRESH_TOKENS = TRUE;
 ```
+
+---
+
+## Snowflake OAuth Integration Setup
+
+> Source: https://www.notion.so/20e1d464528f8057b143d055514d6cb5
+
+Runs queries as a signed-in user with the default `PUBLIC` role.
+Auth config name: `snowflake_connect`
+
+**Prerequisites:** Snowflake org account; `ACCOUNTADMIN` role or `CREATE INTEGRATION` privilege.
+
+### 1. Create a worksheet in Snowflake
+
+Navigate to your Snowflake account at `https://app.snowflake.com/<ORG_ID>/<ACC_ID>` → Projects → Worksheets → "+" → name it `snowflake_connect setup`.
+
+### 2. Create the security integration
+
+```sql
+CREATE OR REPLACE SECURITY INTEGRATION snowflake_connect
+  TYPE = OAUTH
+  OAUTH_CLIENT = CUSTOM
+  OAUTH_CLIENT_TYPE = 'CONFIDENTIAL'
+  OAUTH_REDIRECT_URI = 'https://<SUBDOMAIN>.remixlabs.com/a/x/auth/<AUTH_CONFIG_NAME>/callback'
+  ENABLED = TRUE
+  OAUTH_ISSUE_REFRESH_TOKENS = TRUE;
+```
+
+Replace `<SUBDOMAIN>` with `remix` and `<AUTH_CONFIG_NAME>` with `snowflake_connect` for standard setup.
+Ref: https://docs.snowflake.com/en/user-guide/oauth-custom
+
+### 3. Retrieve client credentials
+
+```sql
+SELECT SYSTEM$SHOW_OAUTH_CLIENT_SECRETS('<SECURITY_INTEGRATION_NAME>');
+```
+
+> **`<SECURITY_INTEGRATION_NAME>` must be ALL CAPS** (e.g. `SNOWFLAKE_CONNECT`).
+
+Returns the Client ID and Client Secret needed for the Remix auth config.
+
+### 4. Get authorization and token endpoints
+
+```sql
+DESC INTEGRATION <SECURITY_INTEGRATION_NAME>;
+```
+
+> **No quotes** around the integration name here.
+
+Outputs `OAUTH_AUTHORIZATION_ENDPOINT` and `OAUTH_TOKEN_ENDPOINT`.
+
+### 5. Scopes
+
+OAuth scopes map directly to Snowflake roles. Default scope for this guide:
+
+```
+session:role:PUBLIC
+```
+
+Replace `PUBLIC` with any other role as needed. Ref: https://docs.snowflake.com/en/user-guide/oauth-ext-overview#scopes
+
+### 6. Create auth config in Remix
+
+Use the OAuth Manager App for your environment (see Common Patterns in connectors.md):
+1. Tap "New +" → fill in Client ID, Client Secret, auth/token endpoints, and scopes
+2. Name must be `snowflake_connect` (cannot be changed after creation)
+
+---
+
+## Snowflake Service Account Setup
+
+> Source: https://www.notion.so/2a81d464528f80de8febcf0b590be206
+
+Key-pair (RSA) JWT authentication for programmatic API access — no OAuth flow.
+
+**Prerequisites:** `ACCOUNTADMIN` access (or sufficient privileges); OpenSSL installed locally.
+
+### Step 1: Generate RSA key pair
+
+```bash
+# Generate private key
+openssl genrsa 2048 | openssl pkcs8 -topk8 -inform PEM -out rsa_key.p8 -nocrypt
+
+# Generate public key from private key
+openssl rsa -in rsa_key.p8 -pubout -out rsa_key.pub
+```
+
+Ref: https://docs.snowflake.com/en/user-guide/key-pair-auth#configuring-key-pair-authentication
+
+### Step 2: Prepare public key (strip headers)
+
+```bash
+grep -v "BEGIN PUBLIC" rsa_key.pub | grep -v "END PUBLIC" | pbcopy
+```
+
+Copies the bare public key content to clipboard (needed for Step 3).
+
+### Step 3: Create the service account in Snowflake
+
+Run in a Snowflake worksheet:
+
+```sql
+-- Create the service account user
+CREATE USER <SERVICE_ACCOUNT>
+  TYPE = 'SERVICE'
+  DEFAULT_ROLE = 'PUBLIC'
+  DEFAULT_WAREHOUSE = 'COMPUTE_WH'
+  COMMENT = 'General purpose service account with CRUD permissions.';
+
+-- Create open network policy (allows connections from any IP)
+CREATE NETWORK POLICY open_network_policy
+  ALLOWED_IP_LIST = ('0.0.0.0/0')
+  COMMENT = 'Open network policy allowing all IPs for a service account';
+
+-- Assign network policy to service account
+ALTER USER <SERVICE_ACCOUNT> SET NETWORK_POLICY = 'OPEN_NETWORK_POLICY';
+
+-- Set the RSA public key (paste the key content from Step 2)
+ALTER USER <SERVICE_ACCOUNT> SET RSA_PUBLIC_KEY='<paste_public_key_here>';
+
+-- Get the public key fingerprint
+DESC USER <SERVICE_ACCOUNT>
+  ->> SELECT SUBSTR(
+        (SELECT "value" FROM $1
+           WHERE "property" = 'RSA_PUBLIC_KEY_FP'),
+        LEN('SHA256:') + 1) AS key;
+```
+
+> **Note:** `open_network_policy` allows all IPs (`0.0.0.0/0`). Review before production use.
+> Ref: https://docs.snowflake.com/en/sql-reference/commands-security#network-policy
+
+### Step 4: Generating JWT tokens
+
+Four parameters required:
+
+| Parameter | Where to get it |
+|---|---|
+| `account_id` | Snowflake → account name (bottom-left) → hover "Account" → "View Account Details" → copy Account Identifier |
+| `user` | The `<SERVICE_ACCOUNT>` name from Step 3 |
+| `public_key_fingerprint` | Output of last query in Step 3 |
+| `base64_key` | Run command below |
+
+Get the base64-encoded private key:
+
+```bash
+cat rsa_key.p8 | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | base64 | pbcopy
+```
+
+(Trims whitespace, preserves headers, encodes to base64, copies to clipboard.)
+
+Use the **Snowflake Key Pair JWT Token Creator** asset to generate tokens:
+https://remix.app/remix/asset?source=https://agt.remixlabs.com/ws/remix_labs/d5cyzPdtcaN6hLNIBJUayTrwoWZOGddB

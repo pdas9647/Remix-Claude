@@ -35,7 +35,8 @@ Notion page index (split by teamspace, load only what's needed):
 
 - [remix-catalog.md](./remix-catalog.md) — Widget/base catalog, HubSpot research, remix_labs library, connectors, AI agents, GTM, T1/T2
 - [hubspot-toolkit.md](./hubspot-toolkit.md) — HubSpot Connector/Configurator/Library/Example apps, OAuth setup, installation
-- [remix-snowflake.md](./remix-snowflake.md) — Snowflake/Snowpark, Cortex AI/Search, connectors, widgets
+- [connectors.md](./connectors.md) — Third-party connector setup: Notion, Gmail, Google Sheet, Airtable, Confluence, Slack (auth flows, OAuth config, MCP agents)
+- [remix-snowflake.md](./remix-snowflake.md) — Snowflake/Snowpark, Cortex AI/Search, connectors, widgets, OAuth + service account setup
 - [duckdb.md](./duckdb.md) — DuckDB: DuckLake attach + query (Parquet-backed)
 - [oauth.md](./oauth.md) — Third-party OAuth: Desktop (popup), Chrome Extension, Mobile Widgets flows
 - [remix-smb.md](./remix-smb.md) — SMB: 3 transaction models, data model (business/venue/catalog/order), Stripe, printer

@@ -119,7 +119,7 @@ Widgets free; everything else paid. Trial on desktop only (no free cloud workspa
 - [Widget framework](https://www.notion.so/2711d464528f801aab2feef57f273d64) - blank
 - [Discussion on remix_labs library](https://www.notion.so/2791d464528f8032b76cfb5e3be51176) — stored in remix-catalog.md
 - [Remix Desktop Redux](https://www.notion.so/2421d464528f80f7a3baf5844687e419) — **deprecated** (merged into Scope); stable concepts stored above
-- [Exported diagrams](https://www.notion.so/27e1d464528f80ea8480d07f4427f13a) — image-only (draw.io PNGs: conceptual understanding, login flow, user journeys)
+- [Exported diagrams](https://www.notion.so/27e1d464528f80ea8480d07f4427f13a) — not stored, image-only (draw.io PNGs: conceptual understanding, login flow, user journeys)
 - [Remix Desktop - Old log](https://www.notion.so/1d71d464528f8059abe4cf056cd0b34c) — stored in remix-infra.md
 - [Unified Login](https://www.notion.so/2901d464528f8096a29ccd062758e637) — stored in remix-infra.md
 - [Org / System Setup](https://www.notion.so/2871d464528f8079b692edaa589da6b8) — stored in remix-infra.md
@@ -128,8 +128,8 @@ Widgets free; everything else paid. Trial on desktop only (no free cloud workspa
 - **Miscellaneous** ([page](https://www.notion.so/27e1d464528f80f8aedbcdbb5bad22ed)):
     - [Connectors](https://www.notion.so/1e61d464528f80508ef4c3df63b25a5f) — stored in remix-catalog.md (all sub-pages fetched)
         - [Notion](https://www.notion.so/1ea1d464528f8046bd7feb94aa1137fc), [Gmail](https://www.notion.so/1e41d464528f80bab43bc79f02116d05), [Google Sheet](https://www.notion.so/1eb1d464528f809f90e3f5d0ec35450b), [Airtable](https://www.notion.so/1eb1d464528f80d6a1dacd85a0708175), [Confluence](https://www.notion.so/1eb1d464528f80cd828bd5aea15d505d), [Slack](https://www.notion.so/1ee1d464528f80b2bdefe231f4280888), [Test page](https://www.notion.so/1f21d464528f8033bad3deb0b78547d2), [Snowflake OAuth](https://www.notion.so/20e1d464528f8057b143d055514d6cb5), [Snowflake Service Acct](https://www.notion.so/2a81d464528f80de8febcf0b590be206)
-    - [Template format / rehydration process](https://www.notion.so/1fa1d464528f8073bcf9d3a96266a1c9) — tldraw diagram only, no text
-    - [Bootstrapped apps](https://www.notion.so/2031d464528f80b48a64e2ca1a268c5f) — tldraw diagram only, no text
-    - [Claude ↔ builder interaction](https://www.notion.so/1fa1d464528f80d3a680ce795f614e2e) — tldraw diagram only, no text
-    - [Roadmap](https://www.notion.so/27e1d464528f80de876cf89114aac02e) — early skeleton (3-release cadence Oct/Nov/Dec 2025), minimal content
-    - [Notes](https://www.notion.so/27e1d464528f809eb31fc46187a77cb8) — agentic workflow brainstorm: (1) LinkedIn job listings → HubSpot clipper, (2) Gmail → HubSpot context in Chrome ext
+    - [Template format / rehydration process](https://www.notion.so/1fa1d464528f8073bcf9d3a96266a1c9) — not stored, tldraw diagram only, no text
+    - [Bootstrapped apps](https://www.notion.so/2031d464528f80b48a64e2ca1a268c5f) — not stored, tldraw diagram only, no text
+    - [Claude ↔ builder interaction](https://www.notion.so/1fa1d464528f80d3a680ce795f614e2e) — not stored, tldraw diagram only, no text
+    - [Roadmap](https://www.notion.so/27e1d464528f80de876cf89114aac02e) — not stored, early skeleton (3-release cadence Oct/Nov/Dec 2025), minimal content
+    - [Notes](https://www.notion.so/27e1d464528f809eb31fc46187a77cb8) — not stored

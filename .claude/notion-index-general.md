@@ -22,21 +22,21 @@ Markers: → file.md = content captured | ○ = not yet fetched | ✗ = blank/sk
 ## Miscellaneous
 
 - [Miscellaneous](https://www.notion.so/27e1d464528f801f8aedbccdbb5bad22ed) — container page
-- [Connectors](https://www.notion.so/1e61d464528f80508ef4c3df63b25a5f) — ○ not yet fetched (TODO: fetch & put somewhere)
-    - [Notion](https://www.notion.so/1ea1d464528f8046bd7feb94aa1137fc) — ○ not yet fetched (TODO: fetch & put somewhere)
-    - [Gmail Integration Setup Guide](https://www.notion.so/1e41d464528f80bab43bc79f02116d05) — ○ not yet fetched (TODO: fetch & put somewhere)
-    - [Google Sheet](https://www.notion.so/1eb1d464528f809f90e3f5d0ec35450b) — ○ not yet fetched (TODO: fetch & put somewhere)
-    - [Airtable Connector](https://www.notion.so/1eb1d464528f80d6a1dacd85a0708175) — ○ not yet fetched (TODO: fetch & put somewhere)
-    - [Confluence](https://www.notion.so/1eb1d464528f80cd828bd5aea15d505d) — ○ not yet fetched (TODO: fetch & put somewhere)
-    - [Slack Integration Setup Guide](https://www.notion.so/1ee1d464528f80b2bdefe231f4280888) — ○ not yet fetched (TODO: fetch & put somewhere)
+- [Connectors](https://www.notion.so/1e61d464528f80508ef4c3df63b25a5f) → connectors.md (container: assignments, capabilities table)
+    - [Notion](https://www.notion.so/1ea1d464528f8046bd7feb94aa1137fc) → connectors.md
+    - [Gmail Integration Setup Guide](https://www.notion.so/1e41d464528f80bab43bc79f02116d05) → connectors.md
+    - [Google Sheet](https://www.notion.so/1eb1d464528f809f90e3f5d0ec35450b) → connectors.md
+    - [Airtable Connector](https://www.notion.so/1eb1d464528f80d6a1dacd85a0708175) → connectors.md
+    - [Confluence](https://www.notion.so/1eb1d464528f80cd828bd5aea15d505d) → connectors.md
+    - [Slack Integration Setup Guide](https://www.notion.so/1ee1d464528f80b2bdefe231f4280888) → connectors.md
     - [Test page for connectors](https://www.notion.so/1f21d464528f8033aad3deb0b78547d27) — ✗ skipped
-    - [Snowflake OAuth Integration Setup](https://www.notion.so/20e1d464528f8057b143d055514d6cb5) — ○ not yet fetched (TODO: fetch & put somewhere - remix-snowflake.md might not be the best place)
-    - [Snowflake Service Account Setup Guide](https://www.notion.so/2a81d464528f80de8febcf0b590be206) — ○ not yet fetched (TODO: fetch & put somewhere - remix-snowflake.md might not be the best place)
+    - [Snowflake OAuth Integration Setup](https://www.notion.so/20e1d464528f8057b143d055514d6cb5) → remix-snowflake.md
+    - [Snowflake Service Account Setup Guide](https://www.notion.so/2a81d464528f80de8febcf0b590be206) → remix-snowflake.md
 - [Template format / rehydration process](https://www.notion.so/1fa1d464528f8073bcf9d3a96266a1c9) — ✗ skipped
 - [Bootstrapped apps](https://www.notion.so/2031d464528f80b48a64e2ca1a268c5f) — ✗ skipped
-- [claude ↔ builder interaction](https://www.notion.so/1fa1d464528f80d3a680ce795f614e2e) — ○ not yet fetched (TODO: fetch & modify remix-product.md)
-- [Roadmap](https://www.notion.so/27e1d464528f80de876cf89114aac02e) — ○ not yet fetched (TODO: fetch & modify remix-product.md)
-- [Notes](https://www.notion.so/27e1d464528f809eb31fc46187a77cb8) — ○ not yet fetched (TODO: fetch & modify remix-product.md)
+- [claude ↔ builder interaction](https://www.notion.so/1fa1d464528f80d3a680ce795f614e2e) — ✗ skipped
+- [Roadmap](https://www.notion.so/27e1d464528f80de876cf89114aac02e) → remix-product.md
+- [Notes](https://www.notion.so/27e1d464528f809eb31fc46187a77cb8) — ✗ skipped
 
 ## Other General Pages
 
