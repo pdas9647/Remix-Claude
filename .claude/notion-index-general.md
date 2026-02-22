@@ -21,7 +21,7 @@ Markers: → file.md = content captured | ○ = not yet fetched | ✗ = blank/sk
 
 ## Miscellaneous
 
-- [Miscellaneous](https://www.notion.so/27e1d464528f801f8aedbccdbb5bad22ed) — container page
+- [Miscellaneous](https://www.notion.so/27e1d464528f80f8aedbcdbb5bad22ed) — container page
 - [Connectors](https://www.notion.so/1e61d464528f80508ef4c3df63b25a5f) → connectors.md (container: assignments, capabilities table)
     - [Notion](https://www.notion.so/1ea1d464528f8046bd7feb94aa1137fc) → connectors.md
     - [Gmail Integration Setup Guide](https://www.notion.so/1e41d464528f80bab43bc79f02116d05) → connectors.md
@@ -29,7 +29,7 @@ Markers: → file.md = content captured | ○ = not yet fetched | ✗ = blank/sk
     - [Airtable Connector](https://www.notion.so/1eb1d464528f80d6a1dacd85a0708175) → connectors.md
     - [Confluence](https://www.notion.so/1eb1d464528f80cd828bd5aea15d505d) → connectors.md
     - [Slack Integration Setup Guide](https://www.notion.so/1ee1d464528f80b2bdefe231f4280888) → connectors.md
-    - [Test page for connectors](https://www.notion.so/1f21d464528f8033aad3deb0b78547d27) — ✗ skipped
+    - [Test page for connectors](https://www.notion.so/1f21d464528f8033bad3deb0b78547d2) — ✗ skipped
     - [Snowflake OAuth Integration Setup](https://www.notion.so/20e1d464528f8057b143d055514d6cb5) → remix-snowflake.md
     - [Snowflake Service Account Setup Guide](https://www.notion.so/2a81d464528f80de8febcf0b590be206) → remix-snowflake.md
 - [Template format / rehydration process](https://www.notion.so/1fa1d464528f8073bcf9d3a96266a1c9) — ✗ skipped
@@ -42,7 +42,7 @@ Markers: → file.md = content captured | ○ = not yet fetched | ✗ = blank/sk
 
 - [Remix Desktop Redux](https://www.notion.so/2421d464528f80f7a3baf5844687e419) → remix-infra-auth.md & remix-product.md
 - [Exported diagrams](https://www.notion.so/27e1d464528f80ea8480d07f4427f13a) — ✗ skipped
-- [Remix Desktop - Old log](https://www.notion.so/1d71d464528f8059abe4cf056cd0b34c) — remix-infra-auth.md
+- [Remix Desktop - Old log](https://www.notion.so/1d71d464528f8059abe4cf056cd0b34c) → remix-infra-auth.md
 - [Unified Login](https://www.notion.so/2901d464528f8096a29ccd062758e637) → remix-infra-auth.md
 - [Org / System Setup](https://www.notion.so/2871d464528f8079b692edaa589da6b8) → remix-infra-setup.md
 - [Remix Snowflake reference implementation](https://www.notion.so/2931d464528f80cc9da8ede348733125) → remix-snowflake.md

@@ -79,7 +79,6 @@ stack, the component view shows in/out param bindings in a more useful manner.
 ## Data Objects, Values and Transforms
 
 > Source: [Data objects, values and transforms](https://www.notion.so/1051d464528f8022a535d4ab9342d1b0)
-> Note: Page content was truncated on fetch — re-fetch for full detail.
 
 ### Transform: Join
 

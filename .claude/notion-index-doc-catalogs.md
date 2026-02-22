@@ -49,7 +49,7 @@ Markers: → file.md = content captured | ○ = not yet fetched | ✗ = blank/sk
       remix-dbp-assembly.md
     - [Beacon setup](https://www.notion.so/ef2d07acb85140139ac8925087e571ad): [Beacon](https://www.notion.so/2cd954d02a8d41f49bcbd64790199fb7), [Fetch beacon data](https://www.notion.so/606a224c224342f0bb1c974ad4ecf806) →
       remix-dbp-assembly.md
-- [Integration catalog](https://www.notion.so/1051d464528f80719935f3e35bf3c16ac) — ✗ blank
+- [Integration catalog](https://www.notion.so/1051d464528f80719935f3e35f3c16ac) — ✗ blank
 - [AI](https://www.notion.so/2991d464528f8043b82ff22040962cc2), [AI (catalog page)](https://www.notion.so/2991d464528f80178a49fb6079af7441) → remix-catalog.md
 - [DuckDB](https://www.notion.so/2991d464528f80429000f327b27d8845) → duckdb.md
 - [OAuth Handler](https://www.notion.so/29a1d464528f807784fcdce13675f665) → oauth.md

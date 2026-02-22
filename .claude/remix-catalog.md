@@ -1,6 +1,5 @@
 # Remix Catalog — Widgets, Libraries, Connectors, GTM
 
-> Split from [remix-product.md](./remix-product.md) on 2026-02-20.
 > See also: [federated-servers.md](./federated-servers.md) (federated search, published Remix libraries), [remix-snowflake.md](./remix-snowflake.md) (Snowflake connectors/widgets)
 
 ---

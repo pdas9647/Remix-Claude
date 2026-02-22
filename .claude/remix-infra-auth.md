@@ -1,7 +1,5 @@
 # Remix Infrastructure — Auth, Login & Engineering Process
 
-> Split from [remix-product.md](./remix-product.md). Parent Notion page: [Remix product](https://www.notion.so/27e1d464528f802291b6d5a093fbc10d)
-
 **Covers:** Running Log (stable decisions), Workspace-Based Auth, Unified Login
 
 ---

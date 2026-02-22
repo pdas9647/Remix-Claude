@@ -11,21 +11,20 @@
 ## Decisions & State Machines
 
 > Source: [Decisions & State Machines](https://www.notion.so/1051d464528f80a48689d2743814b1af)
-> Note: Page content was truncated on fetch — re-fetch for full detail.
+> ✗ Page has no content yet.
 
 ---
 
 ## Functions & Code Modules
 
 > Source: [Functions & Code Modules](https://www.notion.so/8c02beb038ec40fea16762bbd8aabfe8)
-> Note: Page content was truncated on fetch — re-fetch for full detail.
+> ✗ Page has no content yet.
 
 ---
 
 ## Actions
 
 > Source: [Actions](https://www.notion.so/1051d464528f80c9b498daa44df9b685)
-> Note: Main page content was truncated on fetch. Sub-pages fully captured below.
 
 ### File Register
 
@@ -63,7 +62,7 @@ Performs HTTP requests to servers. Opinionated (most API requests simple; specia
 
 ### URL Templates
 
-Use `{...}` syntax in the URL for dynamic segments. *(Section truncated on fetch — re-fetch for full detail.)*
+✗ No content on Notion page yet.
 
 ### Token
 
@@ -101,13 +100,11 @@ Runs the API request from the **client** (browser/app) rather than the VM server
 
 ### Create and Update
 
-*(Placeholder — "Text to add". No content yet on page.)*
+✗ No content yet on Notion page.
 
 ### Delete
 
 Requires: **DB location** + **ref** of the record to delete.
-
-*(Note: A previous version of this page mentioned error bindings added in Oct 2024, but that text was struck through — current status unclear. Re-fetch for latest.)*
 
 ---
 

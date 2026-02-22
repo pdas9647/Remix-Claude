@@ -49,7 +49,7 @@ A spike for a self-hosted Remix deployment entirely within **Snowpark Container 
 
 ## Snowflake Widgets
 
-> See also: [remix-product.md](./remix-product.md) Widget Catalog section for full widget list
+> See also: [remix-catalog.md](./remix-catalog.md) Widget Catalog section for full widget list
 
 Snowflake widgets (iOS/Android, API key auth, AI: Anthropic):
 
@@ -66,7 +66,7 @@ Snowflake widgets (iOS/Android, API key auth, AI: Anthropic):
 
 ## Snowflake Connectors
 
-> See also: [remix-product.md](./remix-product.md) Connectors section for full connector inventory
+> See also: [remix-catalog.md](./remix-catalog.md) Connectors section for full connector inventory
 
 | Connector                | Auth Method                        | Auth Config Name    | Capabilities                                        |
 |--------------------------|------------------------------------|---------------------|-----------------------------------------------------|

@@ -1,7 +1,5 @@
 # Remix Infrastructure — Org Setup, Sync, Prefs & Deeplinks
 
-> Split from [remix-product.md](./remix-product.md). Parent Notion page: [Remix product](https://www.notion.so/27e1d464528f802291b6d5a093fbc10d)
-
 **Covers:** Org/System Setup, _rmx_sync (.remix file syncing), _rmx_prefs (synced preferences), Mobile/Desktop Deeplinks
 
 ---
