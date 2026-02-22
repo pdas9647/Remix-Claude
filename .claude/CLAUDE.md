@@ -51,8 +51,12 @@ Notion page index (split by teamspace, load only what's needed):
 - [remix-tools.md](./remix-tools.md) — mix_client REPL, bug reporting, asset submission, MCP tools, Cloud Workspace Tool, Repository Tool
 - [platform-topics.md](./platform-topics.md) — Web Components, Wasm Functions, files, pubsub, component overriding, permissions, secrets/tokens
 - [platform-builder.md](./platform-builder.md) — Mixed Auth, Macros, External Actions, Edit/Run/Configure modes, _rmx_init
-- [remix-nodes.md](./remix-nodes.md) — Nodes: params, cards, components, file upload, queries (QB 2.0, syntax), actions, agent connect
-- [server-apis.md](./server-apis.md) — Auth integrations (OAuth/OIDC/Apple/SFDC), Legacy Platform API, Cloud Agent Server API + v1
+- [remix-nodes-basics.md](./remix-nodes-basics.md) — Nodes: In/Out Params, Cards & Components, File Uploading, Data Objects/Transforms, Working with State
+- [remix-nodes-queries.md](./remix-nodes-queries.md) — Queries (QB 2.0, DB architecture, Mix/HTTP query API, live query), Query Syntax (filter/projection/aggregation/calculation)
+- [remix-nodes-actions.md](./remix-nodes-actions.md) — Actions: File Register, Agent Connect (Service/Local/Amp), Api node (multipart/client-side), Database Save/Delete, Service Agent modules
+- [server-apis-auth.md](./server-apis-auth.md) — Auth integrations (OAuth/OIDC/Apple/SFDC plugin configs, callback URLs, token storage, auth0)
+- [server-apis-legacy.md](./server-apis-legacy.md) — Legacy Platform Server API (document CRUD, queries, app mgmt, .remix install, files, agents, auth endpoints)
+- [server-apis-cloud.md](./server-apis-cloud.md) — Cloud Agent Server API (workspace mgmt, run-agent, cloud queries, remixgen) + v1 API (introspection, permissions, files, signals)
 
 ### Mix Language
 
@@ -88,6 +92,8 @@ Notion page index (split by teamspace, load only what's needed):
 ## Maintenance Notes
 
 - **Phase 3 pending**: Split 8 oversized topic files (>18KB) into smaller sub-files for better context efficiency.
-  Files to split: mix-lang-platform.md (31K), mix-lang-editor.md (31K), mix-syntax.md (30K), server-apis.md (26K), remix-nodes.md (23K), mix-driver.md (22K), mix-lang-data.md (19K)
+  Files to split: mix-driver.md (22K), mix-lang-data.md (19K)
+  Already split: mix-lang-platform.md → 3 files, mix-lang-editor.md → 4 files, mix-syntax.md → 4 files, server-apis.md → 3 files, remix-nodes.md → 3 files
+  Already split: mix-lang-platform.md → 3 files, mix-lang-editor.md → 4 files, mix-syntax.md → 4 files, server-apis.md → 3 files
 - **Weekly update cadence**: Check Notion pages modified in last 7 days, Slack channels for last 3-4 days
 - **Last refreshed**: 2026-02-21

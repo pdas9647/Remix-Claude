@@ -48,28 +48,28 @@ Markers: → file.md = content captured | ○ = not yet fetched | ✗ = blank/sk
 
 - [Remix Studio User Guide](https://www.notion.so/1051d464528f8007a5f5d40969c49427) — ○ top-level
 - [Nodes](https://www.notion.so/13b1d464528f802c90b7c60485b36842) — container page
-    - [In Params and Out Params](https://www.notion.so/1141d464528f809fbfa6d9983ad074fe) → remix-nodes.md
-    - [Cards & Components](https://www.notion.so/10ba63e7a90848f29d5a50f8bd4ac61d) → remix-nodes.md
-        - [File Uploading](https://www.notion.so/12e1d464528f8088900dcf2f4154cc24) → remix-nodes.md
-    - [Data objects, values and transforms](https://www.notion.so/1051d464528f8022a535d4ab9342d1b0) → remix-nodes.md
-    - [Queries](https://www.notion.so/1051d464528f80dcb464fae23efefcf2) → remix-nodes.md
-        - [Query syntax](https://www.notion.so/205ca411bf684f5593c3469e39de2af8) → remix-nodes.md
-    - [Decisions & State Machines](https://www.notion.so/1051d464528f80a48689d2743814b1af) → remix-nodes.md (stub)
-    - [Functions & Code Modules](https://www.notion.so/8c02beb038ec40fea16762bbd8aabfe8) → remix-nodes.md (stub)
-    - [Actions](https://www.notion.so/1051d464528f80c9b498daa44df9b685) → remix-nodes.md
-        - [Agent Connect tiles](https://www.notion.so/12f1d464528f80a4a372e439a6d074f4) → remix-nodes.md
-        - [Api](https://www.notion.so/1571d464528f80e9a9fee7fbbf80a0c5) → remix-nodes.md
-        - [Database Actions: Save and Delete](https://www.notion.so/1151d464528f8047b20fd8809e2bb766) → remix-nodes.md
+    - [In Params and Out Params](https://www.notion.so/1141d464528f809fbfa6d9983ad074fe) → remix-nodes-basics.md
+    - [Cards & Components](https://www.notion.so/10ba63e7a90848f29d5a50f8bd4ac61d) → remix-nodes-basics.md
+        - [File Uploading](https://www.notion.so/12e1d464528f8088900dcf2f4154cc24) → remix-nodes-basics.md
+    - [Data objects, values and transforms](https://www.notion.so/1051d464528f8022a535d4ab9342d1b0) → remix-nodes-basics.md
+    - [Queries](https://www.notion.so/1051d464528f80dcb464fae23efefcf2) → remix-nodes-queries.md
+        - [Query syntax](https://www.notion.so/205ca411bf684f5593c3469e39de2af8) → remix-nodes-queries.md
+    - [Decisions & State Machines](https://www.notion.so/1051d464528f80a48689d2743814b1af) → remix-nodes-actions.md (stub)
+    - [Functions & Code Modules](https://www.notion.so/8c02beb038ec40fea16762bbd8aabfe8) → remix-nodes-actions.md (stub)
+    - [Actions](https://www.notion.so/1051d464528f80c9b498daa44df9b685) → remix-nodes-actions.md
+        - [Agent Connect tiles](https://www.notion.so/12f1d464528f80a4a372e439a6d074f4) → remix-nodes-actions.md
+        - [Api](https://www.notion.so/1571d464528f80e9a9fee7fbbf80a0c5) → remix-nodes-actions.md
+        - [Database Actions: Save and Delete](https://www.notion.so/1151d464528f8047b20fd8809e2bb766) → remix-nodes-actions.md
         - [Annotations](https://www.notion.so/1051d464528f8018a17fd69389243631) — ✗ blank
 - Studio Server
-    - [Auth Integrations](https://www.notion.so/11f1d464528f8070b010f945a0b0e7af) → server-apis.md
-    - [Legacy Platform Server API](https://www.notion.so/1061d464528f80449377e6c07e72b30b) → server-apis.md
+    - [Auth Integrations](https://www.notion.so/11f1d464528f8070b010f945a0b0e7af) → server-apis-auth.md
+    - [Legacy Platform Server API](https://www.notion.so/1061d464528f80449377e6c07e72b30b) → server-apis-legacy.md
 - Cloud Agent Server
-    - [Cloud Agent Server API](https://www.notion.so/1061d464528f8022aa1cec129096c82b) → server-apis.md
-    - [Cloud Agent Server v1 API](https://www.notion.so/1bd1d464528f80cb97cde448c9e2a944) → server-apis.md
+    - [Cloud Agent Server API](https://www.notion.so/1061d464528f8022aa1cec129096c82b) → server-apis-cloud.md
+    - [Cloud Agent Server v1 API](https://www.notion.so/1bd1d464528f80cb97cde448c9e2a944) → server-apis-cloud.md
 - [Self-hosted Remix Server](https://www.notion.so/22a1d464528f8019be54edf3f3b1f576) → remix-deploy.md
 - [Remix Database](https://www.notion.so/1061d464528f80248ae6cfe395ee6a9c) — ✗ skipped
-- [Working with State](https://www.notion.so/1431d464528f8060964ecdcbfba99fd7) → remix-nodes.md
+- [Working with State](https://www.notion.so/1431d464528f8060964ecdcbfba99fd7) → remix-nodes-basics.md
 - [Enable anonymous access](https://www.notion.so/14c1d464528f8079b1bcd79c5fdbf4c6) → platform-topics.md
 - [Mixed Auth](https://www.notion.so/1741d464528f808cbb5ff371d571c437) → platform-builder.md
     - [Mixed auth test](https://www.notion.so/1b91d464528f802ebf9efe3417f1ea6f) — ○ no stable content
@@ -77,7 +77,7 @@ Markers: → file.md = content captured | ○ = not yet fetched | ✗ = blank/sk
 - [External Actions](https://www.notion.so/2161d464528f8014ac9ce7eda3a134ab) → platform-builder.md
 - [iOS Widget & Shortcut Agents](https://www.notion.so/2161d464528f803f867fe9bc1d4b61a6) → remix-deploy.md
 - [Edit / Run / Configure modes](https://www.notion.so/2251d464528f808da28df02fbd305915) → platform-builder.md
-- [Service Agent modules](https://www.notion.so/22d1d464528f80278259e3f6ee68dcd1) → remix-nodes.md
+- [Service Agent modules](https://www.notion.so/22d1d464528f80278259e3f6ee68dcd1) → remix-nodes-actions.md
 
 ## Deploying Remix Applications
 
