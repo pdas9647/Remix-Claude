@@ -73,7 +73,9 @@ Notion page index (split by teamspace, load only what's needed):
 - [mix-lang-stream.md](./mix-lang-stream.md) — stream, xml, websocket
 - [mix-lang-editor.md](./mix-lang-editor.md) — dom, editorTypes, editorNode, editorScreen, reflect, slateComponent/Def/Dyn/Gen, container, viewstack, debugger, testing, compiler, vm
 - [mix-lang-advanced.md](./mix-lang-advanced.md) — Recursion, stream mutability, pattern matching, modules advanced, links, EscJSON, embedding viewstacks
-- [mix-lang-platform.md](./mix-lang-platform.md) — agent, auth, env, secrets, logging, metrics, co (coroutines/pubsub), embed, track, memo, random, util, calendar, color, messaging, loader
+- [mix-lang-platform-runtime.md](./mix-lang-platform-runtime.md) — agent, auth, env, secrets (runtime identity, invocation, OAuth tokens)
+- [mix-lang-platform-concurrency.md](./mix-lang-platform-concurrency.md) — logging, metrics, co (coroutines/channels/pubsub), embed, track, memo, random, util
+- [mix-lang-platform-messaging.md](./mix-lang-platform-messaging.md) — calendar, color, messaging (pub/sub topics, cloud/remote), loader (dynamic library loading)
 
 ---
 

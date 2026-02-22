@@ -186,8 +186,10 @@ Markers: → file.md = content captured | ○ = not yet fetched | ✗ = blank/sk
 **Editor & Reflection** → mix-lang-editor.md:
 - dom, editorTypes, editorNode, editorScreen, reflect, reflectComponent, slateComponent, slateDef, slateDyn, slateGen, container, viewstack, debugger, testing, compiler, vm
 
-**Platform** → mix-lang-platform.md:
-- agent, auth, env, secrets, logging, metrics, co, embed, track, memo, random, util, calendar, color, messaging-pubsub, loader
+**Platform**:
+- agent, auth, env, secrets → mix-lang-platform-runtime.md
+- logging, metrics, co, embed, track, memo, random, util → mix-lang-platform-concurrency.md
+- calendar, color, messaging-pubsub, loader → mix-lang-platform-messaging.md
 
 ## Remix Catalogs and Toolkits
 
