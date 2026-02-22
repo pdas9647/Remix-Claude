@@ -71,12 +71,12 @@ Markers: → file.md = content captured | ○ = not yet fetched | ✗ = blank/sk
 - [Remix Database](https://www.notion.so/1061d464528f80248ae6cfe395ee6a9c) — ✗ skipped
 - [Working with State](https://www.notion.so/1431d464528f8060964ecdcbfba99fd7) → remix-nodes-basics.md
 - [Enable anonymous access](https://www.notion.so/14c1d464528f8079b1bcd79c5fdbf4c6) → platform-topics.md
-- [Mixed Auth](https://www.notion.so/1741d464528f808cbb5ff371d571c437) → platform-builder.md
+- [Mixed Auth](https://www.notion.so/1741d464528f808cbb5ff371d571c437) → platform-builder-runtime.md
     - [Mixed auth test](https://www.notion.so/1b91d464528f802ebf9efe3417f1ea6f) — ○ no stable content
-- [Macros](https://www.notion.so/2161d464528f801f8ddaf479d816d99f) → platform-builder.md
-- [External Actions](https://www.notion.so/2161d464528f8014ac9ce7eda3a134ab) → platform-builder.md
+- [Macros](https://www.notion.so/2161d464528f801f8ddaf479d816d99f) → platform-builder-macros.md
+- [External Actions](https://www.notion.so/2161d464528f8014ac9ce7eda3a134ab) → platform-builder-runtime.md
 - [iOS Widget & Shortcut Agents](https://www.notion.so/2161d464528f803f867fe9bc1d4b61a6) → remix-deploy.md
-- [Edit / Run / Configure modes](https://www.notion.so/2251d464528f808da28df02fbd305915) → platform-builder.md
+- [Edit / Run / Configure modes](https://www.notion.so/2251d464528f808da28df02fbd305915) → platform-builder-macros.md
 - [Service Agent modules](https://www.notion.so/22d1d464528f80278259e3f6ee68dcd1) → remix-nodes-actions.md
 
 ## Deploying Remix Applications
@@ -134,7 +134,7 @@ Markers: → file.md = content captured | ○ = not yet fetched | ✗ = blank/sk
 
 ### Mix Special Screens
 
-- [screen-rmx-init](https://www.notion.so/1061d464528f81fda16dc22e3f0ab4b0) → platform-builder.md
+- [screen-rmx-init](https://www.notion.so/1061d464528f81fda16dc22e3f0ab4b0) → platform-builder-macros.md
 - [_rmx_auth](https://www.notion.so/1821d464528f802a877be36fb7b69fdb) → mix-screen.md
 - [screen-rmx-error](https://www.notion.so/1061d464528f813a889ae582452bbf64) → mix-screen.md
 - [screen-rmx-entry](https://www.notion.so/1061d464528f813792f3c132856512a5) → mix-screen.md
@@ -172,10 +172,13 @@ Markers: → file.md = content captured | ○ = not yet fetched | ✗ = blank/sk
 
 - [bool](https://www.notion.so/1061d464528f8157ae0dfdb495fb5c94), [number](https://www.notion.so/1061d464528f81bfb165f1ef2ccf84ac), [string](https://www.notion.so/1061d464528f81a1bfa2e1524e618e3a), [option](https://www.notion.so/1061d464528f81c2a019eb7b87dce80a), [result](https://www.notion.so/1061d464528f81abada4eb1d1645c59c), [bitset](https://www.notion.so/1061d464528f814abf0de4906be6232b), [passThrough](https://www.notion.so/1061d464528f81a6bbf9e720f7011c21), [regex](https://www.notion.so/1061d464528f8195a302ca60a5a3ef98)
 
-**Collections** → mix-lang-collections.md:
+**Collections (basic)** → mix-lang-collections-basic.md:
 
-- [array](https://www.notion.so/1061d464528f81ef9ff0d976131598d2), [set](https://www.notion.so/1061d464528f818fafd7f140445078ab), [map](https://www.notion.so/1061d464528f81c1a531d78cea3506ce), [gset](https://www.notion.so/1061d464528f817ab66ec31970fd0d06), [uniqArray](https://www.notion.so/604304481fc54c408d28ce8531e3df81),
-  circuitarray
+- [array](https://www.notion.so/1061d464528f81ef9ff0d976131598d2), [set](https://www.notion.so/1061d464528f818fafd7f140445078ab), [map](https://www.notion.so/1061d464528f81c1a531d78cea3506ce)
+
+**Collections (advanced)** → mix-lang-collections-advanced.md:
+
+- [gset](https://www.notion.so/1061d464528f817ab66ec31970fd0d06), [uniqArray](https://www.notion.so/604304481fc54c408d28ce8531e3df81), circuitarray
 
 **Database** → mix-lang-db.md:
 

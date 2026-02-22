@@ -51,7 +51,8 @@ Notion page index (split by teamspace, load only what's needed):
 - [remix-deploy.md](./remix-deploy.md) — 10 deployment surfaces, self-hosted server, .remix files, iOS/Android widgets, widget debugging
 - [remix-tools.md](./remix-tools.md) — mix_client REPL, bug reporting, asset submission, MCP tools, Cloud Workspace Tool, Repository Tool
 - [platform-topics.md](./platform-topics.md) — Web Components, Wasm Functions, files, pubsub, component overriding, permissions, secrets/tokens
-- [platform-builder.md](./platform-builder.md) — Mixed Auth, Macros, External Actions, Edit/Run/Configure modes, _rmx_init
+- [platform-builder-runtime.md](./platform-builder-runtime.md) — Mixed Auth (fullscreen vs embedded _rmx_auth, rmx-remix host page pattern), External Actions (runtime→host onEvent map, default/mobile/local-storage/payment catalog, moving to Client Actions)
+- [platform-builder-macros.md](./platform-builder-macros.md) — Macros (builder remote control: macro tiles + Mix macro module, ndType/bdType/operator reference, createNodeFromAst), Edit/Run/Configure modes (3 L2 view modes, URL param, configurator node setup, fullscreen variants), _rmx_init
 - [remix-nodes-basics.md](./remix-nodes-basics.md) — Nodes: In/Out Params, Cards & Components, File Uploading, Data Objects/Transforms, Working with State
 - [remix-nodes-queries.md](./remix-nodes-queries.md) — Queries (QB 2.0, DB architecture, Mix/HTTP query API, live query), Query Syntax (filter/projection/aggregation/calculation)
 - [remix-nodes-actions.md](./remix-nodes-actions.md) — Actions: File Register, Agent Connect (Service/Local/Amp), Api node (multipart/client-side), Database Save/Delete, Service Agent modules
@@ -76,7 +77,8 @@ Notion page index (split by teamspace, load only what's needed):
 
 - [mix-std-lib.md](./mix-std-lib.md) — ~60 module master index with descriptions
 - [mix-lang-core.md](./mix-lang-core.md) — bool, number, string, option, result, bitset, passThrough, regex
-- [mix-lang-collections.md](./mix-lang-collections.md) — array, set, map, gset, uniqArray, circuitarray
+- [mix-lang-collections-basic.md](./mix-lang-collections-basic.md) — array, set, map (core collection types)
+- [mix-lang-collections-advanced.md](./mix-lang-collections-advanced.md) — gset, uniqArray, circuitarray (specialized collections)
 - [mix-lang-db.md](./mix-lang-db.md) — db, db-changes, dbRemote, minidb (CRUD, query pipeline, live queries, filter compilability, references)
 - [mix-lang-query.md](./mix-lang-query.md) — query AST builder (filter/projection/aggregation nodes, map constructors), resource (deprecated), registry (experimental)
 - [mix-lang-io.md](./mix-lang-io.md) — http, file, binary, crypto, wasm, mime
