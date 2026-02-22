@@ -5,7 +5,9 @@ Persistent context for Remix Labs tasks. When memory is insufficient, read the r
 Notion page index (split by teamspace, load only what's needed):
 - [notion-index-general.md](./notion-index-general.md) — General teamspace (Product, Connectors, GTM, MCP)
 - [notion-index-customer.md](./notion-index-customer.md) — Customer Success (Funda, Lumber, Orderly, etc.)
-- [notion-index-documentation.md](./notion-index-documentation.md) — Documentation (Studio User Guide, Mix Language, Catalogs)
+- [notion-index-doc-studio.md](./notion-index-doc-studio.md) — Documentation: Studio & Platform (User Guide, Nodes, Server APIs, Deploying, Tools)
+- [notion-index-doc-mix.md](./notion-index-doc-mix.md) — Documentation: Mix Language (syntax, type system, special screens/agents, build/driver, stdlib)
+- [notion-index-doc-catalogs.md](./notion-index-doc-catalogs.md) — Documentation: Catalogs & Toolkits (Base, HubSpot, SMB, DBP, AI, DuckDB, OAuth, Snowflake)
 - [notion-index-ux-design.md](./notion-index-ux-design.md) — UX & Design (Collaboration, Variants, L1 catalog)
 
 ---
@@ -87,7 +89,8 @@ Notion page index (split by teamspace, load only what's needed):
 - [mix-lang-editor-reflect.md](./mix-lang-editor-reflect.md) — reflect, reflectComponent, slateComponent
 - [mix-lang-editor-slate.md](./mix-lang-editor-slate.md) — slateDef, slateDyn, slateGen
 - [mix-lang-editor-runtime.md](./mix-lang-editor-runtime.md) — container, viewstack, debugger, testing, compiler, vm
-- [mix-lang-advanced.md](./mix-lang-advanced.md) — Recursion, stream mutability, pattern matching, modules advanced, links, EscJSON, embedding viewstacks
+- [mix-lang-advanced.md](./mix-lang-advanced.md) — Recursion, stream mutability, pattern matching, modules advanced, comments, imperative
+- [mix-lang-advanced-runtime.md](./mix-lang-advanced-runtime.md) — Links (advanced), EscJSON representation, DB query notes, embedding viewstacks
 - [mix-lang-platform-runtime.md](./mix-lang-platform-runtime.md) — agent, auth, env, secrets (runtime identity, invocation, OAuth tokens)
 - [mix-lang-platform-concurrency.md](./mix-lang-platform-concurrency.md) — logging, metrics, co (coroutines/channels/pubsub), embed, track, memo, random, util
 - [mix-lang-platform-messaging.md](./mix-lang-platform-messaging.md) — calendar, color, messaging (pub/sub topics, cloud/remote), loader (dynamic library loading)

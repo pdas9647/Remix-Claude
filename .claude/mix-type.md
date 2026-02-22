@@ -3,7 +3,7 @@
 > Source: [Type system](https://www.notion.so/1061d464528f81c0ba7bdc8fc2ce8556)
 > Parent: [The Mix Programming Language](https://www.notion.so/259ede6504e34505982dde5dc4b63d10)
 
-Most of this applies to **strict typing mode** (`_pragma_ {strictTyping:true}`). See [mix-syntax.md](./mix-syntax.md) for directive usage.
+Most of this applies to **strict typing mode** (`_pragma_ {strictTyping:true}`). See [mix-syntax-style.md](./mix-syntax-style.md) for directive usage.
 
 ---
 
@@ -72,7 +72,7 @@ case grey(number)                   // case with arg
 type color = red | green | blue     // union type
 ```
 
-`null` is also a case type. See [mix-syntax.md § Cases](./mix-syntax.md) for matching and inverse constructor (`^`) syntax.
+`null` is also a case type. See [mix-syntax-expressions.md § Cases](./mix-syntax-expressions.md) for matching and inverse constructor (`^`) syntax.
 
 ### Private cases
 

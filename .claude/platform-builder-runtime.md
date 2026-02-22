@@ -1,7 +1,7 @@
 # Platform Builder — Host & Runtime Integration
 
 > Parent: Remix Documentation > User Guides and Tutorials > Topics
-> Split from platform-builder.md — covers Mixed Auth and External Actions (host/runtime integration).
+> Covers Mixed Auth and External Actions (host/runtime integration). See also [platform-builder-macros.md](./platform-builder-macros.md).
 
 ---
 

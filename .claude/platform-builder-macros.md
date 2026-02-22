@@ -1,7 +1,7 @@
 # Platform Builder — Macros, Modes & Initialization
 
 > Parent: Remix Documentation > User Guides and Tutorials > Topics
-> Split from platform-builder.md — covers Macros, Edit/Run/Configure modes, and _rmx_init.
+> Covers Macros, Edit/Run/Configure modes, and _rmx_init. See also [platform-builder-runtime.md](./platform-builder-runtime.md).
 
 ---
 

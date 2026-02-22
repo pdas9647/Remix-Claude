@@ -1,6 +1,6 @@
 # Remix Tools & Process — Bug Reporting, MCP, Cloud Workspace, Repository
 
-> Split from remix-infra.md (now split into remix-infra-auth.md and remix-infra-setup.md).
+> Originally part of remix-infra; see also [remix-infra-auth.md](./remix-infra-auth.md) and [remix-infra-setup.md](./remix-infra-setup.md).
 > Parent Notion pages linked per section below.
 
 ---

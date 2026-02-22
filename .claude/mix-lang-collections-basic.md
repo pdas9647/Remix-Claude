@@ -2,7 +2,7 @@
 
 > Parent: [The Mix Standard Library](https://www.notion.so/1061d464528f8010b0cfc60836c20290)
 > Part of: [The Mix Programming Language](https://www.notion.so/259ede6504e34505982dde5dc4b63d10)
-> Split from mix-lang-collections.md — covers array, set, map.
+> Covers array, set, map. See also [mix-lang-collections-advanced.md](./mix-lang-collections-advanced.md).
 
 ---
 

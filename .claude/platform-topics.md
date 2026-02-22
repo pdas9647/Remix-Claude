@@ -2,7 +2,7 @@
 
 > Parent: Remix Documentation > User Guides and Tutorials > Topics
 > Source pages linked per section below.
-> See also: [platform-builder.md](./platform-builder.md) — Mixed Auth, Macros, External Actions, Edit/Run/Configure modes
+> See also: [platform-builder-runtime.md](./platform-builder-runtime.md) — Mixed Auth, External Actions; [platform-builder-macros.md](./platform-builder-macros.md) — Macros, Edit/Run/Configure modes, _rmx_init
 
 ---
 
