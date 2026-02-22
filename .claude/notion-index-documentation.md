@@ -94,9 +94,9 @@ Markers: → file.md = content captured | ○ = not yet fetched | ✗ = blank/sk
 
 ## Additional Documentation Pages
 
-- [Mobile/Desktop .remix file syncing](https://www.notion.so/25d1d464528f806b8c82e873d275aab7) → remix-infra.md
-- [Mobile/Desktop deeplinks](https://www.notion.so/27a1d464528f803db94ac980a0bd84eb) → remix-infra.md
-- [Synced preferences](https://www.notion.so/2871d464528f80ae96dfeff9a738ca67) → remix-infra.md
+- [Mobile/Desktop .remix file syncing](https://www.notion.so/25d1d464528f806b8c82e873d275aab7) → remix-infra-setup.md
+- [Mobile/Desktop deeplinks](https://www.notion.so/27a1d464528f803db94ac980a0bd84eb) → remix-infra-setup.md
+- [Synced preferences](https://www.notion.so/2871d464528f80ae96dfeff9a738ca67) → remix-infra-setup.md
 - [iOS widget debugging/testing](https://www.notion.so/2091d464528f806bb14ffa0bb037851b) → remix-deploy.md
 
 ## The Mix Programming Language

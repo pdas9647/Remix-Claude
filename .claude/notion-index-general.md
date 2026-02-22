@@ -9,9 +9,9 @@ Markers: → file.md = content captured | ○ = not yet fetched | ✗ = blank/sk
 - [Remix product](https://www.notion.so/27e1d464528f802291b6d5a093fbc10d) → remix-product.md
 - [Global Task List](https://www.notion.so/1d71d464528f80a69c47d21033bc498c) → remix-product.md
 - [Scope of first release, mental model, key terms](https://www.notion.so/26f1d464528f80c68d5ff6d663522db5) → remix-product-scope.md
-- [Running log](https://www.notion.so/27d1d464528f8097a8c1d9fdd1e184e6) → remix-infra.md
+- [Running log](https://www.notion.so/27d1d464528f8097a8c1d9fdd1e184e6) → remix-infra-auth.md
 - [Personas](https://www.notion.so/27e1d464528f80ae846cf0e81fcc7f59) → remix-product-scope.md (personas section)
-- [Workspace-based auth](https://www.notion.so/27f1d464528f80228fc2e2c3145aef1f) → remix-infra.md
+- [Workspace-based auth](https://www.notion.so/27f1d464528f80228fc2e2c3145aef1f) → remix-infra-auth.md
 - [List of widgets](https://www.notion.so/2721d464528f8075a7abfdd7f94a2f68) → remix-catalog.md
 - [iOS/Android widgets for HubSpot - Research](https://www.notion.so/25e1d464528f80d4af58e6ef53aa4ddb) → remix-catalog.md
 - [Remix in Snowflake/Snowpark](https://www.notion.so/2841d464528f804ba6fbe2d8feb7a963) → remix-snowflake.md
@@ -40,11 +40,11 @@ Markers: → file.md = content captured | ○ = not yet fetched | ✗ = blank/sk
 
 ## Other General Pages
 
-- [Remix Desktop Redux](https://www.notion.so/2421d464528f80f7a3baf5844687e419) → remix-infra.md & remix-product.md
+- [Remix Desktop Redux](https://www.notion.so/2421d464528f80f7a3baf5844687e419) → remix-infra-auth.md & remix-product.md
 - [Exported diagrams](https://www.notion.so/27e1d464528f80ea8480d07f4427f13a) — ✗ skipped
-- [Remix Desktop - Old log](https://www.notion.so/1d71d464528f8059abe4cf056cd0b34c) — remix-infra.md
-- [Unified Login](https://www.notion.so/2901d464528f8096a29ccd062758e637) → remix-infra.md
-- [Org / System Setup](https://www.notion.so/2871d464528f8079b692edaa589da6b8) → remix-infra.md
+- [Remix Desktop - Old log](https://www.notion.so/1d71d464528f8059abe4cf056cd0b34c) — remix-infra-auth.md
+- [Unified Login](https://www.notion.so/2901d464528f8096a29ccd062758e637) → remix-infra-auth.md
+- [Org / System Setup](https://www.notion.so/2871d464528f8079b692edaa589da6b8) → remix-infra-setup.md
 - [Remix Snowflake reference implementation](https://www.notion.so/2931d464528f80cc9da8ede348733125) → remix-snowflake.md
 - [Bug reporting](https://www.notion.so/3061d464528f80cdacf7eed2612bad07) → remix-tools.md
 

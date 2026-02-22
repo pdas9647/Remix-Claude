@@ -46,7 +46,8 @@ Notion page index (split by teamspace, load only what's needed):
 
 ### Platform & Infrastructure
 
-- [remix-infra.md](./remix-infra.md) — Auth (workspace-based), Unified Login, Org/System Setup, _rmx_sync, _rmx_prefs, deeplinks
+- [remix-infra-auth.md](./remix-infra-auth.md) — Running Log decisions, Workspace-Based Auth (org/token architecture, sign-in flow), Unified Login (screens, router, platform notes)
+- [remix-infra-setup.md](./remix-infra-setup.md) — Org/System Setup (global infra, per-customer), _rmx_sync (app syncing, hosting, agent API), _rmx_prefs (3-layer cascade), deeplinks
 - [remix-deploy.md](./remix-deploy.md) — 10 deployment surfaces, self-hosted server, .remix files, iOS/Android widgets, widget debugging
 - [remix-tools.md](./remix-tools.md) — mix_client REPL, bug reporting, asset submission, MCP tools, Cloud Workspace Tool, Repository Tool
 - [platform-topics.md](./platform-topics.md) — Web Components, Wasm Functions, files, pubsub, component overriding, permissions, secrets/tokens
