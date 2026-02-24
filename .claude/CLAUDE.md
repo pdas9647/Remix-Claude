@@ -101,7 +101,9 @@ Notion page index (split by teamspace, load only what's needed):
 
 ### GitHub Repositories
 
+- [github-mix-rs.md](./github-mix-rs.md) — Rust runtime stack: value system, query engine (varcode), FFI bridge, Wasm runtime (wasmtime/wasm2c), agent server CLI, and Tauri desktop app
 - [github-protoquery.md](./github-protoquery.md) — Mix language compiler (OCaml): compilation pipeline (Lexer→Parser→AST→Types→QCode→Linker→Wasm), server protocol, VM runtime bridge, stdlib, ABI versioning
+- [github-turntable.md](./github-turntable.md) — Remix Studio frontend (Elm): visual node-graph IDE (builder), multi-platform runtime (webapp), dual VM (AMP/Wasm), and suite of 8 web components
 
 ---
 
