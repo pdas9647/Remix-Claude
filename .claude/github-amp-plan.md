@@ -177,7 +177,7 @@
 - `src/amp/track/ffi/secrets/secrets.go`
 - `src/amp/track/ffi/token/token.go`
 - `src/amp/track/ffi/xml/xml.go`
-- `src/amp/track/ffi_mobile.go`
+- `src/amp/track/ffi/ffi_mobile.go`
 - `src/amp/track/wasm_ffis_interp.go`
 - `src/amp/track/wasm_ffis_jit.go`
 - `src/amp/track/web.json`
@@ -287,8 +287,9 @@
 - `src/amp/auth/sign_test.go`
 - `src/amp/auth/revoke_test.go`
 - `src/amp/auth/pubkey_test.go`
-- `src/amp/auth/prod/prod_test.go` (if exists)
+- `src/amp/auth/prod/prod_test.go`
 - `src/amp/auth/keys/file_cache_test.go`
+- `src/amp/auth/token/token_test.go`
 - `src/amp/auth/plugins/registry_test.go`
 - `src/amp/auth/users/user_test.go`
 - `src/amp/track/db_test.go`
@@ -305,7 +306,7 @@
 - `src/amp/track/utilNormal_test.go`
 - `src/amp/track/ffi/extract/extract_test.go`
 - `src/amp/track/ffi/http/http_test.go`
-- `src/amp/track/ffi/crypto_test.go` (if exists)
+- `src/amp/track/ffi/crypto_test.go`
 - `src/amp/machine/reader/location_test.go`
 - `src/amp/machine/session/session_test.go`
 - `src/amp/machine/writer/qcode_v5_test.go`
@@ -330,7 +331,8 @@
 - `src/amp/track/resources/` — just a README
 - `go.sum` files everywhere — lock files
 - `rcm-lock.json` — lock file
-- `bindeps/go.sum` — lock file
+- `bindeps/go.mod`, `bindeps/go.sum` — build dependency lock files
+- `Cargo.lock` files in `src/wasm/` — lock files
 - `*.wasm` — compiled Wasm binaries
 - `.github/ISSUE_TEMPLATE/` — issue template boilerplate
 

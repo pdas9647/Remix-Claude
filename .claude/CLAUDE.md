@@ -11,30 +11,32 @@ Notion page index (split by teamspace, load only what's needed):
 - [notion-index-doc-catalogs.md](./notion-index-doc-catalogs.md) — Documentation: Catalogs & Toolkits (Base, HubSpot, SMB, DBP, AI, DuckDB, OAuth, Snowflake)
 - [notion-index-ux-design.md](./notion-index-ux-design.md) — UX & Design (Collaboration, Variants, L1 catalog)
 
----
-
 ## Topic Files
 
-### Product & Strategy
+---
+
+### Notion
+
+#### Product & Strategy
 
 - [glossary.md](./glossary.md) — Remix Studio terminology, L0-L3 navigation, module types, node catalog (colors, 3 escape hatches)
 - [collaboration-assembly.md](./collaboration-assembly.md) — Steel thread: Developer > Assembler > Consumer pipeline, config points
 - [remix-product.md](./remix-product.md) — Global Task List, desktop design, pricing/SKU, runtime strategy
 - [remix-product-scope.md](./remix-product-scope.md) — First release scope, MoSCoW, 5 personas, self-serve vs CS
 
-### Design & Architecture
+#### Design & Architecture
 
 - [federated-servers.md](./federated-servers.md) — Federated search, external libraries (Amp/Workspace), asset sync, L2SourceNode, Catalog & Collections, Faceted Search, Catalog V2
 - [variants.md](./variants.md) — Config assets: base/config/instance, deep sync, L2SourceNode variant format
 - [l1-catalog-assets.md](./l1-catalog-assets.md) — L1 catalog publish/search/sync design proposal
 
-### Customer Projects
+#### Customer Projects
 
 - [funda.md](./funda.md) — Funda: member directory, workspace sEt2qxPydL, DBP/Admin/Member apps, LinkedIn clipper
 - [customer-projects-other.md](./customer-projects-other.md) — Orderly, 5 Star Music (Twilio IVR), Bomisco, Tapped In; all workspace IDs
 - [lumber.md](./lumber.md) — Lumber: job costing (lfi_), Workforce Junction (h_), payroll (prl_ 38 tables), Snowflake migration
 
-### Library & Catalog Assets
+#### Library & Catalog Assets
 
 - [remix-catalog.md](./remix-catalog.md) — Widget/base catalog, HubSpot research, remix_labs library, connectors, AI agents, GTM, T1/T2
 - [hubspot-toolkit.md](./hubspot-toolkit.md) — HubSpot Connector/Configurator/Library/Example apps, OAuth setup, installation
@@ -47,7 +49,7 @@ Notion page index (split by teamspace, load only what's needed):
 - [remix-dbp-components.md](./remix-dbp-components.md) — DBP components: buttons, overlay modal, text lists, reviews, forms, banners
 - [remix-dbp-assembly.md](./remix-dbp-assembly.md) — DBP layout: templates, basic info tile, footers, admin contact, beacon, assembly tutorial
 
-### Platform & Infrastructure
+#### Platform & Infrastructure
 
 - [remix-infra-auth.md](./remix-infra-auth.md) — Running Log decisions, Workspace-Based Auth (org/token architecture, sign-in flow), Unified Login (screens, router, platform notes)
 - [remix-infra-setup.md](./remix-infra-setup.md) — Org/System Setup (global infra, per-customer), _rmx_sync (app syncing, hosting, agent API), _rmx_prefs (3-layer cascade), deeplinks
@@ -65,7 +67,7 @@ Notion page index (split by teamspace, load only what's needed):
 - [server-apis-legacy.md](./server-apis-legacy.md) — Legacy Platform Server API (document CRUD, queries, app mgmt, .remix install, files, agents, auth endpoints)
 - [server-apis-cloud.md](./server-apis-cloud.md) — Cloud Agent Server API (workspace mgmt, run-agent, cloud queries, remixgen) + v1 API (introspection, permissions, files, signals)
 
-### Mix Language
+#### Mix Language
 
 - [mix-syntax-core.md](./mix-syntax-core.md) — modules/imports, cells (links/aliases/observers/live), defs (foreign/recursive), statements, actions
 - [mix-syntax-expressions.md](./mix-syntax-expressions.md) — expressions, literals, lambdas, operators, patterns, types, cases, short projections
@@ -79,7 +81,29 @@ Notion page index (split by teamspace, load only what's needed):
 - [mix-driver-build.md](./mix-driver-build.md) — Driver lib: compilerBuild (high-level build pipeline), codegenDriver/Util (Mix source from screens), remixFile (.remix zip builder), remixRecipe (
   declarative recipe types)
 
-## Slack Channels
+#### Mix Standard Library
+
+- [mix-std-lib.md](./mix-std-lib.md) — ~60 module master index with descriptions
+- [mix-lang-core.md](./mix-lang-core.md) — bool, number, string, option, result, bitset, passThrough, regex
+- [mix-lang-collections-basic.md](./mix-lang-collections-basic.md) — array, set, map (core collection types)
+- [mix-lang-collections-advanced.md](./mix-lang-collections-advanced.md) — gset, uniqArray, circuitarray (specialized collections)
+- [mix-lang-db.md](./mix-lang-db.md) — db, db-changes, dbRemote, minidb (CRUD, query pipeline, live queries, filter compilability, references)
+- [mix-lang-query.md](./mix-lang-query.md) — query AST builder (filter/projection/aggregation nodes, map constructors), resource (deprecated), registry (experimental)
+- [mix-lang-io.md](./mix-lang-io.md) — http, file, binary, crypto, wasm, mime
+- [mix-lang-stream.md](./mix-lang-stream.md) — stream, xml, websocket
+- [mix-lang-editor-dom.md](./mix-lang-editor-dom.md) — dom/domUtil, sync cell protocol, editorTypes, editorNode, editorScreen
+- [mix-lang-editor-reflect.md](./mix-lang-editor-reflect.md) — reflect, reflectComponent, slateComponent
+- [mix-lang-editor-slate.md](./mix-lang-editor-slate.md) — slateDef, slateDyn, slateGen
+- [mix-lang-editor-runtime.md](./mix-lang-editor-runtime.md) — container, viewstack, debugger, testing, compiler, vm
+- [mix-lang-advanced.md](./mix-lang-advanced.md) — Recursion, stream mutability, pattern matching, modules advanced, comments, imperative
+- [mix-lang-advanced-runtime.md](./mix-lang-advanced-runtime.md) — Links (advanced), EscJSON representation, DB query notes, embedding viewstacks
+- [mix-lang-platform-runtime.md](./mix-lang-platform-runtime.md) — agent, auth, env, secrets (runtime identity, invocation, OAuth tokens)
+- [mix-lang-platform-concurrency.md](./mix-lang-platform-concurrency.md) — logging, metrics, co (coroutines/channels/pubsub), embed, track, memo, random, util
+- [mix-lang-platform-messaging.md](./mix-lang-platform-messaging.md) — calendar, color, messaging (pub/sub topics, cloud/remote), loader (dynamic library loading)
+
+---
+
+### Slack Channels
 
 - [slack-general.md](./slack-general.md) — #general: team structure, standups, GTM pipeline, platform incidents, key decisions (Dec 2025–Feb 2026)
 - [slack-announcements.md](./slack-announcements.md) — #announcements: Lumber coordination, Salesforce demo, desktop readiness, theme migration, WebAuthn design (Dec 2025–Feb 2026)
@@ -99,6 +123,8 @@ Notion page index (split by teamspace, load only what's needed):
 - [slack-rmx-delivery-lumber.md](./slack-rmx-delivery-lumber.md) — #rmx-delivery-lumber: analytics reporting (Phase 2), Snowflake ETL, report builder, auth integration, UX handoff design (Jan–Feb 2026)
 - [slack-rmx-delivery-snowflake.md](./slack-rmx-delivery-snowflake.md) — #rmx-delivery-snowflake: Snowflake Startup Accelerator, SPCS deployment, OAuth, free-widget GTM idea (Mar–Aug 2025; quiet after)
 
+---
+
 ### GitHub Repositories
 
 - [github-mix-rs.md](./github-mix-rs.md) — Rust runtime stack: value system, query engine (varcode), FFI bridge, Wasm runtime (wasmtime/wasm2c), agent server CLI, and Tauri desktop app
@@ -108,22 +134,7 @@ Notion page index (split by teamspace, load only what's needed):
 
 ---
 
-### Mix Standard Library
+### Standup Notes
 
-- [mix-std-lib.md](./mix-std-lib.md) — ~60 module master index with descriptions
-- [mix-lang-core.md](./mix-lang-core.md) — bool, number, string, option, result, bitset, passThrough, regex
-- [mix-lang-collections-basic.md](./mix-lang-collections-basic.md) — array, set, map (core collection types)
-- [mix-lang-collections-advanced.md](./mix-lang-collections-advanced.md) — gset, uniqArray, circuitarray (specialized collections)
-- [mix-lang-db.md](./mix-lang-db.md) — db, db-changes, dbRemote, minidb (CRUD, query pipeline, live queries, filter compilability, references)
-- [mix-lang-query.md](./mix-lang-query.md) — query AST builder (filter/projection/aggregation nodes, map constructors), resource (deprecated), registry (experimental)
-- [mix-lang-io.md](./mix-lang-io.md) — http, file, binary, crypto, wasm, mime
-- [mix-lang-stream.md](./mix-lang-stream.md) — stream, xml, websocket
-- [mix-lang-editor-dom.md](./mix-lang-editor-dom.md) — dom/domUtil, sync cell protocol, editorTypes, editorNode, editorScreen
-- [mix-lang-editor-reflect.md](./mix-lang-editor-reflect.md) — reflect, reflectComponent, slateComponent
-- [mix-lang-editor-slate.md](./mix-lang-editor-slate.md) — slateDef, slateDyn, slateGen
-- [mix-lang-editor-runtime.md](./mix-lang-editor-runtime.md) — container, viewstack, debugger, testing, compiler, vm
-- [mix-lang-advanced.md](./mix-lang-advanced.md) — Recursion, stream mutability, pattern matching, modules advanced, comments, imperative
-- [mix-lang-advanced-runtime.md](./mix-lang-advanced-runtime.md) — Links (advanced), EscJSON representation, DB query notes, embedding viewstacks
-- [mix-lang-platform-runtime.md](./mix-lang-platform-runtime.md) — agent, auth, env, secrets (runtime identity, invocation, OAuth tokens)
-- [mix-lang-platform-concurrency.md](./mix-lang-platform-concurrency.md) — logging, metrics, co (coroutines/channels/pubsub), embed, track, memo, random, util
-- [mix-lang-platform-messaging.md](./mix-lang-platform-messaging.md) — calendar, color, messaging (pub/sub topics, cloud/remote), loader (dynamic library loading)
+- [standup-notes-jan-2026.md](./standup-notes-jan-2026.md) — Weekly standup notes: decisions, ownership, customer updates, GTM pipeline (Jan 2026)
+- [standup-notes-feb-2026.md](./standup-notes-feb-2026.md) — Weekly standup notes: desktop blockers, caching, RCM CI, chat mobile testing (Feb 2026)
