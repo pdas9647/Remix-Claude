@@ -82,7 +82,6 @@ Notion page index (split by teamspace, load only what's needed):
 ## Slack Channels
 
 - [slack-general.md](./slack-general.md) — #general: team structure, standups, GTM pipeline, platform incidents, key decisions (Dec 2025–Feb 2026)
-- [slack-go-to-market.md](./slack-go-to-market.md) — #go-to-market: GTM strategy decks, Atomicwork/Alteryx/Simpplr prospects, Snowflake pitch prep, AI support PRD, connector strategy (Jan 2025–Feb 2026)
 - [slack-announcements.md](./slack-announcements.md) — #announcements: Lumber coordination, Salesforce demo, desktop readiness, theme migration, WebAuthn design (Dec 2025–Feb 2026)
 - [slack-backend.md](./slack-backend.md) — #backend: DB save FFI overhaul, wasm caching fix, blob URL support, query pipeline, Go/Rust parity, JWT auth (Jan–Feb 2026)
 - [slack-builder-runtime.md](./slack-builder-runtime.md) — #builder-runtime: builder features, amp cleanup, catalog items, remote data sources, L0 plugins, runtime.json optimization (Dec 2025–Feb 2026)
@@ -92,12 +91,17 @@ Notion page index (split by teamspace, load only what's needed):
 - [slack-dumbquestionsanswered.md](./slack-dumbquestionsanswered.md) — #dumbquestionsanswered: env.runtimeURL deprecation, desktop /a/x/apps equivalent, platform Q&A (Feb 2026)
 - [slack-extension.md](./slack-extension.md) — #extension: Chrome extension release log (Jan–Feb 2026)
 - [slack-flutter.md](./slack-flutter.md) — #flutter: mobile app releases, widgets iOS/Android, federated search, deeplinks (Jan–Feb 2026)
+- [slack-go-to-market.md](./slack-go-to-market.md) — #go-to-market: GTM strategy decks, Atomicwork/Alteryx/Simpplr prospects, Snowflake pitch prep, AI support PRD, connector strategy (Jan 2025–Feb 2026)
 - [slack-ops.md](./slack-ops.md) — #ops: weekly production promotion workflow, harmony PRs, TF build log (Feb 2026)
 - [slack-rmx-delivery-5starmusic.md](./slack-rmx-delivery-5starmusic.md) — #rmx-delivery-5starmusic: IVR+CRM build, go-live Nov 2025, SMS architecture, field trips, post-launch (Oct 2025–Feb 2026)
 - [slack-rmx-delivery-bomisco.md](./slack-rmx-delivery-bomisco.md) — #rmx-delivery-bomisco: LinkedIn→HubSpot clipper, onboarding struggles, V1/V2 .remix issue, Copilot UX overhaul (Oct 2025–Feb 2026)
 - [slack-rmx-delivery-funda.md](./slack-rmx-delivery-funda.md) — #rmx-delivery-funda: member directory for founder community, LinkedIn auth, Snowflake Cortex search, go-live prep (Sep–Dec 2025)
 - [slack-rmx-delivery-lumber.md](./slack-rmx-delivery-lumber.md) — #rmx-delivery-lumber: analytics reporting (Phase 2), Snowflake ETL, report builder, auth integration, UX handoff design (Jan–Feb 2026)
 - [slack-rmx-delivery-snowflake.md](./slack-rmx-delivery-snowflake.md) — #rmx-delivery-snowflake: Snowflake Startup Accelerator, SPCS deployment, OAuth, free-widget GTM idea (Mar–Aug 2025; quiet after)
+
+### GitHub Repositories
+
+- [github-protoquery.md](./github-protoquery.md) — Mix language compiler (OCaml): compilation pipeline (Lexer→Parser→AST→Types→QCode→Linker→Wasm), server protocol, VM runtime bridge, stdlib, ABI versioning
 
 ---
 
