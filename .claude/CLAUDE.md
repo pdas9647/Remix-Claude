@@ -132,6 +132,7 @@ Notion page index (split by teamspace, load only what's needed):
 - [github-turntable.md](./github-turntable.md) — Remix Studio frontend (Elm): visual node-graph IDE (builder), multi-platform runtime (webapp), dual VM (AMP/Wasm), and suite of 8 web components
 - [github-flutter-runtime.md](./github-flutter-runtime.md) — Mobile runtime (Flutter/Dart): cross-platform app shell with embedded AMP server, WebView-based Remix app rendering, native iOS/Android home-screen widgets via MixRun Wasm, AppClip, push notifications, in-app purchases
 - [github-amp.md](./github-amp.md) — Platform server (Go): HTTP API, embedded Mix VM (Groovebox/Wasm), MQTT broker, compiler bridge, auth system (JWT/OAuth/OIDC), mobile library (gomobile), app/session management
+- [github-web-components.md](./github-web-components.md) — Standalone web components monorepo (TS/JS/Elm/SolidJS): 13 registered components (maps, charts, grid, carousel, timer, video, sortable, markdown, etc.) with manifest-based Remix Studio integration
 
 ---
 

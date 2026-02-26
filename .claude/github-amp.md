@@ -49,8 +49,6 @@ main.go → lib.Server → { server.Server (HTTP), track.SessionManager, broker 
 
 ### System endpoints (`/x/...`)
 
-
-
 | Endpoint                     | Method   | Purpose                                  |
 |------------------------------|----------|------------------------------------------|
 | `/x/auth`                    | GET      | Redirect to default auth provider        |
