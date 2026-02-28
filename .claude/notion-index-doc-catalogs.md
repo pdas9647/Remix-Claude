@@ -17,6 +17,7 @@ Markers: → file.md = content captured | ○ = not yet fetched | ✗ = blank/sk
         - [Installation instructions](https://www.notion.so/13b1d464528f80d29831d063eaf7b365) → hubspot-toolkit.md
         - [Set up OAuth in HubSpot](https://www.notion.so/1441d464528f8005a611c39fc2f76cc3) → hubspot-toolkit.md
         - [HubSpot library](https://www.notion.so/1371d464528f80599defe5ccbc7d1e9c) — ✗ blank
+    - [🧩 How to Create a HubSpot Widget](https://www.notion.so/30d1d464528f80aea1b5fda08278ad59) → hubspot-toolkit.md (4-phase guide: schema sync, AI config, bindings, package/deploy; standalone page)
 - [SMB catalog](https://www.notion.so/1051d464528f80a09405d83aec33ffb9) → remix-smb.md
     - [Transaction models for SMBs](https://www.notion.so/1291d464528f8077b390e89eec31115d) → remix-smb.md
         - [Booking services provided by staff](https://www.notion.so/1291d464528f80429975c270abe1b80c) → remix-smb.md

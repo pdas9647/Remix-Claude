@@ -146,3 +146,69 @@ Named use cases in sidebar:
 
 Library URL: `https://agt.remixlabs.com/ws/remix-libraries/_rmx_hubspot`
 For access setup, see [Accessing Remix libraries](https://www.notion.so/13c1d464528f8039beb0c08aa8413722) (stored in [federated-servers.md](./federated-servers.md)).
+
+---
+
+## Creating a HubSpot Widget (Desktop Guide)
+
+> Source: [🧩 How to Create a HubSpot Widget](https://www.notion.so/30d1d464528f80aea1b5fda08278ad59) — standalone page; last updated 2026-02-21
+
+4-phase workflow for building, configuring, and deploying a HubSpot widget via Remix Desktop + HubSpot Configurator.
+
+**Prerequisites:**
+
+- [Remix Desktop](https://remix.app/remix/desktop-releases) installed
+- [HubSpot Configurator](https://remix.app/remix/hubspot_configurator/install) installed
+
+### Phase 0 — Create Project
+
+1. Create a new project in Remix Desktop
+2. Copy widget asset [`hubspot_widget_oauth_template`](https://remix.app/remix/asset?source=https://agt.remixlabs.com/ws/remix_labs/yKWEG8wayWlGvh5N8ifRZRDd0yqmDOI2) and paste into the project
+3. Rename the template widget (always set name before creating the widget record)
+
+### Phase 1 — Sync Object Schemas
+
+1. Open **HubSpot Configurator** → **Schema Sync** section
+2. Sign in, select HubSpot objects (e.g. Contacts, Deals, Companies)
+3. Tap **Sync** and wait for confirmation
+
+> Re-sync whenever HubSpot object structure changes — stale schemas cause incorrect AI query generation in Phase 2.
+
+### Phase 2 — Configure the Component (AI-assisted)
+
+1. In **HubSpot Configurator** → click **"Configure Component"**
+2. Select the component type and the HubSpot object (must match a synced schema from Phase 1)
+3. Enter a natural-language prompt describing the query:
+    - *"Show the 10 most recently updated open deals"*
+    - *"Total number of active leads"*
+    - *"Total number of deals by stage"* (bar chart)
+4. Review generated query; refine prompt if needed
+5. Click **Copy Component** — keep clipboard ready for Phase 3
+
+### Phase 3 — Build the Widget
+
+1. Open the widget from Phase 0; locate the designated component slot (see annotation node)
+2. Paste the copied component
+3. Connect 3 required bindings:
+
+| Binding    | Purpose                                    |
+|------------|--------------------------------------------|
+| **Token**  | HubSpot authentication token               |
+| **Invoke** | Triggers data query on load/refresh        |
+| **Card**   | Maps returned fields to visual card layout |
+
+4. Test in builder: tap **on load** in the in-params node; verify data, layout, filters
+
+**Common issues:**
+
+- No data → check token binding and HubSpot connection
+- Wrong data → revisit Phase 2 prompt
+- Broken card layout → verify card binding field mapping
+
+### Phase 4 — Package & Deploy
+
+1. Inside the widget, use **Create Widget Record** tool (see annotation node); fill in metadata
+2. Package via **Workspace Tools** plugin → navigate to workspace → **Export Widgets**
+    - Package must include the widget records from step 1
+3. Install the packaged `.remix` file to the target device via the plugin-provided URL
+4. On device home screen: **Add Widget** → search "remix" → select size → add widget → long-press to edit and select the widget

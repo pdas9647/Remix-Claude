@@ -1,9 +1,34 @@
 # Server APIs — Cloud Agent Server API
 
 > Sources:
-> - [Cloud Agent Server API](https://www.notion.so/1061d464528f8022aa1cec129096c82b) — Cloud Agent Server > API
-> - [Cloud Agent Server v1 API](https://www.notion.so/1bd1d464528f80cb97cde448c9e2a944) — Cloud Agent Server > v1 API
-    > Parent: Remix Documentation > User Guides and Tutorials > Remix Studio User Guide
+> - [Cloud Agent Server](https://www.notion.so/1061d464528f80f18e46dd27895aeda2) — Architecture hub; last updated 2026-02-26
+> - [Cloud Agent Server API](https://www.notion.so/1061d464528f8022aa1cec129096c82b) — Mixer API
+> - [Cloud Agent Server v1 API](https://www.notion.so/1bd1d464528f80cb97cde448c9e2a944) — v1 API (Swagger: `https://agt.remixlabs.com/v1/swagger/`)
+
+---
+
+## Architecture Overview
+
+**Workspaces** — database namespace + metering unit. URL form: `https://agt.remixlabs.com/v1/ws/<ws>`.
+- **Owner** — immutable, tied to billing; creator of resource. Tier limits apply to owners.
+- **Admin** — can grant permissions and create DBs; cannot change ownership.
+- Auth server: `auth.remixlabs.com`. One user → many workspaces. Anonymous invocation allowed if app owner permits.
+
+**RBAC** — grants are triples of `(subject, role, resource)`.
+
+Subjects: `user/<email>`, `domain/<host>`, `agent/<server>:<ws>.<app>.<agent>`, `all-users`, `anonymous`
+
+| Role         | Permissions                                                    | Resources                                    |
+|--------------|----------------------------------------------------------------|----------------------------------------------|
+| `runner`     | run                                                            | `agent/<app>/<agent>`, `db/<app>`, workspace |
+| `editor`     | run, export, read, write                                       | `db/<app>`, workspace                        |
+| `admin`      | run, export, read, write, grant_permissions, delete, create_db | `db/<app>`, workspace                        |
+| `db/creator` | create_db only (cannot read/replace existing)                  | workspace                                    |
+
+- `.remix` install requires `admin` on workspace.
+- `anonymous` = no token; `all-users` = any authenticated user.
+- Agent-to-agent: cross-app calls allowed if calling user OR calling agent has permission. Same-app calls always allowed.
+- Mixer startup: `mixer serve --ws-dir /path/to/workspaces` (add `--tls-certs`/`--tls-key` for HTTPS).
 
 ---
 
@@ -20,104 +45,87 @@
 | `DELETE` | `/ws/<ws>`       | Delete workspace                                 |
 | `DELETE` | `/ws/<ws>/<app>` | Delete app                                       |
 
-### Workspace Import/Export/Clone
+### Workspace Import / Export / Clone
 
-| Method | Endpoint                                           | Description                                   |
-|--------|----------------------------------------------------|-----------------------------------------------|
-| `GET`  | `/ws-export/<ws>`                                  | Export workspace as .remix mastertape         |
-| `POST` | `/ws-import?ws=<ws>`                               | Import mastertape (body); optional `ws` name  |
-| `POST` | `/ws-clone/<ws1>?ws=<ws2>&url=<url>&token=<token>` | Clone workspace; optionally to a remote mixer |
+| Method | Endpoint                                           | Description                       |
+|--------|----------------------------------------------------|-----------------------------------|
+| `GET`  | `/ws-export/<ws>`                                  | Export as .remix mastertape       |
+| `POST` | `/ws-import?ws=<ws>`                               | Import mastertape (body)          |
+| `POST` | `/ws-clone/<ws1>?ws=<ws2>&url=<url>&token=<token>` | Clone; optionally to remote mixer |
 
 ### Core Operations
 
-| Method   | Endpoint                        | Description                                                                                                                                                          |
-|----------|---------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `POST`   | `/install-remix-file/<ws>`      | Install .remix file (body: octet-stream or JSON `{url, force}`)                                                                                                      |
-| `POST`   | `/grant-permission/<ws>`        | Grant permission (`subject`, `role`, `resource`)                                                                                                                     |
-| `POST`   | `/run-agent/<ws>/<app>/<agent>` | Run agent (JSON body = input params)                                                                                                                                 |
-| `POST`   | `/query/<ws>/<app>`             | Register cloud query (`name`, `ast`, optional `db`, `skip`, `limit`, `include_superseded`, `include_deleted`)                                                        |
-| `DELETE` | `/query/<ws>/<app>/<name>`      | Delete cloud query                                                                                                                                                   |
-| `POST`   | `/count-activities/<ws>`        | Count activities; optional filters: `subject`, `activity` (`run_agent\|update_db\|install_remix_file\|create_workspace\|grant_permission\|remixgen`), `start`, `end` |
-| `GET`    | `/subscribe/<topic>`            | Subscribe to cloud topic (SSE: `data:"<JSON>"` per message, `:` heartbeats)                                                                                          |
+| Method   | Endpoint                        | Description                                                                                               |
+|----------|---------------------------------|-----------------------------------------------------------------------------------------------------------|
+| `POST`   | `/install-remix-file/<ws>`      | Install .remix (body: octet-stream or JSON `{url, force}`)                                                |
+| `POST`   | `/grant-permission/<ws>`        | Grant permission (`subject`, `role`, `resource`)                                                          |
+| `POST`   | `/run-agent/<ws>/<app>/<agent>` | Run agent (JSON body = input params)                                                                      |
+| `POST`   | `/query/<ws>/<app>`             | Register cloud query (`name`, `ast`, opt: `db`, `skip`, `limit`, `include_superseded`, `include_deleted`) |
+| `DELETE` | `/query/<ws>/<app>/<name>`      | Delete cloud query                                                                                        |
+| `POST`   | `/count-activities/<ws>`        | Count activities; filters: `subject`, `activity`, `start`, `end`                                          |
+| `GET`    | `/subscribe/<topic>`            | Subscribe to cloud topic (SSE)                                                                            |
 
-### .remix File Generation
-
-`POST /remixgen/<ws>/<app>` — Generate .remix by injecting query results into an existing .remix template.
-
-Params: `src` or `url` (source .remix), `dest` (output path), `query` (query string), `overrides` (JSON: app → constants overrides).
+`POST /remixgen/<ws>/<app>` — inject query results into a .remix template. Params: `src`/`url`, `dest`, `query`, `overrides` (JSON: app → constants).
 
 ---
 
 ## Cloud Agent Server v1 API
 
-Swagger: `https://agt.remixlabs.com/v1/swagger/`
+### Introspection
 
-### Workspace/App/Agent Introspection
-
-| Method | Endpoint                              | Response                                                                       |
-|--------|---------------------------------------|--------------------------------------------------------------------------------|
-| `GET`  | `/v1/ws`                              | `{workspaces: [{name}]}`                                                       |
-| `GET`  | `/v1/ws/<ws>`                         | `{name, apps: [{name}]}`                                                       |
-| `GET`  | `/v1/ws/<ws>/app/<app>`               | `{name, agents: [{name}]}`                                                     |
-| `GET`  | `/v1/ws/<ws>/app/<app>/agent/<agent>` | `{name, description, inParams: [{type, name, displayName}], outParams: [...]}` |
+| `GET` Endpoint                        | Response                                   |
+|---------------------------------------|--------------------------------------------|
+| `/v1/ws`                              | `{workspaces: [{name}]}`                   |
+| `/v1/ws/<ws>`                         | `{name, apps: [{name}]}`                   |
+| `/v1/ws/<ws>/app/<app>`               | `{name, agents: [{name}]}`                 |
+| `/v1/ws/<ws>/app/<app>/agent/<agent>` | `{name, description, inParams, outParams}` |
 
 ### Permissions CRUD
 
-Available at workspace, app, and agent levels:
+Available at workspace, app, and agent levels (pattern: `.../permissions[/<id>]`).
 
-| Method   | Endpoint Pattern               | Description             |
-|----------|--------------------------------|-------------------------|
-| `GET`    | `/v1/ws/<ws>/permissions`      | List permissions        |
-| `GET`    | `/v1/ws/<ws>/permissions/<id>` | Get permission by ID    |
-| `DELETE` | `/v1/ws/<ws>/permissions/<id>` | Delete permission (204) |
+| Method         | Description             |
+|----------------|-------------------------|
+| `GET`          | List all permissions    |
+| `GET /<id>`    | Get permission by ID    |
+| `DELETE /<id>` | Delete permission (204) |
 
-Same pattern for apps (`/v1/ws/<ws>/app/<app>/permissions[/<id>]`) and agents (`/v1/ws/<ws>/app/<app>/agent/<agent>/permissions[/<id>]`).
-
-Permission object: `{id, subject, role, resource}` where:
-
-- `subject`: `"user/<email>"` or similar
-- `role`: `admin`, `editor`, `runner`, etc.
-- `resource`: `"workspace"`, `"db/<app>"`, `"agent/<app>/<agent>"`
+Permission object: `{id, subject, role, resource}`.
 
 ### Files API (v1)
 
-| Method   | Endpoint                                                                 | Description                                       |
-|----------|--------------------------------------------------------------------------|---------------------------------------------------|
-| `GET`    | `/v1/ws/<ws>/app/<app>/files/<path>`                                     | Serve file (public: no auth)                      |
-| `GET`    | `/v1/ws/<ws>/app/<app>/file-manager/content?path=<path>`                 | Get file or list directory                        |
-| `PUT`    | `/v1/ws/<ws>/app/<app>/file-manager/content?path=<path>&force=<bool>`    | Create file                                       |
-| `POST`   | `/v1/ws/<ws>/app/<app>/file-manager/content`                             | Create file (multipart: `path`, `data`, `force`)  |
-| `DELETE` | `/v1/ws/<ws>/app/<app>/file-manager/content?path=<path>`                 | Delete file                                       |
-| `GET`    | `/v1/ws/<ws>/app/<app>/file-manager/props?path=<path>`                   | Get file properties                               |
-| `PATCH`  | `/v1/ws/<ws>/app/<app>/file-manager/props?path=<path>&change_path=<new>` | Rename file                                       |
-| `POST`   | `/v1/ws/<ws>/app/<app>/file-manager/copy`                                | Copy file (`src`, `src_app`, `path`)              |
-| `POST`   | `/v1/ws/<ws>/app/<app>/file-manager/register`                            | Register file (`path`, `reg_url`, `reg_metadata`) |
+Base prefix: `/v1/ws/<ws>/app/<app>/`
+
+| Method   | Path                                    | Description                                       |
+|----------|-----------------------------------------|---------------------------------------------------|
+| `GET`    | `files/<path>`                          | Serve file (public, no auth)                      |
+| `GET`    | `file-manager/content?path=`            | Get file or list directory                        |
+| `PUT`    | `file-manager/content?path=&force=`     | Create file                                       |
+| `POST`   | `file-manager/content`                  | Create file (multipart: `path`, `data`, `force`)  |
+| `DELETE` | `file-manager/content?path=`            | Delete file                                       |
+| `GET`    | `file-manager/props?path=`              | Get file properties                               |
+| `PATCH`  | `file-manager/props?path=&change_path=` | Rename file                                       |
+| `POST`   | `file-manager/copy`                     | Copy file (`src`, `src_app`, `path`)              |
+| `POST`   | `file-manager/register`                 | Register file (`path`, `reg_url`, `reg_metadata`) |
 
 ### Signals
 
-Promise-based coordination between agents and screens.
+Promise-based agent↔screen coordination. All endpoints require non-anonymous token.
 
-| Method   | Endpoint           | Description                                                                                             |
-|----------|--------------------|---------------------------------------------------------------------------------------------------------|
-| `POST`   | `/v1/signals`      | Create signal → `{url: "/v1/signals/<id>"}`                                                             |
-| `GET`    | `/v1/signals/<id>` | Await signal value (blocking); returns `ok(value)` or `error("canceled"\|"timeout")` as Mix tagged JSON |
-| `POST`   | `/v1/signals/<id>` | Send signal value (JSON body)                                                                           |
-| `DELETE` | `/v1/signals/<id>` | Cancel signal                                                                                           |
+| Method   | Endpoint           | Description                                               |
+|----------|--------------------|-----------------------------------------------------------|
+| `POST`   | `/v1/signals`      | Create signal → `{url: "/v1/signals/<id>"}`               |
+| `GET`    | `/v1/signals/<id>` | Await value (blocking) → `ok(value)` or `error("canceled" |"timeout")` |
+| `POST`   | `/v1/signals/<id>` | Send signal value (JSON body)                             |
+| `DELETE` | `/v1/signals/<id>` | Cancel signal                                             |
 
-**Typical flow:** Agent creates signal → passes signal object to screen → agent awaits signal → screen sends value → agent receives it.
+### Workspace Import / Export (v1)
 
-All signal endpoints require non-anonymous Remix token.
+| Method | Endpoint                | Description                                    |
+|--------|-------------------------|------------------------------------------------|
+| `GET`  | `/v1/ws/<ws>/export`    | Download mastertape                            |
+| `POST` | `/v1/ws-import?id=<ws>` | Upload mastertape                              |
+| `POST` | `/v1/ws/<ws>/export`    | Push export to remote (`{url, ws?, token?}`)   |
+| `POST` | `/v1/ws-import`         | Pull import from remote (`{url, ws?, token?}`) |
 
-### Workspace Import/Export (v1)
-
-| Method | Endpoint                | Description                                                |
-|--------|-------------------------|------------------------------------------------------------|
-| `GET`  | `/v1/ws/<ws>/export`    | Download mastertape                                        |
-| `POST` | `/v1/ws-import?id=<ws>` | Upload mastertape (body); optional `id` for workspace name |
-| `POST` | `/v1/ws/<ws>/export`    | Export to remote URL (JSON body: `{url, ws?, token?}`)     |
-| `POST` | `/v1/ws-import`         | Import from remote URL (JSON body: `{url, ws?, token?}`)   |
-
-**Clone patterns:**
-
-- Push: export to `<remote>/v1/ws-import`
-- Pull: import from `<remote>/v1/ws/<ws>/export`
+Clone: Push = export to `<remote>/v1/ws-import`; Pull = import from `<remote>/v1/ws/<ws>/export`.

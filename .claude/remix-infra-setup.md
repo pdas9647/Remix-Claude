@@ -128,25 +128,45 @@ Auto-syncs .remix apps to mobile/desktop. Only apps compatible with the installe
 
 ## _rmx_prefs — Synced Preferences
 
-> Source: [Synced preferences](https://www.notion.so/2871d464528f80ae96dfeff9a738ca67)
+> Source: [Synced preferences](https://www.notion.so/2871d464528f80ae96dfeff9a738ca67); last updated 2026-02-25
 
 Syncs user preferences across devices/surfaces via a 3-layer cascade.
 
 ### Cascade Model (each layer overrides the previous)
 
-1. **System prefs** — Constants at compile time. Default: `search.libs` = `https://agt.remixlabs.com/ws/remix_labs`
-2. **Default prefs** — Per-workspace, set by admin (dynamic). Overrides system prefs.
-3. **User prefs** — Per-user (dynamic). Overrides default prefs.
+1. **System prefs** — Constants at compile time:
+   - `search.libs`: `"# the main remix library\nhttps://agt.remixlabs.com/ws/remix_labs"`
+   - `plugins.show_system_plugins`: `true`
+2. **Default prefs** — Per-workspace record, set by admin (dynamic). Overrides system prefs.
+3. **User prefs** — Per-user record (dynamic). Overrides default prefs.
+
+Merge semantics: pass `null` for a key to delete it (e.g. passing `{"search.libs": null}` in `set_default_prefs` resets that key back to system prefs).
 
 ### Agent API (`_rmx_prefs` app, deployed on org's primary workspace)
 
-| Agent               | Input     | Output    | Access     | Notes                                                |
-|---------------------|-----------|-----------|------------|------------------------------------------------------|
-| `get_prefs`         | (none)    | `{prefs}` | All auth'd | Returns merged system + default + user prefs         |
-| `set_prefs`         | `{prefs}` | `{prefs}` | All auth'd | Merge semantics; `null` deletes a pref               |
-| `set_default_prefs` | `{prefs}` | `{prefs}` | Admin      | Set workspace-wide defaults; `null` resets to system |
+All agents return `{prefs, user}` — `prefs` is the merged hashmap, `user` is the email string.
+
+| Agent               | Input           | Access     | Notes                                                      |
+|---------------------|-----------------|------------|------------------------------------------------------------|
+| `get_prefs`         | (none)          | All auth'd | Returns merged system + default + user prefs               |
+| `set_prefs`         | `{prefs}`       | All auth'd | Merge-writes user prefs; `null` value deletes key          |
+| `get_prefs_admin`   | `{user}`        | Admin      | Same as `get_prefs` but for any user                       |
+| `set_prefs_admin`   | `{user, prefs}` | Admin      | Same as `set_prefs` but for any user                       |
+| `get_default_prefs` | (none)          | Admin      | Returns workspace default prefs                            |
+| `set_default_prefs` | `{prefs}`       | Admin      | Set workspace-wide defaults; `null` value resets to system |
+
+### Builder fields
+
+- `search.libs` — catalog list for L1/L2 search (one URL per line, `#` comments supported)
+- `plugins.show_system_plugins` — show system plugins in L0/L1/L2 when `true`
+
+To override default catalogs for all org users: set `search.libs` in `set_default_prefs`. Individual users can further override with their own `search.libs`.
+
+### Resources
 
 - Builder app: `https://remix.remixlabs.com/e/edit/_rmx_prefs`
+- Get prefs: `curl -H "Authorization: Bearer $REMIX_TOKEN" "https://agt.remixlabs.com/run-agent/erzvkynof/_rmx_prefs/get_prefs" -d '' | jq`
+- Set prefs: `curl -H "Authorization: Bearer $REMIX_TOKEN" "https://agt.remixlabs.com/run-agent/erzvkynof/_rmx_prefs/set_prefs" -d '{"prefs": {"pref1": "val1", "name": null}}' | jq`
 
 ---
 

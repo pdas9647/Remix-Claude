@@ -132,3 +132,32 @@ Keys namespaced with `rmx-local-data--` prefix.
 | Name                | Params        | Returns |
 |---------------------|---------------|---------|
 | `remix/send-beacon` | `{url, data}` | bool    | Browser `navigator.sendBeacon` wrapper |
+
+---
+
+## Window Management Client Actions
+
+> Source: [Window management Client Actions](https://www.notion.so/3111d464528f8076b873d8ca75c3b016)
+> Last updated: 2026-02-26
+
+Platform client actions for window management — routed through host-provided action handlers with no leakage into user space.
+
+### Platform Events (internal — users should not use these)
+
+| Action                      | Platform | Description                                                                                                      |
+|-----------------------------|----------|------------------------------------------------------------------------------------------------------------------|
+| `remix/builder_open`        | Desktop  | Builder opens a builder screen; routing info passed as object                                                    |
+| `remix/runtime_open_screen` | Desktop  | Builder opens a runtime screen; routing info passed as object                                                    |
+| `remix/location-changed`    | All      | Fired on **navigation within a window** (e.g. L0→L1, push to new screen); contains url, route params, page title |
+
+`remix/location-changed` payload:
+```javascript
+{"dbName": ..., "screen": ..., "params": {...}, "url": ...}
+```
+
+### User Events (possibly also used by platform)
+
+| Action                        | Platform     | Description                                                     |
+|-------------------------------|--------------|-----------------------------------------------------------------|
+| `remix/open-location`         | Browser      | Opens a URL in a new window/tab; Builder uses this for new tabs |
+| `remix/builder_open_artifact` | Desktop only | Desktop-only userspace client action                            |

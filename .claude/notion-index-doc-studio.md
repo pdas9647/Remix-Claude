@@ -65,6 +65,7 @@ Markers: → file.md = content captured | ○ = not yet fetched | ✗ = blank/sk
     - [Auth Integrations](https://www.notion.so/11f1d464528f8070b010f945a0b0e7af) → server-apis-auth.md
     - [Legacy Platform Server API](https://www.notion.so/1061d464528f80449377e6c07e72b30b) → server-apis-legacy.md
 - Cloud Agent Server
+    - [Cloud Agent Server](https://www.notion.so/1061d464528f80f18e46dd27895aeda2) → server-apis-cloud.md (architecture: workspace ownership, RBAC, auth, usage examples)
     - [Cloud Agent Server API](https://www.notion.so/1061d464528f8022aa1cec129096c82b) → server-apis-cloud.md
     - [Cloud Agent Server v1 API](https://www.notion.so/1bd1d464528f80cb97cde448c9e2a944) → server-apis-cloud.md
 - [Self-hosted Remix Server](https://www.notion.so/22a1d464528f8019be54edf3f3b1f576) → remix-deploy.md
@@ -75,9 +76,10 @@ Markers: → file.md = content captured | ○ = not yet fetched | ✗ = blank/sk
     - [Mixed auth test](https://www.notion.so/1b91d464528f802ebf9efe3417f1ea6f) — ○ no stable content
 - [Macros](https://www.notion.so/2161d464528f801f8ddaf479d816d99f) → platform-builder-macros.md
 - [External Actions](https://www.notion.so/2161d464528f8014ac9ce7eda3a134ab) → platform-builder-runtime.md
+- [Window management Client Actions](https://www.notion.so/3111d464528f8076b873d8ca75c3b016) → platform-builder-runtime.md (platform vs user events: builder_open, runtime_open_screen, location-changed, open-location)
 - [iOS Widget & Shortcut Agents](https://www.notion.so/2161d464528f803f867fe9bc1d4b61a6) → remix-deploy.md
 - [Edit / Run / Configure modes](https://www.notion.so/2251d464528f808da28df02fbd305915) → platform-builder-macros.md
-- [Service Agent modules](https://www.notion.so/22d1d464528f80278259e3f6ee68dcd1) → remix-nodes-actions.md
+- [Building with Remote Data Sources](https://www.notion.so/22d1d464528f80278259e3f6ee68dcd1) → remix-nodes-actions.md (Service Agent "Edit Cloud Server" Navbar button; Project view shortcut)
 
 ## Deploying Remix Applications
 
