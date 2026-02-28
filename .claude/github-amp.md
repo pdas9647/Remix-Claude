@@ -148,6 +148,16 @@ main.go → lib.Server → { server.Server (HTTP), track.SessionManager, broker 
 - **Solo mode:** Desktop/Electron mode serves builder (`/e/`), runtime (`/r/`), groovebox (`/g/`) static files, rewrites routes under `/a/`
 - **Dependencies:** `eleventwo` (DB engine + data model), `elaws` (AWS plugin), `siwago` (Apple Sign In), forked `hmq` (MQTT broker), forked `gosnowflake`
 
+## Recent PRs — Feb 22–28, 2026
+
+**#2790** (merged Feb 27, gerdstolpmann) — `fix the error that $binary_compress is not available`
+
+- File: `src/amp/track/sessions.go` (+7 lines)
+- Adds `$binary_compress` and `$binary_decompress` to the "unsupported FFI" list in amp's session init.
+- Context: The VM intercepts these calls and executes a local function (no server-side impl needed), but the names must be registered in the unsupported list or amp refuses to load any binary that
+  uses them.
+- Companion to protoquery #2263 (zlib compress/decompress added to Mix stdlib, merged Feb 26). Without this amp-side fix, apps built with the new stdlib would fail to start on the server.
+
 ## Open Questions
 
 - **Detailed FFI implementations:** Each FFI module (db, http, compiler, crypto, xml, etc.) was not deeply explored
