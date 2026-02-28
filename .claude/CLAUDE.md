@@ -139,4 +139,5 @@ Notion page index (split by teamspace, load only what's needed):
 ### Standup Notes
 
 - [standup-notes-jan-2026.md](./standup-notes-jan-2026.md) — Weekly standup notes: decisions, ownership, customer updates, GTM pipeline (Jan 2026)
-- [standup-notes-feb-2026.md](./standup-notes-feb-2026.md) — Weekly standup notes: desktop blockers, caching, RCM CI, chat mobile testing (Feb 2026)
+- [standup-notes-feb-2026.md](./standup-notes-feb-2026.md) — Weekly standup notes Feb 17–27: Lumber facets (CTE confirmed), delivery process, beta channel QA plan, workspace-as-environment model
+- [standup-notes-feb-2026-2.md](./standup-notes-feb-2026-2.md) — Weekly standup notes Feb 2–13: engineering process, desktop bugs, Atomicwork widgets, sprint kickoff

@@ -1,7 +1,47 @@
 # Standup Notes — Feb 2026
 
-**Coverage:** Feb 2–24, 2026 (ongoing)
+**Coverage:** Feb 17–27, 2026 | Older entries: [standup-notes-feb-2026-2.md](./standup-notes-feb-2026-2.md)
 **Format:** Condensed bullets per standup. Google Doc link on each date for on-demand full transcript fetch.
+
+---
+
+## 2026-02-27 — [Google Doc](https://docs.google.com/document/d/1VhqWT-wJVVN8KLVcwEazXEr_hyG90f6sPXcVrZx1DXY)
+
+- **Desktop delivery plan (Tuesday ~Mar 3)**: Decision: push current dev → beta today (Feb 27). Chris Vermilion owns cutting the beta release (pending fix #147 + local agents fix landing). QA plan: India team starts late Sunday, results by Monday morning. Chris + Didier to assess Windows QA stability by Monday. Gerd: repeat QA Monday after weekend fixes; full switch to stable prod build deferred 2–3 weeks.
+- **Build channel policy (John)**: Strongly against giving customers dev or beta builds — only production. If stability is a concern, delay delivery date rather than ship a non-prod build to the customer.
+- **Lumber builder scope for QA**: Minimal — paste configured L2 components, connect them, publish, run `make`. QA cycles can complete quickly; a few full cycles possible in one day.
+- **GCS infrastructure redesign (Arvind)**: Current infinitely-versioned GCS URL scheme is over-engineered and not sustainable. Proposal: replace with draft/test/public channels (max 1–2 versions per channel). Also update all default apps to V2 format in a stable location to resolve project sync confusion.
+- **Channel terminology clarified (Arvind)**: "Channel" means different things in each context — mobile: end-user consumption tiers (draft/test/public for apps); desktop: build release channels (dev/beta/release). Both sets required for desktop; promotion mechanism between build channels still needs definition.
+- **Workspace-as-environment model (VJ)**: Use isolated workspaces (e.g., staging workspace) as deployment environments, replacing complex GCS versioning. Deployment and QA of assets happen at workspace layer. Billing implication: future per-workspace pricing; concern about unlimited workspaces on self-hosted servers. Sync mechanism discussion deferred to smaller group: Arvind + Benedikt + Didier.
+- **Lumber expectations set**: Shisha + Manish informed desktop will have "sharp edges"; runtime for end-customers must be stable. Oleg is the single authorized requirements owner at Lumber. After Tuesday delivery, next step = plan first functional report delivery date.
+- **Schema discussion flagged as critical (VJ)**: Dedicated meeting needed to guide Lumber toward a denormalized or specific schema. Concern: loose design space if platform must query arbitrary end tables in reports.
+- **Business pipeline (Mukund)**: Opportunities advancing — Atomic, widget work, Starlight, a legal firm. Marketing calendar in development; needs VJ approval before external release.
+
+---
+
+## 2026-02-26 — [Google Doc](https://docs.google.com/document/d/1yzv5uSmnV_FPh4cHrinc78VcJsfiFRkYUypZzb7Xe-M)
+
+- **Facet builder demo (Mark, CTE approach confirmed)**: CTE (`WITH` clause) stacking is the confirmed pattern for accumulating filters. Workflow: select column → facet type restricted by column type (text → single/multi-select with equals/not-equals; date also supported) → creates clipboard variant → paste into builder → facet auto-populates with top 20 distinct values from column. Multiple facets stack via additional `WITH` clauses. Only connection needed for final report assembly = main card outbinding. Still outstanding: display name/title for pasted facet; aggregator for state settings not yet integrated into grid.
+- **HubSpot widgets for Atomicwork (Wilber)**: Reworked for web dashboards (not just mobile). Widgets = templated service agents; alias record configures the "widget agent" with parameters (e.g., total deals won). Pure runtime flow unifies mobile + web widget delivery. Simon: widget parameters must follow conventions (similar to plugins) for rendering system compatibility. Web widgets not constrained by mobile size limits. Error handling relies on tool definitions to enforce structure; data quality depends on HubSpot account knowledge.
+- **Lumber customer call feedback** (VJ + Arvind reporting from call): Customer struggles with platform generality — views features as binary ("is it there or not") rather than malleable/rapidly customizable. Communication hurdle: customer's IT development team is resistant (prior failures, focused on their own long-term roadmap).
+- **Wednesday delivery commitment** (target: ~Mar 4): Reza's plan — stay on dev channel, aggressively test Lumber flow, package stable version Tuesday night → deliver Wednesday morning. Customer will NOT receive dev or beta build. Reza's enumerated deliverables: (1) Remix Desktop + Studio, (2) home app, (3) catalog with configurators, (4) report publishing/previewing tool.
+- **Desktop release process**: Engineering team (Chris) owns delivery quality. QA capacity allocation remains an ongoing challenge — heroic per-delivery effort is not sustainable. John proposed accelerating dev→beta promotion to a daily cadence. Chris to communicate desktop production channel migration steps.
+- **Lumber architecture debate (deferred)**: Fundamental disagreement on deliverable structure. Reza/Arvind: catalog of `.remix` configurators; content team populates; runtime configuration. VJ: build a specific Lumber app from library components directly — generic platform approach creates configuration complexity equal to building the app itself. VJ/John/Reza scheduled arch sync for next day.
+- **Repository access resolved during standup**: John could not access Arvind's project (components missing from library). Arvind pushed to repo live during the meeting → John confirmed successful pull. Follow-up: Arvind to add home project to Lumber workspace repo; John to add agents to separate repo. Aliasing pattern confirmed: agents (e.g., `save catalog item`) specialized via alias records without passing full entity info.
+- **Content generation app** (John): Building Remix app extending VJ's landing page generation work; goal is an AI-driven content generation tool for Mukund. In progress.
+- **Bugs fixed/flagged**: CSS overflow bug in Studio dev env (edit button unreachable) — Simon fixed same day. Member query + projection issues flagged by John — Simon to follow up with Fred.
+
+---
+
+## 2026-02-25 — [Google Doc](https://docs.google.com/document/d/1SuvpCldR5E0caz7-4-eGLN5JcmC-D4rVUBkeGZlPZ_E)
+
+- **Lumber facets — two approaches under evaluation**: (1) **Arka's no-CTE approach**: LLM receives DDL + bind variable format + user prompt → returns SQL with placeholders → string-swap placeholders with user-selected facet values at query time. (2) **John + Mark's CTE approach**: does not require re-running AI per new facet, potentially safer for value injection. Consensus: both versions to be developed and compared before committing.
+- **SQL injection concern raised** (Vijay): Arka's string-templating approach vulnerable to injection. Bind variables proposed as mitigation but Snowflake API uses sequence-based binds (1, 2, 3...), not named — hard to correlate variables when a field is used multiple times. Team accepted string swapping for now given Snowflake limitations.
+- **Facet no-value case**: Arka's solution — ask LLM to return two queries: SQL with placeholders (filter present) + SQL without WHERE clause (no facet selected). System runs appropriate version based on user input.
+- **Propagation bug found**: John identified bind variable state issue + "weird state thing" during Arka's live demo. Vijay identified as a propagation bug. Needs investigation.
+- **Home screen + publish workflow demo** (Reza driving; Arvind's machine styles broken by a `make` issue from recent desktop update): Home screen is shared across all Lumber users. Publish report wizard flow: set report metadata → export/upload .remix file → retrieve hosted URL → add URL to report record → end-users select report from list → loads via Remix web component viewer.
+- **Lumber stakeholder demo**: Presentation scheduled Feb 26 at 8:00 AM Pacific. Two parallel demo versions: John + Mark (CTE approach) and Reza + Arka (no-CTE approach). Next steps: fix home app styles; Arka to add no-WHERE-clause query and put facet code in repo; Arvind to send registration flow video.
+- **Demo channel risk**: Reza concerned about using Remix Desktop's dev channel for the presentation (active dev fixes may break app). Chris's recommendation: lock to a stable desktop build, do not update immediately before the demo.
 
 ---
 
@@ -96,118 +136,3 @@
 - **Extension**: Tyler working on push notifications + cloud code skills for web component creation. Production release pipeline being discussed with Chris.
 - **HubSpot widgets**: Wilbur has both examples working, ready for review.
 - **Lumber auth**: Reza scheduling call with Chris + Didier. Reporting demo planned for Friday.
-
----
-
-## 2026-02-13 — [Google Doc](https://docs.google.com/document/d/19SW1UXVfxookkfJx0VGQ7bGt-AqtEWSvkCAAdNXwsUA)
-
-- **Website messaging**: "Context is king in AI." Three pillars: **build** (compose from catalog), **context prep** (sync records to Snowflake, semantic mapping), **deploy** (embed runtime in
-  chatbots/IVR/web apps). Data lake = context engine.
-- **Website demos**: (1) Interactive chat with embedded experiences, (2) custom mobile widgets with live data + role picker, (3) shareable insights reports (QBRs, sales, marketing). Mukund wants
-  widgets shareable/syndicatable.
-- **Unstructured data viz**: Calculations on embeddings via Snowflake notebook — tickets → low-dimensional representation → auto-clustering/classification. Record sync to data lake via webhooks (e.g.,
-  Zendesk ticket sync).
-- **Snowflake marketplace**: Public listing submission targeting late next week. Chris needs to finalize a few items. Campaign planned to transition from network leads to marketing-driven pipeline.
-- **Customer status roundup**: Lumber = mid-implementation (1-year subscription, services + monthly fee, 5 builder users). Atomicwork = pilot after component work done. Better View = holding,
-  evaluating desktop. Orderly ("Only Guys") = positive feedback, planning hotel expansion. Funda = push to move forward or close.
-- **New team member**: **Nivesh Mishra** — asking about unstructured data viz and webhook-based record sync.
-
----
-
-## 2026-02-12 — [Google Doc](https://docs.google.com/document/d/1VJn8-csg220vSBHLKjyL4NMgmxLq9wwl19s__jU7GSQ)
-
-- **Atomicwork project**: Wilbur building widget creation flow (configure → copy into L2 .remix). Service agents + AI-prompted widget config screen. Desktop propagation errors + file upload issues.
-  Atomicwork meeting pushed to Monday to resolve instability first.
-- **Long-term reporting vision**: Current = desktop assembly for mobile widgets. Goal = web app dashboards with rich click-through, actionability, and AI assistance for enterprises (marketing, sales,
-  service). Mukund: full framework laid out next week.
-- **CTE standardization**: Mark examined CTE SQL alongside facets. Discussion needed to establish single pattern. John scheduling sync-up with Mark + Reza for Lumber.
-- **Desktop file upload bug**: `file:` protocol URLs not allowed in browsers; `remix:` protocol gives 403 (missing token). **Workaround**: export to public directory bypasses token issue. System
-  producing `file:` protocol is a bug for Benedikt. Works on AMP but not desktop context.
-- **Notebook/scatter plot**: Mark templated notebook, cleaned web component. API execution for parquet data source not working — seeking workaround.
-
----
-
-## 2026-02-11 — [Google Doc](https://docs.google.com/document/d/10gKtcIsZZ9g8kOOHhUIOxHoAM0XhcoQZ_s3JGj8fANs)
-
-- **Lumber team resistance**: Reporting code is in Java ORM layer (not Postgres SQL) + upstream data architecture issues (API feeds, payroll integrations). Lumber team feels solution is imposed from
-  top; reluctant — doesn't solve their main challenges. Strategy: position Snowflake-based reporting layer as faster than refactoring 50K lines of code.
-- **Repository agents deployed to Lumber workspace**: John deployed Gerd's project sync agents. Arvind pushed catalog project → Padmanabha + Sirshendu pulled successfully. Functions like "GitHub for
-  desktop" — syncs builder projects across users without AMP. **Limitations**: no branching, no merging, no concurrent screen update detection; users must work on different screens. No DB records
-  synced, only builder records (code gen/compile needed after checkout). R2 storage writes slow. Checksum change bug (unnecessarily long change list).
-- **Desktop Studio as primary dev surface**: John emphasized team should use desktop Studio instead of AMP for better performance.
-- **Bomisco clipper update**: Padmanabha added error message showing current page URL + valid pages when used on wrong page (UI only).
-
----
-
-## 2026-02-10 — [Google Doc](https://docs.google.com/document/d/1f_gyK2Muj9h7FP1ptNLVCH3-dublT1vr09wpA7Irg-c)
-
-- **Engineering process formalized**: Bi-weekly sprint planning (Monday, 45 min before standup) + bi-weekly retro (Friday). Notion for top-level product views (by product: desktop v1, server v1,
-  mobile, extension). GitHub for granular tasks. Reza takes over **content project management**. New requests routed through Notion prioritization to mitigate "VJ-driven development."
-- **Vijay's position**: Platform "basically feature complete," should go to market; content is incomplete.
-- **Bug tracking**: Keep Bug Bash Slack for initial triage; engineering converts threads to GitHub tickets (not reporter's job). Minimal repro encouraged.
-- **DB robustness issue**: Failed index cleanup (deleting non-existent indexes) caused corruption — write logs not cleaned, records file grew to ~1 GB. No logging for flush failures. Fix needed:
-  delete code should ignore missing indexes, cleanup unlisted index dirs, better logging.
-- **Lumber architecture debate**: Per-component .remix files (Arvind: extensible, good for collaboration) vs single app (VJ: fragmented state sharing — Snowflake auth, schema params passed repeatedly
-  between files). VJ proposed Gerd's plugin mechanism. Consensus: deploy Arvind's projects to Lumber workspace for team review. Configurators should be **Lumber-specific**, not general-purpose.
-- **Lumber auth**: Sandbox credentials received (**Dcope** identity system, similar to Okta). Chris building auth flow.
-- **Runtime HTML-to-card**: Didier building web component/VM function to render AI-generated HTML at runtime (not just builder). Broader utility for AI conversation display.
-- **.remix publishing UX**: Plugin invocation called "painful." Proposals: default public + files app for one-click, plugin remembers user choices, elevate frequent plugins to main menu.
-- **Mobile**: Widget config fix on TestFlight/Play Store. App store push targeting Thursday.
-- **Desktop tech debt**: Simon — DB maintenance migrations for distributed desktop databases. Save/close grayed-out fix (compiler crash + timeout mechanism).
-- **Library concerns**: Load time degrades as library grows. Ranking algorithm for search results. Asset migration needed (especially desktop).
-
----
-
-## 2026-02-09 — [Google Doc](https://docs.google.com/document/d/1ugVYmq8UuYu17OxINSRg09bEcBYu24z7TV6tLBKnGkI)
-
-- **Mixer Swagger docs complete**: Full OpenAPI documentation at `/v1/swagger` route (agent dev/beta). V0 endpoints not all maintained; some core functions (agent invocation, .remix upload) may remain
-  V0 only.
-- **Agent prod disk space outage**: Ran out over weekend despite prior index cleanup (had freed to 60%). Need better monitoring/alerting. Chris + Fred investigating.
-- **RCM conversion to Go complete**: Fred added tests + fake projects for round-trip verification. No prior tests existed. Deployment setup remaining (build for all architectures). Chris to review.
-- **Mix query**: PR to return values instead of records. Unflushed rights weren't being indexed — added index fix. Needs review.
-- **Compiler**: Stack overflow fix (RMX tailwind project). Deleting project service agent now also deletes corresponding binary (new protocol flag for `make agent`).
-- **AST work**: Type syntax part merged (refactoring, no user impact yet). Match patterns in progress — harder to test than type AST.
-
----
-
-## 2026-02-06 — [Google Doc](https://docs.google.com/document/d/1sCXABFFytW6a0doht1FgqyUTyQZhVUWdblwizYaY8Ik)
-
-- Low attendance, no substantive content.
-
----
-
-## 2026-02-05 — [Google Doc](https://docs.google.com/document/d/175dN9RbPPn_73xTnDEO2o1rSMy3k6TQ3xPh2j_u38Tg)
-
-- **Widgets broken ~1 month**: JSON parameter passing in .remix export broken since switch to single `.remix` file (agent + widget records). Undetected due to no widget usage. Didier fixing.
-- **Scripted chat demo complete**: Wilbur placed on remix.app URL. AI pause feature praised.
-- **Plugin tool**: .remix V2 export + direct workspace hosting. File privacy: public (open URL) vs private (5-min temp key). Private upload bug found.
-- **Lumber**: Mark finishing scatterplot e2e. Extra libraries per component problem (Simon investigating). John reviewing Lumber component patterns.
-- **HubSpot widget**: Needs Atomicwork fix-up, deferred.
-
----
-
-## 2026-02-04 — [Google Doc](https://docs.google.com/document/d/1RBsp93XOQXhDy6oIRigkEcO-Ypa-f95omCYk70knM44)
-
-- **Lumber configurator built** (Padmanabha): Schema/table select → Cortex SQL → grid display. Copy-to-clipboard done. Facets next. Reza building denormalized schema + semantic definition + data
-  profile for AI.
-- **Lumber scope confirmed**: Self-service report creation, not delivering specific reports. Parallelization concern flagged (many people, not parallel).
-- **Bomisco extension**: LinkedIn pinging prevents clean injection; app-level reload fix risks perpetual reloads on selector failure. Vijay wants error differentiation.
-
----
-
-## 2026-02-03 — [Google Doc](https://docs.google.com/document/d/19Y4X458kgpRx1smnH9IuXjmY3Xnhl8dKaDee6F-_hcg)
-
-- **Engineering process**: Bi-weekly sprints decided (GitHub labels/milestones + Notion). Chris volunteering as incremental PM. Success requires John + VJ buy-in on clear goals. Series A is immediate
-  goal; product definition "blurry." Release dates missed multiple times.
-- **Collapsible groups shipped**: Collapsed groups show dynamic connections. Library guidance: standard library should mostly be **components** (not groups). Follow-up: Arvind + VJ + Didier.
-- **Home app**: Unified across mobile/desktop/extension. Nearly complete on mobile but lacks remote-asset linking for customers. Lumber doesn't need it (deep link suffices).
-- **Extension**: Clipper bug fixed, republished after remote code rejection. Bomisco: Mihir on direct-install version; flow enhanced with extract failure detection + reload.
-
----
-
-## 2026-02-02 — [Google Doc](https://docs.google.com/document/d/10cJU3pvSy_syxNdZGtrrEW72jzvGpbKZe0G0PcIab7Y)
-
-- **Desktop**: Blank screen of death still unresolved. MCP functionality restored. Native desktop rationale still debated.
-- **remix:// protocol lacks caching**: WebKit hardcodes caching for http/https only. .wasm files recompile every load. Partial fix: `mixt.wasm` loaded once, shared across VM instances. Mix compiler
-  startup cost inherent.
-- **Mix query**: Save behavior altered (AMP side too). Return value PR (queries don't always return records). RCM reimplemented for Windows desktop CI (heavy review expected).
