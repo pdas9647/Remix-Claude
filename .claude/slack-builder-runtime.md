@@ -1,6 +1,6 @@
 # #builder-runtime Slack Channel — Remix Labs
 
-**Coverage:** Dec 31, 2025 – Feb 22, 2026
+**Coverage:** Dec 31, 2025 – Feb 28, 2026
 **Channel ID:** C58HC9EC8
 **Topic:** Builder, remix.app, WebApp
 **Purpose:** Discussion about builder functionality
@@ -127,6 +127,42 @@
     - Web builder: same behavior for consistency; "open in place" has no real use case
 - Simon to implement change
 
+### Feb 23 — Remove Server (Go) VM from runtime: architectural direction
+
+- **Simon's proposal**: long-term, remove use of the Server (Go/amp) VM from `remix-*.remixlabs.com` runtime; all builder preview + running app would use client VM (mixrt) exclusively
+- **Impact**: no change to remix.app or Desktop; Flutter uses amp+client co-located so no perf difference
+- DB FFIs still work via `remoteDatabaseServer` env field
+- **Chris**: worth it if it advances the amp deprecation path on mobile; server-side not worth investing much in
+- **First step**: turntable/pull/11745 — switches plugins to client VM when builder is on Amp; confirmed DB calls work in plugin context
+- **Status**: in progress
+
+### Feb 24 — State node propagation: won't fix
+
+- Simon: state nodes are implemented as a single cell containing an object; updating one field unnecessarily propagates to all consumers (incl. unchanged fields)
+- Proper fix = individual cells per field, but impossible for dynamically-created fields (App State / Screen State — the common case)
+- **Decision**: won't fix; real-world impact negligible since dynamic fields dominate
+
+### Feb 26 — `flex-shrink: 0` on Remix parent containers: known constraint
+
+- Arvind noticed `flex-shrink: 0` on remix parent containers breaks some layouts; wanted to remove
+- Tyler: added specifically to prevent TUI chart/grid web components from clashing with Remix CSS (tooltip containers)
+- **Decision**: leave it; can't remove without breaking TUI grid; Arvind won't pursue further
+
+### Feb 26 — "Download .remix file" action removed (BREAKING)
+
+- Old built-in "Download .remix file" action only works with v1 .remix + amp; fully superseded by the workspace export plugin
+- **Gerd confirmed**: use the plugin now
+- **PR**: turntable/pull/11760 (Simon; merged)
+- **Breaking change**: existing apps using this node will no longer compile after Rebuild & Make; L1 rebuild will surface affected uses
+- **Action required**: Wilber and Arvind must update any apps using this node before their next publish
+
+### Feb 27–28 — "Open" greyed out when no home screen; protect core screens
+
+- Arvind: since deleting the home screen is now possible, the "Open" L0 button should be greyed out when there's no home view
+- **Didier's preferred fix**: make it close to impossible to delete the home screen and other core screens (settings, constants, symbols, styles, files) — PR in progress
+- `_rmx_desktop` currently has no home screen (intentional for infra-only app)
+- `builtin_apps` screen in `_rmx_desktop` exists so people can copy JSON for the mix-rs built-in app list
+
 ---
 
 ## PRs Referenced
@@ -142,6 +178,8 @@
 | Feb 13 | turntable/pull/11712 | File node refresh + desktop token fixes | Simon  |
 | Feb 16 | turntable/pull/11723 | File Register node (all variants)       | Simon  |
 | Feb 18 | turntable/pull/11730 | Remote Data Sources modal at L1         | Simon  |
+| Feb 23 | turntable/pull/11745 | Plugins use client VM when on Amp       | Simon  |
+| Feb 26 | turntable/pull/11760 | Remove "Download .remix file" action    | Simon  |
 
 ---
 

@@ -1,6 +1,6 @@
 # #announcements Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Feb 22, 2026
+**Coverage:** Dec 20, 2025 – Feb 28, 2026
 **Channel ID:** CK8S97CUV
 **Purpose:** Important info everyone should read; also used for cross-team huddle coordination
 
@@ -73,6 +73,19 @@
     - **Arvind** — Catalog screen / home app / components in library
 - Service agent deploy huddles ongoing (John)
 - Simon working on storing saved values in service agents + supporting multiple stored instances
+
+### Feb 23, 2026 — Lumber: cross-team huddle (export widgets)
+
+- Reza called a Lumber huddle with: Arvind, Vijay, John, Mark, Didier, Chris, Mukund
+- John shared link during huddle: https://remix.remixlabs.com/e/edit/cloud_workspace/export_widgets
+  — suggests discussion was about export_widgets screen/flow for Lumber
+
+### Feb 28, 2026 — Lumber: reports building/packaging decision
+
+- Arvind called a meeting at 11AM California: Lumber reports building/packaging
+- **Required**: Reza, Vijay, John; **Optional**: Didier
+- Short huddle; outcome: **"agreed with Vijay"** (Arvind) — specific agreement not recorded in thread
+- Context: Lumber report packaging approach / how reports are assembled and delivered
 
 ---
 

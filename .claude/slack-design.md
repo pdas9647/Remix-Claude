@@ -1,6 +1,6 @@
 # #design Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Feb 23, 2026
+**Coverage:** Dec 20, 2025 – Feb 28, 2026
 **Channel ID:** C4BLR910S
 **Purpose:** All things design: design systems, visual IDE, icon and widget libraries
 
@@ -56,7 +56,8 @@ Two distinct components in `agt / remix-libraries`:
 
 ### [Dec 20] Tailwind Text Color Coverage (Simon + Arvind)
 
-**Issue:** Only 1 visible font color option in the theme, not enough contrast vs white backgrounds and doesn't match button style. Tailwind text colors use the `text-em*` prefix — Simon found only `text-em-500` available; needs 600 weight for sufficient contrast with buttons.
+**Issue:** Only 1 visible font color option in the theme, not enough contrast vs white backgrounds and doesn't match button style. Tailwind text colors use the `text-em*` prefix — Simon found only
+`text-em-500` available; needs 600 weight for sufficient contrast with buttons.
 **Status:** Open gap in tailwind text color range; broader `text-em-600+` not yet added.
 
 ### [Dec 20] Color Binding → Theme Lookup (Simon + Arvind)
@@ -71,6 +72,28 @@ Two distinct components in `agt / remix-libraries`:
 **Discussed:** Simon suggested config objects should live *inside* component (not exposed externally); Arvind: "If an assembler wants to push changes, that's a variant." Didier: problem exists for all
 tiles, not just components. No clean general solution found.
 **Status:** Open design problem, no resolution.
+
+### [Feb 26] **ACTION REQUIRED: Migrate all cards away from `_rmx_style` (@all)**
+
+- **Arvind (@all)**: `_rmx_style` / `_rmx_styles` theme is deprecated, no longer auto-loaded, and will not be synced to Desktops; legacy cards will simply appear unstyled
+- All team members must move every card and component to use `rmx_tailwind` (or equivalent new theme) ASAP
+- Tagged: Mark, Wilber, John, Reza, Arka, Padmanabha, Riju, Shawn, Sirshendu, Nivesh, Arpita
+- cc: Didier, Simon, Tyler
+
+### [Feb 26] L1 constants modal: Cancel should stay at L1 (not go to L0)
+
+- **Didier**: when `make` errors out from the outdated-constants modal, the only escape is going back to L0 — wrong; Cancel should stay at L1 so user can open constants, fix errors, or copy/paste
+  screens
+- **Simon**: agrees; fix in progress
+- Related: `_rmx_styles` on remix-dev has same issue — `_rmx_type:file` record for constants is missing; Simon: amp issue, not the focus now
+- **Status**: fix in progress
+
+### [Feb 28] Repository DB naming: rename to `_rmx_repository` (deferred)
+
+- **Arvind**: Repository will be a standard app installed on every workspace (for collaboration features); should follow the `_rmx_` naming convention
+- Current standard apps: `Repository`, `_rmx_files`, `_rmx_prefs`, `_rmx_search`, `_rmx_sync` — inconsistent naming
+- **Gerd**: needs tooling to rename existing DBs; better to do it after the Lumber release when dust settles
+- **Decision**: deferred to post-Lumber
 
 ---
 

@@ -1,12 +1,39 @@
 # #bugbash Slack Channel — Remix Labs
 
-**Coverage:** Jan 20 – Feb 22, 2026
+**Coverage:** Jan 20 – Feb 28, 2026
 **Channel ID:** C862WHQMS
 **Bug reporting guide (Feb 13):** https://www.notion.so/Bug-reporting-3061d464528f80cdacf7eed2612bad07
 
 ---
 
 ## Open / In-Progress Bugs
+
+### 🔴 App meta URL — no portable `baseURL` across surfaces (Arvind, Feb 28)
+
+- `remix://localhost/a/v1/ws/local/appmeta/{{app}}` stopped working on desktop; `http://localhost:2025/v1/ws/local/appmeta/{{app}}` works but is hardcoded to default port
+- **Core problem**: no single `baseURL` primitive works across desktop, web runtime, and embed (web component); `baseURL` in Elm points to assets URL, not mixer URL
+- **Benedikt's proposal**: host environments expose a typed struct to Mix (e.g. `{host: "desktop", localMixerUrl: "...", authWorkspace: ...}`); stdlib provides stdlib-level abstractions on top; user
+  code handles surface-specific differences
+- **Status**: no decision yet; Arvind needs a portable solution for Lumber delivery next week
+
+### 🔴 System plugins can't run on desktop after flush (Gerd, Feb 28)
+
+- After ~100 writes trigger a flush, system plugins (e.g. `_rmx_admin`-based) fail: `flat._rmx_id.off` path is wrong — a `path.Join` was copy-pasted inside another `path.Join`, double-nesting the path
+- **Fix**: mix-rs/pull/1036 (Fred); approved by Gerd; Chris: fix in beta, "0.10100.0 should have the fix; will update beta across the board after CI"
+- **Status**: fix in beta, not yet on prod
+
+### 🔴 Snowflake-hosted runtime screens fail: `runtime.json` 410 (Chris, Feb 28)
+
+- Chris fixed asset loading issues (`rmx-fullscreen.js/css`) but Snowflake-hosted runtime screens now fail with 410 for `runtime.json`
+- Repro: https://mw7zsh-oxfsvki-remix.snowflakecomputing.app/e → new app → open home screen
+- Simon tagged to investigate
+- **Status**: unresolved
+
+### 🔴 Desktop stopped responding: make-agent VM unclosed (Simon, Feb 28)
+
+- Desktop stopped responding; make-agent VM not closed after use; worker passes the error back to the caller
+- Gerd + Benedikt to investigate the worker-level error propagation
+- **Status**: unresolved
 
 ### 🔴 Stdlib version bump → "project needs refreshing" modal (Arvind, Feb 17)
 
@@ -24,6 +51,55 @@
 - **Workaround** (always works): open Styles module → save & make (even with no changes)
 - **Root cause**: unclear; suspected when external styles reference is added without re-saving Styles module; no reliable repro yet — Didier investigating
 - Note: `make` alone should regenerate styles but sometimes doesn't; full `rebuild` never needed
+
+### 🟡 _rmx_tailwind Constants module error on dev (Arvind, Feb 25)
+
+- Opening Styles module on remix-dev `_rmx_tailwind` throws Constants rebuild error; no "make" button available at L1
+- Workaround used: rebuild on remix-beta, re-export as v2 .remix, install on desktop; leaves the bug on dev intentionally for Simon to debug
+- **Root cause**: stdlib diff between dev and beta means "make" modal triggers on beta but not dev; Constants out of sync silently
+- **Status**: Simon to investigate; preserved on remix-dev for repro
+
+### 🟡 Tailwind compiler stack overflow (Gerd, Feb 26)
+
+- Too many tailwind styles → compiler hits stack overflows at compile time; can't `make` tailwind on desktop
+- **Fix**: Gerd fixing but "a full fix will not be available shortly"
+- **Workaround**: compile on amp (server); or remove `[app_versions]` entry from `~/Library/Application Support/com.remixlabs.desktop/config.toml` and restart to force re-install
+- **Status**: partial workaround; full fix in progress
+
+### 🟡 Large action tile input overflows CSS, can't hit EDIT (Gerd, Feb 25)
+
+- Custom action tile with large bound input (e.g. large JSON object) overflows visually; EDIT button unreachable
+- Affects both desktop and remix-dev
+- Repro: https://remix-dev.remixlabs.com/e/edit/overflow/home (large JSON → custom action tile)
+- No issue filed; no fix yet
+- **Status**: open
+
+### 🟡 Builder doesn't show propagation results on first agent invoke (Gerd, Feb 25)
+
+- Results exist in messages (`out_3`, `out_4` have data) but not displayed in builder until second invocation
+- Also confirmed by Arvind and Simon (Simon: intermittent — gets cell values but no echo, or vice versa)
+- Filed: protoquery/issues/2279
+- **Status**: open issue
+
+### 🟡 Monaco widget: exceptions on every mouse click in Mix editor (Gerd, Feb 26)
+
+- Running desktop from browser with URL parameters causes JS exceptions every time mouse clicks into a Mix code editor
+- Didier: happens on local machines; remix-dev etc. generally fine
+- **Status**: environment-specific; no fix
+
+### 🟡 File browser + drag-and-drop not working in Firefox (Sirshendu, Feb 26)
+
+- `Browse Files` and drag-and-drop file inputs fail for Sirshendu in Firefox; works in Chrome; Padmanabha confirmed Chrome works
+- Simon: could reproduce intermittently in Firefox
+- **Status**: inconsistent repro; Firefox-specific
+
+### 🟡 ACTION REQUIRED: Deploy rmx-sync/prefs/search to all customer workspaces (Didier, Feb 28)
+
+- Latest `rmx-sync` on prod fixes dedup issue (last-one-wins when app redefined across sync groups)
+- Need to deploy updated `rmx-sync`, `rmx-prefs`, `rmx-search` to every customer workspace where users auth
+- Also: `catalog_list` tool deprecated (only exports v1 .remix); App Hub stays; Arvind migrating to v2 exports
+- **Owner**: Arvind (taking over v2 exports, including App Hub entries); John/Wilber for workspace deployment
+- **Status**: pending
 
 ### 🟡 Can't delete screen: "too many files open" error (Wilber, Feb 19)
 
@@ -101,6 +177,12 @@
 
 | Date   | Bug                                                       | Fix                                    |
 |--------|-----------------------------------------------------------|----------------------------------------|
+| Feb 28 | System plugins can't run (path.Join double-nested)        | Fix in beta v0.10100.0 (Fred #1036)    |
+| Feb 25 | Packaged app (v2 exec-only) installs as Project not Pkg   | Fixed v0.9948.0 (Gerd pq/pull/2277)    |
+| Feb 24 | Can't logout on desktop (menu item confusion)             | Exists in Remix menu; standardized     |
+| Feb 24 | Local agent calls failing in Desktop (macOS + Windows)    | Fixed (Gerd, PRs merged)               |
+| Feb 23 | Default installed package flashing red in Packages tab    | App had error at publish time; fixed   |
+| Feb 24 | Deleted widget node: can't rebuild project                | Fixed (Fred mix-rs/pull/1022)          |
 | Feb 17 | remix-dev loading error                                   | Fixed (Chris)                          |
 | Feb 17 | wasm/callstack error on desktop                           | Fixed                                  |
 | Feb 16 | "Unsupported start_node" on Query tile                    | Fixed                                  |

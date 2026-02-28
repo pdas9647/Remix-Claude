@@ -20,7 +20,7 @@
 - **Workspace-as-environment model (VJ)**: Use isolated workspaces (e.g., staging workspace) as deployment environments, replacing complex GCS versioning. Deployment and QA of assets happen at
   workspace layer. Billing implication: future per-workspace pricing; concern about unlimited workspaces on self-hosted servers. Sync mechanism discussion deferred to smaller group: Arvind +
   Benedikt + Didier.
-- **Lumber expectations set**: Shisha + Manish informed desktop will have "sharp edges"; runtime for end-customers must be stable. Oleg is the single authorized requirements owner at Lumber. After
+- **Lumber expectations set**: Shrisha + Manish informed desktop will have "sharp edges"; runtime for end-customers must be stable. Oleg is the single authorized requirements owner at Lumber. After
   Tuesday delivery, next step = plan first functional report delivery date.
 - **Schema discussion flagged as critical (VJ)**: Dedicated meeting needed to guide Lumber toward a denormalized or specific schema. Concern: loose design space if platform must query arbitrary end
   tables in reports.

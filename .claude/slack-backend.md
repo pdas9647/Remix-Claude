@@ -1,6 +1,6 @@
 # #backend Slack Channel — Remix Labs
 
-**Coverage:** Jan 2 – Feb 19, 2026 (channel quiet Dec 20–31, 2025)
+**Coverage:** Jan 2 – Feb 28, 2026
 **Channel ID:** CHTGC5BGQ
 **Purpose:** server, compiler, and database stuff
 
@@ -134,6 +134,69 @@
 | Feb 17 | mix-rs/pull/1001     | Non-ES256 JWT support                           | Chris    |
 | Feb 17 | mix-rs/pull/948      | Unify desktop/mixer startup                     | Benedikt |
 | Feb 19 | amp/pull/2756        | Library-without-code warning (reverted to warn) | Gerd     |
+
+### Feb 25–27 — Deletion / too many files open (mix-rs/pull/1022)
+
+- **Fred**: batch deletion and mass ID lookup left too many file handles open in parallel (`join_all` in `find_recs_for_deletion`)
+- **Fix**: convert `join_all` iterator to sequential `for` loop; `get_by_id` is now IO-free (accidentally async)
+- **Also fixed**: `exact_match` used in `get_by_ref` was applying an ID-optimized lookup too aggressively — moved to `get_by_ref` only so general `_rmx_id ==` queries still check historical versions
+- Related: mix-rs/pull/1024 (CircleCI branch naming fix: `sed 's/[^[:alnum:]]/-/g'` with `g` flag)
+- PR approved by Chris + Benedikt; **merged**
+
+### Feb 26 — High-priority patch (mix-rs/pull/1028)
+
+- Fred found critical bug via Benedikt; submitted same day; Benedikt merged
+- Exact scope: fix in the deletion/flush pipeline (related to prior PR series)
+
+### Feb 27 — CI failure: `$binary_compress` FFI missing in test VM
+
+- Gerd's compress/decompress PRs added `$binary_compress` and `$binary_decompress` — expected available everywhere
+- CI (TT `main` builds) failed: `[FFI] bytecode requires foreign function '$binary_compress' which is not implemented by this VM`
+- **Fix**: amp/pull/2790 (Gerd); merged
+- **Broader discussion**: these functions are "builtins" that declare as FFI so browser implementations can substitute; only amp does the FFI coverage check
+- Chris + Gerd: ideal solution — mixrt VM should self-report which FFIs it implements; create a proper "builtin-with-fallback" category between `builtin` and `FFI`
+
+### Feb 27 — URGENT: Amp dev work blocked (resolved same day)
+
+- Simon: all dev work with Amp as backend blocked by an error
+- Root cause: same path bug (system plugins, mix-rs/pull/1036 — Fred); Gerd's fix was making its way through CI
+- Chris: "should be to dev shortly"; resolved when CI completed
+
+### Feb 26 — Finder .DS_Store corrupts Desktop DB
+
+- Simon: opening Desktop workspace folder in Finder created `.DS_Store` files → API hosed
+- Fix (Gerd): `find .../workspaces/local/ -name .DS_Store -print0 | xargs -0 rm`
+- One-off cleanup; no platform change needed
+
+### Feb 27 — JSON files served as binary (open issue)
+
+- Simon: `.info` extension means file server doesn't recognize JSON → served as binary, not text
+- Workaround: utf-8 preview in file manager; proper fix filed as mix-rs/issues/1034
+- Status: **open issue**
+
+### Feb 28 — ARM64 Linux build for mixer
+
+- Chris: Lumber requested `mixer` built for ARM64 Linux (ARM Docker hosts)
+- PR: mix-rs/pull/1026; **merged**
+
+### Feb 28 — Desktop stopped responding: make-agent VM not closed
+
+- Simon: Desktop stopped responding; make-agent VM had not been closed (Simon's fault on his end); worker is passing back the error (Gerd/Benedikt to investigate)
+- Status: **unresolved** as of Feb 28
+
+---
+
+## PRs & Tickets Referenced (Feb 2026 additions)
+
+| Date   | PR / Issue         | What                                                    | Who      |
+|--------|--------------------|---------------------------------------------------------|----------|
+| Feb 25 | mix-rs/pull/1022   | Fix too-many-files-open in deletion / batch ID lookup   | Fred     |
+| Feb 25 | mix-rs/pull/1024   | CircleCI branch naming fix                              | Benedikt |
+| Feb 26 | mix-rs/pull/1028   | High-priority deletion/flush patch                      | Fred     |
+| Feb 26 | mix-rs/pull/1036   | Fix system-plugins path bug (double-nested `path.Join`) | Fred     |
+| Feb 27 | amp/pull/2790      | Fix FFI coverage check for compress/decompress          | Gerd     |
+| Feb 27 | mix-rs/issues/1034 | JSON `.info` files served as binary                     | Simon    |
+| Feb 28 | mix-rs/pull/1026   | ARM64 Linux build for mixer                             | Chris    |
 
 ---
 

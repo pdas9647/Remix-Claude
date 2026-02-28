@@ -1,6 +1,6 @@
 # #general Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Feb 22, 2026
+**Coverage:** Dec 20, 2025 – Feb 27, 2026
 **Channel ID:** C02BD0B8B
 
 ---
@@ -108,6 +108,29 @@ Daily standups Mon–Fri via https://meet.google.com/hrz-onty-twp
     - Period of concern: 10PM ET Fri Feb 7 – 11AM ET Mon Feb 9
 - Benedikt out Feb 9–18
 - Reza: Planning session with Manish at Lumber (Manish was travelling, call scheduled for Feb 10)
+
+### Feb 23, 2026 — Oliver: Menhir parser decision
+
+- Oliver explored menhir (parser-generator) for better parse error messages in the Mix compiler
+- **Decision**: not worth switching — menhir has a different API and requires too much extra effort; will revisit only if more specific error messages become a concrete requirement
+
+### Feb 25, 2026 — Chris: Strategic roadmap + GitHub board triage
+
+- Post-Feb-24-standup summary from Chris with three concrete delivery tracks:
+    1. **Desktop + mixer → Lumber**
+    2. **Chrome extension → Orderly + Bomisco**
+    3. **Mixer-in-SPCS + mobile app → Snowflake Marketplace**
+- Post-delivery: use those experiences as proxies for next 20 customers
+- **Longer-term focus**: content engineering lifecycle — builder UX, build server, platform robustness, engineering processes for component libraries
+- **GitHub board**: https://github.com/orgs/remixlabs/projects/2/views/1
+    - Engineering homework: move anything planned for this sprint (this week + next) to "ready to pick up"; triage "in progress" → active / close / "parked" column
+- **Notion task list** (Chris maintaining): https://www.notion.so/1d71d464528f80a69c47d21033bc498c?v=1d71d464528f808199ff000ce98e1252
+- Gemini summary of Feb 24 standup (recommended by Chris): https://docs.google.com/document/d/13Jxgr6nUeaQpI4W9O07aWXEpXV2Y7VZhsNK5C0gLmcE/edit?tab=t.cx0cp69o18m7
+
+### Feb 27, 2026 — Gerd: Desktop update re-enabled
+
+- Gerd announced: "Updating desktop is again possible (and recommended)" (🎉 party parrot x3)
+- Implies desktop auto-update had been blocked/disabled previously and the blocker is now resolved
 
 ---
 
