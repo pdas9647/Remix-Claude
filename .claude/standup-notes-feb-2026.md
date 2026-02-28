@@ -7,27 +7,47 @@
 
 ## 2026-02-27 — [Google Doc](https://docs.google.com/document/d/1VhqWT-wJVVN8KLVcwEazXEr_hyG90f6sPXcVrZx1DXY)
 
-- **Desktop delivery plan (Tuesday ~Mar 3)**: Decision: push current dev → beta today (Feb 27). Chris Vermilion owns cutting the beta release (pending fix #147 + local agents fix landing). QA plan: India team starts late Sunday, results by Monday morning. Chris + Didier to assess Windows QA stability by Monday. Gerd: repeat QA Monday after weekend fixes; full switch to stable prod build deferred 2–3 weeks.
-- **Build channel policy (John)**: Strongly against giving customers dev or beta builds — only production. If stability is a concern, delay delivery date rather than ship a non-prod build to the customer.
+- **Desktop delivery plan (Tuesday ~Mar 3)**: Decision: push current dev → beta today (Feb 27). Chris Vermilion owns cutting the beta release (pending fix #147 + local agents fix landing). QA plan:
+  India team starts late Sunday, results by Monday morning. Chris + Didier to assess Windows QA stability by Monday. Gerd: repeat QA Monday after weekend fixes; full switch to stable prod build
+  deferred 2–3 weeks.
+- **Build channel policy (John)**: Strongly against giving customers dev or beta builds — only production. If stability is a concern, delay delivery date rather than ship a non-prod build to the
+  customer.
 - **Lumber builder scope for QA**: Minimal — paste configured L2 components, connect them, publish, run `make`. QA cycles can complete quickly; a few full cycles possible in one day.
-- **GCS infrastructure redesign (Arvind)**: Current infinitely-versioned GCS URL scheme is over-engineered and not sustainable. Proposal: replace with draft/test/public channels (max 1–2 versions per channel). Also update all default apps to V2 format in a stable location to resolve project sync confusion.
-- **Channel terminology clarified (Arvind)**: "Channel" means different things in each context — mobile: end-user consumption tiers (draft/test/public for apps); desktop: build release channels (dev/beta/release). Both sets required for desktop; promotion mechanism between build channels still needs definition.
-- **Workspace-as-environment model (VJ)**: Use isolated workspaces (e.g., staging workspace) as deployment environments, replacing complex GCS versioning. Deployment and QA of assets happen at workspace layer. Billing implication: future per-workspace pricing; concern about unlimited workspaces on self-hosted servers. Sync mechanism discussion deferred to smaller group: Arvind + Benedikt + Didier.
-- **Lumber expectations set**: Shisha + Manish informed desktop will have "sharp edges"; runtime for end-customers must be stable. Oleg is the single authorized requirements owner at Lumber. After Tuesday delivery, next step = plan first functional report delivery date.
-- **Schema discussion flagged as critical (VJ)**: Dedicated meeting needed to guide Lumber toward a denormalized or specific schema. Concern: loose design space if platform must query arbitrary end tables in reports.
+- **GCS infrastructure redesign (Arvind)**: Current infinitely-versioned GCS URL scheme is over-engineered and not sustainable. Proposal: replace with draft/test/public channels (max 1–2 versions per
+  channel). Also update all default apps to V2 format in a stable location to resolve project sync confusion.
+- **Channel terminology clarified (Arvind)**: "Channel" means different things in each context — mobile: end-user consumption tiers (draft/test/public for apps); desktop: build release channels (
+  dev/beta/release). Both sets required for desktop; promotion mechanism between build channels still needs definition.
+- **Workspace-as-environment model (VJ)**: Use isolated workspaces (e.g., staging workspace) as deployment environments, replacing complex GCS versioning. Deployment and QA of assets happen at
+  workspace layer. Billing implication: future per-workspace pricing; concern about unlimited workspaces on self-hosted servers. Sync mechanism discussion deferred to smaller group: Arvind +
+  Benedikt + Didier.
+- **Lumber expectations set**: Shisha + Manish informed desktop will have "sharp edges"; runtime for end-customers must be stable. Oleg is the single authorized requirements owner at Lumber. After
+  Tuesday delivery, next step = plan first functional report delivery date.
+- **Schema discussion flagged as critical (VJ)**: Dedicated meeting needed to guide Lumber toward a denormalized or specific schema. Concern: loose design space if platform must query arbitrary end
+  tables in reports.
 - **Business pipeline (Mukund)**: Opportunities advancing — Atomic, widget work, Starlight, a legal firm. Marketing calendar in development; needs VJ approval before external release.
 
 ---
 
 ## 2026-02-26 — [Google Doc](https://docs.google.com/document/d/1yzv5uSmnV_FPh4cHrinc78VcJsfiFRkYUypZzb7Xe-M)
 
-- **Facet builder demo (Mark, CTE approach confirmed)**: CTE (`WITH` clause) stacking is the confirmed pattern for accumulating filters. Workflow: select column → facet type restricted by column type (text → single/multi-select with equals/not-equals; date also supported) → creates clipboard variant → paste into builder → facet auto-populates with top 20 distinct values from column. Multiple facets stack via additional `WITH` clauses. Only connection needed for final report assembly = main card outbinding. Still outstanding: display name/title for pasted facet; aggregator for state settings not yet integrated into grid.
-- **HubSpot widgets for Atomicwork (Wilber)**: Reworked for web dashboards (not just mobile). Widgets = templated service agents; alias record configures the "widget agent" with parameters (e.g., total deals won). Pure runtime flow unifies mobile + web widget delivery. Simon: widget parameters must follow conventions (similar to plugins) for rendering system compatibility. Web widgets not constrained by mobile size limits. Error handling relies on tool definitions to enforce structure; data quality depends on HubSpot account knowledge.
-- **Lumber customer call feedback** (VJ + Arvind reporting from call): Customer struggles with platform generality — views features as binary ("is it there or not") rather than malleable/rapidly customizable. Communication hurdle: customer's IT development team is resistant (prior failures, focused on their own long-term roadmap).
-- **Wednesday delivery commitment** (target: ~Mar 4): Reza's plan — stay on dev channel, aggressively test Lumber flow, package stable version Tuesday night → deliver Wednesday morning. Customer will NOT receive dev or beta build. Reza's enumerated deliverables: (1) Remix Desktop + Studio, (2) home app, (3) catalog with configurators, (4) report publishing/previewing tool.
-- **Desktop release process**: Engineering team (Chris) owns delivery quality. QA capacity allocation remains an ongoing challenge — heroic per-delivery effort is not sustainable. John proposed accelerating dev→beta promotion to a daily cadence. Chris to communicate desktop production channel migration steps.
-- **Lumber architecture debate (deferred)**: Fundamental disagreement on deliverable structure. Reza/Arvind: catalog of `.remix` configurators; content team populates; runtime configuration. VJ: build a specific Lumber app from library components directly — generic platform approach creates configuration complexity equal to building the app itself. VJ/John/Reza scheduled arch sync for next day.
-- **Repository access resolved during standup**: John could not access Arvind's project (components missing from library). Arvind pushed to repo live during the meeting → John confirmed successful pull. Follow-up: Arvind to add home project to Lumber workspace repo; John to add agents to separate repo. Aliasing pattern confirmed: agents (e.g., `save catalog item`) specialized via alias records without passing full entity info.
+- **Facet builder demo (Mark, CTE approach confirmed)**: CTE (`WITH` clause) stacking is the confirmed pattern for accumulating filters. Workflow: select column → facet type restricted by column
+  type (text → single/multi-select with equals/not-equals; date also supported) → creates clipboard variant → paste into builder → facet auto-populates with top 20 distinct values from column.
+  Multiple facets stack via additional `WITH` clauses. Only connection needed for final report assembly = main card outbinding. Still outstanding: display name/title for pasted facet; aggregator for
+  state settings not yet integrated into grid.
+- **HubSpot widgets for Atomicwork (Wilber)**: Reworked for web dashboards (not just mobile). Widgets = templated service agents; alias record configures the "widget agent" with parameters (e.g.,
+  total deals won). Pure runtime flow unifies mobile + web widget delivery. Simon: widget parameters must follow conventions (similar to plugins) for rendering system compatibility. Web widgets not
+  constrained by mobile size limits. Error handling relies on tool definitions to enforce structure; data quality depends on HubSpot account knowledge.
+- **Lumber customer call feedback** (VJ + Arvind reporting from call): Customer struggles with platform generality — views features as binary ("is it there or not") rather than malleable/rapidly
+  customizable. Communication hurdle: customer's IT development team is resistant (prior failures, focused on their own long-term roadmap).
+- **Wednesday delivery commitment** (target: ~Mar 4): Reza's plan — stay on dev channel, aggressively test Lumber flow, package stable version Tuesday night → deliver Wednesday morning. Customer will
+  NOT receive dev or beta build. Reza's enumerated deliverables: (1) Remix Desktop + Studio, (2) home app, (3) catalog with configurators, (4) report publishing/previewing tool.
+- **Desktop release process**: Engineering team (Chris) owns delivery quality. QA capacity allocation remains an ongoing challenge — heroic per-delivery effort is not sustainable. John proposed
+  accelerating dev→beta promotion to a daily cadence. Chris to communicate desktop production channel migration steps.
+- **Lumber architecture debate (deferred)**: Fundamental disagreement on deliverable structure. Reza/Arvind: catalog of `.remix` configurators; content team populates; runtime configuration. VJ: build
+  a specific Lumber app from library components directly — generic platform approach creates configuration complexity equal to building the app itself. VJ/John/Reza scheduled arch sync for next day.
+- **Repository access resolved during standup**: John could not access Arvind's project (components missing from library). Arvind pushed to repo live during the meeting → John confirmed successful
+  pull. Follow-up: Arvind to add home project to Lumber workspace repo; John to add agents to separate repo. Aliasing pattern confirmed: agents (e.g., `save catalog item`) specialized via alias
+  records without passing full entity info.
 - **Content generation app** (John): Building Remix app extending VJ's landing page generation work; goal is an AI-driven content generation tool for Mukund. In progress.
 - **Bugs fixed/flagged**: CSS overflow bug in Studio dev env (edit button unreachable) — Simon fixed same day. Member query + projection issues flagged by John — Simon to follow up with Fred.
 
@@ -35,13 +55,20 @@
 
 ## 2026-02-25 — [Google Doc](https://docs.google.com/document/d/1SuvpCldR5E0caz7-4-eGLN5JcmC-D4rVUBkeGZlPZ_E)
 
-- **Lumber facets — two approaches under evaluation**: (1) **Arka's no-CTE approach**: LLM receives DDL + bind variable format + user prompt → returns SQL with placeholders → string-swap placeholders with user-selected facet values at query time. (2) **John + Mark's CTE approach**: does not require re-running AI per new facet, potentially safer for value injection. Consensus: both versions to be developed and compared before committing.
-- **SQL injection concern raised** (Vijay): Arka's string-templating approach vulnerable to injection. Bind variables proposed as mitigation but Snowflake API uses sequence-based binds (1, 2, 3...), not named — hard to correlate variables when a field is used multiple times. Team accepted string swapping for now given Snowflake limitations.
-- **Facet no-value case**: Arka's solution — ask LLM to return two queries: SQL with placeholders (filter present) + SQL without WHERE clause (no facet selected). System runs appropriate version based on user input.
+- **Lumber facets — two approaches under evaluation**: (1) **Arka's no-CTE approach**: LLM receives DDL + bind variable format + user prompt → returns SQL with placeholders → string-swap placeholders
+  with user-selected facet values at query time. (2) **John + Mark's CTE approach**: does not require re-running AI per new facet, potentially safer for value injection. Consensus: both versions to be
+  developed and compared before committing.
+- **SQL injection concern raised** (Vijay): Arka's string-templating approach vulnerable to injection. Bind variables proposed as mitigation but Snowflake API uses sequence-based binds (1, 2, 3...),
+  not named — hard to correlate variables when a field is used multiple times. Team accepted string swapping for now given Snowflake limitations.
+- **Facet no-value case**: Arka's solution — ask LLM to return two queries: SQL with placeholders (filter present) + SQL without WHERE clause (no facet selected). System runs appropriate version based
+  on user input.
 - **Propagation bug found**: John identified bind variable state issue + "weird state thing" during Arka's live demo. Vijay identified as a propagation bug. Needs investigation.
-- **Home screen + publish workflow demo** (Reza driving; Arvind's machine styles broken by a `make` issue from recent desktop update): Home screen is shared across all Lumber users. Publish report wizard flow: set report metadata → export/upload .remix file → retrieve hosted URL → add URL to report record → end-users select report from list → loads via Remix web component viewer.
-- **Lumber stakeholder demo**: Presentation scheduled Feb 26 at 8:00 AM Pacific. Two parallel demo versions: John + Mark (CTE approach) and Reza + Arka (no-CTE approach). Next steps: fix home app styles; Arka to add no-WHERE-clause query and put facet code in repo; Arvind to send registration flow video.
-- **Demo channel risk**: Reza concerned about using Remix Desktop's dev channel for the presentation (active dev fixes may break app). Chris's recommendation: lock to a stable desktop build, do not update immediately before the demo.
+- **Home screen + publish workflow demo** (Reza driving; Arvind's machine styles broken by a `make` issue from recent desktop update): Home screen is shared across all Lumber users. Publish report
+  wizard flow: set report metadata → export/upload .remix file → retrieve hosted URL → add URL to report record → end-users select report from list → loads via Remix web component viewer.
+- **Lumber stakeholder demo**: Presentation scheduled Feb 26 at 8:00 AM Pacific. Two parallel demo versions: John + Mark (CTE approach) and Reza + Arka (no-CTE approach). Next steps: fix home app
+  styles; Arka to add no-WHERE-clause query and put facet code in repo; Arvind to send registration flow video.
+- **Demo channel risk**: Reza concerned about using Remix Desktop's dev channel for the presentation (active dev fixes may break app). Chris's recommendation: lock to a stable desktop build, do not
+  update immediately before the demo.
 
 ---
 
