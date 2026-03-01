@@ -1,6 +1,6 @@
 # #dumbquestionsanswered Slack Channel — Remix Labs
 
-**Coverage:** Feb 16–22, 2026
+**Coverage:** Feb 16–28, 2026
 **Channel ID:** C86KWF7MG
 **Purpose:** "the dumbness of the programmer has no limits" — quick Q&A, platform clarifications
 
@@ -36,7 +36,52 @@ Each surface has different URL semantics:
 
 **Question:** What is the desktop equivalent of amp's `/a/x/apps` actions (`compact`, `rename` with orig/dest params, `garbage-collect`)?
 
-No answer yet — open question.
+**Answers (Chris):**
+- **`compact` / garbage-collect:** Currently disabled — has issues with file interaction (mix-rs/issues/751). Less necessary now that v2 `.remix` files store binary code in files. Not exposed any other way.
+- **`rename`:** NOT supported in mixer and probably shouldn't be — DB name is used as identifier in many places; renaming breaks things. Copy+delete workaround exists.
+- **Clone (install-as):** Equivalent is `.remix` export + import. Missing piece is "import-as" / "install-as" feature — ability to set a new DB name and Studio display name during import. Arvind added this to the Notion task list.
+
+---
+
+## [Feb 23] Agent node: Params → Fields binding toggle needs manual refresh (Arvind → Simon)
+
+**Question:** When toggling from Params bindings to Fields bindings on an agent node, why must you manually hit Refresh? Why not auto-fetch the field bindpoints?
+
+**Answer:** Fixed — turntable/pull/11744
+
+---
+
+## [Feb 23] `parseJSON` fails on multi-dot version strings (Arvind → Gerd/Tyler)
+
+**Question:** Why does `{"version": 0.9880.0}` not parse with `parseJSON`? Should it be treated as a string?
+
+**Answer:** `0.9880.0` is not valid JSON — not a valid number, not quoted. No JSON parser supports it. Must be `{"version": "0.9880.0"}`. Gerd confirmed this will not be papered over. Root cause: something in the system was returning the version unquoted from an external action — that's the bug to fix.
+
+---
+
+## [Feb 23] Runner link: navigate to a specific screen (Arvind → Didier)
+
+**Question:** For a runner link like `https://remix.app/run?_rmx_url=...`, how do I go straight to a particular screen?
+
+**Answer (Didier):** `/run/<screenname>?_rmx_url=...`
+
+---
+
+## [Feb 24] Deeplink param mismatch: desktop `remix_file_url` vs Flutter `url` (Wilber → Didier/Benedikt)
+
+**Question:** Desktop deeplink uses `?remix_file_url=` but Flutter uses `?url=` for `run-remix-file`. Intentional?
+
+**Answer:** Not intentional — historic discrepancy. Per Notion deeplink doc, correct param is `?url=`.
+- Fix: mix-rs/pull/1013 (Benedikt) — align desktop to use `url`
+- Notion deeplink doc: notion.so/Mobile-Desktop-deeplinks-27a1d464528f803db94ac980a0bd84eb
+
+---
+
+## [Feb 25] DnD install at L0: appmeta not persisted in `_rmx_admin` (Simon → Benedikt)
+
+**Question:** DnD install at L0 calls `post_install_remix_file` and gets back appmeta, but subsequent GETs to `localhost:2025/v1/ws/local/appmeta/` don't return it. Is it the builder's job to write it?
+
+**Answer:** No — the endpoint should write it to `_rmx_admin` automatically. Bug confirmed (v2 .remix file). Fix: Fred's fix available in v0.9974.
 
 ---
 

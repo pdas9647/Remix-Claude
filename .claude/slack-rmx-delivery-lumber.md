@@ -1,6 +1,6 @@
 # #rmx-delivery-lumber Slack Channel — Remix Labs
 
-**Coverage:** Oct 9, 2025 – Feb 20, 2026
+**Coverage:** Oct 9, 2025 – Feb 28, 2026
 **Channel ID:** C09KL3K7P0D
 
 ---
@@ -149,6 +149,57 @@
 ### Feb 20, 2026 — Active
 
 - Reza, Chris, Didier on call with Lumber at 7am Pacific (Chris confirmed attendance)
+
+### Feb 24–25, 2026 — Desktop install testing for Lumber workspace
+
+Arvind asked anyone signed into `iaEj4QYboi` on Desktop to test the "update & restart" button on the Lumber home app.
+
+- **Initial bug:** Fresh install → 410 error loading home app. Root cause: exec-only `.remix` install issue; fixed in desktop v0.9920 (Benedikt's branch). After update: 410 gone.
+- **Remaining issue (Didier):** Synced apps (home, catalog) still appear in Studio Projects tab instead of Packages tab — appmeta fix still pending in the pipeline.
+- **Critical regression (Didier):** Opening the catalog at L0 navigates to L1 which triggers auto-compile, corrupting the originally downloaded exec-only catalog app. Marked as a serious issue.
+- After full reinstall + v0.9920: home + catalog run. Arvind confirmed state; waiting on upstream fix.
+- By Mar 1: Arvind posted latest versions of lumber home, catalog, reports are all checked into `iaEj4QYboi` repositories.
+
+### Feb 25–26, 2026 — Facet components scope + demo prep
+
+**Facet types in scope for Lumber reports (Arvind):**
+- Date range (start/end — same component)
+- Pill button picker for range types (month / quarter / year)
+- Month + year carousel/pagination (back/forward one month)
+- Dropdown multi-picker (enum columns)
+- Dropdown single-picker (enum columns)
+- Keyword search field
+
+**Mark's facet builder** (source: remix.remixlabs.com/e/edit/snowflake/facets):
+1. `snowflake data source setter` — select the table to query
+2. `snowflake facet builder` — create per-column facets (TEXT + DATE supported)
+3. Copy facet component into screen
+4. `snowflake facet → CTE query generator` — accumulates all screen-state facets into a SQL statement (conditions only applied when a facet value is actually set)
+5. Execute generated statement against Snowflake; return filtered results
+
+**Demo target (Feb 26 at 8am Pacific to Lumber):** Job costing report — project, start date, end date as facets; show costs by cost code. India team (Arka + Padmanabha) asked to review and be ready.
+
+### Feb 26, 2026 — Table component + facet integration pattern
+
+Arvind built a self-contained table component configured entirely by a SQL statement string (handles all loading states). Published to Lumber library.
+
+**Integration architecture established:**
+- Paste-able component is pre-configured on the left side with a base SQL statement (renders immediately on paste, no extra wiring)
+- CTE query generator (#4 orchestrator) binds into the left side of the table component; overrides with filtered SQL when facets are selected; returns default query (no filters) before any facet selection
+- Mark demoed video: STATUS multi-select + SHIFT DATE date picker driving the table via this pattern
+
+**Arvind's forward pattern:** each paste-able catalog component should have the CTE orchestrator (#4) built in; configured in a dedicated runtime app via the data source configurator, then copied into L2 screens. Plug-and-play facets on top, no additional wiring needed.
+
+### Feb 27, 2026 — Crunch mode; Wednesday deadline; scope pushback
+
+**Reza's delivery framework (goal: Wednesday Mar 4 morning):**
+1. **Engineering leads:** Chris + Didier — agent server install docs + technical integration into Lumber app
+2. **Tools:** Arvind + John — (1) Desktop home screen, (2) catalog + catalog management, (3) report management (preview / package / promote / lifecycle), (4) publish from Studio
+3. **Content + QA:** Reza + India team (Sirshendu, Arka, Nivesh, Padmanabha) — catalog components, Snowflake schema population, report content, QA of full package
+
+Arvind: all 4 tools are essentially functional. Help needed = quality library dashboard-block components with configurators, ready for assembly. He will also add layouts with config + copy (missing from the assembly flow shown in demo).
+
+**Scope pushback (Vijay):** Vijay spoke to Manish (Lumber). Lumber's side tried to add scope — Vijay told Manish "his guys were smoking something." Conditions set: one owner from Lumber side for requirements + full scoping exercise required, or it's not happening. Oleg will scope it.
 
 ---
 

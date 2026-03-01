@@ -1,6 +1,6 @@
 # #rmx-delivery-funda Slack Channel — Remix Labs
 
-**Coverage:** Sep 15, 2025 – Dec 2, 2025
+**Coverage:** Sep 15, 2025 – Feb 28, 2026
 **Channel ID:** C09G04S596C
 
 ---

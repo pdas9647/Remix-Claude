@@ -1,6 +1,6 @@
 # #ops Slack Channel — Remix Labs
 
-**Coverage:** Feb 1 – Feb 23, 2026
+**Coverage:** Feb 1 – Feb 28, 2026
 **Channel ID:** C07P57B89
 **Purpose:** Weekly production release promotion workflow (beta → production)
 
@@ -24,7 +24,8 @@
 | harmony/pull/354 | Feb 5  | Feb 5      | 2532 → 2552 | Android CI failure (retried, resolved); Arka filed #bugbash issue                     |
 | harmony/pull/356 | Feb 6  | Feb 12     | —           | No mobile issues noted                                                                |
 | harmony/pull/358 | Feb 12 | Feb 19     | 2577 → 2594 | Mobile issue found; confirmed userspace (not platform); 2577 submitted, new beta 2594 |
-| harmony/pull/359 | Feb 19 | (pending)  | —           | Posted for next week; no issues flagged yet                                           |
+| harmony/pull/359 | Feb 19 | Feb 26     | —           | Kicked off Feb 26; new beta pushed Feb 28 including Gerd's fix                        |
+| harmony/pull/363 | Feb 28 | (pending)  | —           | Posted for "next week or whenever we want to promote beta→release"                    |
 
 ---
 

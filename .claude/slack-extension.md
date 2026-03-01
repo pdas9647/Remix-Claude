@@ -1,6 +1,6 @@
 # #extension Slack Channel — Remix Labs
 
-**Coverage:** Jan 1 – Feb 22, 2026
+**Coverage:** Jan 1 – Feb 28, 2026
 **Channel ID:** C026CBNUVUH
 **Purpose:** Remix Labs browser extension (Chrome)
 

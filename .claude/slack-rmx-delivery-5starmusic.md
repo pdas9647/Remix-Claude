@@ -1,6 +1,6 @@
 # #rmx-delivery-5starmusic Slack Channel — Remix Labs
 
-**Coverage:** Oct 30, 2025 – Feb 5, 2026
+**Coverage:** Oct 30, 2025 – Feb 28, 2026
 **Channel ID:** C09PP2CH97U
 **Created by:** Reza Mohsin (Oct 30, 2025)
 **Purpose:** Active delivery channel for 5 Star Music IVR + CRM build and go-live

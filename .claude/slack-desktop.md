@@ -1,6 +1,6 @@
 # #desktop Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Feb 22, 2026
+**Coverage:** Dec 20, 2025 – Feb 28, 2026
 **Channel ID:** C04T4HW06CC
 **Bug tracker:** https://github.com/remixlabs/mix-rs/issues/937
 
@@ -159,6 +159,112 @@ turntable/pull/11636 merged — build binaries moved from DB to `/code` filesyst
 ### [Feb 18] Desktop ext action needed: reload Studio window (Arvind)
 
 No current mechanism to programmatically target a window and reload its view. Needed for: home app installs a `.remix` → Studio window needs to refresh to see it.
+
+---
+
+## Feb 22-28, 2026 — Desktop Launch Push
+
+### [Feb 24] .remix v2 (exec-only) install broken on desktop (Arvind/Wilber)
+
+Installing a packaged exec-only v2 .remix file on desktop doesn't work — it installs as an editable project with no assets. Only installs with builder assets work today.
+
+- Auto-sync from `_rmx_sync` at startup works; userspace install action does not
+- Wilber filed bugbash thread with repro
+- Arvind: these two flows must converge on the same infra/API
+
+### [Feb 24] No way to simultaneously build-as-Remix and test-as-customer (Arvind)
+
+**Blocker DX issue:** No way to run two Desktop instances for different workspaces on the same machine.
+
+- Options: two laptops, or juggling two app directories on disk (Benedikt)
+- macOS fast user switching is a workaround once HTTP port is configurable (Chris)
+- DB/config directory is per OS user — two OS users on same Mac would work
+- PR for configurable mixer port: mix-rs/pull/948
+- Tracked: mix-rs/issues/1014
+
+### [Feb 24] Window menu: Studio vs runtime window disambiguation (Didier/Simon/Benedikt/Arvind)
+
+Window list menu can't distinguish Studio from runtime windows — both show raw document titles.
+
+**Tyler's definitive behavior for links opened in desktop:**
+- Builder links → open desktop builder window (same-window = navigate within)
+- Runtime links → open desktop runtime window (same-window = navigate within)
+- External links → always open in browser; original desktop window stays unchanged
+
+**Window title work (mix-rs/pull/1023, Simon):** switched to reading browser `title` field; new format = `dbName / screen`. Arvind wants appMeta display name instead.
+
+**Client actions in builder:** Currently ALL desktop client actions are disabled in builder context (too many side effects like logout, channel switch). Tracked to allow safe subset.
+
+### [Feb 24] Desktop release serving + Windows builds (Fred/Benedikt)
+
+- Mac desktop app served via Tauri updater; binaries stored in R2/GCS via an agent
+- Release process: mix-rs/desktop/README.md#release-process
+- Windows builds: Fred manually creates and uploads `.exe` installers (v0.0.15–v0.0.18 during this week)
+- Long-term: automate Windows into the same agent flow; code for other platforms exists but untested
+
+### [Feb 24] Deeplink param fixed: `remix_file_url` → `url` (Wilber/Benedikt)
+
+Desktop deep link used `?remix_file_url=` while Flutter and Notion docs specify `?url=`. Historic discrepancy, not intentional. Fix: mix-rs/pull/1013.
+
+### [Feb 25] Mac desktop: Apple Silicon only (Arvind/Didier/Chris)
+
+**Confirmed:** Mac desktop currently only works on Apple Silicon (M1/M2+). Intel i7 Macs (2019 and older) do not work.
+
+- macOS 26 (Tahoe) drops most Intel Mac support anyway
+- Chris/Gerd: safe to de-prioritize Intel support (companies renew hardware every 3-5 years)
+
+### [Feb 25] "Same Window" link behavior clarified for desktop (Benedikt/Tyler/Arvind)
+
+See Tyler's rules above (Feb 24 window section). For external links: "Same Window" setting is ignored — browser tab opens and original desktop window remains intact. mix-rs/issues/1018 filed.
+
+### [Feb 25] Plugin UI changes landed on desktop (Didier)
+
+Small UI changes around plugins merged and deployed to desktop. (Elm CI flakiness required a retry.)
+
+### [Feb 26–27] Windows desktop bugs: `Unrecognised action: msg_perform_client_action` (Sirshendu/Padmanabha/Didier)
+
+After updating to v0.0.15+, Windows users (and Lumber workspace on Mac) saw:
+- `Unrecognised action: msg_perform_client_action` on home screen load
+- Auth deep link error: `Could not dispatch deep link: waiting for auth` when switching workspaces
+
+**Root cause:** `msg_open_link` codegen changed ~1 month prior. Any app using it must be rebuilt and republished. Each workspace hosts its own `auth.remix` which also needs republishing when codegen changes.
+
+**Fix:** Didier republished affected `.remix` files. Fred posted Windows v0.0.16/v0.0.17/v0.0.18. Workspace data dir to wipe if stuck: `~/AppData/Local/com.remixlabs.desktop/workspaces/local`.
+
+### [Feb 27] Desktop upgrade fails: `relative URL without a base` (Gerd/Benedikt/Didier)
+
+Platform bumped to 1.46 but `desktop_home_remix` (workspace sync group home app) still referenced `gcs/versioned` endpoint — unavailable at 1.46. Desktop exits on startup.
+
+- Fix: Didier migrated all version files to 1.46
+- **Architecture note:** Home app is NOT built-in — it comes from the workspace sync group. Override with `REMIX_DESKTOP_WORKSPACE_APPS_PATH` for local dev.
+- Didier: wants to automate this so version bumps don't require manual migration steps
+
+### [Feb 27] Arvind's pre-prod-build checklist
+
+Before cutting a prod build (Arvind's list):
+1. Arrow keys making buggy characters in text inputs
+2. Auto-correct / auto-capitalization / curly quotes (Safari; `spellcheck="false"` should help — Benedikt)
+3. Clean up MCP config — causes Claude errors for users with Claude Desktop installed
+4. Solid sync experience — unify approach; consider mobile-like sync model (no apps embedded in DMG)
+5. Default home page (non-customer)
+
+**Sync model proposal (Didier):** Move to mobile-like model — only update desktop binary for real desktop changes; move all `.remix` apps to synced (not embedded); provide manual sync trigger. Only `_rmx_desktop` needs to stay in codebase (has core service agents). Others (`_rmx_artifact`, `_rmx_search`, `_rmx_tailwind`, `_rmx_extension`) all sync.
+
+### [Feb 27] "Constants not found" modal replaced with auto-rebuild (Simon)
+
+Simon merged improved rebuild detection — short-lived blocking modal removed; auto-detect + auto-rebuild now triggers silently.
+
+**Regression reported by Arvind:** `COMPILER: LINE 2593. MODULE NOT FOUND: COMP_SYMBOLS_GET_DATA_USING_SQL` errors appear on screens after auto-compile, especially with library-synced components and Symbols. Workaround: save + close screen, reopen — error goes away. Unlinking the symbol also clears it.
+
+**Resolution direction (Arvind + Didier):** Block UI + show spinner during full rebuild; don't go back to old modal. Didier: full rebuild can take 45s — only rebuild constants module if possible. Simon: false positive toast also present, will fix.
+
+### [Feb 28] Arrow keys create tofu characters in text inputs (Simon/Didier/Tyler)
+
+Still not fixed in production as of Feb 28. Present in prod, absent in dev.
+
+- Didier confirmed: reproducible in L0 projects searchbox
+- Simon: issue appears in prod but not dev environment (different Tauri/webview build?)
+- Tyler: doesn't happen if DevTools console is open — "it's weird"
 
 ---
 

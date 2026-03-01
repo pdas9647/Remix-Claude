@@ -1,6 +1,6 @@
 # #rmx-delivery-snowflake Slack Channel — Remix Labs
 
-**Coverage:** Mar 25, 2025 – Aug 8, 2025 (channel quiet after that)
+**Coverage:** Mar 25, 2025 – Feb 28, 2026
 **Channel ID:** C08JPJ6EES3
 **Nature:** Snowflake GTM partnership, not a customer delivery
 
@@ -98,7 +98,31 @@
 - Chris: direct .remix file upload from local builder to SPCS working (concept validated for desktop too)
 - Aug 8: bi-weekly call with Snowflake ("Remix TV show"); Reza showed Alteryx/Snowflake demo
 - Snowflake predictably asked: "is it using Cortex?" → Vijay: "tell them to enable Cortex for us for free"
-- **Channel went quiet after Aug 8, 2025 — no further messages**
+- **Channel went quiet after Aug 8, 2025 — resumed Feb 2026 with Marketplace push**
+
+### Feb 23–26, 2026 — Snowflake Marketplace submission push (Mukund)
+
+**Goal:** Submit Remix listing to Snowflake Marketplace for approval/review by end of Feb 23 week; initiate marketing campaign the following week.
+
+**Bootstrap experience checklist (Mukund's recap):**
+- Chris working on mixer (mixr) running inside Snowpark with auth
+- Initial libraries + styles + demo workspace to set up
+- Widget building flows in web: pick data source, preview widgets
+- Sample Snowflake tables with flows (e.g. customer360 dataset)
+- Instructions / readme
+- Mobile app experience: separate step, optional; web-side auth comes standard with Snowflake
+
+**Deployed internal SPCS instance (Chris):**
+- Builder URL: `mw7zsh-oxfsvki-remix.snowflakecomputing.app/e`
+- Default workspace available at that URL; admins: Chris, Mukund, John, Vijay, Wilber
+- `snowflake_widgets` copied over; `cloud_workspace` tool present but not fully editable via builder
+- Runtime screens broken (assets moved to wrong place in image — needs fixing)
+- Demo of run-inside-SPCS auth: `.../e/edit/run_in_spcs`
+  - `run_sql` agent runs server-side, calls Snowflake API with local token
+  - `use_run_sql` screen demonstrates calling it from the browser
+- **Auth note:** Snowflake account has two URL forms (`yub45648.snowflakecomputing.com` and `oxfsvki-remix.snowflakecomputing.com`); same account, different locator formats. MFA codes work for both once the correct form is used. Mukund needed a role grant from Chris.
+
+**Feb 26:** Mukund asked John + Wilber to test the widget build flow in the SPCS env — wants to submit the marketplace listing ASAP.
 
 ---
 
