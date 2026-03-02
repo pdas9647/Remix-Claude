@@ -2,167 +2,70 @@
 
 **Coverage:** Dec 20, 2025 – Feb 28, 2026
 **Channel ID:** C4BLR910S
-**Purpose:** All things design: design systems, visual IDE, icon and widget libraries
+**Purpose:** Design systems, visual IDE, icon and widget libraries
+
+**Key participants:** Arvind (design lead), Didier (builder/runtime), Simon (UX/tester), Tyler (webcomp/desktop), Sirshendu/Padmanabha (bug reports)
 
 ---
 
 ## Key Decisions & Proposals
 
-### [Feb 10] Library Sync False-Positive Problem (Arvind)
+**Library Sync False-Positive [Feb 10]:** Changing left-side binding values after library sync always shows diff. Fix: for components, ignore exterior binding values in diff — use `in_param` values as canonical. Accepted for components; no solution for other node types.
 
-**Problem:** Changing left-side binding values on an asset after syncing from library always shows a diff, even when no real component change occurred. Users can never tell if sync indicator is
-genuine.
-**Proposal (Arvind):** For *components only*, ignore L2 exterior binding values when computing diff — use internal `in_param` values as the stable canonical version. Author behaviour change required:
-set default left-side values inside the component's `in_params`, not on the exterior binding.
-**Discussion:** Wilber flagged inconsistency with non-component nodes. Didier outlined 3 options: (1) introduce dual values everywhere (too complex), (2) remove dual values from comps (rules out), (3)
-current proposal — accepted as pragmatic. Service Agent Connect nodes have no L3 so can't adopt dual-value approach.
-**Status:** Proposal accepted for components; no solution yet for other node types.
+**Theme/Styles Packaging Overhaul [Feb 14-17]:** No more `make` for themes — styles reflect immediately in builder after save. Removed code modules, make/rebuild/preview/open from theme menu. Theme only exportable with builder assets (no standalone executable). Arvind approved.
 
-### [Feb 14–17] Theme/Styles Packaging Overhaul (Didier)
+**TUI Grid Custom Cell Renderers [Feb 18-20]:** Tyler confirmed `rmx-base` webcomp works as custom renderer. Limitations: explicit row height/column width required; card data must be in column options. POC done; production TBD.
 
-**Change:** Removing the need to `make` a theme. After saving the styles module, theme changes reflect *immediately* in builder L2 view (like changing local styles). Only `.remix`/preview/webview
-still requires a `make app` to update.
-**Additional:** Removing code modules from themes (no demand; if function needed, define in styles module). Removing `make`, rebuild, preview, open from theme menu. System modules should not be
-deletable — bug to file.
-**Decided:** Arvind approved ("shipitt"). Theme is only exportable with builder assets (no standalone executable).
+**TUI Grid Theme Loss in Nested .remix [Feb 7-22]:** Shadow DOM isolation breaks TUI styles inside `rmx-remix` webcomp. Fix: `no-shadow=true` attribute disables shadow DOM. Available on dev; needs prod rollout.
 
-### [Feb 18–20] TUI Grid Custom Cell Renderers (Arvind + Tyler)
+**L0 Desktop Organization [Feb 12]:** Proposal: simplify to "my local projects" + "my workspace projects". Git discussion: Gerd says git as-is won't work (JSON assets, custom checksums); needs tighter integration with git-like plugin. No sign-off.
 
-**Question:** Can Remix "send cards" into TUI grid cells using custom renderers?
-**Answer:** Yes — Tyler confirmed working using `rmx-base` webcomp as custom renderer. Limitations: must set explicit row height and column width in grid options; card data must be in column options (
-painful). Improvement path: use Vijay's json-data→card webcomp.
-**Status:** Proof of concept done; production integration TBD.
+**html2card Naming [Feb 11]:** Two components in `agt/remix-libraries`: (1) "Convert HTML to Live Card Node" — builder-time, interactive, bindings at L2. (2) "Convert HTML to Static Card Structure" — runtime, non-interactive, for AI-generated HTML.
 
-### [Feb 7 → Feb 22] TUI Grid Loses Theme in Nested `.remix` (Arvind + Tyler)
+**MIGRATE OFF `_rmx_style` [Feb 26] @all:** `_rmx_style`/`_rmx_styles` deprecated, not auto-loaded, won't sync to Desktop. All cards/components must use `rmx_tailwind`. All team members tagged.
 
-**Problem:** TUI grid loses all styling when inside a `rmx-remix` webcomp loaded via `.remix` file inside another `.remix`-based catalog app (shadow DOM isolation breaks styles).
-**Affects:** Lumber catalog table configurator, chat demo Experiences.
-**Fix:** Tyler added `no-shadow` attribute to `rmx-remix` node. Set `no-shadow=true` to disable shadow DOM and restore TUI styles. Working on dev.remix.app and dev builder.
-**Status:** Fix available on dev; needs production rollout.
+**L1 constants modal: Cancel stays at L1 [Feb 26]:** When `make` errors from outdated-constants modal, Cancel wrongly goes to L0. Fix in progress (Simon).
 
-### [Feb 12] L0 Desktop Project Organization (Arvind)
-
-**Proposal:** Simplify L0 to two sections — "my local projects" (top) and "my workspace projects" (below). Hide "other projects" if empty. Remixers (multi-workspace) are a special case.
-**Git discussion:** Gerd: git as-is won't work — assets are JSON-based with custom checksums; 80% of work is mapping DB↔storage, git only addresses 20%. Vijay: libgit with proper file/folder mapping
-could help. Current db concepts leak into file hierarchy. Needs tighter integration with Gerd's git-like plugin.
-**Status:** Proposal discussed, no explicit sign-off.
-
-### [Feb 11] html2card Naming Finalised (Didier)
-
-Two distinct components in `agt / remix-libraries`:
-
-- **"Convert HTML to a Live Card Node"** — builder-time, interactive, produces node with bindings at L2 (old html2card)
-- **"Convert HTML to a Static Card Structure"** — runtime, non-interactive, invoked like an action/agent and returns a static card binding (new, for displaying Claude-generated HTML)
-
-### [Dec 20] Tailwind Text Color Coverage (Simon + Arvind)
-
-**Issue:** Only 1 visible font color option in the theme, not enough contrast vs white backgrounds and doesn't match button style. Tailwind text colors use the `text-em*` prefix — Simon found only
-`text-em-500` available; needs 600 weight for sufficient contrast with buttons.
-**Status:** Open gap in tailwind text color range; broader `text-em-600+` not yet added.
-
-### [Dec 20] Color Binding → Theme Lookup (Simon + Arvind)
-
-**Proposal:** Regular colour bindings should be able to do a theme lookup, with a custom hex override when needed. Arvind: agreed, need to build this mechanism.
-**Status:** Open design item.
-
-### [Dec 20] Binding Change Triggering Upload (Simon + Didier + Arvind)
-
-**Issue:** Using a foreseen binding edit point (e.g., changing currency on a control) triggers an "upload changes" prompt, implying the user is an author/collaborator.
-**Root cause:** Static binding values are stored with catalog asset — no way to distinguish "expected consumer edit" vs. "structural component change."
-**Discussed:** Simon suggested config objects should live *inside* component (not exposed externally); Arvind: "If an assembler wants to push changes, that's a variant." Didier: problem exists for all
-tiles, not just components. No clean general solution found.
-**Status:** Open design problem, no resolution.
-
-### [Feb 26] **ACTION REQUIRED: Migrate all cards away from `_rmx_style` (@all)**
-
-- **Arvind (@all)**: `_rmx_style` / `_rmx_styles` theme is deprecated, no longer auto-loaded, and will not be synced to Desktops; legacy cards will simply appear unstyled
-- All team members must move every card and component to use `rmx_tailwind` (or equivalent new theme) ASAP
-- Tagged: Mark, Wilber, John, Reza, Arka, Padmanabha, Riju, Shawn, Sirshendu, Nivesh, Arpita
-- cc: Didier, Simon, Tyler
-
-### [Feb 26] L1 constants modal: Cancel should stay at L1 (not go to L0)
-
-- **Didier**: when `make` errors out from the outdated-constants modal, the only escape is going back to L0 — wrong; Cancel should stay at L1 so user can open constants, fix errors, or copy/paste
-  screens
-- **Simon**: agrees; fix in progress
-- Related: `_rmx_styles` on remix-dev has same issue — `_rmx_type:file` record for constants is missing; Simon: amp issue, not the focus now
-- **Status**: fix in progress
-
-### [Feb 28] Repository DB naming: rename to `_rmx_repository` (deferred)
-
-- **Arvind**: Repository will be a standard app installed on every workspace (for collaboration features); should follow the `_rmx_` naming convention
-- Current standard apps: `Repository`, `_rmx_files`, `_rmx_prefs`, `_rmx_search`, `_rmx_sync` — inconsistent naming
-- **Gerd**: needs tooling to rename existing DBs; better to do it after the Lumber release when dust settles
-- **Decision**: deferred to post-Lumber
+**Repository DB rename deferred [Feb 28]:** Rename to `_rmx_repository` deferred to post-Lumber. Needs tooling for existing DB renames.
 
 ---
 
-## UX Issues & Bug Reports
+## Open Design Items
 
-### [Feb 21] Const Picker Unreachable (Simon)
+**Tailwind text color gap [Dec 20]:** Only `text-em-500` available; needs 600+ for contrast with buttons.
 
-Can't reach const picker in card editor properties panel for a text node. Bug filed, no thread resolution.
+**Color binding → theme lookup [Dec 20]:** Regular color bindings should support theme lookup with custom hex override. Agreed, not built.
 
-### [Feb 16] Node Number Repetition in L2 (Simon)
+**Binding change triggering upload [Dec 20]:** Consumer edits (e.g. currency) trigger "upload changes" — no way to distinguish consumer edit vs structural change. No clean solution.
 
-Repeated node IDs shown when "show system ids" is on. Clarified by Didier: these are internal stable IDs for group nodes, introduced to support storing groups in the catalog and reconnecting nodes
-post-sync (PR #11588). Not a bug.
+**Screen state path picker [Feb 3]:** Paths typed manually as string arrays; no visual picker. Proposal: derive shape from Set State invocations. No resolution.
 
-### [Feb 13] + ADD FIELD Buried Under Long Object (Padmanabha)
-
-When a long object flows through component out params, the `+ ADD FIELD` button is far below all content. Needs max-height constraint with overflow or nested scrollview. Arvind agreed.
-
-### [Feb 12] Multi-Select Menu Chevron Overflow (Padmanabha)
-
-Dropdown chevron pushed outside the box when multiple items are selected. Root cause (Arvind): duplicate `string - multi select menu` components exist in both `remix_labs` and `remix-forms`
-workspaces — causes naming confusion. Action: consolidate `remix-forms` assets into `remix_labs` (Wilber + John).
-
-### [Feb 12] h-xls / h-xs Classes Invalid (Sirshendu)
-
-Tailwind library had `h-xls`, `h-xs` height classes (copy-paste error) all set to 0. Arvind deleted them and pushed standard height classes (`h-24`, `h-32`, etc.) to india boxes, dev, beta.
-
-### [Feb 10] Library Search Ranking (Sirshendu)
-
-Exact asset name match appearing below a partial match due to alphabetical sort + no ranking algorithm. Proposal: implement proper ranking (drop server+collection grouping for search results). Arvind:
-ranking is better UX. Wilber: exact match must always rank first. Grouping by workspace useful for exploration but not for search.
-**Status:** Open improvement.
-
-### [Feb 9] Tailwind `my-6` Missing (Sirshendu)
-
-`my-6` (margin-y 6) missing from tailwind library — typo (dash omitted). Fixed by Arvind; pushed to india boxes + dev/beta. Desktop auto-update pending.
-
-### [Feb 3] Screen State Path Picker (Arvind)
-
-Screen/app state paths must be typed manually as string arrays — no visual picker. Proposal: derive known shape from Set State invocations at runtime and surface a visual picker. Design question; no
-resolution yet.
-
-### [Jan 29] Desktop Zoom (Sirshendu)
-
-No zoom/scale support in Remix Desktop. Ctrl+/Ctrl− not supported. Tyler notes growing list of browser features missing from Desktop: bookmarks, tabs, beforeunload, zoom, browser title updates.
-Arvind: zoom not a deliberate feature. Tyler: reason to reconsider browser-based builder.
-
-### [Jan 2] Refresh vs Projects Tab (Simon)
-
-"Refresh" in Studio only refreshes the libraries tab (redownloads catalog libs), not the project list. Clarified by Didier — expected behaviour, not a bug.
-
-### [Dec 23] Output Area Not Resizable (Padmanabha)
-
-AI response output area is fixed height — hard to follow long responses. Arvind agreed to fix.
-
-### [Dec 22] Number Decimal Alignment (Simon)
-
-No component for tabular number alignment. Gerd suggested `font-variant-numeric: tabular-nums` + right-align; Didier suggested fixed-width font + right-align.
-
-### [Dec 20] Tailwind Group Cascade for Icons (Simon)
-
-Tailwind group styles cascade to child text fields but icon sizes may not follow. Arvind: surprised, everything should cascade. Font colors do cascade correctly.
+**Library search ranking [Feb 10]:** Exact match appears below partial match (alphabetical sort, no ranking). Agreed: exact match must rank first. Open.
 
 ---
 
-## Channel Tone & Patterns
+## UX Bug Reports
 
-- Primary participants: Arvind (design/platform lead), Didier (builder/runtime), Simon (UX observer/tester), Tyler (webcomp/desktop), Sirshendu/Padmanabha (users surfacing bugs)
-- Format: screenshots attached to every UI report, specific builder links provided for bugs
-- Arvind drives proposals, Didier implements; Simon probes rationale as power user
-- Tyler often surfaces Desktop-vs-browser tension
-- Decisions stated directly; "shipitt" = approved. No formal sign-off ceremony.
+**Const picker unreachable [Feb 21]:** Can't reach const picker in card editor properties panel. Filed, unresolved.
+
+**+ ADD FIELD buried [Feb 13]:** Button far below long object in component out params. Needs max-height with overflow. Arvind agreed.
+
+**Multi-select chevron overflow [Feb 12]:** Duplicate components in `remix_labs` and `remix-forms` cause confusion. Action: consolidate into `remix_labs`.
+
+**h-xls/h-xs invalid classes [Feb 12]:** Copy-paste error (all set to 0). Fixed by Arvind; pushed to india/dev/beta.
+
+**my-6 missing [Feb 9]:** Typo (dash omitted). Fixed by Arvind; pushed.
+
+**Desktop zoom missing [Jan 29]:** No Ctrl+/Ctrl- support in Tauri. Growing list of browser features missing from Desktop.
+
+**Number decimal alignment [Dec 22]:** No component for tabular alignment. Workaround: `font-variant-numeric: tabular-nums` + right-align.
+
+**Output area not resizable [Dec 23]:** AI response area fixed height. Arvind agreed to fix.
+
+---
+
+## Channel Patterns
+
+- Arvind drives proposals, Didier implements; Simon probes rationale
+- Screenshots + builder links on every UI report
+- "shipitt" = approved; no formal sign-off ceremony

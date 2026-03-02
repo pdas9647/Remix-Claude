@@ -4,209 +4,97 @@
 **Channel ID:** CHTGC5BGQ
 **Purpose:** server, compiler, and database stuff
 
----
-
-## Key Participants
-
-- **Chris Vermilion** — backend lead; mixer API, auth, deployment, Go DB (amp/eleventwo)
-- **Gerd Stolpmann** — compiler, build server, Mix stdlib, mixer caching, protoquery
-- **Fred Im** — DB internals (mixquery Rust), Go/Rust save parity, async-ification
-- **Simon** — frontend/builder; surfaces query/integration issues from builder perspective
-- **Benedikt Becker** — desktop (Tauri/mixcore), OPFS, cloud subscriptions, iOS simulator
+**Key participants:** Chris (backend lead, mixer/auth/deploy), Gerd (compiler/stdlib/caching), Fred (DB internals, mixquery Rust), Simon (builder integration), Benedikt (desktop/Tauri/OPFS)
 
 ---
 
 ## Key Decisions & Technical Discussions
 
-### Jan 2–6 — Blob URL support in HTTP FFI
+### Blob URL support in HTTP FFI [Jan 2-6]
+Web components returning `blob:` URLs failed in API Connect. Decision: new `binary.fromBlobURL` — separate from `http` module. HTTP FFI dispatch: `$http_do_server` (mixcore), `$http_do_client` (JS fetch), `$http_do` (auto-dispatch). Ticket: mix-rs/issues/928.
 
-- Web components returning `blob:` URLs failed in API Connect node (`unsupported protocol`)
-- **Decision**: separate blob URLs from `http` module entirely; new `binary.fromBlobURL` function
-- HTTP FFI cleanup plan agreed:
-    - `$http_do_server`: mixcore implementation (desktop/agent)
-    - `$http_do_client`: groovebox JS `fetch` (browser, supports blob/CORS)
-    - `$http_do`: auto-dispatch (heuristics); falls back to server in desktop, client in browser
-- Ticket: mix-rs/issues/928
+### DB save FFI overhaul [Jan 13-28, 89 replies]
+Bug mix-rs/issues/913: saving unchanged record threw FFI errors. Fred built new save FFIs returning case types: `db.saved(record)`, `db.rev_match_current(record)`, `db.rev_match_old(record)`. New FFIs: `$db_save_ar`, `$db_upsert_ar`. Old FFIs preserved for backward compat. Non-array save/upsert deprecated since 2022. Merged to mix-rs + amp; stdlib: protoquery/pull/2252.
 
-### Jan 13–28 — DB save FFI overhaul (89-reply thread)
+### Wasm caching fix [Jan 26-27, 49 replies]
+`mixrt.wasm` downloaded every page load (~8s for two loads per L2 open). Root cause: nginx gzip converts strong ETag to weak → no 304. Fix: upload pre-compressed with `gsutil cp -Z` → strong ETag preserved. PR: turntable/pull/11660. Also: mix-rs/issues/962 (mixer Cache-Control), mix-rs/issues/963.
 
-- **Bug**: mix-rs/issues/913 — saving an unchanged record threw FFI errors; no way for caller to handle
-- Fred built new save FFIs returning case types instead of bare records:
-    - `db.saved(record)` — new row created
-    - `db.rev_match_current(record)` — no-op, record matches current revision
-    - `db.rev_match_old(record)` — no-op, record matches historical revision (different rev but same content hash)
-- **Key design decisions**:
-    - New FFIs (`$db_save_ar`, `$db_upsert_ar`) return `result(string, array(saved_record))`
-    - Old FFIs preserved for backward compat (transition via new HTTP endpoints)
-    - `_rmx_ignored` field kept as string value (not case), e.g. `"rev_match_current"`
-    - Non-array save/upsert FFIs deprecated since 2022 — dropped from new API
-- PRs merged to mix-rs and amp by Jan 28; Gerd confirmed working in mixer
-- Gerd also submitted protoquery/pull/2252 for stdlib integration
+### Build server SSE + string.contains_ci [Jan 30]
+Build server now supports SSE notifications for progress (60s timeout no longer applies). New `string.contains_ci` for case-insensitive search.
 
-### Jan 26–27 — Wasm caching fix (49-reply thread)
+### parseQueryString multi-clause [Feb 3]
+Piped queries failed ("not exactly one clause"). Fix: protoquery/pull/2259 (Gerd, 2hr turnaround). REPL connect command: `mix_client -local-vm -env 'remoteDatabaseServer="http://localhost:2025/v1/ws/local/app"' -env 'token="$TOKEN"' -app queries`.
 
-- `mixrt.wasm` downloaded every page load (~4s each, twice per L2 open = ~8s wasted)
-- **Root cause**: nginx adds gzip on-the-fly → converts strong ETag to weak (`W/`) → browser sends `If-None-Match: W/"..."` → server returns 200 instead of 304
-- **Fix**: upload files to GCS pre-compressed with `gsutil cp -Z` (all file types) → nginx passes through GCS strong ETag → browser gets 304
-- PR: turntable/pull/11660 (Gerd, approved by Chris)
-- Also filed: mix-rs/issues/962 (mixer Cache-Control), mix-rs/issues/963 (other caching issues)
-- **Impact**: browser also caches compiled wasm, so caching saves both download AND compilation time
+### QB 2.0 field discovery [Feb 3-13, 31 replies]
+Simon needs field metadata for query tile UI (which fields are refs). Fred added type inference from index tokens — `"type": "ref"` when token conforms to ref format. Heuristic-based (tokens don't store types natively). Simon confirmed working Feb 13.
 
-### Jan 30 — Build server notifications + new stdlib functions
+### Delete FFI backward compat break [Feb 10-11, 27 replies]
+`db.delete` changed to return case value → broke tests + auto-update. **Lesson:** never change existing FFI signatures; add new ones (`delete_ar`). Fix: mix-rs/pull/992.
 
-- Gerd: build server now supports SSE notifications for build progress; 60s timeout no longer applies
-- New `string.contains_ci` function for case-insensitive search
+### Mixer v0 API prefix [Feb 12]
+Simon merged builder PR using `/v0` before agt deployment → prefs errors. Chris deployed same day; resolved.
 
-### Feb 3 — Query pipeline / parseQueryString limitation
+### Non-ES256 JWT [Feb 17]
+mix-rs/pull/1001 (Chris): supports RS256 etc. Lumber's Descope tokens now work with mixer. Not related to SAML.
 
-- `db.parseQueryString` only returned single AST clause; piped queries like `"group(\"_exists\") | count() | ._exists"` failed with "not exactly one clause"
-- **Workaround**: break into separate `db.processPipeline` calls, one per clause
-- **Fix**: Gerd submitted protoquery/pull/2259 within 2 hours
-- Gerd also provided `mix_client` command to connect REPL to mixer DB:
-  ```
-  mix_client -local-vm -env 'remoteDatabaseServer="http://localhost:2025/v1/ws/local/app"' -env 'token="$TOKEN"' -app queries
-  ```
+### Desktop ↔ Mixer dev workflow [Feb 17-20]
+`mixer serve --ws-dir <desktop-dir> --host localhost --port 2025` works but no R2 presigned URLs for `file.register`. `--base-url` flag exists; mix-rs/pull/948 unifies startup.
 
-### Feb 3–13 — QB 2.0 query field discovery (31-reply thread)
+### File upload PUT semantics [Feb 18]
+`file.register` returns R2 presigned URL; PUT overwrites by default (S3/R2 standard). Use `If-None-Match: *` to prevent overwrite. Not changeable server-side.
 
-- Simon needs field metadata for query tile UI: which fields exist, which are expandable refs
-- `+engineer` operator expands refs in queries; `keys()` returns field names
-- **Problem**: `keys()` didn't indicate field types (especially refs vs. primitives)
-- Fred added type inference from index tokens; `"type": "ref"` returned when token conforms to ref format
-- **Caveat**: index tokens don't store types natively; inference is heuristic-based
-- Simon confirmed new data visible (Feb 13); will integrate into codegen
+### Builder compile loop [Feb 19]
+Amp build returns 200 but no `_rmx-type==file` records → builder retries forever. Chris: amp-only, not worth fixing (moving away from amp); Simon must add builder-side check. amp/issues/2655.
 
-### Feb 10–11 — Delete FFI backward compat break (27-reply thread)
+---
 
-- `db.delete` was changed to return `db.deleted(record)` case value → broke protoquery test 413 + auto-update flow
-- **Decision**: be conservative with FFIs; old `db.delete` signature must not change (breaks existing .remix files)
-- Fix: mix-rs/pull/992 (Fred) — reverted delete to old signature; new `delete_ar` added for case-returning version
-- Broader lesson: add new FFIs rather than changing signatures of existing ones
+## Feb 25–28 Additions
 
-### Feb 12 — Mixer v0 API prefix deployment timing
+**Deletion / too-many-files-open [Feb 25]:** `join_all` in `find_recs_for_deletion` opened too many file handles. Fix: sequential `for` loop; `get_by_id` now IO-free. Also fixed `exact_match` over-optimization in `get_by_ref`. mix-rs/pull/1022, merged.
 
-- Simon merged builder PR using `/v0` prefix before it was deployed to agt.remixlabs.com → user prefs errors
-- Chris deployed same day; resolved
+**High-priority flush patch [Feb 26]:** Critical bug in deletion/flush pipeline (via Benedikt). mix-rs/pull/1028, merged same day.
 
-### Feb 17 — Non-ES256 JWT support in mixer
+**`$binary_compress` FFI missing in CI [Feb 27]:** Gerd's compress/decompress PRs needed amp registration. Fix: amp/pull/2790, merged. Broader: need "builtin-with-fallback" FFI category between `builtin` and `FFI`.
 
-- mix-rs/pull/1001 (Chris): supports RS256 and other signing algorithms
-- **Impact**: Lumber's Descope auth tokens can now be used directly with mixer
-- Not related to SAML support (SAML would require much more protocol work)
+**Amp dev blocked [Feb 27]:** System plugins path bug (double `path.Join`). Fix: mix-rs/pull/1036; resolved when CI completed.
 
-### Feb 17–20 — Desktop ↔ Mixer dev workflow
+**.DS_Store corrupts Desktop DB [Feb 26]:** Finder creates `.DS_Store` in workspace folder → API hosed. One-off cleanup: `find .../workspaces/local/ -name .DS_Store -print0 | xargs -0 rm`.
 
-- Simon: switching between Desktop and mixer for testing is inefficient
-- `mixer serve --ws-dir <desktop-workspaces-dir> --host localhost --port 2025` works but doesn't create "magic URLs" for `file.register` (no R2 storage locally)
-- Benedikt: `--base-url` flag exists; PR mix-rs/pull/948 to unify desktop/mixer startup
-- Desktop behaves like cloud server except for file registration (no presigned R2 URLs)
+**JSON files served as binary [Feb 27]:** `.info` extension unrecognized → binary content-type. Open: mix-rs/issues/1034.
 
-### Feb 18 — File upload PUT semantics
+**ARM64 Linux mixer build [Feb 28]:** Lumber requested. mix-rs/pull/1026, merged.
 
-- `file.register` returns R2 presigned URL; PUT overwrites by default (standard S3/R2)
-- Use `If-None-Match: *` header to prevent overwrite
-- Cloudflare R2 behavior; not changeable server-side
-
-### Feb 19 — Builder compile loop + more caching issues
-
-- **Library without code bug**: amp build returns 200 success but no `_rmx-type==file` records → builder assumes Constants compiled → imports fail → builder retries → infinite loop
-- Chris: amp-only issue, not worth fixing (moving away from amp); Simon must add builder-side check
-- GitHub: amp/issues/2655 (known issue)
-- **agt-dev.files.remix.app caching**: weak ETag issue again (same root cause as Jan 26 mixrt.wasm fix)
+**Desktop unresponsive: make-agent VM [Feb 28]:** VM not closed (Simon's side); worker error passback under investigation.
 
 ---
 
 ## PRs & Tickets Referenced
 
-| Date   | PR / Issue           | What                                            | Who      |
-|--------|----------------------|-------------------------------------------------|----------|
-| Jan 2  | mix-rs/issues/928    | Blob URL support in HTTP FFI                    | Gerd     |
-| Jan 13 | mix-rs/issues/913    | Save unchanged record throws FFI error          | Gerd     |
-| Jan 14 | mix-rs/pull/947      | Initial save FFI fix                            | Fred     |
-| Jan 21 | mix-rs/pull/912      | Snowflake packaging                             | Chris    |
-| Jan 21 | mix-rs/pull/918      | Index cleaner                                   | Fred     |
-| Jan 26 | turntable/pull/11660 | Wasm caching: gsutil -Z for all files           | Gerd     |
-| Jan 26 | mix-rs/issues/962    | Mixer Cache-Control                             | Gerd     |
-| Jan 26 | mix-rs/issues/963    | Other Cache-Control issues                      | Gerd     |
-| Jan 30 | protoquery/pull/2252 | Stdlib save case integration                    | Gerd     |
-| Feb 3  | protoquery/pull/2259 | parseQueryString multi-clause support           | Gerd     |
-| Feb 11 | mix-rs/pull/992      | Revert delete FFI to old signature              | Fred     |
-| Feb 17 | mix-rs/pull/1001     | Non-ES256 JWT support                           | Chris    |
-| Feb 17 | mix-rs/pull/948      | Unify desktop/mixer startup                     | Benedikt |
-| Feb 19 | amp/pull/2756        | Library-without-code warning (reverted to warn) | Gerd     |
-
-### Feb 25–27 — Deletion / too many files open (mix-rs/pull/1022)
-
-- **Fred**: batch deletion and mass ID lookup left too many file handles open in parallel (`join_all` in `find_recs_for_deletion`)
-- **Fix**: convert `join_all` iterator to sequential `for` loop; `get_by_id` is now IO-free (accidentally async)
-- **Also fixed**: `exact_match` used in `get_by_ref` was applying an ID-optimized lookup too aggressively — moved to `get_by_ref` only so general `_rmx_id ==` queries still check historical versions
-- Related: mix-rs/pull/1024 (CircleCI branch naming fix: `sed 's/[^[:alnum:]]/-/g'` with `g` flag)
-- PR approved by Chris + Benedikt; **merged**
-
-### Feb 26 — High-priority patch (mix-rs/pull/1028)
-
-- Fred found critical bug via Benedikt; submitted same day; Benedikt merged
-- Exact scope: fix in the deletion/flush pipeline (related to prior PR series)
-
-### Feb 27 — CI failure: `$binary_compress` FFI missing in test VM
-
-- Gerd's compress/decompress PRs added `$binary_compress` and `$binary_decompress` — expected available everywhere
-- CI (TT `main` builds) failed: `[FFI] bytecode requires foreign function '$binary_compress' which is not implemented by this VM`
-- **Fix**: amp/pull/2790 (Gerd); merged
-- **Broader discussion**: these functions are "builtins" that declare as FFI so browser implementations can substitute; only amp does the FFI coverage check
-- Chris + Gerd: ideal solution — mixrt VM should self-report which FFIs it implements; create a proper "builtin-with-fallback" category between `builtin` and `FFI`
-
-### Feb 27 — URGENT: Amp dev work blocked (resolved same day)
-
-- Simon: all dev work with Amp as backend blocked by an error
-- Root cause: same path bug (system plugins, mix-rs/pull/1036 — Fred); Gerd's fix was making its way through CI
-- Chris: "should be to dev shortly"; resolved when CI completed
-
-### Feb 26 — Finder .DS_Store corrupts Desktop DB
-
-- Simon: opening Desktop workspace folder in Finder created `.DS_Store` files → API hosed
-- Fix (Gerd): `find .../workspaces/local/ -name .DS_Store -print0 | xargs -0 rm`
-- One-off cleanup; no platform change needed
-
-### Feb 27 — JSON files served as binary (open issue)
-
-- Simon: `.info` extension means file server doesn't recognize JSON → served as binary, not text
-- Workaround: utf-8 preview in file manager; proper fix filed as mix-rs/issues/1034
-- Status: **open issue**
-
-### Feb 28 — ARM64 Linux build for mixer
-
-- Chris: Lumber requested `mixer` built for ARM64 Linux (ARM Docker hosts)
-- PR: mix-rs/pull/1026; **merged**
-
-### Feb 28 — Desktop stopped responding: make-agent VM not closed
-
-- Simon: Desktop stopped responding; make-agent VM had not been closed (Simon's fault on his end); worker is passing back the error (Gerd/Benedikt to investigate)
-- Status: **unresolved** as of Feb 28
+| Date   | PR / Issue           | What                                 | Who      |
+|--------|----------------------|--------------------------------------|----------|
+| Jan 2  | mix-rs/issues/928    | Blob URL support in HTTP FFI         | Gerd     |
+| Jan 13 | mix-rs/issues/913    | Save unchanged record FFI error      | Gerd     |
+| Jan 14 | mix-rs/pull/947      | Initial save FFI fix                 | Fred     |
+| Jan 21 | mix-rs/pull/912      | Snowflake packaging                  | Chris    |
+| Jan 21 | mix-rs/pull/918      | Index cleaner                        | Fred     |
+| Jan 26 | turntable/pull/11660 | Wasm caching gsutil -Z               | Gerd     |
+| Jan 30 | protoquery/pull/2252 | Stdlib save case integration         | Gerd     |
+| Feb 3  | protoquery/pull/2259 | parseQueryString multi-clause        | Gerd     |
+| Feb 11 | mix-rs/pull/992      | Revert delete FFI signature          | Fred     |
+| Feb 17 | mix-rs/pull/1001     | Non-ES256 JWT                        | Chris    |
+| Feb 17 | mix-rs/pull/948      | Unify desktop/mixer startup          | Benedikt |
+| Feb 25 | mix-rs/pull/1022     | Fix too-many-files-open in deletion  | Fred     |
+| Feb 26 | mix-rs/pull/1028     | Deletion/flush patch                 | Fred     |
+| Feb 26 | mix-rs/pull/1036     | System-plugins path fix              | Fred     |
+| Feb 27 | amp/pull/2790        | FFI coverage for compress/decompress | Gerd     |
+| Feb 28 | mix-rs/pull/1026     | ARM64 Linux mixer build              | Chris    |
 
 ---
 
-## PRs & Tickets Referenced (Feb 2026 additions)
+## Channel Patterns
 
-| Date   | PR / Issue         | What                                                    | Who      |
-|--------|--------------------|---------------------------------------------------------|----------|
-| Feb 25 | mix-rs/pull/1022   | Fix too-many-files-open in deletion / batch ID lookup   | Fred     |
-| Feb 25 | mix-rs/pull/1024   | CircleCI branch naming fix                              | Benedikt |
-| Feb 26 | mix-rs/pull/1028   | High-priority deletion/flush patch                      | Fred     |
-| Feb 26 | mix-rs/pull/1036   | Fix system-plugins path bug (double-nested `path.Join`) | Fred     |
-| Feb 27 | amp/pull/2790      | Fix FFI coverage check for compress/decompress          | Gerd     |
-| Feb 27 | mix-rs/issues/1034 | JSON `.info` files served as binary                     | Simon    |
-| Feb 28 | mix-rs/pull/1026   | ARM64 Linux build for mixer                             | Chris    |
-
----
-
-## Channel Tone & Patterns
-
-- Deep technical discussions; code snippets, REPL sessions, and curl examples shared inline
-- PR review requests tag specific reviewers (Chris, Benedikt, Fred, Gerd)
-- Go/Rust parity is a recurring theme — FFI behavior must match between amp (Go) and mix-rs (Rust)
-- Backward compatibility is taken seriously; new FFIs added rather than changing existing signatures
-- Design decisions often emerge from long threads (50–89 replies); participants iterate in real time
-- Simon surfaces integration issues from the builder/frontend perspective; Gerd and Chris provide backend solutions
-- Quick turnaround: urgent fixes often submitted as PRs within hours of being reported
-- Low formality; direct and technical; no status reports or standups in this channel
+- Deep technical; code snippets, REPL sessions, curl examples inline
+- Go/Rust parity recurring theme — FFI behavior must match between amp and mix-rs
+- Backward compat taken seriously: add new FFIs, don't change existing signatures
+- Quick turnaround: urgent fixes often PRed within hours
+- Simon surfaces builder integration issues; Gerd/Chris provide backend solutions

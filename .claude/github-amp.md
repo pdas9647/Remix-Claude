@@ -1,18 +1,18 @@
 # amp
 
 **Repository:** https://github.com/remixlabs/amp
-**Stack:** Go 1.24 (primary), CGO (wasmtime/mixrun native), gomobile (iOS/Android), Node.js (migration scripts)
-**Purpose:** The Remix platform server — HTTP API, embedded Mix VM (Groovebox), MQTT broker, compiler bridge, auth system, and mobile library
-**Explored layers:** L1–L3 (skeleton, API surface, core modules — ~50 files, ~8000 lines)
+**Stack:** Go 1.24 (primary), CGO (wasmtime/mixrun native), gomobile (iOS/Android), Node.js (migrations)
+**Purpose:** Remix platform server — HTTP API, embedded Mix VM (Groovebox), MQTT broker, compiler bridge, auth, mobile library
+**Explored:** L1–L3 (~50 files, ~8000 lines)
 
 ## Build & Deploy
 
-- **Build:** `make build` → `bin/amp` (CGO-linked with `mixrun` / `wasmtime` native libs via `rcm install-prefix`)
-- **Mobile:** `make ios` → `Ampmobile.xcframework`; `make android` → `Ampmobile.aar` (via gomobile)
-- **Docker:** Debian trixie-slim, installs amp + mixc_server + mix_migrate + Node.js migration; exposes ports 8000 (HTTP) + 8002 (MQTT broker)
-- **CI:** CircleCI — builds linux/amd64, linux/arm64, darwin/arm64, Android; 5 test suites (ci-0..ci-6); Docker image pushed to `gcr.io/rmx-prod/amp`; `rcm` tool manages deps/artifacts
-- **Key env vars:** `RMX_ORG`, `RMX_WORKSPACE`, `RMX_BASE_URL`, `RMX_ROOT_USER`, `RMX_SESSION_TIMEOUT`, `RMX_CYCLE_TIMEOUT`, `GCP_PROJECT/REGION/KEYRING`
-- **CLI flags:** `--port` (8000), `--admin-port` (8001), `--broker-port` (8002), `--solo` (desktop mode), `--no-compiler`, `--database-dir`, `--read-only`, `--dangerous-http-mode`
+- `make build` → `bin/amp` (CGO-linked with mixrun/wasmtime via `rcm install-prefix`)
+- `make ios` → `Ampmobile.xcframework`; `make android` → `Ampmobile.aar` (gomobile)
+- Docker: Debian trixie-slim; ports 8000 (HTTP) + 8002 (MQTT)
+- CI: CircleCI — linux/amd64+arm64, darwin/arm64, Android; 5 test suites; Docker → `gcr.io/rmx-prod/amp`
+- Key env: `RMX_ORG`, `RMX_WORKSPACE`, `RMX_BASE_URL`, `RMX_ROOT_USER`, `RMX_SESSION_TIMEOUT`
+- CLI: `--port` (8000), `--admin-port` (8001), `--broker-port` (8002), `--solo` (desktop), `--no-compiler`, `--database-dir`
 
 ## Architecture
 
@@ -26,143 +26,59 @@ main.go → lib.Server → { server.Server (HTTP), track.SessionManager, broker 
                         (eleventwo DB engine)
 ```
 
-### Core packages
+### Core Packages
 
-| Package              | Role                                                                    |
-|----------------------|-------------------------------------------------------------------------|
-| `lib`                | Global config, server lifecycle, init                                   |
-| `server`             | HTTP routes, middleware, REST handlers, WS track handler                |
-| `apps`               | App CRUD, access control (read/run/build/create), DB engine wrapper     |
-| `track`              | Session manager, request/response protocol, FFI dispatch, compilation   |
-| `machine`            | VM interface, ExecSet, Program, Factory abstractions                    |
-| `machine/wasm`       | Groovebox Wasm engine (wasmtime or mixrun backend)                      |
-| `machine/reader`     | QCode v5 / Wasm bytecode reader, header parsing, ExecSet implementation |
-| `auth`               | JWT verification, token exchange, auth middleware, plugin dispatch      |
-| `auth/plugins`       | OIDC/OAuth/Apple/Snowflake/WebAuthn plugin registry                     |
-| `broker`             | Embedded HMQ MQTT broker                                                |
-| `brokerclient`       | MQTT client (pub/sub, filtering, multiplexing)                          |
-| `compiler/messaging` | Bridge to protoquery OCaml compiler over MQTT                           |
-| `protoquery`         | Compiler interface + stub for mobile                                    |
-| `secrets`            | Envelope encryption, GCP KMS, local key storage                         |
+| Package                   | Role                                                                                                  |
+|---------------------------|-------------------------------------------------------------------------------------------------------|
+| `lib`                     | Global config, server lifecycle                                                                       |
+| `server`                  | HTTP routes, middleware, REST handlers, WS track                                                      |
+| `apps`                    | App CRUD, ACL (read/run/build/create), eleventwo DB wrapper                                           |
+| `track`                   | Session manager, request/response protocol, FFI dispatch, compilation                                 |
+| `machine`                 | VM interface; `machine/wasm` = Groovebox (wasmtime JIT or mixrun native)                              |
+| `machine/reader`          | QCode v5 / Wasm bytecode reader, ExecSet                                                              |
+| `auth`                    | JWT (Ed25519/ECDSA), token exchange, middleware; `auth/plugins` = OIDC/OAuth/Apple/Snowflake/WebAuthn |
+| `broker` / `brokerclient` | Embedded HMQ MQTT broker + client                                                                     |
+| `compiler/messaging`      | Bridge to protoquery compiler over MQTT                                                               |
+| `secrets`                 | Envelope encryption, GCP KMS, local key storage                                                       |
+| `mobile`                  | gomobile binding: Init/Start/Stop/Terminate; stub compiler, central auth JWKS                         |
 
-## API Surface / Entry Points
+## API Surface
 
-### System endpoints (`/x/...`)
+### System (`/x/...`)
+- **Auth:** `/x/auth/{handler}` (login), `/x/auth/{handler}/callback` (OAuth callback), `/x/token` (exchange/renew), `/x/token/revoke`
+- **WebAuthn:** `/x/pubkey/challenge`, `/x/pubkey/authenticate`
+- **Admin:** `/x/authConfig` (auth plugin CRUD), `/x/apps` (list/import/export), `/x/profile`, `/x/serverinfo`
+- **Infra:** `/x/health/*`, `/x/debug/pprof/*`, `/x/broker.ws` (WS→MQTT proxy), `/x/rcm/` (static files)
 
-| Endpoint                     | Method   | Purpose                                  |
-|------------------------------|----------|------------------------------------------|
-| `/x/auth`                    | GET      | Redirect to default auth provider        |
-| `/x/auth/{handler}`          | GET      | OAuth/OIDC login flow                    |
-| `/x/auth/{handler}/callback` | GET/POST | OAuth callback                           |
-| `/x/auth/{handler}/token`    | GET/POST | Exchange for 3rd-party token             |
-| `/x/token`                   | POST     | Exchange/renew amp JWT token             |
-| `/x/token/revoke`            | POST     | Revoke amp token                         |
-| `/x/token/acceptTerms`       | POST     | Record T&C acceptance                    |
-| `/x/authConfig`              | GET/POST | Admin: list/create auth plugins          |
-| `/x/authConfig/public`       | GET/POST | Public auth plugin CRUD                  |
-| `/x/pubkey/challenge`        | POST     | WebAuthn challenge                       |
-| `/x/pubkey/authenticate`     | POST     | WebAuthn authentication                  |
-| `/x/apps`                    | GET/POST | List/manage apps (import/export/install) |
-| `/x/profile`                 | GET      | Current user info                        |
-| `/x/serverinfo`              | GET      | Server version + capabilities            |
-| `/x/health/*`                | GET      | Disk/memory/CPU health checks            |
-| `/x/debug/pprof/*`           | GET      | Go profiling endpoints                   |
-| `/x/broker.ws`               | WS       | WebSocket proxy to MQTT broker           |
-| `/x/rcm/`                    | GET      | Static builder/runtime files             |
+### Per-app (`/{app}/...`)
+- **Data:** `/{app}` (CRUD), `/documents` (batch CRUD), `/save` (with projection), `/query` (string/AST, ETag)
+- **Execution:** `/track` (sync session), `/track.ws` (WS bidirectional), `/webhooks/{id}`, `/agents/{module}`, `/lambda/{module}`
+- **Files:** `/files`, `/resources`, `/records`, `/proxy/{remote}/{path}`, `/link`, `/runtime.json`
 
-### Per-app endpoints (`/{app}/...`)
+## Core Modules — Key Details
 
-| Endpoint                       | Method                | Purpose                                 |
-|--------------------------------|-----------------------|-----------------------------------------|
-| `/{app}`                       | POST/PUT/GET/DELETE   | App CRUD                                |
-| `/{app}/documents`             | POST/PATCH/GET/DELETE | Document CRUD (batch + single)          |
-| `/{app}/save`                  | POST/PATCH            | Save with projection                    |
-| `/{app}/query`                 | GET/POST              | Query API (string or AST, ETag caching) |
-| `/{app}/track`                 | POST                  | Synchronous track session request       |
-| `/{app}/track.ws`              | WS                    | WebSocket bidirectional session         |
-| `/{app}/webhooks/{id}`         | GET/POST              | Inbound webhook → Mix agent             |
-| `/{app}/agents/{module}`       | GET/POST              | Agent endpoint → Mix module             |
-| `/{app}/lambda/{module}`       | GET/POST              | Lambda (lite compile) → Mix module      |
-| `/{app}/files`                 | GET/POST/PUT/DELETE   | File CRUD                               |
-| `/{app}/resources`             | GET/POST/DELETE       | Resource CRUD                           |
-| `/{app}/records`               | GET/POST/DELETE       | Low-level record access                 |
-| `/{app}/proxy/{remote}/{path}` | *                     | Proxy to external server                |
-| `/{app}/link`                  | POST                  | Create shareable magic link             |
-| `/{app}/runtime.json`          | GET                   | Runtime metadata (public)               |
+**Track (session management):** ~30 message types (session lifecycle, view ops, compilation, introspection, VM config). Agent/webhook/lambda pattern (MixTransform): create session → load module with input → read output → destroy or keep. Code caching per (hash, app, codeID). FFI bridge: DB, HTTP, compiler, auth, secrets, crypto, XML, extract, token, resource, logging.
 
-## Core Modules
+**Machine (VM runtime):** Groovebox engine with wasmtime (Wasm JIT) and mixrun (native C interpreter via CGO) backends. State machine: Init→Running→{Idle, FFIcall, Panic, Exit, Timeout}. Data exchange via `rmxcodec` binary format.
 
-### Track — Session Management (`track/`)
+**Auth:** JWT local + prod (central `auth.remixlabs.com` via JWKS). Public plugins (user-owned) vs confidential (admin). Bearer token from header or `?token=` param; anonymous if missing.
 
-- **SessionManager:** Singleton managing all VM sessions + protoquery compiler + code caches
-- **Session types:** Normal (interactive), Temp (REPL/compile), Agent (persistent stateful)
-- **~30 message types** organized as request/response JSON protocol:
-    - **Session lifecycle:** `msg_session_create`, `msg_session_destroy`, `msg_session_poll`, `msg_session_keepAlive`
-    - **View operations:** `msg_view_load`, `msg_view_push`, `msg_view_pop`, `msg_view_input`, `msg_view_invoke`, `msg_view_reset`, `msg_view_reload`, `msg_view_refresh`
-    - **Compilation:** `msg_compile_create`, `msg_compile_build`, `msg_compile_modules`, `msg_compile_runPhrases`, `msg_compile_store`
-    - **Introspection:** `msg_introspect_spreadsheet`, `msg_introspect_debug`
-    - **VM config:** `msg_vm_configure`, `msg_machine_create`
-- **Agent/webhook/lambda pattern (MixTransform):** create session → load module with input → read output cell → destroy (stateless) or keep running (stateful/persistent). Supports async, idle actions,
-  field projection, timeout.
-- **Code caching:** Immutable ExecSet cached per (hash, app, codeID) with mutable copies for sessions
-- **FFI bridge:** Session-bound FFIs (DB, HTTP, compiler, auth, secrets, crypto, XML, extract, token, resource, logging) dispatched by name string
+**Apps:** `_rmx_admin` (ACL rules), `_rmx_meta` (metadata). Roles: `allowed_read/run/build/create/agents`. Special users: root, anonymous (`anon-*`), `_rmx_all_users`.
 
-### Machine — VM Runtime (`machine/`, `machine/wasm/`)
+## Key Patterns
 
-- **machine.VM interface:** GetState, Run, RunSince, Upgrade, Terminate, GetStackTrace, ByteSize
-- **machine.ExecSet:** Immutable program container with QCode + Wasm variants, library dependencies, locator
-- **Groovebox Engine (`wasm/Engine`):** Embeds mixrt Wasm runtime with two backends:
-    - **Wasmtime** (`backend_wasmtime.go`): Full Wasm JIT via `wasmtime-go` — used for Wasm variant
-    - **Mixrun** (`backend_mixrun.go`): Native C interpreter via CGO (wasm2c) — used for QCode5 variant
-- **State machine:** Init → InitDone → Running → {Idle, FFIcall, Panic, Exit, Timeout} — Run loop dispatches FFI calls back to Go
-- **Data exchange:** `rmxcodec` binary format for Go↔Wasm value serialization via IO buffer
+- eleventwo custom DB with MessagePack/JSON/rmxcodec serialization
+- zerolog structured JSON (GCP severity field)
+- Solo mode: desktop serves builder (`/e/`), runtime (`/r/`), groovebox (`/g/`) static files
+- Dependencies: `eleventwo` (DB), `elaws` (AWS), `siwago` (Apple Sign In), forked `hmq`/`gosnowflake`
 
-### Auth (`auth/`)
+## Recent PRs
 
-- **JWT tokens:** Ed25519/ECDSA signing, local + prod (central auth server) keys, revocation store
-- **Plugin system:** OIDC, OAuth2, Apple Sign In, Snowflake, WebAuthn — stored in `_rmx_admin` DB, loaded on startup
-- **Public vs confidential plugins:** Public plugins can be created by any user (owns their plugin); confidential plugins require admin access
-- **Auth middleware:** Extracts Bearer token from Authorization header or `?token=` query param; creates anonymous token if missing
-- **Central auth:** `auth.remixlabs.com` is the prod signing authority; other servers verify via JWKS endpoint
-
-### Apps — Data Layer (`apps/`)
-
-- **AppManager:** Manages disk + in-memory DB engines (via `eleventwo` library)
-- **Special apps:** `_rmx_admin` (access control rules as documents), `_rmx_meta` (metadata)
-- **Access roles:** `allowed_read`, `allowed_run`, `allowed_builders`, `allowed_agents`, `allowed_create` — stored per-user in admin DB
-- **Users:** root user, anonymous users (`anon-*`), `_rmx_all_users`, `_rmx_anon_user`; wildcard `*` grants access to all non-admin apps
-- **App actions:** Copy, Export, Import, Package, Fix, GarbageCollect, Reindex, Rename, Reset, RemoteExport/Import — all go through `Execute()` with ACL check
-
-### Mobile (`mobile/`)
-
-- **gomobile binding:** `ampmobile` package with Init/Start/Stop/Terminate/DeleteEverything/StoreToken
-- **Config:** Stub compiler, unbuffered engine, no admin port, 24h session timeout, dangerous HTTP mode, central auth JWKS endpoint
-- **Lifecycle:** Flutter app calls Start(user, dbDir, tmpDir, versionJSON) → embedded amp server on localhost
-
-## Key Patterns & Conventions
-
-- **Encoding:** eleventwo custom DB format with MessagePack/JSON/rmxcodec serialization; `node.FromJSON`, `node.FromMsgPack`, `node.FromPureData` converters
-- **Logging:** zerolog with structured JSON (severity field for GCP compatibility)
-- **Config:** Global vars in `lib/` package set by CLI flags + env vars, passed to subsystems via `ContextConfig`/`SessionConfig`
-- **Testing:** Tests use `testserver` package for integration tests; testdata has binary DB fixtures
-- **Solo mode:** Desktop/Electron mode serves builder (`/e/`), runtime (`/r/`), groovebox (`/g/`) static files, rewrites routes under `/a/`
-- **Dependencies:** `eleventwo` (DB engine + data model), `elaws` (AWS plugin), `siwago` (Apple Sign In), forked `hmq` (MQTT broker), forked `gosnowflake`
-
-## Recent PRs — Feb 22–28, 2026
-
-**#2790** (merged Feb 27, gerdstolpmann) — `fix the error that $binary_compress is not available`
-
-- File: `src/amp/track/sessions.go` (+7 lines)
-- Adds `$binary_compress` and `$binary_decompress` to the "unsupported FFI" list in amp's session init.
-- Context: The VM intercepts these calls and executes a local function (no server-side impl needed), but the names must be registered in the unsupported list or amp refuses to load any binary that
-  uses them.
-- Companion to protoquery #2263 (zlib compress/decompress added to Mix stdlib, merged Feb 26). Without this amp-side fix, apps built with the new stdlib would fail to start on the server.
-
-## Open Questions
-
-- **Detailed FFI implementations:** Each FFI module (db, http, compiler, crypto, xml, etc.) was not deeply explored
-- **Compiler messaging protocol:** Exact MQTT topic/message format between amp and protoquery
-- **Incremental compilation:** `compiler_incremental.go` logic for partial rebuilds
-- **Broker authorization:** How MQTT topic ACLs map to app access rules
-- **DynLoad:** Dynamic library loading at runtime (`dynload.go`) details
-- **Remote machines:** `msg_machine_create` and remote FFI architecture (security issue noted in code: #2051)
+| PR    | Date   | What                                                                     | Who   |
+|-------|--------|--------------------------------------------------------------------------|-------|
+| #2790 | Feb 27 | Register `$binary_compress`/`$binary_decompress` in unsupported FFI list | Gerd  |
+| #2788 | Feb 15 | Drop rebuild tests in CI (moved to protoquery)                           | Chris |
+| #2787 | Feb 11 | Add blob FFIs as unsupported                                             | Gerd  |
+| #2786 | Jan 27 | Save/upsert return result type                                           | Fred  |
+| #2785 | Jan 27 | eleventwo 1.5.6_pre fixes                                                | Fred  |
+| #2784 | Jan 28 | Manifest version 2.1 support                                             | Gerd  |

@@ -3,193 +3,58 @@
 **Coverage:** Dec 31, 2025 – Feb 28, 2026
 **Channel ID:** C58HC9EC8
 **Topic:** Builder, remix.app, WebApp
-**Purpose:** Discussion about builder functionality
+
+**Key participants:** Simon (builder arch lead), Didier (features/cleanup), Tyler (reviewer/extensions), Arvind (UX/design), Wilber (workspace plugin/tooling), Gerd (backend/mixer)
 
 ---
 
-## Key Participants
+## Key Decisions & Discussions
 
-- **Simon** — builder architecture lead; runtime integration, remote data sources, L0/L1/L2 features
-- **Didier Prophete** — builder features; catalog, paste, styles, amp feature cleanup
-- **Tyler Lentz** — builder reviewer; extensions, runtime
-- **Arvind Thyagarajan** — UX/design for builder features
-- **Wilber Claudio** — workspace plugin, .remix export tooling
-- **Gerd Stolpmann** — backend context; mixer integration, debug channel, runtime.json
+**Artifact URL for mixer-backed builder [Dec 31]:** `https://sh-builder.remix-app-2j0.pages.dev/e/artifact?_rmx_host=https://agt-dev.remixlabs.com&_rmx_ws=simon&_rmx_asset=...`
 
----
+**Service agent build fix + mqtt SetLocal removal [Jan 5]:** Fixed desktop rebuild for service agents; removed unused `mqtt SetLocal` from runtime. turntable/pull/11625.
 
-## Key Decisions & Technical Discussions
+**Branch picker doesn't work with mixer [Jan 9]:** Branch URL drops path when `_rmx_host`/`_rmx_ws` params present. Branch picker is amp-only; no mixer equivalent planned.
 
-### Dec 31, 2025 — Artifact URL for mixer-backed builder
+**Amp feature cleanup [Jan 16]:** Didier removed InMem DB (replaced by app state tile) and session mirroring (unused). No objections. Debug channel: stdlib debug port for remote-controlling apps via pub/sub; works in browser/desktop, not service agents.
 
-- Simon shared working URL pattern for running builder against mixer with remote catalog assets:
-  `https://sh-builder.remix-app-2j0.pages.dev/e/artifact?_rmx_host=https://agt-dev.remixlabs.com&_rmx_ws=simon&_rmx_asset=...`
+**Groups as catalog items [Jan 20]:** Groups can be saved as catalog items with syncing. Complex external binding reconnection after sync. Merged.
 
-### Jan 5 — Service agent build fix + mqtt SetLocal removal
+**runtime.json 570KB → 106KB [Jan 21]:** Stripped tailwind style views (full card-picker views per style). turntable/pull/11650. Also: runtime.json duplicated in .remix (v1 artifact); use `export_package` plugin for v2.
 
-- Simon merged fix for service agents not being correctly made in desktop rebuild
-- Removed unused `mqtt SetLocal` from runtime — confirmed unused by Gerd, Didier, Tyler
-- PR: turntable/pull/11625
+**Scenegraph JSON paste [Jan 24]:** Direct paste of scenegraph JSON creates card tile. turntable/pull/11656. Full paste catalog: string→value, rectangular JSON→table, arbitrary JSON→object, catalog URL→download+insert, scenegraph→card. Missing: HTML→card (html2card).
 
-### Jan 9 — Branch picker doesn't work with mixer
+**Workspace plugin: cloud export [Jan 24]:** Wilber added cloud workspace export. Issue: export silently fails with "register" for debug objects; works with "omit".
 
-- Gerd: branch URL (`/b/<branch>/e?_rmx_host=...&_rmx_ws=...`) redirects and drops branch path when `_rmx_host`/`_rmx_ws` params are present
-- Simon: branch picker is amp-only; no mixer equivalent yet; not planning a compatibility shim
+**appName vs dbName confusion [Jan 26]:** Dual naming causes confusion; backend prefers appName, frontend uses dbName. John proposed optional display name only; ongoing.
 
-### Jan 16 — Amp feature cleanup: inmem DB + session mirroring removed
+**DragGroup decoder removal [Feb 6]:** turntable/pull/11692. Old cards using DragGroup no longer decode.
 
-- **Didier removed two amp-only features** (no objections from team):
-    - **InMem DB**: replaced by app state tile; not supported by mixer
-    - **Session mirroring**: unused, amp-only
-- **Debug channel** clarified by Gerd: stdlib opens a debug port for remote-controlling apps via pub/sub; works in browser/desktop but not for service agents
+**L0 plugins [Feb 12]:** turntable/pull/11708. Repository apps can be added to L0 dashboard. Button merged but hidden (no plugins registered yet).
 
-### Jan 20 — Groups saved as catalog items
+**File node refresh [Feb 13]:** turntable/pull/11712. Refresh button added; desktop token fix. No more features on existing file nodes; file.register node built separately.
 
-- Didier: groups can now be saved as catalog items (with syncing support)
-- Significant complexity in reconnecting external bindings after sync
-- PR merged; demo video shared
+**File Register node [Feb 16]:** turntable/pull/11723. Exposes all `file.register` variants. Replaces partial File Upload action once Mix has native `blob://` URL handling.
 
-### Jan 21 — runtime.json size reduction (570KB → 106KB)
+**Remote Data Sources [Feb 18]:** turntable/pull/11730. L1 button for Remote Data Sources modal. Remote data sources ≠ remote catalogs (run apps vs browse catalogs). Applies to entire app, not per-agent. Remote catalog list now synced via `_rmx_prefs` agents (not user preferences).
 
-- **Problem**: runtime.json bloated by tailwind style views (full card-picker views stored for each style)
-- **Fix**: strip style views from runtime.json; only needed for rmx-editor webcomp at runtime (edge case, deprioritized)
-- PR: turntable/pull/11650
-- Also discovered runtime.json duplicated in .remix files (once at top level, once in `/code/`) — old v1 format artifact; use `export_package` plugin for v2 format
+**Open-link in builder [Feb 21-22]:** Decision: always open links in new tab in builder, never navigate away. Desktop: external links always open in browser.
 
-### Jan 24 — Scenegraph JSON paste in L2
+**Remove Server (Go) VM from runtime [Feb 23]:** Simon's long-term proposal: `remix-*.remixlabs.com` uses client VM (mixrt) exclusively. No change to remix.app/Desktop/Flutter. First step: turntable/pull/11745 (plugins use client VM on Amp). In progress.
 
-- Didier: direct pasting of scenegraph JSON format into L2 creates card tile
-- PR: turntable/pull/11656
-- **Clarification**: this is NOT a replacement for normal copy/paste — it's a shortcut for externally-generated content (AI, runtime)
-- Full paste behavior catalog:
-    - String/number → value tile
-    - Rectangular JSON → table tile
-    - Arbitrary JSON → object tile
-    - Catalog URL → download + insert node
-    - **New**: scenegraph JSON → card tile
-    - **Missing (desired)**: HTML paste → card creation (via html2card)
+**State node propagation: won't fix [Feb 24]:** Single cell per state object → updating one field propagates to all consumers. Proper fix impossible for dynamic fields (common case). Real-world impact negligible.
 
-### Jan 24 — Workspace plugin: export .remix to cloud workspace
+**`flex-shrink: 0` constraint [Feb 26]:** Can't remove from parent containers — prevents TUI grid/chart webcomp clashes. Leave as-is.
 
-- Wilber: added cloud workspace export option to workspace plugin
-- Arvind found issue: export silently fails when "register" is selected for debug objects; works with "omit"
-- Wilber investigating
+**"Download .remix file" action removed [Feb 26] (BREAKING):** turntable/pull/11760. Only worked with v1+amp; superseded by workspace export plugin. Existing apps using it won't compile after Rebuild & Make. Wilber + Arvind must update before next publish.
 
-### Jan 26 — appName vs dbName confusion
-
-- Gerd asked if `appName` field was removed from runtime.json → Didier confirmed it's required but not critical
-- **Broader issue**: dual naming (appName vs dbName) causes confusion in builder; backend prefers appName, frontend uses dbName
-- John proposed making it an optional display name only; discussion ongoing
-
-### Feb 6 — DragGroup decoder removal
-
-- Simon removed DragGroup decoders (used for kanban boards); runtime support was already gone
-- Old cards using DragGroup will no longer decode
-- PR: turntable/pull/11692
-
-### Feb 12 — L0 plugins + .remix file plugins
-
-- Simon: L0 plugin system merged; enables adding repository apps directly to L0 dashboard
-- PR: turntable/pull/11708
-- Didier proposed reintroducing a plugin button in navbar (L0/L1/L2)
-- Arvind: L0 doesn't need an edit menu; thinking about design
-- Button merged but hidden (no dashboard plugins registered yet)
-
-### Feb 13 — File node refresh button
-
-- Simon: added refresh button to file node (needed by John and Wilber)
-- Also fixed desktop cases where token was missing from HTTP requests
-- PR: turntable/pull/11712
-- Decided not to add more features to existing file nodes; file.register node being built separately
-
-### Feb 16 — File Register node (new)
-
-- Simon: new node exposing all `file.register` variants
-- Existing File Upload action only exposed partial variants; will be replaced once Mix has native `blob://` URL handling
-- PR: turntable/pull/11723
-
-### Feb 18 — Remote Data Sources support
-
-- Simon: button at L1 to access Remote Data Sources modal
-- PR: turntable/pull/11730
-- **Next step**: support multiple remote sources; remote data sources differ from remote catalogs — they're where users want to *run* apps, not just browse catalogs
-- Didier: remote catalog list now synced via `_rmx_prefs` agents on each workspace (no longer in user preferences)
-- **Agreed**: remote data source applies to the *entire app* (not per-agent)
-- Simon and Wilber's tooling should be consistent for exchanging this data
-- Early preview video shared (Feb 20)
-
-### Feb 21–22 — Open-link behavior in builder (decision)
-
-- **Problem**: builder navigates away when open-link action fires with "same window" target — user loses builder tab
-- Current behavior: if unsaved changes → modal with options; if no changes → silently replaces tab
-- **Decision**: always open links in a new tab in the builder, never navigate away
-    - Desktop: external links always open in browser tab (desktop-first approach)
-    - Web builder: same behavior for consistency; "open in place" has no real use case
-- Simon to implement change
-
-### Feb 23 — Remove Server (Go) VM from runtime: architectural direction
-
-- **Simon's proposal**: long-term, remove use of the Server (Go/amp) VM from `remix-*.remixlabs.com` runtime; all builder preview + running app would use client VM (mixrt) exclusively
-- **Impact**: no change to remix.app or Desktop; Flutter uses amp+client co-located so no perf difference
-- DB FFIs still work via `remoteDatabaseServer` env field
-- **Chris**: worth it if it advances the amp deprecation path on mobile; server-side not worth investing much in
-- **First step**: turntable/pull/11745 — switches plugins to client VM when builder is on Amp; confirmed DB calls work in plugin context
-- **Status**: in progress
-
-### Feb 24 — State node propagation: won't fix
-
-- Simon: state nodes are implemented as a single cell containing an object; updating one field unnecessarily propagates to all consumers (incl. unchanged fields)
-- Proper fix = individual cells per field, but impossible for dynamically-created fields (App State / Screen State — the common case)
-- **Decision**: won't fix; real-world impact negligible since dynamic fields dominate
-
-### Feb 26 — `flex-shrink: 0` on Remix parent containers: known constraint
-
-- Arvind noticed `flex-shrink: 0` on remix parent containers breaks some layouts; wanted to remove
-- Tyler: added specifically to prevent TUI chart/grid web components from clashing with Remix CSS (tooltip containers)
-- **Decision**: leave it; can't remove without breaking TUI grid; Arvind won't pursue further
-
-### Feb 26 — "Download .remix file" action removed (BREAKING)
-
-- Old built-in "Download .remix file" action only works with v1 .remix + amp; fully superseded by the workspace export plugin
-- **Gerd confirmed**: use the plugin now
-- **PR**: turntable/pull/11760 (Simon; merged)
-- **Breaking change**: existing apps using this node will no longer compile after Rebuild & Make; L1 rebuild will surface affected uses
-- **Action required**: Wilber and Arvind must update any apps using this node before their next publish
-
-### Feb 27–28 — "Open" greyed out when no home screen; protect core screens
-
-- Arvind: since deleting the home screen is now possible, the "Open" L0 button should be greyed out when there's no home view
-- **Didier's preferred fix**: make it close to impossible to delete the home screen and other core screens (settings, constants, symbols, styles, files) — PR in progress
-- `_rmx_desktop` currently has no home screen (intentional for infra-only app)
-- `builtin_apps` screen in `_rmx_desktop` exists so people can copy JSON for the mix-rs built-in app list
+**Protect core screens [Feb 27-28]:** Didier's fix: make home/settings/constants/symbols/styles/files screens undeletable (PR in progress). `_rmx_desktop` has no home screen (intentional — infra-only app).
 
 ---
 
-## PRs Referenced
+## Channel Patterns
 
-| Date   | PR                   | What                                    | Who    |
-|--------|----------------------|-----------------------------------------|--------|
-| Jan 5  | turntable/pull/11625 | Remove mqtt SetLocal from runtime       | Simon  |
-| Jan 20 | (merged, no PR#)     | Groups saved as catalog items           | Didier |
-| Jan 21 | turntable/pull/11650 | runtime.json size 570KB→106KB           | Didier |
-| Jan 24 | turntable/pull/11656 | Scenegraph JSON paste in L2             | Didier |
-| Feb 6  | turntable/pull/11692 | Remove DragGroup decoders               | Simon  |
-| Feb 12 | turntable/pull/11708 | L0 plugins + .remix file plugins        | Simon  |
-| Feb 13 | turntable/pull/11712 | File node refresh + desktop token fixes | Simon  |
-| Feb 16 | turntable/pull/11723 | File Register node (all variants)       | Simon  |
-| Feb 18 | turntable/pull/11730 | Remote Data Sources modal at L1         | Simon  |
-| Feb 23 | turntable/pull/11745 | Plugins use client VM when on Amp       | Simon  |
-| Feb 26 | turntable/pull/11760 | Remove "Download .remix file" action    | Simon  |
-
----
-
-## Channel Tone & Patterns
-
-- Primarily Simon and Didier driving builder features; Tyler reviews most PRs
-- Feature announcements often include video demos or screenshots
-- Amp-to-mixer migration is a steady theme: removing amp-only features, adding mixer equivalents
-- Didier proactively cleans up unused/legacy features (inmem DB, session mirroring, DragGroup)
-- Arvind consulted on UX/design decisions; responds async
-- John, Vijay, Wilber tagged for product perspective on builder features
-- Low-traffic channel (~1-2 messages per day); substantive posts with PR links
-- Croissant emoji is Didier's signature reaction
+- Simon + Didier drive builder features; Tyler reviews PRs
+- Amp-to-mixer migration steady theme: removing amp-only features, adding mixer equivalents
+- Didier proactively cleans legacy (inmem DB, session mirroring, DragGroup)
+- Low-traffic (~1-2 msgs/day); substantive posts with PR links and video demos
