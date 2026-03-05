@@ -117,5 +117,5 @@ Notion index:
 
 ### Standup Notes
 - [standup-notes-jan-2026.md](./standup-notes-jan-2026.md) — Standup notes: decisions, ownership, customer updates, GTM pipeline (Jan 2026)
-- [standup-notes-feb-2026.md](./standup-notes-feb-2026.md) — Standup notes Feb 17–27: Lumber CTE facets, delivery process, beta QA plan, workspace-as-environment
-- [standup-notes-feb-2026-2.md](./standup-notes-feb-2026-2.md) — Standup notes Feb 2–13: engineering process, desktop bugs, Atomicwork widgets, sprint kickoff
+- [standup-notes-feb-2026.md](./standup-notes-feb-2026.md) — Standup notes Feb 2–27: engineering process, Lumber facets/delivery, desktop bugs, workspace-as-environment
+- [standup-notes-mar-2026.md](./standup-notes-mar-2026.md) — Standup notes Mar 2–4: EKS deployment, MCP bridge revamp, env var overhaul, Lumber phased delivery, table primitives
