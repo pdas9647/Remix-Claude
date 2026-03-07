@@ -1,6 +1,6 @@
 # #backend Slack Channel — Remix Labs
 
-**Coverage:** Jan 2 – Feb 28, 2026
+**Coverage:** Jan 2 – Mar 7, 2026
 **Channel ID:** CHTGC5BGQ
 **Purpose:** server, compiler, and database stuff
 
@@ -66,6 +66,12 @@ Amp build returns 200 but no `_rmx-type==file` records → builder retries forev
 
 **Desktop unresponsive: make-agent VM [Feb 28]:** VM not closed (Simon's side); worker error passback under investigation.
 
+## Mar 2–6 Additions
+
+**Live queries not supported over HTTP [Mar 2]:** Simon hit `messaging.subscribeToQuery: can only subscribe to remix database` in mixc worker on Desktop with mixer DB. Gerd: "all"-type live queries not implemented for HTTP DB access. Known limitation.
+
+**Agent server logging overhaul needed [Mar 6]:** Gerd: agent server logs are "pretty much useless" — no calling app/agent info, no call ID, `message` field truncated. stdlib logs (e.g., failed HTTP requests) don't surface in server logs. Benedikt: tracing individual calls would be extremely helpful. Mix VM logs go to `mix-vm` target (enabled on cloud agents). Truncated message fix merged: mix-rs/pull/1050.
+
 ---
 
 ## PRs & Tickets Referenced
@@ -88,6 +94,7 @@ Amp build returns 200 but no `_rmx-type==file` records → builder retries forev
 | Feb 26 | mix-rs/pull/1036     | System-plugins path fix              | Fred     |
 | Feb 27 | amp/pull/2790        | FFI coverage for compress/decompress | Gerd     |
 | Feb 28 | mix-rs/pull/1026     | ARM64 Linux mixer build              | Chris    |
+| Mar 6  | mix-rs/pull/1050     | Fix truncated log messages           | Benedikt |
 
 ---
 

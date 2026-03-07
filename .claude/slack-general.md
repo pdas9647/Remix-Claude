@@ -1,6 +1,6 @@
 # #general Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Feb 27, 2026
+**Coverage:** Dec 20, 2025 – Mar 7, 2026
 **Channel ID:** C02BD0B8B
 
 ---
@@ -131,6 +131,20 @@ Daily standups Mon–Fri via https://meet.google.com/hrz-onty-twp
 
 - Gerd announced: "Updating desktop is again possible (and recommended)" (🎉 party parrot x3)
 - Implies desktop auto-update had been blocked/disabled previously and the blocker is now resolved
+
+### Mar 3, 2026 — Reza: Lumber alignment points for client call
+
+- Reza posted 4 key negotiation points ahead of the Lumber client call (with Vijay taking the call):
+    1. Oleg must run the project instead of Anand
+    2. Anand lacks capacity for Postgres→Snowflake migration/schema design; Remix offered to step up if asked
+    3. Focus on end-to-end thread working in first release, not large feature set (commit to roadmap of releases)
+    4. Client must understand Remix is a platform (not Tableau/shrink-wrapped SaaS); customization is a strength, not a shortcoming
+- "If we can cover these points and align, we have a shot at delivery"
+
+### Mar 6, 2026 — Chris: Product strategy for 2026
+
+- Chris posted a Notion doc summarizing the engineering meeting's product strategy: https://www.notion.so/Product-strategy-for-2026-31b1d464528f8099b350ffccbd9892ec
+- Will be kept up-to-date as strategy evolves
 
 ---
 

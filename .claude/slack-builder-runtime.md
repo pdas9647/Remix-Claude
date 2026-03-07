@@ -1,6 +1,6 @@
 # #builder-runtime Slack Channel — Remix Labs
 
-**Coverage:** Dec 31, 2025 – Feb 28, 2026
+**Coverage:** Dec 31, 2025 – Mar 7, 2026
 **Channel ID:** C58HC9EC8
 **Topic:** Builder, remix.app, WebApp
 
@@ -49,6 +49,22 @@
 **"Download .remix file" action removed [Feb 26] (BREAKING):** turntable/pull/11760. Only worked with v1+amp; superseded by workspace export plugin. Existing apps using it won't compile after Rebuild & Make. Wilber + Arvind must update before next publish.
 
 **Protect core screens [Feb 27-28]:** Didier's fix: make home/settings/constants/symbols/styles/files screens undeletable (PR in progress). `_rmx_desktop` has no home screen (intentional — infra-only app).
+
+## Mar 2–7 Additions
+
+**Read File node + file upload patterns [Mar 4]:** Simon added idiomatic Read File node for client VM — previously required API node workaround. Part of updated file upload patterns (no need to rewrite existing screens).
+
+**File node error handling decision [Mar 5]:** Simon proposed standardizing on exceptions (not error bindings) for Local Files and File Pointers. Gerd + Wilber agreed. **Decision: exceptions, not error bindings.** Rationale: simpler for builder users; explicit error handling available via custom actions with `file.read()`.
+
+**Web Component methods with arguments [Mar 6]:** Simon implemented parameterized method invocation on web components. Previously methods either took no params or relied on attribute-passing hacks (race conditions). Tyler confirmed race condition eliminated. Backwards-compatible. Open issues: (1) no return type from methods — must use events, (2) zagjs-style components with many methods → 150+ bindings per node. Tyler proposed "edit mode" to select visible bindings.
+
+**Synced prefs prefix convention [Mar 6]:** Didier added `builder.` prefix to builder synced prefs (`search.libs` → `builder.search.libs`). Clean prefix per surface (builder/mobile/desktop/extension). turntable/pull/11788, approved.
+
+**Elm virtual DOM perf: not a priority [Mar 6]:** Simon provided data showing Elm vDOM not inherently a perf bottleneck. Gerd: could switch to pure JS renderer with direct DOM instructions (no vDOM). Vijay agreed with Gerd's approach in principle. Didier: rendering is ~5-10% of overall time (HTTP/agents/Snowflake dominate). **Consensus: not a priority; spike later.**
+
+**Minimized groups hide error indicators [Mar 5]:** Wilber reported: nodes with red error glow are invisible inside minimized groups. Feature request to surface error state on collapsed groups.
+
+**Platform version in builder UI [Mar 4]:** Arvind requested version number (e.g. 1.45/1.46) visible in builder. Agreed.
 
 ---
 

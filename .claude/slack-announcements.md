@@ -1,6 +1,6 @@
 # #announcements Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Feb 28, 2026
+**Coverage:** Dec 20, 2025 – Mar 7, 2026
 **Channel ID:** CK8S97CUV
 **Purpose:** Important info everyone should read; also used for cross-team huddle coordination
 
@@ -86,6 +86,26 @@
 - **Required**: Reza, Vijay, John; **Optional**: Didier
 - Short huddle; outcome: **"agreed with Vijay"** (Arvind) — specific agreement not recorded in thread
 - Context: Lumber report packaging approach / how reports are assembled and delivered
+
+### Mar 4, 2026 — Lumber: requirements walkthrough with Oleg + Greg
+
+- Reza coordinated post-standup Lumber discussion with full team (Vijay, John, Mukund, Chris, Didier, Arvind, Padmanabha, Nivesh, Sirshendu, Mark, Wilber)
+- Reza + Vijay had update from client call; requirements walkthrough call at 3:30pm Pacific with Oleg and Greg
+- Arvind and John joined to hear requirements direct — walkthrough of actual reports and scope for first release go-live
+- John shared Snowflake CTE docs post-call: https://docs.snowflake.com/en/user-guide/queries-cte
+
+### Mar 5, 2026 — Arvind: zagjs + lit + slots recommendation for web components
+
+- **Arvind**: Lumber is the forcing function for getting accessible, interactive components (combo box, menu, select) into the system quickly
+- **Recommendation**: `zagjs + lit + slots for cards/comps everywhere`
+- **Tyler**: Invoking web component methods with parameters is messy — current approach forces passing data through attributes (see `rmx-voice-chat-headless` manifest as example)
+- **Simon**: Confirmed invoking parameterless methods works fine via `event` type in manifest; parameterized methods are the problem — "actions with payloads all over again"
+- Discussion started but no final decision recorded; huddle held with Vijay
+
+### Mar 6, 2026 — Lumber huddle + product strategy
+
+- John started Lumber huddle
+- Reza checking in with Arvind, John, Vijay for follow-up
 
 ---
 

@@ -1,6 +1,6 @@
 # #bugbash Slack Channel — Remix Labs
 
-**Coverage:** Jan 20 – Feb 28, 2026
+**Coverage:** Jan 20 – Mar 7, 2026
 **Channel ID:** C862WHQMS
 **Bug reporting guide:** https://www.notion.so/Bug-reporting-3061d464528f80cdacf7eed2612bad07
 
@@ -70,6 +70,24 @@ Unexpected OS-style dialog when rebuilding Settings after editing Symbols. Simon
 
 ### Orderly: GCS carousel install skips Recents (Arvind, Feb 20) 🟡
 Direct GCS install doesn't land in Recents.
+
+### State machine editor L3 hover styles broken (Didier, Mar 6) 🔴
+Mouse-over styles for state machine editor at L3 no longer working — CSS animations move hover icons away from state tiles. Webcomp rendering is fine; high-level CSS broke it. **Unresolved.**
+
+### Cannot remove connections in builder (Gerd, Mar 4) 🔴
+"Remove invalid connection" button and backspace key fail to delete connections under certain unknown circumstances. Triggered by changing input type (URL→Binary). Simon could not repro. Gerd hit it again without error markers. **Unresolved.**
+
+### Published .remix missing styles from desktop (Mark, Mar 5) 🟡
+Created app on desktop with `_rmx_tailwind`, published via publish plugin, used as catalog item source → all styles missing. Workaround: open empty Styles module, Save & Make, republish. Didier suspects cross-instance export (prod→desktop) may cause it. No confirmed root cause.
+
+### Desktop toasts cut off / mispositioned (Arvind, Mar 4) 🟡
+Toast notifications sometimes show cut off, sometimes appear bottom-left. No repro steps available.
+
+### Theme auto-make error referencing _rmx_auth (Arvind, Mar 3) 🟡
+Opening theme on desktop triggers auto-make that errors referencing `_rmx_auth` screen. Themes should not need full make (only constants recompile). Proposed fix: add themes to "fake cases" list. **Not confirmed fixed.**
+
+### File download in Desktop opens without auth (Benedikt, Mar 3) 🟡
+Workspace Tools opens file URL in browser without auth (anonymous access error). Files from L1 opens URL inside studio instead of new tab. Simon: need desktop client action for "save as" flow. Benedikt proposed `Content-Disposition: attachment` header on mixer. **No fix yet.**
 
 ---
 

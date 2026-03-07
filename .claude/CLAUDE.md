@@ -89,8 +89,8 @@ Notion index:
 - [mix-lang-platform-messaging.md](./mix-lang-platform-messaging.md) — calendar, color, messaging (pub/sub topics, cloud/remote), loader (dynamic lib loading)
 
 ### Slack Channels
-- [slack-general.md](./slack-general.md) — #general: team structure, standups, GTM pipeline, platform incidents
-- [slack-announcements.md](./slack-announcements.md) — #announcements: Lumber coordination, desktop readiness, theme migration, WebAuthn design
+- [slack-general.md](./slack-general.md) — #general: team structure, standups, GTM pipeline, platform incidents, 2026 product strategy
+- [slack-announcements.md](./slack-announcements.md) — #announcements: Lumber coordination, desktop readiness, theme migration, WebAuthn design, zagjs+lit web components
 - [slack-backend.md](./slack-backend.md) — #backend: DB save FFI overhaul, wasm caching, blob URL support, query pipeline, Go/Rust parity
 - [slack-builder-runtime.md](./slack-builder-runtime.md) — #builder-runtime: builder features, amp cleanup, catalog items, remote data sources, L0 plugins
 - [slack-bugbash.md](./slack-bugbash.md) — #bugbash: open bugs, in-progress fixes, recently resolved
@@ -118,4 +118,4 @@ Notion index:
 ### Standup Notes
 - [standup-notes-jan-2026.md](./standup-notes-jan-2026.md) — Standup notes: decisions, ownership, customer updates, GTM pipeline (Jan 2026)
 - [standup-notes-feb-2026.md](./standup-notes-feb-2026.md) — Standup notes Feb 2–27: engineering process, Lumber facets/delivery, desktop bugs, workspace-as-environment
-- [standup-notes-mar-2026.md](./standup-notes-mar-2026.md) — Standup notes Mar 2–4: EKS deployment, MCP bridge revamp, env var overhaul, Lumber phased delivery, table primitives
+- [standup-notes-mar-2026.md](./standup-notes-mar-2026.md) — Standup notes Mar 2–5: EKS deployment, MCP bridge revamp, env var overhaul, Lumber phased delivery, table primitives, 2026 strategic initiatives (HubSpot/Zendesk/Snowflake), prefs UI

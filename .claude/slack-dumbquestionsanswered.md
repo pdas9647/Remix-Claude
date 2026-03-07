@@ -1,6 +1,6 @@
 # #dumbquestionsanswered Slack Channel — Remix Labs
 
-**Coverage:** Feb 16–28, 2026
+**Coverage:** Feb 16 – Mar 7, 2026
 **Channel ID:** C86KWF7MG
 **Purpose:** "the dumbness of the programmer has no limits" — quick Q&A, platform clarifications
 
@@ -107,3 +107,41 @@ Unknown file appearing in project. **Answer:** Leftover from `export_package` pl
 
 `files` is the old DB name before it was renamed to `_rmx_files`. Found in Lumber workspace because it's an older workspace created before the naming change. Safe to delete `files`. Wilber confirmed
 it's not created by current customer tooling.
+
+---
+
+## [Mar 2] File copy API has no overwrite option (Arvind)
+
+**Question:** `/v1/ws/{ws}/app/{app}/file-manager/copy` returns `Exists` error when destination exists. Force/override option?
+
+**Answer:** No overwrite option. Workaround: delete-then-copy. Already captured in standup notes (Mar 3).
+
+---
+
+## [Mar 5] URL issue with Gerd's workspace (Gerd → team)
+
+Gerd hit a URL-related issue. Debugging discussion; details in thread.
+
+---
+
+## [Mar 6] CORS with third-party APIs — proxy through service agent (Wilber → Benedikt + Chris)
+
+**Question:** Client→HubSpot API call fails with CORS on remix.app. Works on amp and desktop. Bug?
+
+**Answer (Benedikt + Chris):** Not a bug. CORS is browser-enforced. Proxying through a service agent works because agent server isn't a browser — request to HubSpot comes from server, not browser JS. Desktop also bypasses CORS (HTTP client, not browser). **Architecture pattern: proxy third-party API calls through service agents to avoid CORS on remix.app.**
+
+---
+
+## [Mar 6] L1 module copy puts AST in clipboard (Arvind → Didier)
+
+**Question:** Does copying modules at L1 put the L1 code in the clipboard?
+
+**Answer (Didier):** No — it puts the AST of every node into the clipboard. It does end up in the system clipboard but may not render in visual clipboard managers (Raycast) due to size.
+
+---
+
+## [Mar 6] Tools and Settings moved to plugin menu (Sirshendu → Simon)
+
+**Question:** Is "Tools and Settings" gone from the builder?
+
+**Answer (Simon):** Moved to the plugin menu like all other plugins. Still accessible there.

@@ -1,6 +1,6 @@
 # #design Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Feb 28, 2026
+**Coverage:** Dec 20, 2025 – Mar 7, 2026
 **Channel ID:** C4BLR910S
 **Purpose:** Design systems, visual IDE, icon and widget libraries
 
@@ -27,6 +27,16 @@
 **L1 constants modal: Cancel stays at L1 [Feb 26]:** When `make` errors from outdated-constants modal, Cancel wrongly goes to L0. Fix in progress (Simon).
 
 **Repository DB rename deferred [Feb 28]:** Rename to `_rmx_repository` deferred to post-Lumber. Needs tooling for existing DB renames.
+
+**Zag + Solid.js for accessible web components [Mar 6]:** Arvind shared Ark UI (built on Zag primitives). Tyler prefers Solid.js over Lit for web components (agreed by Arvind). Arvind's 3 requirements: (1) build in L2 the same way, (2) use remix cards/components for actual UI, (3) have interactive accessible high-quality complex components. Follows zagjs+lit discussion in #announcements.
+
+**Home screen deletion debate [Mar 4-6, 124 replies]:** Simon wanted to delete "home" screen node (agent-only apps don't need it). Didier: too many packaging issues without home screen — "there are so many little issues with creating and packaging an app with no home screen." Vijay: agent-only apps have different information hierarchy, shouldn't conform to screen-based app UX. Broader discussion: project types (Application, Cloud Service, Studio Plug-in, Library) could each bootstrap differently. **Resolution: Didier added "better paste at L1" modal (turntable/pull/11786) addressing real UX pain. No structural change to home screen requirement.**
+
+**Table primitives added [Mar 3]:** Tyler added native table primitives (table, thead, tbody, tfoot, tr, th, td) to builder + web components. turntable/pull/11774. Driven by discussion with John + Vijay — consensus to support building table components natively rather than only via rmx-tui-grid webcomp. Arvind noted complexity: resizable columns, lazy loading, keyboard nav, large data handling.
+
+**z-index issues in L3 card editor [Mar 3]:** User dropdown menu renders behind properties/styles searchbar. Tyler commented out z-index on searchbar as partial fix. Broader z-index regression unclear.
+
+**No heading styles in tailwind theme [Mar 5]:** Simon asked; Arvind confirmed no higher-order classes on top of tailwind yet. Workaround: use Claude-assisted card gen component and tweak forward.
 
 ---
 

@@ -1,6 +1,6 @@
 # #rmx-delivery-lumber Slack Channel — Remix Labs
 
-**Coverage:** Oct 9, 2025 – Feb 28, 2026
+**Coverage:** Oct 9, 2025 – Mar 7, 2026
 **Channel ID:** C09KL3K7P0D
 
 ---
@@ -69,3 +69,15 @@ Report builder for Lumber teams to configure/present tabular reports over Snowfl
 3. **Content + QA:** Reza + India team — catalog components, Snowflake schema, report content, QA
 
 **Scope pushback (Vijay):** Lumber tried to add scope. Vijay told Manish "his guys were smoking something." Conditions: one owner + full scoping exercise, or no new scope. Oleg to own scoping.
+
+### Mar 2–7: Requirements Call + Facet Pattern + Grid Descope
+
+**Integration setup (Chris, Mar 2):** Checking with Reza/India team on who provided integration setup on Lumber's side. Test HTML page approach proposed to confirm integration.
+
+**Facet config pattern decision (Arvind, Mar 4):** Facet selection driven **Data → out** (not by pre-selecting type). Selecting a field yields values + presumed type; may offer 2–3 relevant types (e.g., menu + pill-button if N is small). Mark building runtime configurator screen → single Catalog item replacing "Generic Facet."
+
+**Grid descope decision (Arvind, Mar 4):** Consensus: offer native table primitives (table/th/tr/td — Tyler adding) instead of finessing TUI Grid webcomp. Enables highly customised rich grids with remix cards in cells. TUI Grid webcomp work paused for delivery. In-house configurable grid is weeks, not months. Agreed: define "good-enough" scope for current grid, accept throwaway work.
+
+**Requirements call with Oleg + Greg (Reza, Mar 5):** 3:30pm Pacific. Oleg presenting scope of first release (not a Remix demo). Attendees: Vijay, John, Arvind, Reza. Oleg to record and share video. Chris asked about deliverables timeline and whether to keep beta stable or revert to normal release cadence.
+
+**Apps pushed to workspace (Arvind, Mar 7):** `_rmx_home_desktop`, `catalog`, and `reports` apps all pushed to Lumber workspace. Testing bulk paste.

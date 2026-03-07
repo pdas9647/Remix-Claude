@@ -1,6 +1,6 @@
 # #ops Slack Channel — Remix Labs
 
-**Coverage:** Feb 1 – Feb 28, 2026
+**Coverage:** Feb 1 – Mar 7, 2026
 **Channel ID:** C07P57B89
 **Purpose:** Weekly production release promotion workflow (beta → production)
 
@@ -19,13 +19,16 @@
 
 ## Promotion Log (Feb 2026)
 
-| Promotion PR     | Posted | Kicked Off | Mobile Beta | Notes                                                                                 |
-|------------------|--------|------------|-------------|---------------------------------------------------------------------------------------|
-| harmony/pull/354 | Feb 5  | Feb 5      | 2532 → 2552 | Android CI failure (retried, resolved); Arka filed #bugbash issue                     |
-| harmony/pull/356 | Feb 6  | Feb 12     | —           | No mobile issues noted                                                                |
-| harmony/pull/358 | Feb 12 | Feb 19     | 2577 → 2594 | Mobile issue found; confirmed userspace (not platform); 2577 submitted, new beta 2594 |
-| harmony/pull/359 | Feb 19 | Feb 26     | —           | Kicked off Feb 26; new beta pushed Feb 28 including Gerd's fix                        |
-| harmony/pull/363 | Feb 28 | (pending)  | —           | Posted for "next week or whenever we want to promote beta→release"                    |
+| Promotion PR     | Posted | Kicked Off | Mobile Beta | Notes                                                                                                                                                                                                               |
+|------------------|--------|------------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| harmony/pull/354 | Feb 5  | Feb 5      | 2532 → 2552 | Android CI failure (retried, resolved); Arka filed #bugbash issue                                                                                                                                                   |
+| harmony/pull/356 | Feb 6  | Feb 12     | —           | No mobile issues noted                                                                                                                                                                                              |
+| harmony/pull/358 | Feb 12 | Feb 19     | 2577 → 2594 | Mobile issue found; confirmed userspace (not platform); 2577 submitted, new beta 2594                                                                                                                               |
+| harmony/pull/359 | Feb 19 | Feb 26     | —           | Kicked off Feb 26; new beta pushed Feb 28 including Gerd's fix                                                                                                                                                      |
+| harmony/pull/363 | Feb 28 | (pending)  | —           | Posted for "next week or whenever we want to promote beta→release"                                                                                                                                                  |
+| harmony/pull/364 | Mar 4  | Mar 5      | 2646        | Mobile beta 2646 pushed; iOS widget bug still present in this beta; promotion kicked off without mobile submission (fix not yet in beta). Simon found annoying bug (turntable/pull/11785), asked for dev→beta bump. |
+
+**Desktop startup failure on agt.remixlabs.com 502 [Mar 3]:** Simon couldn't start Desktop — `_rmx_sync` failed when agent server returned 502. Self-resolved after a few minutes. Gerd: should ignore sync errors and allow startup (important for offline use). Arvind: avoid scary system error; show friendly dismissible message. Benedikt: offline use blocked by token verification requirement. Filed: mix-rs/issues/1043 — sync failure should not be fatal.
 
 ---
 

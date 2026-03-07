@@ -1,6 +1,6 @@
 # #desktop Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Feb 28, 2026
+**Coverage:** Dec 20, 2025 – Mar 7, 2026
 **Channel ID:** C04T4HW06CC
 **Bug tracker:** https://github.com/remixlabs/mix-rs/issues/937
 
@@ -96,6 +96,26 @@
 **Sync model proposal (Didier):** Move all `.remix` apps to synced (mobile-like model); only `_rmx_desktop` stays in binary. Others (`_rmx_artifact`, `_rmx_search`, `_rmx_tailwind`, `_rmx_extension`) all sync.
 
 **Auto-rebuild replaces "Constants not found" modal [Feb 27]:** Simon's silent auto-rebuild. Regression: `MODULE NOT FOUND` errors on library-synced screens — workaround: save+close+reopen. Direction: block UI + spinner during full rebuild (can take 45s).
+
+## Mar 2–7: Lumber RC + Windows Stability
+
+**Mac beta 0.10180.0 — Lumber release candidate [Mar 4]:** Chris cut Lumber RC build. Build versioning: dev/beta/release are distinct version streams (not simple promotions of same artifact). Benedikt: `desktop-release` CLI command exists for promoting builds; hot-fix branches remain an advantage of separate builds. Future: promote existing artifacts instead of rebuilding.
+
+**Windows v0.0.19 + v0.0.20 [Mar 4]:** Fred cut v0.0.19. Platform version not displaying. Frequent crashes traced to `muda-0.17.1` (Tauri menu crate): `RefCell already mutably borrowed` + `STATUS_STACK_BUFFER_OVERRUN` on Windows 11. Already on latest muda — upstream bug. Fred built v0.0.20 with updated dependencies, tentatively fixed. **Desktop needs a panic hook** (Benedikt). Chris: motivation to get Windows release into CI.
+
+**MCP bridge revamp PR [Mar 4]:** mix-rs/pull/1039. Available on release channel `bb-revamp-mcp`. Claude must still be started after Remix Desktop (confirmed by Vijay).
+
+**Tofu char fix [Mar 5]:** mix-rs/pull/1047 (Benedikt). Addresses font rendering issue with missing glyph squares.
+
+**App install improvement [Mar 2]:** mix-rs/pull/1038 (Benedikt). Avoids re-install for any URL type; adds "origin" to deployments.json. Different install procedures store own origin metadata.
+
+**Mixcore FFI empty in browser-accessed mixer [Mar 2-3, 37 replies]:** Accessing desktop mixer via browser URL (`_rmx_host=http://localhost:2025`) doesn't load mixcore FFIs — `config.kind` undefined. Root cause: front end only sets mixcore for Desktop and .remix contexts. Fix: mix-rs/pull/1041 (Benedikt), configures compiler WebSocket connection. Merged; unblocked Gerd.
+
+**White screen of death [Mar 3]:** Gerd hit rare WSOD — desktop completely non-reactive, window unclosable.
+
+**Windows buttons grayed out [Mar 2]:** Sirshendu: all buttons grayed, losing unsaved progress. Simon: happens when frontend loses backend heartbeat — should show "unfreeze" button after 1 min, but didn't. Workaround: hidden unfreeze button in edit menu debug panel (Arvind).
+
+**Make updates project timestamp [Mar 3]:** Arvind: simple make + exit updates last-modified timestamp for whole project. Shouldn't happen.
 
 ---
 
