@@ -16,7 +16,7 @@ Notion index:
 ### Product & Strategy
 - [glossary.md](./glossary.md) — Studio terminology, L0-L3 navigation, module types, node catalog
 - [collaboration-assembly.md](./collaboration-assembly.md) — Developer > Assembler > Consumer pipeline, config points
-- [remix-product.md](./remix-product.md) — Global Task List, desktop design, pricing/SKU, runtime strategy
+- [remix-product.md](./remix-product.md) — Global Task List, 2026 product strategy, running log, pricing/SKU, runtime strategy
 - [remix-product-scope.md](./remix-product-scope.md) — First release scope, MoSCoW, 5 personas, self-serve vs CS
 
 ### Design & Architecture
@@ -55,7 +55,7 @@ Notion index:
 - [server-apis-auth.md](./server-apis-auth.md) — Auth integrations (OAuth/OIDC/Apple/SFDC configs, callback URLs, token storage)
 - [server-apis-legacy.md](./server-apis-legacy.md) — Legacy Platform Server API (doc CRUD, queries, app mgmt, .remix install, files, agents)
 - [server-apis-cloud.md](./server-apis-cloud.md) — Cloud Agent Server: arch (RBAC), Mixer API (run-agent, remixgen), v1 API (permissions, files)
-- [engineering-ci.md](./engineering-ci.md) — CI: CircleCI setup, contexts (rcm-reader/editor, slack-alerts), Docker image hierarchy
+- [engineering-ci.md](./engineering-ci.md) — CI: CircleCI setup, contexts, Docker images; rcm (component manager); ops (promotion, AWS, rollbacks)
 
 ### Mix Language
 - [mix-syntax-core.md](./mix-syntax-core.md) — modules/imports, cells (links/aliases/observers/live), defs, statements, actions

@@ -55,6 +55,16 @@ Markers: → file.md = content captured | ○ = not yet fetched | ✗ = blank/sk
 
 ## GTM & Content Operations
 
+- [Go To Market home](https://www.notion.so/98cc07f3fac14e73a8b3513576160cd9) → remix-catalog.md (GTM Strategy section)
+    - [Connector Recipes](https://www.notion.so/1f31d464528f80d98814de11ffafd6a5) — ○ not yet fetched
+    - [Demo scenarios](https://www.notion.so/1f81d464528f80f9a60bca23f49e28f7) — ○ not yet fetched
+    - [Snowflake x Remix GTM Plan (Feb 2026)](https://www.notion.so/2fb1d464528f80dd9bddeba7672de70b) — ○ not yet fetched
+    - [Content for Website + Landing Pages (May 19)](https://www.notion.so/1ed1d464528f806abd03e3b73af5c876) — ○ not yet fetched
+    - [Alteryx AI Workflow List](https://www.notion.so/2021d464528f80c8b164d3fe71991960) — ○ not yet fetched
+    - [Remix User Personas](https://www.notion.so/1f41d464528f8068895ad839e01e65ab) — ○ not yet fetched
+    - [Customer Support Domain Research](https://www.notion.so/2961d464528f8070b287e1117d5a4cda) — ○ not yet fetched
+    - [Zendesk Customer Survey](https://www.notion.so/2481d464528f8027bb04f0bd83bf662c) — ○ not yet fetched
+    - [Project Management (Tasks & Projects)](https://www.notion.so/2941d464528f807894c3c966a0a9c623) — Notion DBs only (Projects, Tasks, Timeline)
 - [Remix Next GTM](https://www.notion.so/2001d464528f803293aaebc066f1acb4) → remix-catalog.md
 - [Tasks - Asset Submission Guide](https://www.notion.so/2111d464528f8031a05fd76e687b6379) → remix-tools.md
     - [T1/T2 Customers](https://www.notion.so/20d1d464528f80608571fc691f0bf69f) → remix-catalog.md

@@ -63,26 +63,49 @@ rmx-base (Elm), rmx-editor (Elm), rmx-remix (JS runtime), rmx-runtime (JS execut
 
 ### High-signal
 
-| PR           | Summary                                                                                                                                                                                                                                                                                                  | Author     |
-|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
-| **#11726** ★ | **Simplified styles / dynamic themes** (29 commits, 16 files). Themes now dynamically resolved at L2 open — no more make/publish step. `rmx_style`/`rmx_styles` no longer auto-included; deprecated warning shown if referenced. Changes to theme B instantly reflected in apps using it. Closes #11716. | dprophete  |
-| **#11760** ★ | **Remove .remix client action** — deprecated + implementation removed (caused v1 .remix files, broken on Desktop). Not yet removed from primitives to avoid broken bindings.                                                                                                                             | simonh1000 |
-| **#11759** ★ | **Custom Client Action node** — non-hard-coded client actions, replaces old External Action node; enforces error bindings.                                                                                                                                                                               | simonh1000 |
-| **#11734** ★ | **Multiple Cloud Server locations** (25 commits, 24 files). Builder stores multiple cloud server locations; Service Agent wizard for new node setup; existing Service Agents can save to Cloud Locations library.                                                                                        | simonh1000 |
-| **#11710** ★ | **Desktop: REPL for Function node** — uses SessionPool (works on Desktop). Session stays open during REPL; closed on switch to code editor, restarted on return.                                                                                                                                         | simonh1000 |
-| **#11757** ★ | **Rebuilding fixes** (27 commits, 12 files). Detect missing consts via stdLibId; recompile code mod on close; pass `didClean` as `deleteNonTargetBinaries`; replace `[*]` with explicit app list in executable.                                                                                          | simonh1000 |
+| PR           | Summary                                                                                                               | Author     |
+|--------------|-----------------------------------------------------------------------------------------------------------------------|------------|
+| **#11726** ★ | **Simplified styles / dynamic themes** — themes dynamically resolved at L2 open; `rmx_style`/`rmx_styles` deprecated. | dprophete  |
+| **#11760** ★ | **Remove .remix client action** — deprecated + removed (caused v1 .remix files, broken on Desktop).                   | simonh1000 |
+| **#11759** ★ | **Custom Client Action node** — non-hard-coded client actions, replaces External Action node.                         | simonh1000 |
+| **#11734** ★ | **Multiple Cloud Server locations** — builder stores multiple locations; Service Agent wizard.                        | simonh1000 |
+| **#11710** ★ | **Desktop: REPL for Function node** — uses SessionPool (works on Desktop).                                            | simonh1000 |
+| **#11757** ★ | **Rebuilding fixes** — detect missing consts via stdLibId; pass `didClean` as `deleteNonTargetBinaries`.              | simonh1000 |
 
-### Minor fixes & polish
+### Minor
 
-- #11746 — Restore "download package" from L0 menu (lost in .remix v2 switch)
-- #11762 — L1 "New" button moved to sidebar
-- #11768 — L1 delete warnings | #11765 — Model rebuild errors
-- #11756 — Proper plugin search | #11753 — Plugins button
-- #11764 — Compiler tests compile | #11761 — L2 preview updates
-- #11758 — Minor updates | #11754 — Remove Reload Route | #11755 — CSS revert
-- #11669 — Implement `deleteNonTargetBinaries`
-- #11744 — Service Agent: field bindings refactor
-- #11748 — Add `available` out param (benozol)
-- #11743 — Design-requested refresh modal | #11742 — `InActive` → `Inactive`
-- #11741 — Debug message update | #11740 — Open link in new tab
-- #11738 — Remove Card model derived state (tech debt)
+- #11746 — Restore "download package" | #11762 — L1 "New" to sidebar | #11768 — L1 delete warnings
+- #11765 — Model rebuild errors | #11764 — Compiler tests | #11756 — Plugin search | #11753 — Plugins button
+- #11758/#11754/#11755 — Minor updates, remove Reload Route, CSS revert
+- #11669 — `deleteNonTargetBinaries` | #11744 — Service Agent field bindings refactor
+- #11748 — `available` out param | #11743 — Refresh modal | #11742 — `InActive` → `Inactive`
+- #11741 — Debug msg | #11740 — Open link in new tab | #11738 — Remove Card derived state
+
+## Recent PRs — Mar 1–7, 2026
+
+22 PRs merged. High-signal marked ★.
+
+### High-signal
+
+| PR           | Summary                                                                                                                                                                                                       | Author     |
+|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| **#11774** ★ | **Table primitives** (6 commits, 9 files, +542). New DOM/card primitives for `<table>/<thead>/<tbody>/<tfoot>/<tr>/<th>/<td>`. Context-aware wrapping rules in button bar. Inline ungroup button.             | tlentz     |
+| **#11792** ★ | **Table primitives — new feature flag** — registers in NewFeatures.elm.                                                                                                                                       | tlentz     |
+| **#11724** ★ | **BlobGet Action** (37 commits, 10 files, +2198). Builder support for `binary.blobGet` — reads `LocalFile` into spreadsheet via client VM. Requires protoquery#2226.                                          | simonh1000 |
+| **#11751** ★ | **Refactor Builder tab/window opening** (18 commits, 26 files). **Breaking:** `remix/location-changed` now passes `{path: string}` not `string`. New `remix/builder_open` + `remix/runtime_open` for Desktop. | simonh1000 |
+| **#11750** ★ | **CodegenLib supports catalog items** (+548). New `generate2` API accepting catalog item clipboard values.                                                                                                    | simonh1000 |
+| **#11788** ★ | **Namespaced user prefs** — `builder.` prefix for builder prefs. Prep for mobile/desktop/extension sharing prefs namespace.                                                                                   | dprophete  |
+| **#11786** ★ | **Paste replace modal** — L1 paste shows "Keep Both / Replace" dialog (macOS Finder style) instead of always creating copies.                                                                                 | dprophete  |
+
+### Features & fixes
+
+- #11790 — Copy URL action | #11787 — Small UI tweaks (dprophete)
+- #11785 — Fix make after rename | #11784 — Api node handles `remix://` URIs via `Uri.parse`
+- #11783 — LocalFile improvements to L2 preview | #11782 — Paste curl support
+- #11781 — DnD uses window event handler — fixes erratic L2 DnD, especially Desktop
+- #11778 — Prevent L1 navigation while makeAgent running
+- #11777 — StdLibIds in Desktop dev environment | #11775 — Misc fixes
+- #11776 — DRYer JS host effects code (refactor, -165/+65 lines)
+- #11773 — Remove ancient upload support | #11770 — Compilation fix
+- #11771 — Fix env inconsistency between builder and runtime
+- #11769 — Skip L1 Stage1 codegen for Desktop — removes unnecessary extra codegen round for local DB

@@ -12,12 +12,12 @@
 
 All share configurator: database, schema, table, human prompt, widget title. Project: `remix-india.remixlabs.com/e/edit/snowflake/`
 
-| Widget | Output |
-|--------|--------|
-| List | AI-generated title + list of rows with selected columns |
+| Widget    | Output                                                          |
+|-----------|-----------------------------------------------------------------|
+| List      | AI-generated title + list of rows with selected columns         |
 | Aggregate | AI-generated title + aggregated values (prices, salaries, etc.) |
-| Details | AI-generated title + single row details |
-| Chart | AI-generated title + bar chart (e.g. top 3 products by price) |
+| Details   | AI-generated title + single row details                         |
+| Chart     | AI-generated title + bar chart (e.g. top 3 products by price)   |
 
 ### ZenDesk Widgets (iOS/Android, OAuth, AI: Anthropic)
 
@@ -45,7 +45,8 @@ Configurator: subdomain, human prompt, widget title. Project: `remix-india.remix
 
 > [Notion](https://www.notion.so/25e1d464528f80d4af58e6ef53aa4ddb)
 
-**Key findings:** No comparable native iOS/Android widget approach in HubSpot ecosystem — Remix is unique. HubSpot's own mobile widgets: only 2 (Recently Called, Upcoming Calls). Marketplace: only 50 apps have 10k+ installs (3% of 300k customers); top = Gmail 392k, Google Cal 245k; Databox (most comparable) = 17k (#33). Getting to 1% penetration = top 100 apps.
+**Key findings:** No comparable native iOS/Android widget approach in HubSpot ecosystem — Remix is unique. HubSpot's own mobile widgets: only 2 (Recently Called, Upcoming Calls). Marketplace: only 50
+apps have 10k+ installs (3% of 300k customers); top = Gmail 392k, Google Cal 245k; Databox (most comparable) = 17k (#33). Getting to 1% penetration = top 100 apps.
 
 ---
 
@@ -62,7 +63,8 @@ Configurator: subdomain, human prompt, widget title. Project: `remix-india.remix
 
 **Service agents** (deploy to workspace): `set_secret` (save `anthropic_api_key`), `get_secret` (retrieve), `generate_zendesk_query` (AI→ZenDesk API params).
 
-**OAuth:** Auth server `remix-india`; ZenDesk = subdomain-per-org → OAuth config per org in `oauth_manager`. Set `auth_config.config_name` in Constants. Pull `zendesk_connect` + `confirmation` screens from library.
+**OAuth:** Auth server `remix-india`; ZenDesk = subdomain-per-org → OAuth config per org in `oauth_manager`. Set `auth_config.config_name` in Constants. Pull `zendesk_connect` + `confirmation` screens
+from library.
 
 **Constants:** Add `auth_config` + `central_workspace` (tags: `constants`, `data_model`) + ZenDesk `colors` palette (tag: `zendesk`).
 
@@ -72,7 +74,8 @@ Configurator: subdomain, human prompt, widget title. Project: `remix-india.remix
 
 > [Notion](https://www.notion.so/1e61d464528f80508ef4c3df63b25a5f)
 
-**Common pattern:** Local Mixer + `remix_toolbox` + Claude/MCP client. OAuth callback: `https://{ENV}.remixlabs.com/a/x/auth/{NAME}/callback` (prod: `auth.remixlabs.com`). Configs via OAuth Manager App.
+**Common pattern:** Local Mixer + `remix_toolbox` + Claude/MCP client. OAuth callback: `https://{ENV}.remixlabs.com/a/x/auth/{NAME}/callback` (prod: `auth.remixlabs.com`). Configs via OAuth Manager
+App.
 
 | Connector     | Auth                           | Project                                   | Capabilities                                                        |
 |---------------|--------------------------------|-------------------------------------------|---------------------------------------------------------------------|
@@ -89,11 +92,37 @@ Snowflake connectors: see [remix-snowflake.md](./remix-snowflake.md)
 
 ## GTM Strategy
 
-> [Notion](https://www.notion.so/2001d464528f803293aaebc066f1acb4)
+> [Notion — GTM Home](https://www.notion.so/98cc07f3fac14e73a8b3513576160cd9) | [GTM Strategy](https://www.notion.so/2001d464528f803293aaebc066f1acb4)
 
-**Collaborative AI warm leads:** Person builds ~100 account target list via LinkedIn clipping → construct search URLs → distribute as smart tasks to network → recipients find 1-2 degree connections → system builds network graph → AI ghost-writes intro messages → additional tasks for LinkedIn posts. High value for regional events; Alteryx interested.
+### May 19 Remix DT Release
 
-**Reusable asset pattern:** Generic CRUD services → AI-specialized instances (e.g. "Save Entity" → "Save Lead"). Pipeline: generalized components → libraries → build → deploy at scale. Live artifact saves to well-known location → tools submit to shared workspace.
+Target: **IT, Ops persona**. Potential customers: Alteryx, Guidewire, Zendesk, UKG, Freshworks, OptHealth.
+
+**Work streams:**
+
+- Website content: builder project, text/graphics for all pages, 2 blog pieces (SaaS sprawl problem; AI imperative + Remix role), contact form (→ HubSpot + Slack)
+- Cohort 1 campaign: compiled invitee list in HubSpot, demo slides, demo artifacts (analytics/dashboard, connector, Remix DT), demo scripts, email outreach
+- Cohort 2 campaign: connector-specific invitee lists (Airtable, Big Query, Notion, Confluence, Quickbooks, HubSpot)
+- Self-serve product trial: use cases by connector
+
+Invitee spreadsheet: [Google Sheets](https://docs.google.com/spreadsheets/d/1822XGm_nJx_5rht5VbL6PQmdoQdvVzYmizH-tAsiUI4/edit)
+
+### GTM Sub-Pages
+
+- [Connector Recipes](https://www.notion.so/1f31d464528f80d98814de11ffafd6a5), [Demo scenarios](https://www.notion.so/1f81d464528f80f9a60bca23f49e28f7)
+- [Snowflake x Remix GTM Plan (Feb 2026)](https://www.notion.so/2fb1d464528f80dd9bddeba7672de70b)
+- [Content for Website + Landing Pages (May 19)](https://www.notion.so/1ed1d464528f806abd03e3b73af5c876)
+- [Alteryx AI Workflow List](https://www.notion.so/2021d464528f80c8b164d3fe71991960), [Remix User Personas](https://www.notion.so/1f41d464528f8068895ad839e01e65ab)
+- [Customer Support Domain Research](https://www.notion.so/2961d464528f8070b287e1117d5a4cda), [Zendesk Customer Survey](https://www.notion.so/2481d464528f8027bb04f0bd83bf662c)
+- [Project Management (Tasks & Projects)](https://www.notion.so/2941d464528f807894c3c966a0a9c623) — Notion DBs: Projects, Tasks, Timeline
+
+### GTM Tactics
+
+**Collaborative AI warm leads:** Person builds ~100 account target list via LinkedIn clipping → construct search URLs → distribute as smart tasks to network → recipients find 1-2 degree connections →
+system builds network graph → AI ghost-writes intro messages → additional tasks for LinkedIn posts. High value for regional events; Alteryx interested.
+
+**Reusable asset pattern:** Generic CRUD services → AI-specialized instances (e.g. "Save Entity" → "Save Lead"). Pipeline: generalized components → libraries → build → deploy at scale. Live artifact
+saves to well-known location → tools submit to shared workspace.
 
 ---
 
@@ -116,7 +145,8 @@ Prospects: OptHealth, Funda, NFC, Alteryx, Guidewire, Snowflake.
 
 > [Notion](https://www.notion.so/2991d464528f8043b82ff22040962cc2) | Source app: `remix.remixlabs.com/e/edit/ai`
 
-**Prerequisites:** Add `remix_labs` library URL (`https://agt.remixlabs.com/ws/remix_labs`) to searchable libraries. Save API tokens via `set_secret` agent ([asset](https://remix.app/remix/asset?source=https://agt.remixlabs.com/ws/remix_labs/QvzOgJPsKHQgaGQwgiM4BQfCfXMkWwH8)) or `save_secret` helper screen.
+**Prerequisites:** Add `remix_labs` library URL (`https://agt.remixlabs.com/ws/remix_labs`) to searchable libraries. Save API tokens via `set_secret`
+agent ([asset](https://remix.app/remix/asset?source=https://agt.remixlabs.com/ws/remix_labs/QvzOgJPsKHQgaGQwgiM4BQfCfXMkWwH8)) or `save_secret` helper screen.
 
 | Agent                               | Provider  | Description                                    |
 |-------------------------------------|-----------|------------------------------------------------|

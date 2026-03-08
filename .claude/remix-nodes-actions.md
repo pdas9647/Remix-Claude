@@ -42,11 +42,11 @@ Used as part of a flow to upload files to a remote mixer. Visual implementation 
 
 Agents are modules called with parameters that return values. Three types:
 
-| Type              | Description                                                                              | Setup                                                  |
-|-------------------|------------------------------------------------------------------------------------------|--------------------------------------------------------|
-| **Service Agent** | Deployed on a cloud server                                                               | Enter Cloud URL → Refresh → select workspace/app/agent |
-| **Local Agent**   | Runs on same server as caller (cloud server if from cloud agent; Amp if from Amp screen) | No URL needed                                          |
-| **Amp Agent**     | Rarely used; targets a specific Amp server                                               | Provide `ampPrefix` (URL to Amp server)                |
+| Type              | Description                                                                              | Setup                                                                                                    |
+|-------------------|------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| **Service Agent** | Deployed on a cloud server                                                               | Wizard auto-configures known sources; or manually enter Cloud URL → Refresh → select workspace/app/agent |
+| **Local Agent**   | Runs on same server as caller (cloud server if from cloud agent; Amp if from Amp screen) | No URL needed                                                                                            |
+| **Amp Agent**     | Rarely used; targets a specific Amp server                                               | Provide `ampPrefix` (URL to Amp server)                                                                  |
 
 **Refresh button** — updates agent bindings when the agent's signature changes or when pointing to a different agent. In/out-params are mirrored on the action node.
 
@@ -123,5 +123,7 @@ Requires: **DB location** + **ref** of the record to delete.
 
 Service Agent modules have an additional **"Edit Cloud Server"** button in the Navbar. Clicking it lets you see the details of a Cloud Server that has data on it — all queries, save actions, and
 delete actions are then run against that server. This makes building new agents against a remote dataset much easier.
+
+This menu is also available in **Project view** where it can speed up deployment of individual agents. You can also add to the sources directly from a **Service Agent Action**.
 
 **Important:** Choosing a Cloud Server here does **not** change the generated code — all nodes will still point to the workspace where they are installed (not the preview server).

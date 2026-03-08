@@ -2,7 +2,8 @@
 
 > Source: [Remix product](https://www.notion.so/27e1d464528f802291b6d5a093fbc10d)
 > See also: [remix-product-scope.md](./remix-product-scope.md) (first release scope, personas, key terms), [remix-catalog.md](./remix-catalog.md) (widgets, libraries, connectors, AI agents, GTM),
-> [remix-infra-auth.md](./remix-infra-auth.md) (auth, login, engineering process), [remix-infra-setup.md](./remix-infra-setup.md) (org setup, _rmx_sync, _rmx_prefs, deeplinks), [remix-snowflake.md](./remix-snowflake.md) (Snowflake integration)
+> [remix-infra-auth.md](./remix-infra-auth.md) (auth, login, engineering process), [remix-infra-setup.md](./remix-infra-setup.md) (org setup, _rmx_sync, _rmx_prefs,
+> deeplinks), [remix-snowflake.md](./remix-snowflake.md) (Snowflake integration)
 
 ---
 
@@ -26,6 +27,7 @@ Notion database tracking all engineering/product tasks across Remix.
 | area           | multi_select | extension, content, platform, desktop, builder, mobile, backend, frontend |
 | Assigned To    | person       | —                                                                         |
 | Current sprint | checkbox     | Filters the "Current sprint" view                                         |
+| Next release?  | checkbox     | Marks tasks for next release                                              |
 | Date           | date         | Optional date/range                                                       |
 | Parent item    | relation     | Self-relation (parent task)                                               |
 | Sub-item       | relation     | Self-relation (child tasks)                                               |
@@ -36,61 +38,71 @@ Notion database tracking all engineering/product tasks across Remix.
 
 | View           | Description                                          |
 |----------------|------------------------------------------------------|
-| Task List      | All tasks, grouped by Status                         |
+| Task List      | All open/parented tasks, grouped by Priority         |
 | Current sprint | Filtered to Desktop product + Current sprint checked |
-| Platform tasks | Grouped by Status, sorted by Priority ascending      |
+| Platform tasks | Grouped by Priority, non-content area tasks          |
 | Lumber tasks   | Grouped by Status, sorted by Priority ascending      |
+| Everything     | All tasks, grouped by Status                         |
 
 ---
 
-## Remix Desktop Design (Old Doc)
+## Product Strategy for 2026
 
-> Source: [Remix Desktop Design - Old doc](https://www.notion.so/1f11d464528f80a9b544f59e70ad363b)
+> Source: [Product strategy for 2026](https://www.notion.so/31b1d464528f8099b350ffccbd9892ec)
 
-Early design decisions log (May 2025, largely superseded). Key concepts:
+Platform is essentially **feature complete**; content still needs significant work. Content team generalizes early customer deliveries into repeatable patterns; platform team focuses on stability,
+usability, and "content engineering" support.
 
-- **Menubar:** switch to native (OOS at the time)
-- **"My artifacts":** local list of live artifacts created via Claude chat
-    - Open design questions around artifact identity: no clear 1-1 between prompt sequence and artifact; need clear asset ID + save semantics; support creating multiple artifacts in same chat;
-      resuming work on a previous artifact
-- **"My tools":** tools management view (TBD)
-- **Share dialog:** critical, needed alignment on process
-- **Website project:** `remix.remixlabs.com/e/edit/remixlabs`
-- **Invite flow:** follow-up item
+**Thematic initiatives** — each adds value to an existing platform and becomes a potential channel partner:
+
+1. **HubSpot**
+2. **Zendesk**
+3. **Snowflake** (relationship well advanced)
+4. **(Maybe) Salesforce**
+
+**GTM** — land early customers in these areas, build repeatable sales and content delivery processes.
+
+**Five customer surfaces** (all delivered to at least one customer — no more "v1" milestones):
+
+| Surface                  | Role                                                  |
+|--------------------------|-------------------------------------------------------|
+| Desktop Studio           | Build/assembly environment                            |
+| Self-hosted agent server | Collaboration & integration (incl. Snowflake SPCS)    |
+| Chrome extension         | Rapid integration of browser-accessed data (LinkedIn) |
+| Web apps                 | Built on Remix web components + optional agent server |
+| iOS/Android mobile apps  | Including widgets                                     |
+
+**PM roles:** Chris = PM for engineering team (product→engineering planning); Reza = PM for content.
 
 ---
 
-## Remix Desktop Redux — Stable Concepts (Aug 2025)
+## Running Log (Key Decisions)
 
-> Source: [Remix Desktop Redux](https://www.notion.so/2421d464528f80f7a3baf5844687e419) — **Deprecated**, merged into Scope doc. Key concepts not already in Scope:
+> Source: [Running log](https://www.notion.so/27d1d464528f8097a8c1d9fdd1e184e6)
 
-### Asset Specialization
+Chronological team decisions (recent first):
 
-When templates and AI instructions are attached to assets, it is possible to create customized versions (specialization) without using Studio. Specialized assets get pushed to the Library and used
-like any other asset. Relevant personas: Contributors (specializers), Assemblers.
+- **2026-03-06:** Added product strategy doc (above)
+- **2026-02-11:** Sprint cadence — 2-week sprints (planning Monday, retro following Friday). Bug reporting: Slack as triage/discovery → GitHub issue for tracking/prioritization
+- **2026-02-10:** Roadmap/planning — platform near feature complete, need focused execution. Chris = engineering PM, Reza = content PM. Global Task List as coordination point
+- **2025-11-12:** QA discussion — move off amp builder, desktop beta/prod release channels needed, "sharable core app" via centralized libraries/build recipes
+- **2025-10-07:** User→org→workspace decisions (one org per user, primary workspace, auth at workspace level)
+- **2025-09-30:** Project planning consolidation at [Remix product](https://www.notion.so/27e1d464528f802291b6d5a093fbc10d); draw.io standardized for diagrams
 
-### Home App
+Previous logs: [Apr–Jul 2025](https://www.notion.so/1d71d464528f8059abe4cf056cd0b34c), [Aug 2025](https://www.notion.so/2421d464528f80f7a3baf5844687e419)
 
-IT specifies the default app that loads when users open any container app. Can be a task queue, a portal with widgets and bookmarks, etc. — varies by persona and implementation.
+---
 
-### Edge Analytics for SMB (DuckDB + Parquet)
+## Desktop Design & Redux (Deprecated, Aug 2025)
 
-Remix's approach to lightweight analytics without cloud compute costs:
+> Sources: [Old doc](https://www.notion.so/1f11d464528f80a9b544f59e70ad363b) (May 2025, superseded), [Redux](https://www.notion.so/2421d464528f80f7a3baf5844687e419) (merged into Scope doc)
 
-- Log events inside service agents
-- System generates Parquet files from logs, uploaded to object storage
-- Apps run DuckDB queries at the edge to query Parquet files
-- Current limitation: `ActivityLog` + parquet export exists for internal Remix logs only; needs generalization
-- Next step: unindexed writelog mode → auto-generate Parquet when threshold reached
+Stable concepts not already in Scope:
 
-### Runtime Strategy (Aug 2025 state)
-
-- Mobile: Flutter (stick with for now)
-- Desktop: migrating to Tauri
-- Android widgets: HTML renderer
-- iOS widgets: short-term SwiftUI bugfix + constrain widget types; medium-term port Android renderer
-- Windows: in progress (Fred)
-- Widget upload/deployment: S3 (investigating ephemeral file expiry)
+- **Asset specialization:** Templates + AI instructions → customized versions without Studio. Pushed to Library. Personas: Contributors (specializers), Assemblers
+- **Home App:** IT specifies default app for container apps (task queue, portal, etc.)
+- **Edge Analytics (DuckDB + Parquet):** Log events in service agents → Parquet files on object storage → DuckDB edge queries. Limitation: only internal Remix logs today; needs generalization
+- **Runtime Strategy:** Mobile=Flutter, Desktop=Tauri, Android widgets=HTML renderer, iOS widgets=SwiftUI (short-term), Windows=in progress
 
 ### Pricing / SKU Model (Aug 2025 discussion)
 
@@ -108,8 +120,9 @@ Widgets free; everything else paid. Trial on desktop only (no free cloud workspa
 ## Sub-pages Index
 
 - [Global Task List](https://www.notion.so/1d71d464528f80a69c47d21033bc498c) — stored above
+- [Product strategy for 2026](https://www.notion.so/31b1d464528f8099b350ffccbd9892ec) — stored above
+- [Running log](https://www.notion.so/27d1d464528f8097a8c1d9fdd1e184e6) — stored above
 - [Scope of first release, mental model, key terms](https://www.notion.so/26f1d464528f80c68d5ff6d663522db5) — stored in remix-product-scope.md
-- [Running log](https://www.notion.so/27d1d464528f8097a8c1d9fdd1e184e6) — stored in remix-infra-auth.md
 - [Personas](https://www.notion.so/27e1d464528f80ae846cf0e81fcc7f59) — stored in remix-product-scope.md
 - [Workspace-based auth](https://www.notion.so/27f1d464528f80228fc2e2c3145aef1f) — stored in remix-infra-auth.md
 - [List of widgets](https://www.notion.so/2721d464528f8075a7abfdd7f94a2f68) — stored in remix-catalog.md

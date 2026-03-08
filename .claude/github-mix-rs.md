@@ -31,8 +31,8 @@
 ## API Surface
 
 - **HTTP:** Rocket + CORS + optional TLS. Swagger at `/v1/swagger/`.
-  - v0 (deprecated): workspace CRUD, run-agent, install, SSE, query, permissions
-  - v1: `/v1/ws/<ws>/app/<app>/.../agent/<agent>`, `.../documents`, `.../query/<name>`, `.../save`, `.../auth-configs`, `.../permissions`, `/v1/ext/<ext>/<path..>`, `/v1/auth/spcs`
+    - v0 (deprecated): workspace CRUD, run-agent, install, SSE, query, permissions
+    - v1: `/v1/ws/<ws>/app/<app>/.../agent/<agent>`, `.../documents`, `.../query/<name>`, `.../save`, `.../auth-configs`, `.../permissions`, `/v1/ext/<ext>/<path..>`, `/v1/auth/spcs`
 - **C/FFI:** cbindgen headers; Swift, Java/JNI, Kotlin mobile bindings; JS bindings (tauri, wasm, webkit)
 - **MCP Bridge:** queries `_rmx_desktop/list_mcp_tools` → `run-agent` → Mix agent. Stdio transport. Auto-writes `claude_desktop_config.json`.
 
@@ -40,19 +40,24 @@
 
 **Value** (`remix/src/value.rs`): `Undef|Null|Bool|Int64|Number|String|Ref|Binary|Array|Map|Token|Case`. JSON: `{"_rmx_type":..,"_rmx_value":..}`.
 
-**FFI** (`mixcore/`): `HashMap<String, RawFFI>` (Sync/Async). `GROOVEBOX_FFIS` (db, files, token, duckdb, secrets) + `NON_GROOVEBOX_FFIS` (core, http, mqtt, crypto, wasm, websocket). State holds env, actions queue, HTTP interceptors, DB seekers, MQTT publisher, DuckDB conn, S3.
+**FFI** (`mixcore/`): `HashMap<String, RawFFI>` (Sync/Async). `GROOVEBOX_FFIS` (db, files, token, duckdb, secrets) + `NON_GROOVEBOX_FFIS` (core, http, mqtt, crypto, wasm, websocket). State holds env,
+actions queue, HTTP interceptors, DB seekers, MQTT publisher, DuckDB conn, S3.
 
-**VM Loop** (`mixrun/`): State machine `InitDone→Running→Idle/FFICall/Panic/Exit/Timeout`. Pipeline: `.load()→.link()→.init(env)→.run(name, params)`. Agent caching: snapshot = `CachedCode::Qcode{mem}` or `Wasm{items,mem}`; restore = reinit + restore mem (no recompile).
+**VM Loop** (`mixrun/`): State machine `InitDone→Running→Idle/FFICall/Panic/Exit/Timeout`. Pipeline: `.load()→.link()→.init(env)→.run(name, params)`. Agent caching: snapshot = `CachedCode::Qcode{mem}`
+or `Wasm{items,mem}`; restore = reinit + restore mem (no recompile).
 
 **DB FFI:** ~17 FFIs — `$db_get_one`, `$db_save_one/a/ar`, `$db_upsert_a/ar`, `$db_delete_one/a/ar`, `$db_execute_next`, etc. 100-record batches via `QueryIter`.
 
-**Query Engine** (`mixquery/`): Builder pattern, `QueryElement` pipeline (IndexPredicate, Projection, Aggregate). Prefilter excludes `_rmx_deleted`/`_rmx_superseded`. Varcode: 7 bits/byte, MSB continuation.
+**Query Engine** (`mixquery/`): Builder pattern, `QueryElement` pipeline (IndexPredicate, Projection, Aggregate). Prefilter excludes `_rmx_deleted`/`_rmx_superseded`. Varcode: 7 bits/byte, MSB
+continuation.
 
-**Storage:** `db.off` (u64 offset index) + `db.dat` (varcode-prefixed MessagePack). Append-only; compaction via RoaringBitmap. Record fields: `_rmx_id` (Ref), `_rmx_type`, `_rmx_row`, `_rmx_deleted`, `_rmx_superseded`. Workspace layout: `ws_dir/<workspace>/v2/` with `name.txt`, db files, indexes.
+**Storage:** `db.off` (u64 offset index) + `db.dat` (varcode-prefixed MessagePack). Append-only; compaction via RoaringBitmap. Record fields: `_rmx_id` (Ref), `_rmx_type`, `_rmx_row`, `_rmx_deleted`,
+`_rmx_superseded`. Workspace layout: `ws_dir/<workspace>/v2/` with `name.txt`, db files, indexes.
 
 **Auth:** JWT via JWKS (remote) + locally-signed HS256 (48h). Multiple signing algorithms since #1001. `email` optional; `sub` required.
 
-**Desktop:** Tauri v2. Config TOML at `<data_dir>/com.remixlabs.desktop/config.toml` (`mixer_port`, token, workspace, app versions). Setup: logging → tray → Claude config → deep-links → auth → workspace apps → home.
+**Desktop:** Tauri v2. Config TOML at `<data_dir>/com.remixlabs.desktop/config.toml` (`mixer_port`, token, workspace, app versions). Setup: logging → tray → Claude config → deep-links → auth →
+workspace apps → home.
 
 **Env:** `hostEnvironment` (AgentServer/Builder/Server/Web/Widget), user, app, surface, token, workspace, org, timezone, platform, URLs.
 
@@ -77,3 +82,17 @@
 | #1013      | Deep link param: `remix_file_url` → `url`                                    | Benedikt        |
 | #1015      | Fix already-installed check for URL-type apps                                | Benedikt        |
 | #1024-1033 | Minor: channel names, menu text, tailwind bumps, README, env var, tracing    | Benedikt/Arvind |
+
+## Recent PRs — Mar 1–7, 2026 (10 merged)
+
+| PR          | Summary                                                                                                                                                     | Author     |
+|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| **#1038** ★ | **Revamp app install** (12 commits, 17 files). Adds `origin` to `deployment.json`; uses release info/url/etag to skip unnecessary re-installs. Fixes #1035. | Benedikt   |
+| **#1023** ★ | **Named client actions for Desktop** — `remix/builder_open` + `remix/desktop_open_screen` with route param objects. Companion to turntable#11751.           | Simon      |
+| **#1048** ★ | **Fix HTTP intercept for `remix://`** — custom protocol was excluded after #1035. Refactors convoluted intercept logic.                                     | Benedikt   |
+| **#1049**   | **Intercept less agent calls** — skip calls without `rmx-origin` header (non-agent HTTP should bypass agent permissions).                                   | Benedikt   |
+| **#1041**   | **Configurable compiler WS** — new `mixc_url` config option for Desktop. Fixes #1004.                                                                       | Benedikt   |
+| #1050       | Fixes for logging                                                                                                                                           | Benedikt   |
+| #1047       | Prevent invalid characters on arrow keys                                                                                                                    | Benedikt   |
+| #1046       | Ignore missing flat file, fallback to full scan                                                                                                             | Fred       |
+| #1042/#1044 | Rebuild missing id lookup from plain idx (then reverted due to issues)                                                                                      | Fred/Chris |

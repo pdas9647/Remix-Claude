@@ -38,6 +38,87 @@ A monolithic, self-hosted deployment option for Remix apps and backend services.
 
 ---
 
+### .remix File Format V2
+
+> Source: [Remix Files V2](https://www.notion.so/21b1d464528f8043a176cfea87324ba5)
+
+Goals: simplify creation/reading/transformation of .remix files from regular Mix code, easier DB name changes, store executables in files (not DB records), cleaner update semantics.
+
+**Manifest v2.1** (current) — path: `manifest_v2.json`. Single-app format (v2.0 supported multi-app):
+
+```json
+{
+  "version": "2.1",
+  "id": "<random>",
+  "updates": "",
+  "name": "app1",
+  "app": {
+    "recordsets": [
+      "rs1"
+    ],
+    "filesets": [
+      "fs1"
+    ],
+    "metadata": {},
+    "platforms": [
+      "web"
+    ],
+    "surfaces": [
+      "app"
+    ]
+  },
+  "created": {
+    "timestamp": "...",
+    "rmxUser": "...",
+    "buildHost": "...",
+    "recipe": "..."
+  }
+}
+```
+
+**`updates` semantics:** `""` or missing = delete existing apps first; `"*"` = install on any existing or fresh; `"**"` = must install on existing; `"<id>"` = only on matching .remix ID.
+
+**`appMeta.json`** — path: `apps/<appName>/appMeta.json`. Usual contents but **no `name` field** (added back on import).
+
+**`runtime.json`** — path: `apps/<appName>/runtime.json`. Usual contents but **no `dbName` field** (added back on import).
+
+**Recordsets** — path: `recordsets/<rsName>/rsMeta.json` + `recordsets/<rsName>/*.json` (arrays of JSON records).
+
+```json
+{
+  "onUpdateDelete": "entity == \"company\"",
+  "saveOptions": [
+    "upsert"
+  ],
+  "representationType": "JSON",
+  "contentType": "userRecords"
+}
+```
+
+`onUpdateDelete`: query string or AST — executed before install (on update) to delete matching records. `representationType`: `JSON` (supported) or `db-image` (planned). `contentType`: `userRecords`or
+`builderAssets`.
+
+**Filesets** — path: `filesets/<fsName>/fsMeta.json` + `filesets/<fsName>/root/<path>/<file>`.
+
+```json
+{
+  "onUpdateDelete": [
+    "/dir1/",
+    "/dir2/",
+    "/some_file",
+    "*.def"
+  ],
+  "code": false
+}
+```
+
+`onUpdateDelete` patterns: `/path/` = delete dir hierarchy; `/path` = delete matching files; `name` (no `/`) = match base name. Supports glob: `?`, `*`, `**`, `[chars]`, `{alt1,alt2}`. `code: true` =
+fileset contains executable binaries.
+
+**Executable files** — reserved path `/code` inside a fileset. Contains `.mixlib`, `.mixlib.dbg`, `.mixexe`, `.mixexe.dbg` files. Libraries not needed by any executable are auto-deleted on update.
+
+---
+
 ### Running .remix Files
 
 > Source: [Running .remix files](https://www.notion.so/1971d464528f80e5bed2ec2a380d331f)
@@ -55,6 +136,7 @@ A monolithic, self-hosted deployment option for Remix apps and backend services.
 Load the Remix runtime directly in any web page:
 
 ```html
+
 <link href="https://remix.app/static/rmx-fullscreen.css" rel="stylesheet"/>
 <script type="module">
     import {load} from "https://dev.remix.app/js/rmx-app-record.js";

@@ -146,3 +146,10 @@ DOM.
 - Zod is a dependency of tui-chart and tui-grid but not visibly used in source — is it used for runtime validation elsewhere?
 - What is the `rcm` tool (`rcm comp publish`)? Appears in commented-out code
 - How does the `module: true` vs `module: false` distinction affect Studio runtime loading?
+
+## Recent PRs — Mar 1–7, 2026 (2 merged)
+
+| PR  | Summary                                                                                               | Author    |
+|-----|-------------------------------------------------------------------------------------------------------|-----------|
+| #51 | **Chart sizing** — sets overall webcomp size from chart options so it doesn't get squeezed in builder | dprophete |
+| #50 | Fix deps and formatting for tui-chart/tui-grid                                                        | tlentz    |

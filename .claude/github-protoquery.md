@@ -23,7 +23,8 @@ Source (.mix) → Syntax.ml (Lexer+Parser) → AST
   → Omixrun.ml (native VM via ctypes)  OR  Driver.ml → ToAsm.ml → .wasm
 ```
 
-**Transports:** stdio pipes (`mixc -server`, length-prefixed binary IPC), WebSocket (SCRAM auth, session tokens), Wasm Worker (browser/Node). JS bootstrap: `mixc-starter` spawns Wasm worker, pub/sub on `/org/{org}/ws/{ws}/mixc`.
+**Transports:** stdio pipes (`mixc -server`, length-prefixed binary IPC), WebSocket (SCRAM auth, session tokens), Wasm Worker (browser/Node). JS bootstrap: `mixc-starter` spawns Wasm worker, pub/sub
+on `/org/{org}/ws/{ws}/mixc`.
 
 ## Executables
 
@@ -39,7 +40,8 @@ C API: `protoquery_init()`/`protoquery_compile()` for C/Go embedding (Go wrapper
 
 ## Server Protocol
 
-**Requests:** Create/Destroy_session, Send_libraries, Check_source, Imports, Compile_modules, Compile_phrases, Request_code (QCODE/WASM), Send_code, Get_stdlib/id, To_json/binary, About, Statistics. **Response:** session + success + messages + typed payload.
+**Requests:** Create/Destroy_session, Send_libraries, Check_source, Imports, Compile_modules, Compile_phrases, Request_code (QCODE/WASM), Send_code, Get_stdlib/id, To_json/binary, About, Statistics. *
+*Response:** session + success + messages + typed payload.
 
 ## OCaml Libraries
 
@@ -64,6 +66,7 @@ C API: `protoquery_init()`/`protoquery_compile()` for C/Go embedding (Go wrapper
 ## Mix Standard Library (`src/mix/stdlib/`)
 
 ~55 modules (.mix + .dox pairs):
+
 - **stdlib.mix** — Prelude: option/result/mutable/lazy, reactive spreadsheet engine (cells/sheets/links), module registry, host-env dispatch, action system
 - **db.mix** — 5 scopes (mainDB/appDB/sessionInMemDB/globalInMemDB/remoteDB), query pipeline, live subscriptions via watermark change detection
 - **compiler.mix** — Artifact model (library/executable records), libID format (`<name>-<version>@<hash>`), channel resolution
@@ -94,3 +97,11 @@ C API: `protoquery_init()`/`protoquery_compile()` for C/Go embedding (Go wrapper
 | #2280     | Delete `*.mixhdr` on lib deletion; fix over-deletion                              |
 | #2281     | REPL echo fix for agent calls (`subscribeFG`). Closes #2279.                      |
 | #2274     | Fix `localAgentsConfig`: agent agent not started                                  |
+
+## Recent PRs — Mar 1–7, 2026 (3 merged)
+
+| PR          | Summary                                                                                                                                                                                                                                    | Author |
+|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
+| **#2182** ★ | **Remove domSym.mix** (5 commits, 26 files, -1658 lines). Removes `{ ... }:dom` notation (`Edom`), DOM-specific types, `dom`/`domUtil`/`domSym` stdlib modules. Sync cells kept but not interpreted. Long-lived branch (created Nov 2025). | Gerd   |
+| **#2284**   | **Add `builder.blobGet`** — stdlib wrapper around `binary.blobGet` (+13 lines). Companion to turntable#11724.                                                                                                                              | Simon  |
+| #2286       | Fix stack overflow from large literals (continues series of stack overflow fixes in compiler)                                                                                                                                              | Gerd   |

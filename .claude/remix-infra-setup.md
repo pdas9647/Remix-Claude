@@ -64,11 +64,17 @@ Permissions: `get_apps`, `set_apps`, `set_user_groups`: all auth'd; `*_admin` va
 
 **Important:** When setting up `_rmx_sync` for an org, set the proper workspace on action node 12 first.
 
+### Tooling
+
+Customer management appclips available (see [Org / System Setup](https://www.notion.so/2871d464528f8079b692edaa589da6b8) Tooling section).
+
 ### Key Resources
 
 - Auth example (Google, userspace): `remix.remixlabs.com/e/edit/_rmx_auth`
 - Sync admin setup: `remix.remixlabs.com/e/edit/_rmx_sync/setup_admin`
 - User sync setup: `remix.remixlabs.com/e/edit/_rmx_sync/setup`
+- Unified login flow: [Notion page](https://www.notion.so/2901d464528f8096a29ccd062758e637)
+- Login flow diagram (multi-workspace): [Google Drive](https://drive.google.com/file/d/14naLAJarPRn7n0dAvYx0I_VlQJXXqPls/view)
 
 ---
 
@@ -128,19 +134,19 @@ Auto-syncs .remix apps to mobile/desktop. Only apps compatible with the installe
 
 ## _rmx_prefs — Synced Preferences
 
-> Source: [Synced preferences](https://www.notion.so/2871d464528f80ae96dfeff9a738ca67); last updated 2026-02-25
+> Source: [Synced preferences](https://www.notion.so/2871d464528f80ae96dfeff9a738ca67); last updated 2026-03-05
 
 Syncs user preferences across devices/surfaces via a 3-layer cascade.
 
 ### Cascade Model (each layer overrides the previous)
 
 1. **System prefs** — Constants at compile time:
-   - `search.libs`: `"# the main remix library\nhttps://agt.remixlabs.com/ws/remix_labs"`
-   - `plugins.show_system_plugins`: `true`
+    - `builder.search.libs`: `"# the main remix library\nhttps://agt.remixlabs.com/ws/remix_labs"`
+    - `builder.plugins.show_system_plugins`: `true`
 2. **Default prefs** — Per-workspace record, set by admin (dynamic). Overrides system prefs.
 3. **User prefs** — Per-user record (dynamic). Overrides default prefs.
 
-Merge semantics: pass `null` for a key to delete it (e.g. passing `{"search.libs": null}` in `set_default_prefs` resets that key back to system prefs).
+Merge semantics: pass `null` for a key to delete it (e.g. passing `{"builder.search.libs": null}` in `set_default_prefs` resets that key back to system prefs).
 
 ### Agent API (`_rmx_prefs` app, deployed on org's primary workspace)
 
@@ -157,10 +163,12 @@ All agents return `{prefs, user}` — `prefs` is the merged hashmap, `user` is t
 
 ### Builder fields
 
-- `search.libs` — catalog list for L1/L2 search (one URL per line, `#` comments supported)
-- `plugins.show_system_plugins` — show system plugins in L0/L1/L2 when `true`
+Pref keys use a `builder.` namespace prefix (since turntable #11788):
 
-To override default catalogs for all org users: set `search.libs` in `set_default_prefs`. Individual users can further override with their own `search.libs`.
+- `builder.search.libs` — catalog list for L1/L2 search (one URL per line, `#` comments supported)
+- `builder.plugins.show_system_plugins` — show system plugins in L0/L1/L2 when `true`
+
+To override default catalogs for all org users: set `builder.search.libs` in `set_default_prefs`. Individual users can further override with their own `builder.search.libs`.
 
 ### Resources
 

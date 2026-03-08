@@ -34,6 +34,9 @@ Commands executed by the builder — programmatic remote control (create nodes, 
 ### Mix Macro Module Commands
 
 ```
+// Callback
+macro.requestExport(nodeKeys)              // returns matching nodes as clipboard/export object
+
 // Clipboard
 macro.copy(ndNames)
 macro.paste()
@@ -41,7 +44,7 @@ macro.pasteContent(json-content)           // {command:"PasteContent", content, 
 
 // Nodes
 macro.createNode(ndName, ndType)
-macro.createNodeFromExternal(ndName, format, content)  // format: "json" (creates data node)
+macro.createNodeFromExternal(ndName, format, content)  // format: "json" (data node), "curl" (API node)
 macro.createNodeFromAst(ndName, ast)       // see AST examples below
 macro.moveNode(ndName, x, y)
 macro.cloneNode(srcNdName, dstNdName)

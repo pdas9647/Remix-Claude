@@ -74,6 +74,14 @@ stack, the component view shows in/out param bindings in a more useful manner.
 
 **Directory drop** (since November 2024) — Files inside a dropped directory are returned with their path as the name.
 
+### Working with a Local File
+
+After capturing a file via the controller, you can process it in several ways:
+
+- **Api / Agent nodes** — Have a "client side" mode for uploading Local Files to a remote server
+- **Client action** — Reads text file contents into the spreadsheet
+- **Read Local File Action** — Reads file contents directly into the screen using the client VM (preferred with greater client VM use)
+
 ---
 
 ## Data Objects, Values and Transforms
