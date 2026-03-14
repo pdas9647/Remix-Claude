@@ -1,92 +1,55 @@
-# Standup Notes — Mar 2026
+# Standup Notes — Mar 2026 (Week 2)
 
-**Coverage:** Mar 2–5, 2026
+**Coverage:** Mar 10–13, 2026
 **Format:** Condensed bullets per standup. Google Doc link on each date for on-demand full transcript fetch.
+**See also:** [standup-notes-mar-2026-1.md](./standup-notes-mar-2026-1.md) — Mar 2–5
 
 ---
 
-## 2026-03-05 — [Google Doc](https://docs.google.com/document/d/1NQONGS79R6Uy0vcWyUpByEX71fG9J-VLrJfmUAtSNpw)
+## 2026-03-13 — [Google Doc](https://docs.google.com/document/d/1s7gZWM2_uN3PoRPTbHRqfQtPlz7nFAK0F99VTi712qA)
 
-- **Preferences UI for home app (John Dismore + Didier)**: Building simple UI for power end users to set personal/sync preferences on mobile and extensions. Leveraging "preps" — JSON name-value pairs
-  hosted in workspace, auto-synced to builder/mobile/extension. Use case: global preference lists (e.g., catalogs to sync for search). Desktops must also respect these prefs the same way.
-- **Facet refactoring → standard library (Mark)**: Integrating Snowflake facet functionality into Lumber final flows. Lumber is the first project to consume facets as standard library items.
-  Coordination needed between John, Vijay, Mukund, and Wilbur. Demo will use HubSpot data set.
-- **HubSpot agent/widget separation into 3 apps (Wilbur Claudio)**: Splitting HubSpot agents + widget setup into 3 distinct applications: (1) web app for configuring service agent aliases to query
-  HubSpot, (2) mobile app for configuring widget records, (3) separate project for service agents. Web setup experience nearly complete, working through bugs. Sync-up needed with John + Vijay on table
-  configuration (not on Mark's plate).
-- **2026 strategic initiatives (Vijay)**: Three thematic initiatives for the year: add value to HubSpot users, Zendesk users, and Snowflake users. Strategy: leverage these orgs as channels if
-  possible, else go direct. Good headway with Snowflake and Zendesk already.
-- **Lumber as key pattern (Mukund)**: Lumber project represents a pattern that must be implemented correctly to unlock other opportunities.
-- **Platform scale concerns (Didier + Gerd)**: Platform has become a "monster" — fighting with build server. AI concern: people may believe AI can do everything, reducing need for platform tools.
-  Questioning whether new clients would adopt such a large platform ecosystem.
-- **Lumber client sensitivity (Didier)**: Lumber engineers view Remix as a threat — implies their internal team failed at reporting. Complex internal schemas. Not everyone at Lumber is receptive.
-  Quick progress eventually speaks for itself, but situation is delicate.
-- **Next steps**: Arvind to post about web components follow-up in #announcements. Vijay + John + Mukund + Wilbur sync on Lumber coordination + table config. Arvind + Vijay to discuss headless web
-  components.
+- **Sales pipeline progress (Mukund)**: Cycles with Starlight (RCS messaging) and US (services company) progressing well. Zendesk partnership conversations moving forward. Snowflake submissions proceeding, goal to submit next week. All current engagements transitioning to commercial discussions — pricing/scope proposals needed.
+- **Lumber = largest current go-live effort**: Other customer efforts remain in sales motion phase. Direct deals: Starlight. Partner-type: US, IP agent AI.
+- **Deal visualization decision**: Quadrant chart to categorize/track deals. Will leverage HubSpot with quadrant annotations and notes per customer. Made available via Slack automatically, starting ~2026-03-20.
+- **Website refresh**: New messaging emphasizes building "context-aware experiences." Design expected to change slightly but core messaging is set.
+- **RCS demos well received externally**: External demos more polished than internal versions. Full scheduling flow via RCS particularly well-received by USG Global, Starlight, Zendesk contacts. Zendesk rep saw immediate applicability after viewing demo video.
+- **Web-based Remix board tool (Vijay)**: Fully web-based, cards in standardized JSON card format (not HTML) with data binding layer. Multi-format export (PPTX, HTML) rendered by Rust — no browser in flow. Use cases: landing pages, customer case studies, sales dossiers auto-generated from CRM data. Runs Rust Wasm (no download required). Also demonstrated on native Swift app for mobile widgets. CMOs have expressed high interest in rapid landing page creation.
+- **Node counter zero bug fix (Simon)**: Removing stage 1 codegen for desktop caused stage 2 to be first encounter of constants → counter starts at 0. Fix: compute only node validity instead of recomputing full RTI. PR submitted.
+- **Constants in app meta debate (Didier vs Simon)**: Didier proposed materializing constants in app meta (like styles) to avoid compile/import issues during codegen. Simon concerned about inflating runtime app meta size (e.g., RMX Tailwind already replicated in every runtime app meta). Current behavior: full runtime app meta is created for self-contained distribution — `make` creates stable copy unaffected by subsequent builder changes.
+- **Desktop screenshot challenge (Didier)**: Embedded Safari view + mixer's string prefix format for external blob objects makes screenshots difficult. Simon suggested Tauri plugins for screenshots (similar approach used for copy-paste).
+- **Lumber implementation architecture (Didier)**: Desktop builder + runtime. Users query Snowflake via AI → generate reports/charts in runtime → copy/paste cards into builder to compose dashboards → produce .remix file → render in client portal.
 
 ---
 
-## 2026-03-04 — [Google Doc](https://docs.google.com/document/d/1j9U40Wg4YT0mOEHUGy3dQdjry9UoKAodAGLYsc4HnlM)
+## 2026-03-12 — [Google Doc](https://docs.google.com/document/d/19I6hu6Iykg80W2ZkjkrWefctkmzsH4OXmMkd1_BeO2o)
 
-- **Windows menu deep-nested bug (Fred + Chris)**: Deep-nested issue in Windows menuing system traced to Muda code base (not Remix code). No new dependency release available; `cargo` file unchanged
-  for ~1 month. Fred will attempt Tauri upgrade from v2.9 → v2.10. If dependencies don't fix it, Chris suggested bisect debugging to isolate the breaking change.
-- **Lumber facets (Sirshendu)**: Created two new drop-down facets — (1) improved table drop-down from Snowflake facet with better error checks and UI, (2) simpler static drop-down picker.
-- **Lumber project management reset (Didier)**: Meeting with Manish, Oleg, Anand. Key issues: client treating Remix as "shrink-wrapped" product rather than customizable platform; no PM ownership or
-  capacity allocation on client side for Snowflake schema design and ETL. Client's Anand was running feature-checklist evaluation — not productive.
-- **Phased delivery agreed**: Replaced unrealistic Feb 27 go-live with phased approach. Phase 1 = end-to-end thread on a few reports, demonstrated on Remix servers. Anand acknowledged Snowflake
-  schema/ETL is client's responsibility.
-- **Oleg owns requirements**: Significant win — Oleg (not Anand) now owns requirements definition. Follow-up call scheduled: Oleg + John + Arvind + Vijay to walk through first 3–4 concrete reports (no
-  lengthy requirements doc; reports illustrate capabilities).
-- **Internal productization track (Didier)**: Run parallel internal track — productize widgets, facets, charts using HubSpot data set (leveraging Wilber's sync work). Differentiates general components
-  from client-specific consulting items. Doubles as demo material for partners (e.g., HubSpot personnel).
+- **USG Global demo (John Dismore)**: Product demo for USG Global, a multi-billion dollar consulting/systems integrator (comparable to Accenture/Deloitte). Thai duty-free store use case with Wolver chat app — product comparison, store finder flows. Scheduled for noon. Recorded self-service version would be valuable for partner to share with their customers.
+- **"Experiences" architecture (Vijay + John)**: AI maps user requests to invocable "experiences" — RMX Remix files provisioned across channels (chat, RCS, landing pages). Experiences registered with descriptions so AI knows what to show. Simple models sufficient (even "Apple Intelligence") — primary AI role is dispatch/mapping, not content generation. No canned scripts; standard app against standard service agent.
+- **Twilio RCS integration demo (Wilbur Claudio)**: Interactive web view inside SMS app. E-commerce catalog example opens tequila catalog on "shop now" tap. Meeting booking experience fully functional against Google Calendar. Web view size is controllable. Same functionality available on WhatsApp. Webhook logs user interactions.
+- **Twilio platform opportunity**: Poor UX and documentation on Twilio side. Web view config requires API (content builder doesn't support it) — identified as opportunity for Remix to add value on top of Twilio layer.
+- **Lumber facets + pagination (Mark)**: Implemented pagination and sorting logic for CT-based query set. Component outputs page limit + offset to query. Arvind working on design changes using existing table UI alongside this logic.
+- **PubSub bug**: Known bug requiring refreshing the log view. Affects runtime. Full repro to be created post-demo.
+- **GTM strategy — experience vocabularies**: Build up large vocabulary of domain-specific experiences → take to market. Exploring partnerships with Twilio, Zendesk Sunshine Conversations, Broadway. Deciding between direct sales vs partnership approach.
 
 ---
 
-## 2026-03-03 — [Google Doc](https://docs.google.com/document/d/1Ehuv1xAFGWOuKHECLSudHKfGZOF_KapKkNo95P0dyC0)
+## 2026-03-11 — [Google Doc](https://docs.google.com/document/d/1f7n5z9qnfsWK0UqU3ScqqPfq26k8J23gR6D_RhbErbc)
 
-- **Desktop release for Lumber**: Plan to release desktop version for internal testing before Lumber handoff. PR for handling invalid characters on input approved; may need minor adjustments before
-  merge. Target: something out by end of day for India QA team (back tomorrow). Chris to tell Fred when to cut corresponding Windows build after Mac beta push.
-- **Arrow key / error key input bug (Tauri)**: Unresolved issue with error keys on input — likely deep Tauri framework bug (other users reported, no permanent fix). Workaround: JavaScript event
-  listener on keydown to suppress default handling at text input boundaries (beginning→left, end→right). Didier approved as workable. Affects text inputs "everywhere" including runtime — significant
-  UX pain.
-- **Lumber integration blocked by client**: Engineering deliverables largely complete, but Lumber hasn't provided clean testing environment. `QA remix.lumberfi.com` URL not accessible from QA admin
-  panel. Proposed solution: provide Lumber a test HTML page + files to host, requiring just a button redirect to a Remix-controlled page ("Hello world") to confirm integration.
-- **Environment variable overhaul (Gerd + team)**: Current env variables (backend/frontend base URLs) are confusing — originated from AMP world where one URL covered assets + APIs, no longer accurate.
-  Gerd has PR to remove many confusing functions from env. Design needed: only two variables required (one for backend/Mixer, one for assets). Key user needs: links to builder, links to running app,
-  API prefixes for app metadata. Must deprecate old variables, not change meaning. Chris + Simon + Gerd to figure out what Arvind needs and expose proper functions.
-- **Theme/style revamp deployed**: Themes now treated as collections of styles (not executable). Changes auto-propagate to dependent apps — no more manual `make`/rebuild. Themes are separate .remix
-  apps that get synced. Vijay questioned why not library assets; answer: .remix files enable computations + builder assets. Future consideration: push computed theme results to dependency-free library
-  assets (JSON in settings).
-- **Builder UX consistency (Didier)**: "New" button updated — now acts as button with search + description. Inline help for module types, consistent keyboard navigation/shortcuts for L1/L2.
-- **Core sync agent updates in customer workspaces (Arvind + Vijay + John)**: Updating core service agents (`_rmx_sync`, `_rmx_prefs`, `_rmx_search`) across customer workspaces is unmanageable
-  manually as workspace count grows. Debate: automatic vs manual updates. Security concern (John + Vijay): dynamically fetching executables is risky. Decision: manual one-click update by workspace
-  admin for now. Tooling: management app showing which core apps are out of sync, admin initiates update with own permissions.
-- **Table primitives (Tyler + Arvind)**: Tyler added native table primitives to builder + web components. Non-negotiable requirement (Arvind): any subtree (header cell, row) must be convertible to a
-  list and piped into appropriate primitive as container — essential for building tables dynamically from data via loops. Tyler to test list-binding functionality. Also added inline ungroup button
-  convenience feature.
-- **Lumber reports ready for testing (Arvind)**: Reports app, catalog app, and Lumber home app are far along. Report lifecycle: copy .remix file from draft → published state within single workspace.
-  Staging (draft/review/publish) should stay in one workspace — cross-workspace tooling for firewalled environments would be very difficult.
-- **Chrome extension homepage**: Not started yet; Arvind planning a starter template.
-- **File copy/overwrite API issue (Arvind)**: V1 API `copy` fails if destination exists. Team decided to keep current error-returning behavior (more features); workaround = delete-then-copy, managed
-  via component.
+- **Lumber 5-report delivery scope**: Client PM (Oleg) documented 5 specific reports as proof points. Reports demonstrate: facets, selection criteria, downloading, single facet driving multiple components (bar chart + table), adjusting technical DB fields to user-friendly column headers. Two chart types needed: bar and scatter.
+- **Component publishing workflow**: Build configurator UI around component → configure via friendly interface → clipboard → paste into drop zone on Studio screen → one-click publish to preview bucket. Process "almost there" per Arvind.
+- **Client expectations clarified (Reza + Vijay)**: No imminent go/no-go decision. Client now understands customization is on top of platform. Client acknowledges Snowflake schema + ETL is their responsibility (~1-2 months). Team must return to client with scope and timeline for delivery phases immediately.
+- **Product positioning**: Team currently positioned as "report composition and publishing product" — not full development platform. If team avoids training client on Studio, must provide full tooling for publishing + lifecycle management (schema differences between environments, testing, authorization).
+- **Lifecycle management = significant scope**: Handling schema differences, publishing, testing, authorization across environments represents major portion of overall requirements.
+- **Delivery phasing strategy**: Provide hard dates and scope. Include "should" category low-hanging fruit items. Leverage existing relationship to shape phasing even if cycle is 3 weeks.
 
 ---
 
-## 2026-03-02 — [Google Doc](https://docs.google.com/document/d/1UIeN8IGXMnsnqmL3IC1laqEKFkhNistbkVEbq8olrz4)
+## 2026-03-10 — [Google Doc](https://docs.google.com/document/d/1oAgvK2ZhSiWqoEVM6Eq26PZEgSZDhbknB6DYxk7N9-U)
 
-- **Desktop bug fixes + mixer HTTP/protocol fix (Benedikt)**: Spent prior week on desktop bug squashing. Merged configurable HTTP port PR (mix-rs #948). Side-effect fix: when mixer exposed as HTTP,
-  internal custom protocol URLs (`remix://localhost/a`) were surfacing externally — now external URLs are valid HTTP URLs. Improving app install procedure using E10 mechanism to check if
-  reinstallation is actually needed, preventing unnecessary reinstalls of workspace apps.
-- **MCP bridge revamp (Benedikt)**: Removing auto-start behavior where Remix launched automatically when Claude ("claw") started. New model: users must open Remix Desktop first; MCP tools are only
-  available if Remix is already running. Previous auto-config was problematic.
-- **Subprocess shell from External Actions (Vijay + Chris)**: Vijay proposed adding subprocess/shell invocation from desktop external actions to talk to CLI tools (Gemini CLI, cloud code). Chris:
-  technically not difficult but security model needs careful design — what constraints to apply. Vijay: high value because many users have pre-built CLI tool setups on their desktops. No decision yet;
-  security model is the blocker.
-- **Lumber EKS deployment template (Chris)**: Built EKS (Amazon managed Kubernetes) template for deployed mixer setup — internal service + deployment components provided to Lumber team, who will wire
-  into their cluster. Next step: determine what's needed to expose for external testing. Snowflake runtime still has `runtime.json` access issue (ongoing).
-- **Windows release cut (Fred)**: Completed bug fixing round; cut latest Windows release on Friday (Feb 28). Desktop bug fixes done.
-- **Build server for cloud agents (Gerd)**: Extended build server to support building cloud agents. Also improved build experience error handling for incremental builds with temporarily invalid code
-  modules. Next: test everything, then create a plugin for selecting workspace service agents for deployment.
-- **Parser refactoring for LSP (Oliver)**: Refactoring parser to separate type creation from pure syntax parsing — complex task involving expressions that mix types, statements, and phrases. Goal:
-  greater flexibility and better control over Language Server Protocol (LSP) functionality. Long-term LSP discussion: Gerd noted it would require new Monaco editor wrapping; Didier emphasized LSP
-  server should work with any editor (VS Code, Vim) and not require a custom web component.
+- **Documentation format overhaul (Gerd)**: Existing Notion docs confirmed obsolete. New docs use custom format with processor that adds typing info → JSON output → easily converted to Markdown. Enables LSP integration and AI training (successful experiments training AI to generate functions from machine-readable docs). Doc viewer app broken — fix is current sprint priority.
+- **LSP status (Oliver)**: Refactoring parser to separate type creation from pure syntax parsing. Key step: switch LSP messaging from WebSocket to standard browser messages (compiler runs in browser).
+- **Engineering process decision**: Creating GitHub issue is standard practice for new work. Immediate bug fixes can proceed via PR without issue. Bare PRs auto-appear on the board. Sprint labeling: "sprint zero" and "sprint one" labels added across all repos. "Ready to pick up" column = prioritized queue. Old backlog renamed to "icebox."
+- **File upload + web component improvements (Simon)**: Bug fix for make agent error surfacing when VM ID already in use. Restored drag-and-drop file upload for desktop + plugins. Two content PRs: (1) invoke methods with arguments on web components (general solution replacing previous hacks), (2) content binding on file node — read file content without separate function node.
+- **Table primitives merged (Tyler)**: Components: table head container → table header cells / table rows. Default styles; Arvin to work on styling. Bug reported: global styles not working on tables.
+- **Builder copy-paste improvements (Didier)**: Node swapping now available at L1 (was L2 only). New duplicate node dialog (replace / create copy / keep both) — eliminates three-step process for duplicate home screens. L2→L1 paste now shows proper warning (was silent failure). Search optimization: UI no longer freezes when multiple catalogs loaded.
+- **Synced preferences infrastructure (Didier)**: Cloud sync for user settings — name-value pairs synced across extension/desktop/mobile. General-purpose infrastructure for any app.
