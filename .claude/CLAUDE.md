@@ -89,12 +89,12 @@ Notion index:
 - [mix-lang-platform-messaging.md](./mix-lang-platform-messaging.md) — calendar, color, messaging (pub/sub topics, cloud/remote), loader (dynamic lib loading)
 
 ### Slack Channels
-- [slack-general.md](./slack-general.md) — #general: team structure, standups, GTM pipeline, platform incidents, 2026 product strategy
-- [slack-announcements.md](./slack-announcements.md) — #announcements: Lumber coordination, desktop readiness, theme migration, WebAuthn design, zagjs+lit web components
-- [slack-backend.md](./slack-backend.md) — #backend: DB save FFI overhaul, wasm caching, blob URL support, query pipeline, Go/Rust parity
-- [slack-builder-runtime.md](./slack-builder-runtime.md) — #builder-runtime: builder features, amp cleanup, catalog items, remote data sources, L0 plugins
-- [slack-bugbash.md](./slack-bugbash.md) — #bugbash: open bugs, in-progress fixes, recently resolved
-- [slack-design.md](./slack-design.md) — #design: library sync, theme overhaul, TUI grid, L0 desktop org, tailwind fixes, UX bugs
+- [slack-general.md](./slack-general.md) — #general: team structure, standups, GTM pipeline, platform incidents, 2026 product strategy, "Remixperiences"
+- [slack-announcements.md](./slack-announcements.md) — #announcements: Lumber coordination (first drop scope), desktop readiness, theme migration, WebAuthn design, zagjs+lit web components
+- [slack-backend.md](./slack-backend.md) — #backend: DB save FFI overhaul, wasm caching, blob URL support, query pipeline, Go/Rust parity, FFI command execution, workspace admin settings
+- [slack-builder-runtime.md](./slack-builder-runtime.md) — #builder-runtime: builder features, amp cleanup, catalog items, remote data sources, pub/sub discrepancies, screen state persistence
+- [slack-bugbash.md](./slack-bugbash.md) — #bugbash: open bugs incl. cloud subscribe echo issue, curly quotes, cell propagation, Get State boundary
+- [slack-design.md](./slack-design.md) — #design: library sync, theme overhaul, TUI grid, L0 desktop org, pub/sub lookup UX, window sizing per form factor
 - [slack-desktop.md](./slack-desktop.md) — #desktop: native vs browser debate, app sync, auth bugs, Tauri limitations, release channels
 - [slack-dumbquestionsanswered.md](./slack-dumbquestionsanswered.md) — #dumbquestionsanswered: env.runtimeURL deprecation, platform Q&A
 - [slack-extension.md](./slack-extension.md) — #extension: Chrome extension release log

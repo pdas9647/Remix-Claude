@@ -1,6 +1,6 @@
 # #builder-runtime Slack Channel — Remix Labs
 
-**Coverage:** Dec 31, 2025 – Mar 7, 2026
+**Coverage:** Dec 31, 2025 – Mar 14, 2026
 **Channel ID:** C58HC9EC8
 **Topic:** Builder, remix.app, WebApp
 
@@ -16,13 +16,16 @@
 
 **Branch picker doesn't work with mixer [Jan 9]:** Branch URL drops path when `_rmx_host`/`_rmx_ws` params present. Branch picker is amp-only; no mixer equivalent planned.
 
-**Amp feature cleanup [Jan 16]:** Didier removed InMem DB (replaced by app state tile) and session mirroring (unused). No objections. Debug channel: stdlib debug port for remote-controlling apps via pub/sub; works in browser/desktop, not service agents.
+**Amp feature cleanup [Jan 16]:** Didier removed InMem DB (replaced by app state tile) and session mirroring (unused). No objections. Debug channel: stdlib debug port for remote-controlling apps via
+pub/sub; works in browser/desktop, not service agents.
 
 **Groups as catalog items [Jan 20]:** Groups can be saved as catalog items with syncing. Complex external binding reconnection after sync. Merged.
 
-**runtime.json 570KB → 106KB [Jan 21]:** Stripped tailwind style views (full card-picker views per style). turntable/pull/11650. Also: runtime.json duplicated in .remix (v1 artifact); use `export_package` plugin for v2.
+**runtime.json 570KB → 106KB [Jan 21]:** Stripped tailwind style views (full card-picker views per style). turntable/pull/11650. Also: runtime.json duplicated in .remix (v1 artifact); use
+`export_package` plugin for v2.
 
-**Scenegraph JSON paste [Jan 24]:** Direct paste of scenegraph JSON creates card tile. turntable/pull/11656. Full paste catalog: string→value, rectangular JSON→table, arbitrary JSON→object, catalog URL→download+insert, scenegraph→card. Missing: HTML→card (html2card).
+**Scenegraph JSON paste [Jan 24]:** Direct paste of scenegraph JSON creates card tile. turntable/pull/11656. Full paste catalog: string→value, rectangular JSON→table, arbitrary JSON→object, catalog
+URL→download+insert, scenegraph→card. Missing: HTML→card (html2card).
 
 **Workspace plugin: cloud export [Jan 24]:** Wilber added cloud workspace export. Issue: export silently fails with "register" for debug objects; works with "omit".
 
@@ -36,35 +39,57 @@
 
 **File Register node [Feb 16]:** turntable/pull/11723. Exposes all `file.register` variants. Replaces partial File Upload action once Mix has native `blob://` URL handling.
 
-**Remote Data Sources [Feb 18]:** turntable/pull/11730. L1 button for Remote Data Sources modal. Remote data sources ≠ remote catalogs (run apps vs browse catalogs). Applies to entire app, not per-agent. Remote catalog list now synced via `_rmx_prefs` agents (not user preferences).
+**Remote Data Sources [Feb 18]:** turntable/pull/11730. L1 button for Remote Data Sources modal. Remote data sources ≠ remote catalogs (run apps vs browse catalogs). Applies to entire app, not
+per-agent. Remote catalog list now synced via `_rmx_prefs` agents (not user preferences).
 
 **Open-link in builder [Feb 21-22]:** Decision: always open links in new tab in builder, never navigate away. Desktop: external links always open in browser.
 
-**Remove Server (Go) VM from runtime [Feb 23]:** Simon's long-term proposal: `remix-*.remixlabs.com` uses client VM (mixrt) exclusively. No change to remix.app/Desktop/Flutter. First step: turntable/pull/11745 (plugins use client VM on Amp). In progress.
+**Remove Server (Go) VM from runtime [Feb 23]:** Simon's long-term proposal: `remix-*.remixlabs.com` uses client VM (mixrt) exclusively. No change to remix.app/Desktop/Flutter. First step:
+turntable/pull/11745 (plugins use client VM on Amp). In progress.
 
-**State node propagation: won't fix [Feb 24]:** Single cell per state object → updating one field propagates to all consumers. Proper fix impossible for dynamic fields (common case). Real-world impact negligible.
+**State node propagation: won't fix [Feb 24]:** Single cell per state object → updating one field propagates to all consumers. Proper fix impossible for dynamic fields (common case). Real-world impact
+negligible.
 
 **`flex-shrink: 0` constraint [Feb 26]:** Can't remove from parent containers — prevents TUI grid/chart webcomp clashes. Leave as-is.
 
-**"Download .remix file" action removed [Feb 26] (BREAKING):** turntable/pull/11760. Only worked with v1+amp; superseded by workspace export plugin. Existing apps using it won't compile after Rebuild & Make. Wilber + Arvind must update before next publish.
+**"Download .remix file" action removed [Feb 26] (BREAKING):** turntable/pull/11760. Only worked with v1+amp; superseded by workspace export plugin. Existing apps using it won't compile after
+Rebuild & Make. Wilber + Arvind must update before next publish.
 
-**Protect core screens [Feb 27-28]:** Didier's fix: make home/settings/constants/symbols/styles/files screens undeletable (PR in progress). `_rmx_desktop` has no home screen (intentional — infra-only app).
+**Protect core screens [Feb 27-28]:** Didier's fix: make home/settings/constants/symbols/styles/files screens undeletable (PR in progress). `_rmx_desktop` has no home screen (intentional — infra-only
+app).
 
 ## Mar 2–7 Additions
 
-**Read File node + file upload patterns [Mar 4]:** Simon added idiomatic Read File node for client VM — previously required API node workaround. Part of updated file upload patterns (no need to rewrite existing screens).
+**Read File node + file upload patterns [Mar 4]:** Simon added idiomatic Read File node for client VM — previously required API node workaround. Part of updated file upload patterns (no need to
+rewrite existing screens).
 
-**File node error handling decision [Mar 5]:** Simon proposed standardizing on exceptions (not error bindings) for Local Files and File Pointers. Gerd + Wilber agreed. **Decision: exceptions, not error bindings.** Rationale: simpler for builder users; explicit error handling available via custom actions with `file.read()`.
+**File node error handling decision [Mar 5]:** Simon proposed standardizing on exceptions (not error bindings) for Local Files and File Pointers. Gerd + Wilber agreed. **Decision: exceptions, not
+error bindings.** Rationale: simpler for builder users; explicit error handling available via custom actions with `file.read()`.
 
-**Web Component methods with arguments [Mar 6]:** Simon implemented parameterized method invocation on web components. Previously methods either took no params or relied on attribute-passing hacks (race conditions). Tyler confirmed race condition eliminated. Backwards-compatible. Open issues: (1) no return type from methods — must use events, (2) zagjs-style components with many methods → 150+ bindings per node. Tyler proposed "edit mode" to select visible bindings.
+**Web Component methods with arguments [Mar 6]:** Simon implemented parameterized method invocation on web components. Previously methods either took no params or relied on attribute-passing hacks (
+race conditions). Tyler confirmed race condition eliminated. Backwards-compatible. Open issues: (1) no return type from methods — must use events, (2) zagjs-style components with many methods → 150+
+bindings per node. Tyler proposed "edit mode" to select visible bindings.
 
-**Synced prefs prefix convention [Mar 6]:** Didier added `builder.` prefix to builder synced prefs (`search.libs` → `builder.search.libs`). Clean prefix per surface (builder/mobile/desktop/extension). turntable/pull/11788, approved.
+**Synced prefs prefix convention [Mar 6]:** Didier added `builder.` prefix to builder synced prefs (`search.libs` → `builder.search.libs`). Clean prefix per surface (builder/mobile/desktop/extension).
+turntable/pull/11788, approved.
 
-**Elm virtual DOM perf: not a priority [Mar 6]:** Simon provided data showing Elm vDOM not inherently a perf bottleneck. Gerd: could switch to pure JS renderer with direct DOM instructions (no vDOM). Vijay agreed with Gerd's approach in principle. Didier: rendering is ~5-10% of overall time (HTTP/agents/Snowflake dominate). **Consensus: not a priority; spike later.**
+**Elm virtual DOM perf: not a priority [Mar 6]:** Simon provided data showing Elm vDOM not inherently a perf bottleneck. Gerd: could switch to pure JS renderer with direct DOM instructions (no vDOM).
+Vijay agreed with Gerd's approach in principle. Didier: rendering is ~5-10% of overall time (HTTP/agents/Snowflake dominate). **Consensus: not a priority; spike later.**
 
 **Minimized groups hide error indicators [Mar 5]:** Wilber reported: nodes with red error glow are invisible inside minimized groups. Feature request to surface error state on collapsed groups.
 
 **Platform version in builder UI [Mar 4]:** Arvind requested version number (e.g. 1.45/1.46) visible in builder. Agreed.
+
+## Mar 10–14 Additions
+
+**Pub/sub node discrepancies [Mar 11]:** Simon: cloud subscribe lacks topic context binding (subscribe has it). "topic type" binding exists but likely never used dynamically. Consensus (Gerd,
+Benedikt, Arvind): keep topic type static; use decisions if needed. Arvind: keep aliased agent names from settings/data/config supported.
+
+**Pub/sub refresh for parameterized bd [Mar 12]:** Simon implemented missing refresh for parameterized bd view (turntable#11805). Could not repro "with params bd, you only get the view" issue reported
+by Gerd.
+
+**Screen state across component boundaries [Mar 13]:** Arvind: once screen state is set or view topic triggered, it must be maintained when editing across component boundaries. No replies yet — open
+design question.
 
 ---
 

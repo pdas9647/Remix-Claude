@@ -1,6 +1,6 @@
 # #general Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Mar 7, 2026
+**Coverage:** Dec 20, 2025 – Mar 14, 2026
 **Channel ID:** C02BD0B8B
 
 ---
@@ -145,6 +145,18 @@ Daily standups Mon–Fri via https://meet.google.com/hrz-onty-twp
 
 - Chris posted a Notion doc summarizing the engineering meeting's product strategy: https://www.notion.so/Product-strategy-for-2026-31b1d464528f8099b350ffccbd9892ec
 - Will be kept up-to-date as strategy evolves
+
+### Mar 9, 2026 — DST shift
+
+- Chris: US went on daylight savings/summer time — standup now at **15:45 UTC**
+
+### Mar 12, 2026 — "Remixperiences" coined
+
+- Arvind coined "Remixperiences" — portmanteau for AI-dispatched Remix experiences across channels (RCS, chat, landing pages)
+
+### Mar 13, 2026 — Simon reduced availability
+
+- Simon will miss standup; mostly out next week but will check messages, fix bugs, and make progress on existing projects
 
 ---
 

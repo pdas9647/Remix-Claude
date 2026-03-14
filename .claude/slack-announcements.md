@@ -1,6 +1,6 @@
 # #announcements Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Mar 7, 2026
+**Coverage:** Dec 20, 2025 – Mar 14, 2026
 **Channel ID:** CK8S97CUV
 **Purpose:** Important info everyone should read; also used for cross-team huddle coordination
 
@@ -106,6 +106,33 @@
 
 - John started Lumber huddle
 - Reza checking in with Arvind, John, Vijay for follow-up
+
+### Mar 9, 2026 — Lumber: set client expectations on first phase
+
+- Reza: need to go back to Oleg on Lumber channel to set expectations on when updated deliverables will be shown
+- Proposed Thursday demo of first phase of delivery
+- Arvind + Reza + Mark huddle to discuss outstanding delivery items and ownership
+
+### Mar 11, 2026 — Lumber: first drop scope defined + table component work
+
+- **Reza defined "first drop" scope**: (a) Snowflake instance set up by Remix, (b) schema covering 5 reports set up by Remix, (c) dummy/test data populated by Remix, (d) Remix agent server hosted by
+  Remix + Desktop + mechanism to preview/publish reports (not yet integrated with Lumber app). No dependency on client for first drop.
+- Reza: will take care of Snowflake schema + data population; asked Arvind to propose a delivery date
+- Arvind: spending the day getting base table component working with primitives and large/varied sample data; owes Mark SQL overlay
+- Mark: tested sorting/pagination on CTE-based query, ready to plug into updated table component using primitives
+- Arvind: once table component takes shape, need to figure out communication between table config and sort/page/column-order (highly dependent on config)
+- Arvind also noted: need to handle CSV download of object lists
+
+### Mar 11, 2026 — Table huddle + L3 data tree issue
+
+- Arvind called table huddle with Vijay, Gerd, Simon, Didier
+- Simon referenced L3 data tree issue: turntable#11804
+- Simon attempted repro but couldn't reproduce the huge-tree scrolling problem
+
+### Mar 12–14, 2026 — Lumber: frequent sync huddles
+
+- Mar 12: Reza + Arvind Lumber discussion (Vijay on customer call)
+- Mar 14: Vijay called Lumber quick sync (Reza, Mark, John, Arvind, Didier); Arvind no major updates since prior sync
 
 ---
 
