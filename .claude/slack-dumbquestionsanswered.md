@@ -1,6 +1,6 @@
 # #dumbquestionsanswered Slack Channel — Remix Labs
 
-**Coverage:** Feb 16 – Mar 7, 2026
+**Coverage:** Feb 16 – Mar 14, 2026
 **Channel ID:** C86KWF7MG
 **Purpose:** "the dumbness of the programmer has no limits" — quick Q&A, platform clarifications
 
@@ -37,9 +37,12 @@ Each surface has different URL semantics:
 **Question:** What is the desktop equivalent of amp's `/a/x/apps` actions (`compact`, `rename` with orig/dest params, `garbage-collect`)?
 
 **Answers (Chris):**
-- **`compact` / garbage-collect:** Currently disabled — has issues with file interaction (mix-rs/issues/751). Less necessary now that v2 `.remix` files store binary code in files. Not exposed any other way.
+
+- **`compact` / garbage-collect:** Currently disabled — has issues with file interaction (mix-rs/issues/751). Less necessary now that v2 `.remix` files store binary code in files. Not exposed any
+  other way.
 - **`rename`:** NOT supported in mixer and probably shouldn't be — DB name is used as identifier in many places; renaming breaks things. Copy+delete workaround exists.
-- **Clone (install-as):** Equivalent is `.remix` export + import. Missing piece is "import-as" / "install-as" feature — ability to set a new DB name and Studio display name during import. Arvind added this to the Notion task list.
+- **Clone (install-as):** Equivalent is `.remix` export + import. Missing piece is "import-as" / "install-as" feature — ability to set a new DB name and Studio display name during import. Arvind added
+  this to the Notion task list.
 
 ---
 
@@ -55,7 +58,8 @@ Each surface has different URL semantics:
 
 **Question:** Why does `{"version": 0.9880.0}` not parse with `parseJSON`? Should it be treated as a string?
 
-**Answer:** `0.9880.0` is not valid JSON — not a valid number, not quoted. No JSON parser supports it. Must be `{"version": "0.9880.0"}`. Gerd confirmed this will not be papered over. Root cause: something in the system was returning the version unquoted from an external action — that's the bug to fix.
+**Answer:** `0.9880.0` is not valid JSON — not a valid number, not quoted. No JSON parser supports it. Must be `{"version": "0.9880.0"}`. Gerd confirmed this will not be papered over. Root cause:
+something in the system was returning the version unquoted from an external action — that's the bug to fix.
 
 ---
 
@@ -72,6 +76,7 @@ Each surface has different URL semantics:
 **Question:** Desktop deeplink uses `?remix_file_url=` but Flutter uses `?url=` for `run-remix-file`. Intentional?
 
 **Answer:** Not intentional — historic discrepancy. Per Notion deeplink doc, correct param is `?url=`.
+
 - Fix: mix-rs/pull/1013 (Benedikt) — align desktop to use `url`
 - Notion deeplink doc: notion.so/Mobile-Desktop-deeplinks-27a1d464528f803db94ac980a0bd84eb
 
@@ -79,7 +84,8 @@ Each surface has different URL semantics:
 
 ## [Feb 25] DnD install at L0: appmeta not persisted in `_rmx_admin` (Simon → Benedikt)
 
-**Question:** DnD install at L0 calls `post_install_remix_file` and gets back appmeta, but subsequent GETs to `localhost:2025/v1/ws/local/appmeta/` don't return it. Is it the builder's job to write it?
+**Question:** DnD install at L0 calls `post_install_remix_file` and gets back appmeta, but subsequent GETs to `localhost:2025/v1/ws/local/appmeta/` don't return it. Is it the builder's job to write
+it?
 
 **Answer:** No — the endpoint should write it to `_rmx_admin` automatically. Bug confirmed (v2 .remix file). Fix: Fred's fix available in v0.9974.
 
@@ -128,7 +134,8 @@ Gerd hit a URL-related issue. Debugging discussion; details in thread.
 
 **Question:** Client→HubSpot API call fails with CORS on remix.app. Works on amp and desktop. Bug?
 
-**Answer (Benedikt + Chris):** Not a bug. CORS is browser-enforced. Proxying through a service agent works because agent server isn't a browser — request to HubSpot comes from server, not browser JS. Desktop also bypasses CORS (HTTP client, not browser). **Architecture pattern: proxy third-party API calls through service agents to avoid CORS on remix.app.**
+**Answer (Benedikt + Chris):** Not a bug. CORS is browser-enforced. Proxying through a service agent works because agent server isn't a browser — request to HubSpot comes from server, not browser JS.
+Desktop also bypasses CORS (HTTP client, not browser). **Architecture pattern: proxy third-party API calls through service agents to avoid CORS on remix.app.**
 
 ---
 
@@ -145,3 +152,18 @@ Gerd hit a URL-related issue. Debugging discussion; details in thread.
 **Question:** Is "Tools and Settings" gone from the builder?
 
 **Answer (Simon):** Moved to the plugin menu like all other plugins. Still accessible there.
+
+---
+
+## [Mar 9] Lumber workspace: how to find and log in (Simon → Reza)
+
+**Question:** What tool to find the Lumber workspace for Desktop testing?
+
+**Answer:** Customer workspace IDs listed in the "Desktop info" tab of #desktop channel and on the Customer Success Projects Notion page. Reza confirmed: just log in with the Lumber workspace per that
+page.
+
+---
+
+## [Mar 12] Mac Claude client unknown UI element (Arvind → Vijay/John)
+
+Arvind shared a screenshot of something unclear inside the Mac Claude client, asking Vijay and John what it means. Vijay didn't know; deferred to John. **Unresolved.**

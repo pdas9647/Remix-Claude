@@ -1,6 +1,6 @@
 # #desktop Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Mar 7, 2026
+**Coverage:** Dec 20, 2025 – Mar 14, 2026
 **Channel ID:** C04T4HW06CC
 **Bug tracker:** https://github.com/remixlabs/mix-rs/issues/937
 
@@ -19,7 +19,8 @@
 
 ## Custom Home App & App Sync
 
-**[Feb 12 + Feb 18]** Set `home` field in workspace sync group record. Same pattern as mobile. Desktop home button navigates to custom home app. No user-space tooling yet — must manually edit data tile + invoke agent.
+**[Feb 12 + Feb 18]** Set `home` field in workspace sync group record. Same pattern as mobile. Desktop home button navigates to custom home app. No user-space tooling yet — must manually edit data
+tile + invoke agent.
 
 **Auto-sync:** Workspace sync group refreshes on every restart (not just first install).
 
@@ -41,7 +42,8 @@
 
 **Autocorrect corrupting JSON [Dec 29]:** macOS smart quotes in inputs. Fix: `spellcheck="false"` + `autocorrect="off"` — turntable/pull/11626, turntable/pull/11666.
 
-**Arrow key tofu chars [Jan 31]:** Inserts garbage on first launch. Workaround: open DevTools. Tauri/webview bug, needs upstream repro. Still unfixed in prod as of Feb 28 (absent in dev builds — different Tauri/webview?).
+**Arrow key tofu chars [Jan 31]:** Inserts garbage on first launch. Workaround: open DevTools. Tauri/webview bug, needs upstream repro. Still unfixed in prod as of Feb 28 (absent in dev builds —
+different Tauri/webview?).
 
 **Syncing preferences error [Feb 2]:** Workspace shows "legacy". Fix: mix-rs/pull/965. Windows auto-update broken — Fred manually distributes.
 
@@ -73,11 +75,14 @@
 
 ## Feb 22–28: Desktop Launch Push
 
-**.remix v2 exec-only install broken [Feb 24]:** Packaged exec-only .remix installs as editable project with no assets. Auto-sync from `_rmx_sync` works; userspace install does not. Must converge both flows.
+**.remix v2 exec-only install broken [Feb 24]:** Packaged exec-only .remix installs as editable project with no assets. Auto-sync from `_rmx_sync` works; userspace install does not. Must converge both
+flows.
 
-**No dual-workspace DX [Feb 24]:** Can't run two Desktop instances for different workspaces. Workarounds: two laptops, two OS users, macOS fast user switching (once HTTP port configurable). Configurable port: mix-rs/pull/948. Tracked: mix-rs/issues/1014.
+**No dual-workspace DX [Feb 24]:** Can't run two Desktop instances for different workspaces. Workarounds: two laptops, two OS users, macOS fast user switching (once HTTP port configurable).
+Configurable port: mix-rs/pull/948. Tracked: mix-rs/issues/1014.
 
-**Window menu disambiguation [Feb 24]:** Can't distinguish Studio vs runtime windows. Tyler's rules: builder links → desktop builder window; runtime links → runtime window; external → browser. Window title format `dbName / screen`: mix-rs/pull/1023. Client actions disabled in builder context (too many side effects).
+**Window menu disambiguation [Feb 24]:** Can't distinguish Studio vs runtime windows. Tyler's rules: builder links → desktop builder window; runtime links → runtime window; external → browser. Window
+title format `dbName / screen`: mix-rs/pull/1023. Client actions disabled in builder context (too many side effects).
 
 **Release serving [Feb 24]:** Mac via Tauri updater (binaries in R2/GCS). Windows: Fred manually uploads `.exe`. Long-term: automate Windows into same agent flow.
 
@@ -87,21 +92,28 @@
 
 **"Same Window" for external links [Feb 25]:** Ignored — browser opens, desktop window stays. mix-rs/issues/1018.
 
-**Windows bugs: `msg_perform_client_action` [Feb 26-27]:** Codegen change in `msg_open_link` requires rebuild+republish of all affected apps (including `auth.remix`). Fix: Didier republished; Fred posted v0.0.16–v0.0.18. Wipe path: `~/AppData/Local/com.remixlabs.desktop/workspaces/local`.
+**Windows bugs: `msg_perform_client_action` [Feb 26-27]:** Codegen change in `msg_open_link` requires rebuild+republish of all affected apps (including `auth.remix`). Fix: Didier republished; Fred
+posted v0.0.16–v0.0.18. Wipe path: `~/AppData/Local/com.remixlabs.desktop/workspaces/local`.
 
-**Upgrade fails: `relative URL without a base` [Feb 27]:** Platform 1.46 bump broke `desktop_home_remix` (old GCS endpoint). Fix: Didier migrated version files. Home app is NOT built-in — comes from workspace sync group. Override: `REMIX_DESKTOP_WORKSPACE_APPS_PATH`.
+**Upgrade fails: `relative URL without a base` [Feb 27]:** Platform 1.46 bump broke `desktop_home_remix` (old GCS endpoint). Fix: Didier migrated version files. Home app is NOT built-in — comes from
+workspace sync group. Override: `REMIX_DESKTOP_WORKSPACE_APPS_PATH`.
 
 **Pre-prod checklist [Feb 27] (Arvind):** (1) Arrow key tofu chars, (2) autocorrect/curly quotes, (3) MCP config cleanup, (4) solid sync, (5) default home.
 
-**Sync model proposal (Didier):** Move all `.remix` apps to synced (mobile-like model); only `_rmx_desktop` stays in binary. Others (`_rmx_artifact`, `_rmx_search`, `_rmx_tailwind`, `_rmx_extension`) all sync.
+**Sync model proposal (Didier):** Move all `.remix` apps to synced (mobile-like model); only `_rmx_desktop` stays in binary. Others (`_rmx_artifact`, `_rmx_search`, `_rmx_tailwind`, `_rmx_extension`)
+all sync.
 
-**Auto-rebuild replaces "Constants not found" modal [Feb 27]:** Simon's silent auto-rebuild. Regression: `MODULE NOT FOUND` errors on library-synced screens — workaround: save+close+reopen. Direction: block UI + spinner during full rebuild (can take 45s).
+**Auto-rebuild replaces "Constants not found" modal [Feb 27]:** Simon's silent auto-rebuild. Regression: `MODULE NOT FOUND` errors on library-synced screens — workaround: save+close+reopen. Direction:
+block UI + spinner during full rebuild (can take 45s).
 
 ## Mar 2–7: Lumber RC + Windows Stability
 
-**Mac beta 0.10180.0 — Lumber release candidate [Mar 4]:** Chris cut Lumber RC build. Build versioning: dev/beta/release are distinct version streams (not simple promotions of same artifact). Benedikt: `desktop-release` CLI command exists for promoting builds; hot-fix branches remain an advantage of separate builds. Future: promote existing artifacts instead of rebuilding.
+**Mac beta 0.10180.0 — Lumber release candidate [Mar 4]:** Chris cut Lumber RC build. Build versioning: dev/beta/release are distinct version streams (not simple promotions of same artifact).
+Benedikt: `desktop-release` CLI command exists for promoting builds; hot-fix branches remain an advantage of separate builds. Future: promote existing artifacts instead of rebuilding.
 
-**Windows v0.0.19 + v0.0.20 [Mar 4]:** Fred cut v0.0.19. Platform version not displaying. Frequent crashes traced to `muda-0.17.1` (Tauri menu crate): `RefCell already mutably borrowed` + `STATUS_STACK_BUFFER_OVERRUN` on Windows 11. Already on latest muda — upstream bug. Fred built v0.0.20 with updated dependencies, tentatively fixed. **Desktop needs a panic hook** (Benedikt). Chris: motivation to get Windows release into CI.
+**Windows v0.0.19 + v0.0.20 [Mar 4]:** Fred cut v0.0.19. Platform version not displaying. Frequent crashes traced to `muda-0.17.1` (Tauri menu crate): `RefCell already mutably borrowed` +
+`STATUS_STACK_BUFFER_OVERRUN` on Windows 11. Already on latest muda — upstream bug. Fred built v0.0.20 with updated dependencies, tentatively fixed. **Desktop needs a panic hook** (Benedikt). Chris:
+motivation to get Windows release into CI.
 
 **MCP bridge revamp PR [Mar 4]:** mix-rs/pull/1039. Available on release channel `bb-revamp-mcp`. Claude must still be started after Remix Desktop (confirmed by Vijay).
 
@@ -109,11 +121,13 @@
 
 **App install improvement [Mar 2]:** mix-rs/pull/1038 (Benedikt). Avoids re-install for any URL type; adds "origin" to deployments.json. Different install procedures store own origin metadata.
 
-**Mixcore FFI empty in browser-accessed mixer [Mar 2-3, 37 replies]:** Accessing desktop mixer via browser URL (`_rmx_host=http://localhost:2025`) doesn't load mixcore FFIs — `config.kind` undefined. Root cause: front end only sets mixcore for Desktop and .remix contexts. Fix: mix-rs/pull/1041 (Benedikt), configures compiler WebSocket connection. Merged; unblocked Gerd.
+**Mixcore FFI empty in browser-accessed mixer [Mar 2-3, 37 replies]:** Accessing desktop mixer via browser URL (`_rmx_host=http://localhost:2025`) doesn't load mixcore FFIs — `config.kind` undefined.
+Root cause: front end only sets mixcore for Desktop and .remix contexts. Fix: mix-rs/pull/1041 (Benedikt), configures compiler WebSocket connection. Merged; unblocked Gerd.
 
 **White screen of death [Mar 3]:** Gerd hit rare WSOD — desktop completely non-reactive, window unclosable.
 
-**Windows buttons grayed out [Mar 2]:** Sirshendu: all buttons grayed, losing unsaved progress. Simon: happens when frontend loses backend heartbeat — should show "unfreeze" button after 1 min, but didn't. Workaround: hidden unfreeze button in edit menu debug panel (Arvind).
+**Windows buttons grayed out [Mar 2]:** Sirshendu: all buttons grayed, losing unsaved progress. Simon: happens when frontend loses backend heartbeat — should show "unfreeze" button after 1 min, but
+didn't. Workaround: hidden unfreeze button in edit menu debug panel (Arvind).
 
 **Make updates project timestamp [Mar 3]:** Arvind: simple make + exit updates last-modified timestamp for whole project. Shouldn't happen.
 
