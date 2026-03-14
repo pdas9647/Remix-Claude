@@ -96,3 +96,10 @@ workspace apps → home.
 | #1047       | Prevent invalid characters on arrow keys                                                                                                                    | Benedikt   |
 | #1046       | Ignore missing flat file, fallback to full scan                                                                                                             | Fred       |
 | #1042/#1044 | Rebuild missing id lookup from plain idx (then reverted due to issues)                                                                                      | Fred/Chris |
+
+## Recent PRs — Mar 8–13, 2026 (2 merged)
+
+| PR          | Summary                                                                                                                                                                                               | Author |
+|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
+| **#1057** ★ | **Support renamed agent** — when reading agent metadata, identify agents by their map key only; ignore the `name` field (which was removed in turntable#11814 / protoquery#2290). 5 commits, 2 files. | Gerd   |
+| #1055       | Pin Windows Rust compiler to 1.93.1 (CI stability fix)                                                                                                                                                | Fred   |

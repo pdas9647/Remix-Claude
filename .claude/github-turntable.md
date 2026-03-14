@@ -109,3 +109,33 @@ rmx-base (Elm), rmx-editor (Elm), rmx-remix (JS runtime), rmx-runtime (JS execut
 - #11773 — Remove ancient upload support | #11770 — Compilation fix
 - #11771 — Fix env inconsistency between builder and runtime
 - #11769 — Skip L1 Stage1 codegen for Desktop — removes unnecessary extra codegen round for local DB
+
+## Recent PRs — Mar 8–13, 2026
+
+18 PRs merged. High-signal marked ★.
+
+### High-signal
+
+| PR           | Summary                                                                                                                                                                                                                        | Author     |
+|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| **#11789** ★ | **Webcomp methods with arguments** (+441/-256, 20 files) — web component methods now accept arguments declared in manifest; invoked via new payload-based protocol.                                                            | simonh1000 |
+| **#11791** ★ | **File node content binding** (+617/-224, 8 files) — File node exposes a `content` output binding with optional JSON parsing, enabling inline data extraction from uploaded files.                                             | simonh1000 |
+| **#11794** ★ | **Catalog fetch perf** (+80/-71, 10 files) — catalog search was downloading 3MB+ (full appclips) and freezing UI. Now sends only previews to L1 (500KB). Also fixed O(n²)→O(n) preview rendering via `Dict` instead of `List`. | dprophete  |
+| **#11814** ★ | **Remove name from ModMeta** (1 commit, 21 files, -31 net) — dropped unused `name` field from ModMeta; was causing Build server problems.                                                                                      | simonh1000 |
+
+### Features & fixes
+
+- #11808 — Fix `CompState.isChanged` calculation after Save and when deep-linking to L2
+- #11803 — Fix sessionAgent not started when loading preview URL directly (broke L2); fix debug msgs in mixer
+- #11805 — Agent refresh for nested callable (bug fix)
+- #11810 — Fix codegen regression for `publish + retained` (regression from #11081)
+- #11802 — Remove unused node validities; better missing-DB error handling in Query codegen
+- #11798 — Add trace echo to subscriptions (investigation for cloud subscribe echo bug)
+- #11795 — Add `setIsBusy` to stage1/2 codegen
+- #11793 — Better paste (dprophete)
+
+### Minor
+
+- #11811 — Fix cell counts | #11812 — Minor code cleanup | #11809 — Fix vmID-in-use on new project
+- #11796 — Table primitives in `simplifySetDomGroup` (global styles fix for table containers)
+- #11779 — Remove unhandled promise in StartWasm

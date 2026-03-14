@@ -45,21 +45,25 @@ main.go → lib.Server → { server.Server (HTTP), track.SessionManager, broker 
 ## API Surface
 
 ### System (`/x/...`)
+
 - **Auth:** `/x/auth/{handler}` (login), `/x/auth/{handler}/callback` (OAuth callback), `/x/token` (exchange/renew), `/x/token/revoke`
 - **WebAuthn:** `/x/pubkey/challenge`, `/x/pubkey/authenticate`
 - **Admin:** `/x/authConfig` (auth plugin CRUD), `/x/apps` (list/import/export), `/x/profile`, `/x/serverinfo`
 - **Infra:** `/x/health/*`, `/x/debug/pprof/*`, `/x/broker.ws` (WS→MQTT proxy), `/x/rcm/` (static files)
 
 ### Per-app (`/{app}/...`)
+
 - **Data:** `/{app}` (CRUD), `/documents` (batch CRUD), `/save` (with projection), `/query` (string/AST, ETag)
 - **Execution:** `/track` (sync session), `/track.ws` (WS bidirectional), `/webhooks/{id}`, `/agents/{module}`, `/lambda/{module}`
 - **Files:** `/files`, `/resources`, `/records`, `/proxy/{remote}/{path}`, `/link`, `/runtime.json`
 
 ## Core Modules — Key Details
 
-**Track (session management):** ~30 message types (session lifecycle, view ops, compilation, introspection, VM config). Agent/webhook/lambda pattern (MixTransform): create session → load module with input → read output → destroy or keep. Code caching per (hash, app, codeID). FFI bridge: DB, HTTP, compiler, auth, secrets, crypto, XML, extract, token, resource, logging.
+**Track (session management):** ~30 message types (session lifecycle, view ops, compilation, introspection, VM config). Agent/webhook/lambda pattern (MixTransform): create session → load module with
+input → read output → destroy or keep. Code caching per (hash, app, codeID). FFI bridge: DB, HTTP, compiler, auth, secrets, crypto, XML, extract, token, resource, logging.
 
-**Machine (VM runtime):** Groovebox engine with wasmtime (Wasm JIT) and mixrun (native C interpreter via CGO) backends. State machine: Init→Running→{Idle, FFIcall, Panic, Exit, Timeout}. Data exchange via `rmxcodec` binary format.
+**Machine (VM runtime):** Groovebox engine with wasmtime (Wasm JIT) and mixrun (native C interpreter via CGO) backends. State machine: Init→Running→{Idle, FFIcall, Panic, Exit, Timeout}. Data exchange
+via `rmxcodec` binary format.
 
 **Auth:** JWT local + prod (central `auth.remixlabs.com` via JWKS). Public plugins (user-owned) vs confidential (admin). Bearer token from header or `?token=` param; anonymous if missing.
 

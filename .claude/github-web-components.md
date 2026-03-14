@@ -153,3 +153,10 @@ DOM.
 |-----|-------------------------------------------------------------------------------------------------------|-----------|
 | #51 | **Chart sizing** — sets overall webcomp size from chart options so it doesn't get squeezed in builder | dprophete |
 | #50 | Fix deps and formatting for tui-chart/tui-grid                                                        | tlentz    |
+
+## Recent PRs — Mar 8–13, 2026 (2 merged)
+
+| PR        | Summary                                                                                                                                                                                | Author     |
+|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| **#46** ★ | **New: `rmx-tooltip`** (+1451, 8 files, 7 commits) — basic tooltip web component; open since Jul 2025, finally shipped. Shadow DOM component with theming params planned as follow-up. | simonh1000 |
+| #52       | **Method args support** — web component method invocation protocol updated to accept arguments. Companion to turntable#11789.                                                          | simonh1000 |

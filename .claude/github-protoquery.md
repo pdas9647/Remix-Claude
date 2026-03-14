@@ -105,3 +105,10 @@ C API: `protoquery_init()`/`protoquery_compile()` for C/Go embedding (Go wrapper
 | **#2182** ★ | **Remove domSym.mix** (5 commits, 26 files, -1658 lines). Removes `{ ... }:dom` notation (`Edom`), DOM-specific types, `dom`/`domUtil`/`domSym` stdlib modules. Sync cells kept but not interpreted. Long-lived branch (created Nov 2025). | Gerd   |
 | **#2284**   | **Add `builder.blobGet`** — stdlib wrapper around `binary.blobGet` (+13 lines). Companion to turntable#11724.                                                                                                                              | Simon  |
 | #2286       | Fix stack overflow from large literals (continues series of stack overflow fixes in compiler)                                                                                                                                              | Gerd   |
+
+## Recent PRs — Mar 8–13, 2026 (2 merged)
+
+| PR          | Summary                                                                                                                                                                                                                           | Author     |
+|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| **#2265** ★ | **AST MatchPatterns** (73 commits, +1050/-117, 8 files) — match-patterns are now part of the AST layer, continuing the ongoing Parser→AST migration (follows #2260 / AST Layer initiative). Long-running branch (created Feb 11). | camlfriend |
+| **#1901** ★ | **Fix post-parse pseudo primitives** (+3/-1, 1 file) — pseudo primitives used directly are now post-parsed so all types at point-of-use are visible. Correctness fix open since Sep 2024 (~18 months in flight before merging).   | Gerd       |
