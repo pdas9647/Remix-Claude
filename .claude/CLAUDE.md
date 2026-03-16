@@ -46,7 +46,8 @@ Notion index:
 - [remix-infra-setup.md](./remix-infra-setup.md) — _rmx_sync (app syncing, agent API), _rmx_prefs (6-agent cascade), deeplinks
 - [remix-deploy.md](./remix-deploy.md) — 10 deployment surfaces, self-hosted server, .remix files, iOS/Android widgets
 - [remix-tools.md](./remix-tools.md) — mix_client REPL, bug reporting, MCP tools, Cloud Workspace Tool
-- [platform-topics.md](./platform-topics.md) — Web Components, Wasm Functions, files, pubsub, permissions, secrets/tokens
+- [platform-topics.md](./platform-topics.md) — Web Components, Wasm Functions, FFI Command Execution (extension points)
+- [platform-topics-security.md](./platform-topics-security.md) — Files, Pubsub, Component Overriding, Permissions, Secrets/Tokens (runtime & security)
 - [platform-builder-runtime.md](./platform-builder-runtime.md) — Mixed Auth (_rmx_auth), External Actions (onEvent map, mobile/storage/payment), Window mgmt
 - [platform-builder-macros.md](./platform-builder-macros.md) — Macros (builder remote ctrl, ndType/bdType/operator ref, createNodeFromAst), _rmx_init
 - [remix-nodes-basics.md](./remix-nodes-basics.md) — Nodes: In/Out Params, Cards & Components, File Uploading, Data/Transforms, State
@@ -55,7 +56,7 @@ Notion index:
 - [server-apis-auth.md](./server-apis-auth.md) — Auth integrations (OAuth/OIDC/Apple/SFDC configs, callback URLs, token storage)
 - [server-apis-legacy.md](./server-apis-legacy.md) — Legacy Platform Server API (doc CRUD, queries, app mgmt, .remix install, files, agents)
 - [server-apis-cloud.md](./server-apis-cloud.md) — Cloud Agent Server: arch (RBAC), Mixer API (run-agent, remixgen), v1 API (permissions, files)
-- [engineering-ci.md](./engineering-ci.md) — CI: CircleCI setup, contexts, Docker images; rcm (component manager); ops (promotion, AWS, rollbacks)
+- [engineering-ci.md](./engineering-ci.md) — CI: CircleCI setup, contexts, Docker images; rcm (component manager); ops (promotion, AWS, rollbacks); bug reporting process
 
 ### Mix Language
 - [mix-syntax-core.md](./mix-syntax-core.md) — modules/imports, cells (links/aliases/observers/live), defs, statements, actions
