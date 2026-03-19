@@ -1,7 +1,7 @@
 # Server APIs — Cloud Agent Server API
 
 > Sources:
-> - [Cloud Agent Server](https://www.notion.so/1061d464528f80f18e46dd27895aeda2) — Architecture hub; last updated 2026-02-26
+> - [Cloud Agent Server](https://www.notion.so/1061d464528f80f18e46dd27895aeda2) — Architecture hub; last updated 2026-03-14
 > - [Cloud Agent Server API](https://www.notion.so/1061d464528f8022aa1cec129096c82b) — Mixer API
 > - [Cloud Agent Server v1 API](https://www.notion.so/1bd1d464528f80cb97cde448c9e2a944) — v1 API (Swagger: `https://agt.remixlabs.com/v1/swagger/`)
 
@@ -66,6 +66,23 @@ Subjects: `user/<email>`, `domain/<host>`, `agent/<server>:<ws>.<app>.<agent>`, 
 | `GET`    | `/subscribe/<topic>`            | Subscribe to cloud topic (SSE)                                                                            |
 
 `POST /remixgen/<ws>/<app>` — inject query results into a .remix template. Params: `src`/`url`, `dest`, `query`, `overrides` (JSON: app → constants).
+
+### Agent Aliases
+
+An agent alias is a new name for a service agent with a set of **fixed parameters** always passed on invocation. From outside Mixer, aliases are indistinguishable from service agents — listed and called using the same endpoints.
+
+Alias record shape (stored in app DB):
+
+```typescript
+{
+  name: string,          // alias name
+  aliasTo: string,       // target service agent name
+  description: string,
+  fixedParams: map(data) // params merged into every call
+}
+```
+
+When alias `x` is called, Mixer checks permissions on the alias, then forwards params (merged with `fixedParams`) to the aliased service agent.
 
 ---
 

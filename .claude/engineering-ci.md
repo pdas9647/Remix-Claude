@@ -1,9 +1,9 @@
 # Engineering — CI, rcm & Operations
 
 >
-Sources: [CI](https://www.notion.so/11f1d464528f80a0b618ca8d6b28dd95) | [rcm](https://www.notion.so/11f1d464528f80d28321f9c83e3a0cbc) | [ChrisDB](https://www.notion.so/2f01d464528f807da58ecafbde85d3c4)
+Sources: [CI](https://www.notion.so/11f1d464528f80a0b618ca8d6b28dd95) | [rcm](https://www.notion.so/11f1d464528f80d28321f9c83e3a0cbc) | [ChrisDB](https://www.notion.so/2f01d464528f807da58ecafbde85d3c4) | [Bug reporting](https://www.notion.so/3061d464528f80cdacf7eed2612bad07)
 > Parent: Engineering process → Platform Engineering (Internal) Home
-> Last updated: 2026-03-08
+> Last updated: 2026-03-16
 
 ---
 
@@ -155,7 +155,7 @@ On merge to `main`, CI runs `update-users.mjs`: checks downstream components, an
 
 ## Operations (ChrisDB)
 
-> Source: [ChrisDB](https://www.notion.so/2f01d464528f807da58ecafbde85d3c4)
+> Source: [ChrisDB](https://www.notion.so/2f01d464528f807da58ecafbde85d3c4) — last updated 2026-03-11
 > "A hopefully shrinking list of things only Chris knows how to do"
 
 ### Weekly Promotion
@@ -176,7 +176,25 @@ On merge to `main`, CI runs `update-users.mjs`: checks downstream components, an
 
 With GCP cluster access: `source kube-config.sh prod|poc|beta|dev` in `M`, then `kubectl exec` + `df -h`.
 
+### Mixer DB Admin / Rollback
+
+Mixer uses nightly snapshots (same approach as Amp). Server runs as user `remixlabs` in group `www-data` — `chgrp`/`chown` needed if SSH as root.
+
+- **Index directories:** `<db_name>/v2/` — only current version needed, but set must match `vers.json`. Dirs not in `vers.json` are harmless and removable.
+- **Interrupted flush recovery:** orphaned write-log records (index doesn't reference them, numbering off). Fix: use latest version in `vers.json` to get expected record count → truncate `db.off` and `db.dat` to that count → clean `vers.json` → restart server. See [ChrisDB](https://www.notion.so/2f01d464528f807da58ecafbde85d3c4) for the full recovery script.
+
 ### Amp Rollbacks
 
 - **Full disk rollback:** Create disk from snapshot → mount on target pod → copy raw DB files (hash-named dirs, use `bin/encode-app-name` in amp) → swap `v2` directory
 - **Screen node rollback:** `https://remix.remixlabs.com/e/edit/rollback/rollback` — rolls back individual screen nodes to earlier time (for node corruption)
+
+---
+
+## Bug Reporting Process
+
+> Source: [Bug reporting](https://www.notion.so/3061d464528f80cdacf7eed2612bad07) — last updated 2026-03-10
+
+1. **Ask:** Is it a bug? Check Slack / GitHub issues, or ask in `#bugbash` / `#dumbquestionsanswered`
+2. **Repro:** Provide minimal repro — link to cloud builder screen, .remix file, or step-by-step. Include: product/surface, version, OS/browser
+3. **Fix or file:** Engineering either fixes immediately (link PR in thread) or creates a GitHub issue. Reporter ensures one happens
+4. **Mark resolution** (emoji on original Slack post): ✅ fixed, 👍 expected, 📝 ticket created, 🚧 content bug, 🤷 no repro
