@@ -2,7 +2,8 @@
 
 > Parent: Remix Documentation > User Guides and Tutorials > Topics
 > Source pages linked per section below.
-> See also: [platform-builder-runtime.md](./platform-builder-runtime.md) — Mixed Auth, External Actions; [platform-builder-macros.md](./platform-builder-macros.md) — Macros, Edit/Run/Configure modes, _rmx_init
+> See also: [platform-builder-runtime.md](./platform-builder-runtime.md) — Mixed Auth, External Actions; [platform-builder-macros.md](./platform-builder-macros.md) — Macros, Edit/Run/Configure
+> modes, _rmx_init
 > See also: [platform-topics-security.md](./platform-topics-security.md) — Files, Pubsub, Permissions, Secrets/Tokens
 
 ---
@@ -148,6 +149,7 @@ Stdlib module to execute commands in the host environment, controlled by Mixer p
 New Mixer resource type for commands, capturing program, parameters, options, and app.
 
 **Desktop** — when no existing permission, a dialog prompts:
+
 - "Allow this execution of the command"
 - "Allow this and future executions of the command"
 - "Allow this execution and future executions of the program with different parameters"
@@ -156,15 +158,16 @@ New Mixer resource type for commands, capturing program, parameters, options, an
 
 ### Sandboxing
 
-| Constraint       | Details                                                        |
-|------------------|----------------------------------------------------------------|
-| Timeout          | Default + maximum values (mixer CLI options)                   |
-| Memory usage     | Default + maximum values (mixer CLI options)                   |
-| Read directories | App paths or host paths (host paths: desktop only)             |
-| Write directories| App paths or host paths (host paths: desktop only)             |
-| Network access   | Disabled by default; enable globally or via domain whitelist   |
+| Constraint        | Details                                                      |
+|-------------------|--------------------------------------------------------------|
+| Timeout           | Default + maximum values (mixer CLI options)                 |
+| Memory usage      | Default + maximum values (mixer CLI options)                 |
+| Read directories  | App paths or host paths (host paths: desktop only)           |
+| Write directories | App paths or host paths (host paths: desktop only)           |
+| Network access    | Disabled by default; enable globally or via domain whitelist |
 
 **Path formats:**
+
 - `app:<path>` — Mix path in current app
 - `app:<app>:<path>` — Mix path in another app (introduces permission checks)
 - `host:<path>` — absolute host path (desktop only, **not** allowed on agent server)
@@ -174,30 +177,34 @@ Default: only current app's Mix files are readable and writable.
 ### Mix API
 
 ```typescript
-foreign def execute :
-  string -> array<string> -> options -> sandbox -> result<string, output>
-  = "$cmd_execute"
+foreign
+def
+execute :
+    string -> array<string>
+->
+options -> sandbox -> result<string, output>
+    = "$cmd_execute"
 
 type options = {
-  workingDirectory?: string, // default "app:/", other: "host:/abc/path"
-  envVars?: map<string>,
-  stdOut?: outBinary | outLines | outString, // default outString
-  stdErr?: outBinary | outLines | outString, // default outString
+    workingDirectory?: string, // default "app:/", other: "host:/abc/path"
+    envVars?: map<string>,
+    stdOut?: outBinary | outLines | outString, // default outString
+    stdErr?: outBinary | outLines | outString, // default outString
 }
 
 type sandbox = {
-  timeout?: number,        // milliseconds, with default and maximum
-  memoryUsage?: number,    // bytes, with default and maximum
-  read?: array<string>,    // default ["app:/"], other: "host:/abs/path"
-  write?: array<string>,   // default ["app:/"], other: "host:/abs/path"
-  network?: bool | array<string> // default false, array = domain whitelist
+    timeout?: number,        // milliseconds, with default and maximum
+    memoryUsage?: number,    // bytes, with default and maximum
+    read?: array<string>,    // default ["app:/"], other: "host:/abs/path"
+    write?: array<string>,   // default ["app:/"], other: "host:/abs/path"
+    network?: bool | array<string> // default false, array = domain whitelist
 }
 
 type output = {
-  timedOut: bool,
-  exitCode?: number,       // undefined when timedOut
-  stdout: string | array<string> | binary,
-  stderr: string | array<string> | binary
+    timedOut: bool,
+    exitCode?: number,       // undefined when timedOut
+    stdout: string | array<string> | binary,
+    stderr: string | array<string> | binary
 }
 ```
 
@@ -209,8 +216,8 @@ type output = {
 
 ### Sandbox Backends
 
-| Platform | Backend                                                                |
-|----------|------------------------------------------------------------------------|
-| Windows  | `wsb` (Windows Sandbox)                                               |
-| macOS    | `sandbox-exec` or alcless                                             |
-| Linux    | `cgroups` for resources, landlock for filesystem                      |
+| Platform | Backend                                          |
+|----------|--------------------------------------------------|
+| Windows  | `wsb` (Windows Sandbox)                          |
+| macOS    | `sandbox-exec` or alcless                        |
+| Linux    | `cgroups` for resources, landlock for filesystem |
