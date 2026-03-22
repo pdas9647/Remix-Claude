@@ -160,3 +160,9 @@ DOM.
 |-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
 | **#46** ★ | **New: `rmx-tooltip`** (+1451, 8 files, 7 commits) — basic tooltip web component; open since Jul 2025, finally shipped. Shadow DOM component with theming params planned as follow-up. | simonh1000 |
 | #52       | **Method args support** — web component method invocation protocol updated to accept arguments. Companion to turntable#11789.                                                          | simonh1000 |
+
+## Recent PRs — Mar 15–22, 2026 (1 merged)
+
+| PR  | Summary                                                                                                                         | Author |
+|-----|---------------------------------------------------------------------------------------------------------------------------------|--------|
+| #54 | **rmx-tui-grid test page & JSX types** — adds test page with sample data, JSX `IntrinsicElements` declaration, formatting fixes | tlentz |

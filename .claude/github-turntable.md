@@ -57,30 +57,6 @@ rmx-base (Elm), rmx-editor (Elm), rmx-remix (JS runtime), rmx-runtime (JS execut
 
 - Migrations: M_018–M_020 not read. Tests: ~100+ Elm + ~210 JSON fixtures not explored. Renderer: `shared/Renderer/` not read.
 
-## Recent PRs — Feb 22–28, 2026
-
-25 PRs merged. High-signal marked ★.
-
-### High-signal
-
-| PR           | Summary                                                                                                               | Author     |
-|--------------|-----------------------------------------------------------------------------------------------------------------------|------------|
-| **#11726** ★ | **Simplified styles / dynamic themes** — themes dynamically resolved at L2 open; `rmx_style`/`rmx_styles` deprecated. | dprophete  |
-| **#11760** ★ | **Remove .remix client action** — deprecated + removed (caused v1 .remix files, broken on Desktop).                   | simonh1000 |
-| **#11759** ★ | **Custom Client Action node** — non-hard-coded client actions, replaces External Action node.                         | simonh1000 |
-| **#11734** ★ | **Multiple Cloud Server locations** — builder stores multiple locations; Service Agent wizard.                        | simonh1000 |
-| **#11710** ★ | **Desktop: REPL for Function node** — uses SessionPool (works on Desktop).                                            | simonh1000 |
-| **#11757** ★ | **Rebuilding fixes** — detect missing consts via stdLibId; pass `didClean` as `deleteNonTargetBinaries`.              | simonh1000 |
-
-### Minor
-
-- #11746 — Restore "download package" | #11762 — L1 "New" to sidebar | #11768 — L1 delete warnings
-- #11765 — Model rebuild errors | #11764 — Compiler tests | #11756 — Plugin search | #11753 — Plugins button
-- #11758/#11754/#11755 — Minor updates, remove Reload Route, CSS revert
-- #11669 — `deleteNonTargetBinaries` | #11744 — Service Agent field bindings refactor
-- #11748 — `available` out param | #11743 — Refresh modal | #11742 — `InActive` → `Inactive`
-- #11741 — Debug msg | #11740 — Open link in new tab | #11738 — Remove Card derived state
-
 ## Recent PRs — Mar 1–7, 2026
 
 22 PRs merged. High-signal marked ★.
@@ -139,3 +115,31 @@ rmx-base (Elm), rmx-editor (Elm), rmx-remix (JS runtime), rmx-runtime (JS execut
 - #11811 — Fix cell counts | #11812 — Minor code cleanup | #11809 — Fix vmID-in-use on new project
 - #11796 — Table primitives in `simplifySetDomGroup` (global styles fix for table containers)
 - #11779 — Remove unhandled promise in StartWasm
+
+## Recent PRs — Mar 15–21, 2026
+
+18 PRs merged. High-signal marked ★.
+
+### High-signal
+
+| PR                  | Summary                                                                                                                                                                                                  | Author               |
+|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|
+| **#11539** ★        | **OPFS storage backend** (60 commits, 17 files) — replaced IndexedDB WASI shim with OPFS-based mixcore Wasm. New worker install, IDB→OPFS migration. Removed `idb_cache.js`/`mixrt.js`. CI→`make setup`. | benozol              |
+| **#11834** ★        | **`data-rmx-cid` attribute** (15 files) — internal actions/webcomps use `data-rmx-cid` instead of `id`. Frees `id` as user-facing property for anchors. Runtime selectors via `selectorByCid()`.         | tlentz               |
+| **#11807** ★        | **Pub-Sub modelling + Cloud Sub UI** (12 files, +681/-378) — models 4 pub/sub variants. CloudDB support with workspace/DB selector wizard.                                                               | simonh1000           |
+| **#11815** ★        | **Screenshot overhaul** (20 files) — replaced `html2canvas` with `html-to-image`. Base64 JPG in editor_screen4 (3–4KB). Desktop Safari fixes. L0 shows home screen only.                                 | dprophete            |
+| **#11820+#11823** ★ | **Callable build fixes** — fixed callable list computation (wrong prefixes) causing makeAgent failures on Mixer. Callables excluded from targets.                                                        | dprophete+simonh1000 |
+| **#11813** ★        | **L3 QB codegen standardization** (14 files) — all QB L3 codegen now uses standard `cell out_tmp`.                                                                                                       | simonh1000           |
+
+### Features & fixes
+
+- #11835 — L1 Files preview of `.mixsrc` files (simonh1000)
+- #11825 — Plugin inEvents on regular screens — `Select nodes` available outside plugins (dprophete)
+- #11826 — InEvents UI: show descriptions per system in-event (dprophete)
+- #11822 — Add Gerd's new tooling plugin | #11821 — Remove download file button for Desktop (simonh1000)
+- #11827 — No "replace/keep" warning on L1 clone (dprophete)
+
+### Minor
+
+- #11828 — Standardize `cloudDB`→`cloudDb` naming (23 files) | #11824 — OPFS follow-up fixes
+- #11819 — L1 search wording | #11817 — Desktop Rebuild+Make styles fix | #11818 — Exclude `action` prop from screenshot MD5

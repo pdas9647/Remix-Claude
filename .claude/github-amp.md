@@ -76,7 +76,9 @@ via `rmxcodec` binary format.
 - Solo mode: desktop serves builder (`/e/`), runtime (`/r/`), groovebox (`/g/`) static files
 - Dependencies: `eleventwo` (DB), `elaws` (AWS), `siwago` (Apple Sign In), forked `hmq`/`gosnowflake`
 
-## Recent PRs
+## Recent PRs — 2026-03-22
+
+> Last scanned: 2026-03-22. No new merged PRs since Mar 15, 2026.
 
 | PR    | Date   | What                                                                     | Who   |
 |-------|--------|--------------------------------------------------------------------------|-------|

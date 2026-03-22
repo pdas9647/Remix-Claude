@@ -19,7 +19,7 @@
 |---------------|----------------------------------------------------------------------------------|
 | `remix`       | Core `Value` enum, u32 codec, `#[remix::bind]` proc macro                        |
 | `remix_macro` | `#[bind]` (Rust→Wasm export), `#[derive(HasType)]`                               |
-| `mixfs`       | FS abstraction: `backend_std`/`backend_tokio`/`backend_noop`                     |
+| `mixfs`       | FS abstraction: `backend_std`/`backend_tokio`/`backend_noop`/`backend_opfs`      |
 | `mixquery`    | Query engine: AST, parser, filter/proj/aggr, indexed storage, varcode, WAL       |
 | `mixcore`     | FFI bridge: DB, HTTP, crypto, files, DuckDB, Wasm, WebSocket, MQTT, secrets      |
 | `mixrun`      | Wasm runtime host: mixcore + MixRT (C VM), wasmtime/wasm2c, LRU cache, C/JNI API |
@@ -103,3 +103,14 @@ workspace apps → home.
 |-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
 | **#1057** ★ | **Support renamed agent** — when reading agent metadata, identify agents by their map key only; ignore the `name` field (which was removed in turntable#11814 / protoquery#2290). 5 commits, 2 files. | Gerd   |
 | #1055       | Pin Windows Rust compiler to 1.93.1 (CI stability fix)                                                                                                                                                | Fred   |
+
+## Recent PRs — Mar 15–20, 2026 (6 merged)
+
+| PR          | Summary                                                                                                                                                                                                                                                                                                                              | Author   |
+|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
+| **#818** ★  | **OPFS (Origin Private File System)** — major feature (196 commits, 51 files, +2657/-1223). Adds `mixfs` OPFS backend, new `js_api.rs` Wasm API, new `mixcore/bindings/js/` package, refactored `remix_file.rs` install. Replaces old Wasm API bindings. Tested .remix v1/v2, iOS webapp, IndexDB migration. Related: groovebox#450. | Benedikt |
+| **#1063** ★ | **Idempotent .remix V2 reload** — overhauls `onUpdateDelete` to collect IDs first, diff against saved IDs, then delete stale records. Replaces `.unwrap()` with proper error handling throughout V2 install. Adds `test_tailwind_twice` test. +178/-80.                                                                              | Fred     |
+| **#1069**   | **Monorepo CI v0.0.1** — adds `component-changed` script + `halt-if-no-component-change` / `update-users-if-changed` commands. CI skips unchanged components on branches. +75/-12.                                                                                                                                                   | Benedikt |
+| **#1065**   | **OPFS file URL** — adds `create_url_of_file` in OPFS backend using `Url::create_object_url_with_blob`. Refactors `file_url` to branch on OPFS vs standard backends.                                                                                                                                                                 | Benedikt |
+| **#1060**   | **OPFS desktop** — integrates OPFS into Tauri desktop: switches to `mixcore_opfs.wasm`, uses new `RemixFileReader` API with manifest validation, adds auth/signin trace logging.                                                                                                                                                     | Benedikt |
+| #1068       | Install `flex` in CI (build dep for monorepo)                                                                                                                                                                                                                                                                                        | Benedikt |

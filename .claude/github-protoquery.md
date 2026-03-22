@@ -112,3 +112,16 @@ C API: `protoquery_init()`/`protoquery_compile()` for C/Go embedding (Go wrapper
 |-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
 | **#2265** ★ | **AST MatchPatterns** (73 commits, +1050/-117, 8 files) — match-patterns are now part of the AST layer, continuing the ongoing Parser→AST migration (follows #2260 / AST Layer initiative). Long-running branch (created Feb 11). | camlfriend |
 | **#1901** ★ | **Fix post-parse pseudo primitives** (+3/-1, 1 file) — pseudo primitives used directly are now post-parsed so all types at point-of-use are visible. Correctness fix open since Sep 2024 (~18 months in flight before merging).   | Gerd       |
+
+## Recent PRs — Mar 15–17, 2026 (8 merged)
+
+| PR          | Summary                                                                                                                                                                                                 | Author |
+|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
+| **#2075** ★ | **Signals stdlib module** (+161, 4 files) — new `signal` module: one-shot agent notifications via `create`/`wait`/`send`/`cancel`. Cloud agent server only. Requires mix-rs#728. Long-lived (Jun 2025). | Gerd   |
+| **#2294** ★ | **Variant wildcard `"*"` in driver** (+40/-21, 5 files) — adds `compiler.variant_qcode`/`variant_wasm` constants; `"*"` accepts both QCode+WASM from filesystem. .remix export now defaults to `"*"`.   | Gerd   |
+| **#2296**   | **Remove `Pcheckpoint`/`CHECKPOINT` token** (+5/-30, 14 files) — eliminates checkpoint phrase from AST/lexer/parser/typing. Checkpoint logic folded into `$DEFPRIMITIVES`.                              | Gerd   |
+| **#2045**   | **Add `db.asOf`** (+37/-13, 3 files) — temporal base query: returns records current at a given timestamp using `_rmx_last_modified_at`/`_rmx_superseded_at`. Calendar import reordered in stdlib.       | Chris  |
+| **#2270**   | **Build server v2.1** (+96/-35, 4 files) — codegen supports `clipInput` alongside `screenInput`; `genResponse` adds `mixImports`; `catalogItem` type in `remixRecipe`; better codegen error messages.   | Gerd   |
+| **#2242**   | **errorInfo in runtime.json** (+55/-21, 1 file) — replaces `debugInfo` with `errorInfo` (nested `debugObjects`+`errorTracker`); adds `repository`/`recipe` types to `created` manifest.                 | Gerd   |
+| **#2282**   | **`$loadHook` for REPL** (+183/-29, 3 files) — session agent implements `$loadHook` FFI for dynamic module loading in REPL; VM config now sends specific FFI names instead of boolean.                  | Gerd   |
+| #2050       | **Int/float msgpack for lib version** (+16/-6, 1 file) — `Code.ml` accepts `Dfloat` in addition to `Dint` for library version in amp MsgPack interface.                                                 | Chris  |

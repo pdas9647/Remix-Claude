@@ -21,19 +21,25 @@ main() → Config.loadFromPrefs() → MyApp
   → LoginScreen: WebView → remix.app/remix/signin → FlutterWebAuth2
 ```
 
-**Config** (`lib/models/config.dart`) — Central god object. Auth tokens (JWT in Keychain/EncryptedSharedPrefs), routing (TopLevel enum), AMP/Mixer clients, AppLoader, StoreMgr, NotifMgr. Handles deep links, universal links, AppClip links, .remix files.
+**Config** (`lib/models/config.dart`) — Central god object. Auth tokens (JWT in Keychain/EncryptedSharedPrefs), routing (TopLevel enum), AMP/Mixer clients, AppLoader, StoreMgr, NotifMgr. Handles deep
+links, universal links, AppClip links, .remix files.
 
-**AppScreen** — WebView loading turntable runtime. HTML served as string with `<base href>` to GCS assets. JS↔Native via `RmxPost` channel. On `start`, injects `initApp()` with app/screen/params/token/env.
+**AppScreen** — WebView loading turntable runtime. HTML served as string with `<base href>` to GCS assets. JS↔Native via `RmxPost` channel. On `start`, injects `initApp()` with
+app/screen/params/token/env.
 
-**MixAction** — Dispatches ~30+ client actions from WebView: navigation (location-changed, logout), device (location, clipboard, share), mobile-specific (SMS, ESC/POS print, NFC, play-alert, drawer, reload-widgets, widget-debugger, share-render, donate-intent, add-to-siri), store (purchase, restore, current-plan), system (download-remix-file, track-error, save-token, scenegraph, ipc).
+**MixAction** — Dispatches ~30+ client actions from WebView: navigation (location-changed, logout), device (location, clipboard, share), mobile-specific (SMS, ESC/POS print, NFC, play-alert, drawer,
+reload-widgets, widget-debugger, share-render, donate-intent, add-to-siri), store (purchase, restore, current-plan), system (download-remix-file, track-error, save-token, scenegraph, ipc).
 
-**Platform Channel** (`com.remixlabs.channel`) — iOS (AppDelegate.swift) + Android (MainActivity.kt): `ampmobile_start/stop/reset/wipedb`, `execute_agent` (MixRun Wasm), `reload_widgets`, `download_remix_file`. iOS-only: `send_sms`, `write_nfc`, `donate_intent`. Android-only: `enableAndroidTapJacking`.
+**Platform Channel** (`com.remixlabs.channel`) — iOS (AppDelegate.swift) + Android (MainActivity.kt): `ampmobile_start/stop/reset/wipedb`, `execute_agent` (MixRun Wasm), `reload_widgets`,
+`download_remix_file`. iOS-only: `send_sms`, `write_nfc`, `donate_intent`. Android-only: `enableAndroidTapJacking`.
 
 ## Home-Screen Widgets
 
-**iOS (WidgetKit + SwiftUI):** 7 sizes. `IntentTimelineProvider` executes widget agent locally via MixRun Wasm → `DomNode` scene graph → native SwiftUI rendering (`NodeViewSwift`). Timeline entries for time-based updates. Config via `RemixConfig` intent.
+**iOS (WidgetKit + SwiftUI):** 7 sizes. `IntentTimelineProvider` executes widget agent locally via MixRun Wasm → `DomNode` scene graph → native SwiftUI rendering (`NodeViewSwift`). Timeline entries
+for time-based updates. Config via `RemixConfig` intent.
 
-**Android (WebView → Bitmap):** 3 sizes. WebView loads `widget.html`, executes agent via MixRun, renders in WebView, captures bitmap. Click-target buttons (`btn1-10`) → `PendingIntent` → URL. Config in SharedPreferences.
+**Android (WebView → Bitmap):** 3 sizes. WebView loads `widget.html`, executes agent via MixRun, renders in WebView, captures bitmap. Click-target buttons (`btn1-10`) → `PendingIntent` → URL. Config
+in SharedPreferences.
 
 **Shared:** Both read email/token from secure storage, execute `_rmx_widgets` agent locally (no network after initial sync).
 
@@ -52,7 +58,9 @@ main() → Config.loadFromPrefs() → MyApp
 - All JS↔Native callbacks use `{status: "ok"/"error", data: ...}` envelope
 - Widget rendering divergence: iOS = native SwiftUI from DomNode AST; Android = WebView bitmap capture
 
-## Recent PRs
+## Recent PRs — 2026-03-22
+
+> **Scan: 2026-03-22** — No merged PRs since Mar 15, 2026. Last merge was #441 on Feb 20.
 
 | PR   | Date   | What                                                      | Who    |
 |------|--------|-----------------------------------------------------------|--------|
