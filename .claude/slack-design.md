@@ -1,6 +1,6 @@
 # #design Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Mar 14, 2026
+**Coverage:** Dec 20, 2025 – Mar 21, 2026
 **Channel ID:** C4BLR910S
 **Purpose:** Design systems, visual IDE, icon and widget libraries
 
@@ -105,3 +105,12 @@ open design question.
 - Arvind drives proposals, Didier implements; Simon probes rationale
 - Screenshots + builder links on every UI report
 - "shipitt" = approved; no formal sign-off ceremony
+
+## Mar 14–21 Additions
+
+**TUI grid ghost column resolved [Mar 17–18, Arvind → Tyler]:** TUI grid adds a narrow empty right-side column by default because `scrollY=true` is the default option. Tyler confirmed: this is a
+tui-grid feature, not a bug. To remove it, set `scrollY=false` explicitly — but that disables vertical scroll. Arvind: horizontal scrolling can still be done via the outer container. Test
+app: https://remix-dev.remixlabs.com/e/edit/table_builder/home.
+
+**L0 simplified to home screenshot only [Mar 18, Didier]:** Didier confirmed the new L0 design: only the home screenshot is shown per project. The "last 3 modified screens" panel has been removed. *"I
+think it's simpler."*

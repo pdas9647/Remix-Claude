@@ -1,6 +1,6 @@
 # #bugbash Slack Channel — Remix Labs
 
-**Coverage:** Jan 20 – Mar 14, 2026
+**Coverage:** Jan 20 – Mar 21, 2026
 **Channel ID:** C862WHQMS
 **Bug reporting guide:** https://www.notion.so/Bug-reporting-3061d464528f80cdacf7eed2612bad07
 
@@ -157,3 +157,29 @@ Benedikt proposed `Content-Disposition: attachment` header on mixer. **No fix ye
 
 - **Save & Make in Settings always errors** (Didier, Feb 11): known since Settings L2 introduced; plan to disable button (Simon: needs redesign)
 - **Error page "send report" form errors** (Didier, Feb 9): `_rmx_errorFallback.mix` was stale; synced from prod (pq/pull/2264); needs productized error reporting UX
+
+### Wasm component dep clash: crashes remix.app + Desktop plugins + workspace form (Wilber/Benedikt, Mar 19) 🔴
+
+`__wasm_bindgen_func_elem_2405 is not a function` on dev.remix.app when loading remix files. Root cause: transitive dependency clash in rcm components. Affects **remix.app**, **Desktop plugins**, and
+**Desktop workspace form**. Repro: https://dev.remix.app/about/remix. Benedikt investigating; discussion in #C027XQTJG6P. **Unresolved / Critical.**
+
+### File download button in Desktop freezes app (Didier → Benedikt/Simon, Mar 18) 🔴
+
+Downloading a file from the files tile throws an error with no way to close the window — must quit and restart Desktop. Simon: missed applying same URL check to the download button (applied to get_url
+only). Needs a tauri-specific solution or general file-access-by-URL approach. Talk scheduled between Simon + Benedikt for Monday Mar 23. Related to the existing "File download opens without auth"
+issue (Mar 3). **Unresolved.**
+
+### Paste callable comp → "unknown target" build error (Didier/Simon, Mar 17–18) 🟡
+
+Pasting a screen containing callable comps triggers "unknown target" make error on Desktop (client VM). Works on amp. Root cause: 2 distinct bugs. Simon PR: turntable#11823; Didier parallel fix:
+turntable#11820. Arvind proposed bidirectional review to pick the less risky one. **PRs under review.**
+
+### L0 collaborator list not updated on L1 paste/delete (Arvind, Mar 20) 🟡
+
+Pasting modules, deleting modules, or doing make at L1 doesn't add user to the `collaborators` list, even though `lastModified` updates correctly. Only L2 node moves trigger a collaborator update.
+Simon's fix turntable#11830 adds collaborator on paste. Broader open question: should `make` update `lastModified` at all? **Partial fix in PR; design question open.**
+
+### Repo writer comma format locks creator out (Mark/Gerd, Mar 20) 🟡
+
+Adding multiple writers to a Repository project with comma-separated emails (e.g. `a@b.com, c@d.com`) instead of space-separated corrupts the writers list and locks the creator out. Workaround:
+manually edit `projects/<Name>.json` in the Repository cloud files (the `writers` field). Root fix needed: UI validation + creator should always retain permission. **No fix yet.**

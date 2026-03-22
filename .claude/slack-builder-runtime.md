@@ -1,6 +1,6 @@
 # #builder-runtime Slack Channel — Remix Labs
 
-**Coverage:** Dec 31, 2025 – Mar 14, 2026
+**Coverage:** Dec 31, 2025 – Mar 21, 2026
 **Channel ID:** C58HC9EC8
 **Topic:** Builder, remix.app, WebApp
 
@@ -99,3 +99,13 @@ design question.
 - Amp-to-mixer migration steady theme: removing amp-only features, adding mixer equivalents
 - Didier proactively cleans legacy (inmem DB, session mirroring, DragGroup)
 - Low-traffic (~1-2 msgs/day); substantive posts with PR links and video demos
+
+## Mar 14–21 Additions
+
+**Cloud Subscribe QoL improvements [Mar 17, Simon]:** Simon shared a screen recording showing quality-of-life improvements for Cloud Subscribe nodes (no textual detail shared — video only).
+
+**`deploy_lib_agent` system-wide plugin [Mar 18, Gerd → Simon]:** Gerd announced a new system-wide plugin with entry points `deploy_lib_agent_l1` and `deploy_lib_agent_l2`. Same `.remix` file as
+`export_package`: `Build_Tools.remix`. Source code in the `Build_Tools` project. Gerd asked how to configure the plugin menu. Simon directed to turntable#11822 (merge to enable).
+
+**inevent tile QoL improvements [Mar 19, Didier → John]:** Small description added for each event + selected nodes always visible in the inevent tile, even when the screen is used as a plugin. (
+Screenshot shared.)

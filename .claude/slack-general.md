@@ -1,6 +1,6 @@
 # #general Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Mar 14, 2026
+**Coverage:** Dec 20, 2025 – Mar 21, 2026
 **Channel ID:** C02BD0B8B
 
 ---
@@ -167,3 +167,15 @@ Daily standups Mon–Fri via https://meet.google.com/hrz-onty-twp
 - Technical updates shared inline (PR numbers, Notion links, demo URLs, screenshots)
 - GTM updates posted by Mukund on Fridays; customer pipeline status visible to whole team
 - India team posts holiday notices a day ahead
+
+### Mar 18, 2026 — India team out for Ugadi + Snowflake branding
+
+- **Padmanabha**: India team will be out Mar 19 for Ugadi (Telugu & Kannada New Year)
+- **Arka**: Won't join standup, down with fever
+- **Sirshendu**: Won't attend standup due to storm/power cut
+    - Update: working with Suma to create **vector versions of Remix logos and branding materials for the Snowflake conference**
+
+### Mar 20, 2026 — Absences
+
+- **Arvind**: Won't make standup, meeting a friend downtown; back online right after
+- **Reza**: Not on standup due to personal commitments; asked Arvind to ping when back online

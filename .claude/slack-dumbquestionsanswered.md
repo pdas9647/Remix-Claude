@@ -1,6 +1,6 @@
 # #dumbquestionsanswered Slack Channel — Remix Labs
 
-**Coverage:** Feb 16 – Mar 14, 2026
+**Coverage:** Feb 16 – Mar 21, 2026
 **Channel ID:** C86KWF7MG
 **Purpose:** "the dumbness of the programmer has no limits" — quick Q&A, platform clarifications
 
@@ -167,3 +167,35 @@ page.
 ## [Mar 12] Mac Claude client unknown UI element (Arvind → Vijay/John)
 
 Arvind shared a screenshot of something unclear inside the Mac Claude client, asking Vijay and John what it means. Vijay didn't know; deferred to John. **Unresolved.**
+---
+
+## [Mar 15] "Pack wasm code" option in export package — obsolete (Didier → Gerd)
+
+**Question:** What does the "pack wasm code" option do in `export_package`, and when should/shouldn't it be used?
+
+**Answer (Gerd):** It's obsolete and can go away. When binaries were stored in the DB, wasm code had separate records and the exporter needed to know whether to pack wasm or qcode. Now that binaries are stored in the filesystem, the distinction is gone. Gerd will check how to remove it.
+
+---
+
+## [Mar 18] Workspace repo pull permissions (Arvind → Gerd)
+
+**Question:** For workspace repos — if you know the workspace name, can any signed-in user list and pull repos, or are special permissions needed?
+
+**Answer (Gerd):** You need **"run" permission** on the following agents in the workspace:
+`list_projects`, `get_project`, `list_commits`, `count_commits`, `get_commit`, `list_assets`, `get_asset`, `read_asset`, `read_assets`
+
+---
+
+## [Mar 20] Anchor links (`#<anchor>` URLs) — shipped (Gerd → Tyler)
+
+**Question:** Is there any way to set anchors so you can jump to specific positions in a text via `#<anchor>` URLs? (Needed for the stdlib viewer.)
+
+**Answer (Tyler):** Not supported before, but Tyler merged turntable#11834 (Mar 21) — adds an `id` property to any DOM node in the card editor. Builder no longer auto-generates `id` for card internal actions/webcomps; uses `data-rmx-cid` instead. No uniqueness enforcement (user-space). Arvind follow-up: needs **smooth scroll** support — if not optional, make it the runtime default.
+
+---
+
+## [Mar 20] Projecting through ref field in query node (Wilber → Simon)
+
+**Question:** Is projecting through a ref field in the query node no longer supported? (e.g. accessing `from.entity` when `from` is a ref.)
+
+**Answer (Simon):** Still works — just type `assigned.name` (or the equivalent field path) directly. Simon demonstrated with a screenshot.

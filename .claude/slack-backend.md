@@ -1,6 +1,6 @@
 # #backend Slack Channel — Remix Labs
 
-**Coverage:** Jan 2 – Mar 14, 2026
+**Coverage:** Jan 2 – Mar 21, 2026
 **Channel ID:** CHTGC5BGQ
 **Purpose:** server, compiler, and database stuff
 
@@ -141,3 +141,14 @@ can set — `get-prefs` agent returns value to any caller, but regular users can
 - Backward compat taken seriously: add new FFIs, don't change existing signatures
 - Quick turnaround: urgent fixes often PRed within hours
 - Simon surfaces builder integration issues; Gerd/Chris provide backend solutions
+
+## Mar 14–21 Additions
+
+**OPFS landed [Mar 18, Benedikt]:** Origin Private File System shipped. New (sane) file system backend for the browser. On **Desktop**: used only for the workspace form. On **dev.remix.app**: replaces
+IndexedDB as the whole local storage. Celebrated with 🎉. Arvind asked when it would reach desktop (dev) — answer: already used for workspace form.
+
+**`.DS_Store` illegal path bug [Mar 18, Simon → Gerd]:** Mixer throws `"invalid path '/.DS_Store': illegal path segment .DS_Store"` when Finder creates `.DS_Store` near `.mixsrc` files — breaks the
+builder entirely. Same root cause as Feb 26. Gerd: fix is to skip files with illegal paths during listing. Issue: mix-rs#1064. Simon committed turntable#11835 as interim debugging aid (Mar 21).
+
+**Snowflake packaging PR ready to merge [Mar 19, Chris → Benedikt]:** mix-rs#912 (Snowflake packaging) is ready for review/merge once OPFS fixups are done. Open question: should the packaging config
+get its own repo, since it's mostly independent of mix-rs and just references a particular image build.

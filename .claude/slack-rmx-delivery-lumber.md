@@ -1,6 +1,6 @@
 # #rmx-delivery-lumber Slack Channel — Remix Labs
 
-**Coverage:** Oct 9, 2025 – Mar 14, 2026
+**Coverage:** Oct 9, 2025 – Mar 21, 2026
 **Channel ID:** C09KL3K7P0D
 
 ---
@@ -135,3 +135,24 @@ grid continues as a longer-term goal.
 
 **Release cadence clarification (Chris, Mar 12):** No beta promotion happened week of Mar 7 (no response to his earlier question). Chris's read: main deliverables to Lumber are **content demos** now;
 full deployment likely weeks or months out. Plans to promote new beta (harmony/pull/367, beta 2674) on Mar 13.
+
+### Mar 14–21: In-House Table Back On + Table/Facet Design Sprint
+
+**DECISION REVERSAL AGAIN — back to in-house Remix primitives (Arvind, Mar 16):** Gerd's column matrix transpose pattern (callables per-column not per-cell) brought the in-house table to sub-2s load
+for 80×40 grid incl. Snowflake fetch; sort repaints ~1s. Reverses Mar 12 TUI Grid decision. Internal state (query_status, sort column) migrated to view-scope pub/sub; callable dispatch map moved to
+direct binding; table config unified as `{ db, sql, columns }`.
+
+**Snowflake schema SQL shared by Reza (Mar 18):** Trinadh Baranike sent two SQL files — `payroll-to-journalreport-to-reporting-tbls.sql` and `payroll-proportionated-comp-code-table.sql` — as the
+starting point for building the 5 Lumber reports.
+
+**Table component interface redesign (Arvind + Mark, Mar 18–19, 17-reply thread):** Arvind overhauled the component to be fully plug-and-play:
+
+- Single `data` in_param: accepts one object with `{ db, sql, columns }` — no out_params, no event bindings
+- Goal: paste → hook top-right into layout → live
+- Pushed to repo (Table Builder project in Lumber workspace); Mark reviewing
+- Issues found by Mark: (1) SQL textarea doesn't auto-populate on screen load — only populates after clicking "Update data"; (2) pagination size selector (25/50/100/500) broken
+- Mark's fix plan: inject a default `SELECT * FROM X` from inside the CTE component as the initial SQL
+
+**SQL base query architecture decision (Mark → Vijay/Arvind, Mar 21, approved):** Only the "base query" is shown and editable in the UI. The table component internally wraps it with facets +
+pagination to build the full SQL. Flow: `base_sql` in → facets from state → pagination from nested component → full SQL built internally. User never sees/edits the full query. Handles both
+natural-language AI queries and custom SQL uniformly. Approved by Vijay + Arvind. Arvind: will add a "view full final query" modal with copy button after Mark ships this.

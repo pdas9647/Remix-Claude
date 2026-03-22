@@ -1,6 +1,6 @@
 # #announcements Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Mar 14, 2026
+**Coverage:** Dec 20, 2025 – Mar 21, 2026
 **Channel ID:** CK8S97CUV
 **Purpose:** Important info everyone should read; also used for cross-team huddle coordination
 
@@ -142,3 +142,21 @@
 - Lumber is the dominant active project (multiple huddles/week Jan–Feb 2026)
 - Customer calls coordinated here (Lumber, Bomisco, Salesforce demo)
 - Technical decisions and architecture notes sometimes posted inline (JWT structure, passkey design)
+
+### Mar 17, 2026 — Lumber: client report spec shared + huddle
+
+- **Reza** called a Lumber conversation at 10:00am Pacific
+- Attendees: Vijay, John, Arvind, Didier, Mark, Wilber
+- Reza shared **"Report spec for Remix.pdf"** — a document from client Oleg (Greg) defining report requirements
+- Huddle started immediately after
+
+### Mar 18, 2026 — Lumber huddle #1: India team + Vijay
+
+- **Reza** called "Lumber huddle #1 - India team + Vijay Chakravarthy"
+- Attendees: Sirshendu, Arka, Padmanabha, Nivesh, Arvind
+- Reza included Arvind: *"would be good to stay in sync since you have a view of all the moving parts"*
+- **Padmanabha** shared active workspace during huddle: `https://remix-india.remixlabs.com/e/edit/lumber_agents`
+
+### Mar 19, 2026 — Huddle (no details)
+
+- A huddle was started (Slackbot notification only; no message content)

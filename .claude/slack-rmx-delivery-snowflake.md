@@ -1,6 +1,6 @@
 # #rmx-delivery-snowflake Slack Channel — Remix Labs
 
-**Coverage:** Mar 25, 2025 – Mar 14, 2026
+**Coverage:** Mar 25, 2025 – Mar 21, 2026
 **Channel ID:** C08JPJ6EES3
 **Nature:** Snowflake GTM partnership, not a customer delivery
 
@@ -105,6 +105,7 @@
 **Goal:** Submit Remix listing to Snowflake Marketplace for approval/review by end of Feb 23 week; initiate marketing campaign the following week.
 
 **Bootstrap experience checklist (Mukund's recap):**
+
 - Chris working on mixer (mixr) running inside Snowpark with auth
 - Initial libraries + styles + demo workspace to set up
 - Widget building flows in web: pick data source, preview widgets
@@ -113,14 +114,16 @@
 - Mobile app experience: separate step, optional; web-side auth comes standard with Snowflake
 
 **Deployed internal SPCS instance (Chris):**
+
 - Builder URL: `mw7zsh-oxfsvki-remix.snowflakecomputing.app/e`
 - Default workspace available at that URL; admins: Chris, Mukund, John, Vijay, Wilber
 - `snowflake_widgets` copied over; `cloud_workspace` tool present but not fully editable via builder
 - Runtime screens broken (assets moved to wrong place in image — needs fixing)
 - Demo of run-inside-SPCS auth: `.../e/edit/run_in_spcs`
-  - `run_sql` agent runs server-side, calls Snowflake API with local token
-  - `use_run_sql` screen demonstrates calling it from the browser
-- **Auth note:** Snowflake account has two URL forms (`yub45648.snowflakecomputing.com` and `oxfsvki-remix.snowflakecomputing.com`); same account, different locator formats. MFA codes work for both once the correct form is used. Mukund needed a role grant from Chris.
+    - `run_sql` agent runs server-side, calls Snowflake API with local token
+    - `use_run_sql` screen demonstrates calling it from the browser
+- **Auth note:** Snowflake account has two URL forms (`yub45648.snowflakecomputing.com` and `oxfsvki-remix.snowflakecomputing.com`); same account, different locator formats. MFA codes work for both
+  once the correct form is used. Mukund needed a role grant from Chris.
 
 **Feb 26:** Mukund asked John + Wilber to test the widget build flow in the SPCS env — wants to submit the marketplace listing ASAP.
 
@@ -143,3 +146,16 @@
 - Snowflake widgets .remix: https://storage.googleapis.com/rmx-content/draft/snowflake.remix
 - OAuth demo: https://remix-dev.remixlabs.com/e/edit/agent-demo/oauth_home
 - Accelerator guidebook: https://docs.google.com/document/d/1USk3DKHLsFXnyNy-8XRFjWFYNB09kXb14tBhl7_dJRc/edit
+
+### Mar 19, 2026 — Cross-application-boundary data access resolved (Chris)
+
+The Snowflake Native App packaging had a blocker: app code can't access objects outside its own application database without explicit "references" created at install time. Chris got the generic
+reference-setup working. README updated in the package (visible at: `https://app.snowflake.com/oxfsvki/remix/#/apps/application/REMIX_DXP/security/readme`). Notion doc updated with notes on
+deployments, SPCS queries/inserts: https://www.notion.so/Remix-in-Snowflake-Snowpark-2841d464528f804ba6fbe2d8feb7a963
+
+**Still open:** Decide on bootstrap content + document the setup process.
+
+### Mar 21, 2026 — Lumber runtime flow for Marketplace submission (Mukund → Arvind)
+
+Vijay suggested including the Lumber runtime flow in the Snowflake Marketplace submission. Mukund asked Arvind: (1) what's the latest version and is it accessible from Remix DT Studio? (2) Does this
+mean providing the reviewer access to a workspace with Remix agents? No replies recorded in this period.

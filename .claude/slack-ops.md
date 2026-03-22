@@ -1,6 +1,6 @@
 # #ops Slack Channel — Remix Labs
 
-**Coverage:** Feb 1 – Mar 14, 2026
+**Coverage:** Feb 1 – Mar 21, 2026
 **Channel ID:** C07P57B89
 **Purpose:** Weekly production release promotion workflow (beta → production)
 
@@ -49,3 +49,5 @@ mix-rs/issues/1043 — sync failure should not be fatal.
 - Entirely operational; no design or architecture discussions
 - Chris is the sole release driver; Arka is the sole mobile QA voice
 - Very short messages; threads only for blockers or build hand-offs
+
+| (no harmony PR) | Mar 19 | Mar 19 | — | Chris kicked off a promotion but held dev→beta due to OPFS regressions not fully settled. |

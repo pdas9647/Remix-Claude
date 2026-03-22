@@ -1,6 +1,6 @@
 # #flutter Slack Channel — Remix Labs
 
-**Coverage:** Jan 1 – Mar 14, 2026
+**Coverage:** Jan 1 – Mar 21, 2026
 **Channel ID:** CPNGC1UQ4
 **Purpose:** All things mobile app (iOS + Android)
 

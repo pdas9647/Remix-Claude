@@ -1,6 +1,6 @@
 # #go-to-market Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Mar 14, 2026 (+ earlier GTM context; channel is very low-traffic)
+**Coverage:** Dec 20, 2025 – Mar 21, 2026 (+ earlier GTM context; channel is very low-traffic)
 **Channel ID:** C7HGRVDL3
 **Purpose:** GTM updates/status; target application & process scenarios, incl. for demo workflows
 
@@ -168,3 +168,22 @@ Shared deck: "Remix Overview — Desiloing SaaS in the AI Era"
 - Vijay provides high-level strategic framing (market trends, data lake thesis, positioning)
 - Canvas tabs used extensively for detailed meeting notes and strategy documents
 - Direct, informal tone; @-mentions to pull in relevant people; threads for substantive discussion
+
+## Mar 19, 2026 — GCP amp server cleanup
+
+Chris listed all running amp servers and proposed shutting down the unused ones. Discussion:
+
+**Running amp servers:** `community`, `gainsolutions`, `nevista`, `play`, `poc`, `auth`, `remix-india`, `remix-india-beta`, `remix`, `remix-beta`, `remix-dev`, `xcaliber`
+
+**Running mixer (agt) servers:** `agt`, `agt-beta`, `agt-dev`, `agt-poc`, `agt-uk`
+
+**Vijay's position:** Shut down everything not prefixed with `remix`, except `auth`.
+
+**Outcome per server:**
+
+- `auth` — stays; critical central auth server (no mixer replacement yet)
+- `poc` — stays; Mukund uses it to give prospects/demos access to Remix Studio; some demo clip agents may live there
+- `community` — stays for now; Arvind: mobile still relies on it for v1 published app listings used by the catalog — needs deprecation plan, not immediate cut
+- `play` — stays temporarily; Arvind: has projects that need archival before shutdown
+- `gainsolutions`, `nevista`, `xcaliber` — candidates for shutdown (Mukund agreed)
+- `agt-uk` — Chris asked if still needed; no answer recorded
