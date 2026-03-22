@@ -57,14 +57,22 @@ Markers: → file.md = content captured | ○ = not yet fetched | ✗ = blank/sk
 
 - [Go To Market home](https://www.notion.so/98cc07f3fac14e73a8b3513576160cd9) → remix-catalog.md (GTM Strategy section)
     - [Connector Recipes](https://www.notion.so/1f31d464528f80d98814de11ffafd6a5) — ○ not yet fetched
-    - [Demo scenarios](https://www.notion.so/1f81d464528f80f9a60bca23f49e28f7) — ○ not yet fetched
+    - [Demo scenarios](https://www.notion.so/1f81d464528f80f9a60bca23f49e28f7) → remix-catalog.md (Demo Scenarios section)
     - [Snowflake x Remix GTM Plan (Feb 2026)](https://www.notion.so/2fb1d464528f80dd9bddeba7672de70b) — ○ not yet fetched
-    - [Content for Website + Landing Pages (May 19)](https://www.notion.so/1ed1d464528f806abd03e3b73af5c876) — ○ not yet fetched
+    - [Content for Website + Landing Pages (May 19)](https://www.notion.so/1ed1d464528f806abd03e3b73af5c876) → remix-catalog.md (May 19 Remix DT Release section)
     - [Alteryx AI Workflow List](https://www.notion.so/2021d464528f80c8b164d3fe71991960) — ○ not yet fetched
-    - [Remix User Personas](https://www.notion.so/1f41d464528f8068895ad839e01e65ab) — ○ not yet fetched
-    - [Customer Support Domain Research](https://www.notion.so/2961d464528f8070b287e1117d5a4cda) — ○ not yet fetched
-    - [Zendesk Customer Survey](https://www.notion.so/2481d464528f8027bb04f0bd83bf662c) — ○ not yet fetched
+    - [Remix User Personas](https://www.notion.so/1f41d464528f8068895ad839e01e65ab) → remix-product-scope.md (GTM Personas surface matrix)
+    - [Customer Support Domain Research](https://www.notion.so/2961d464528f8070b287e1117d5a4cda) → remix-catalog.md (Customer Support Domain Research section)
+    - [Zendesk Customer Survey](https://www.notion.so/2481d464528f8027bb04f0bd83bf662c) → remix-catalog.md (Zendesk Customer Research section)
     - [Project Management (Tasks & Projects)](https://www.notion.so/2941d464528f807894c3c966a0a9c623) — Notion DBs only (Projects, Tasks, Timeline)
+- [< 2025 GTM Working Docs [OLD]](https://www.notion.so/3291d464528f80fb9b7fd5c57927d26e) — container for archived GTM docs
+    - [Sales Kickoff Portal](https://www.notion.so/15e1d464528f80ac828ad03a7518b982) → remix-catalog.md (Sales Kickoff Portal section)
+    - [Landing Page Content (Superapp: Lead-gen/ Field Sales)](https://www.notion.so/1361d464528f80689883f1f06ef9fb79) → remix-catalog.md (Landing Page — Field Sales section)
+    - [Landing Page Content (HubSpot toolkit)](https://www.notion.so/1451d464528f8011a322f0079081ebdf) → hubspot-toolkit.md (GTM Landing Page section)
+    - [Demo script for lead-gen at events](https://www.notion.so/1c31d464528f80faa37dc7472f9ce9b8) → remix-catalog.md (Demo Script — Booth-Hub Flow section)
+    - [Marketing Plan for Remix DXP launch (old)](https://www.notion.so/1dd1d464528f806c8323c8fe2f846d4e) → remix-catalog.md (DXP Launch Use Cases section)
+    - [Marketing Plan for Remix DXP launch](https://www.notion.so/1e01d464528f80239052e66b48bfd7b4) → remix-catalog.md (DXP Launch Use Cases section — same content as old)
+    - [There is no failure. Only feedback.](https://www.notion.so/1b41d464528f80d9bc61e166f3db36af) → customer-projects-other.md (Opt Health ATS 2025 field report)
 - [Remix Next GTM](https://www.notion.so/2001d464528f803293aaebc066f1acb4) → remix-catalog.md
 - [Tasks - Asset Submission Guide](https://www.notion.so/2111d464528f8031a05fd76e687b6379) → remix-tools.md
     - [T1/T2 Customers](https://www.notion.so/20d1d464528f80608571fc691f0bf69f) → remix-catalog.md

@@ -1,4 +1,4 @@
-# Customer Projects — Orderly, 5 Star Music, Bomisco
+# Customer Projects — Orderly, 5 Star Music, Bomisco, Opt Health, Tapped In
 
 > Hub: [Customer Success Projects](https://www.notion.so/26f1d464528f80f3a6fffc1fe4cf294e)
 
@@ -131,6 +131,71 @@ Company Name, Company Domain Name, Industry, Phone Number, Type, City, State/Reg
 - Should we capture skills, experience, education?
 - Should we save the markdown from LinkedIn?
 - Research LinkedIn Sales Navigator integration
+
+---
+
+## Opt Health
+
+> Source: [There is no failure. Only feedback.](https://www.notion.so/1b41d464528f80d9bc61e166f3db36af) (ATS 2025 field report)
+> Contact: Chris Collins (Customer Success)
+> Website: https://getopt.com/
+
+### Context
+
+- ~15-person startup providing personalized wellness programs for law enforcement, fire departments, military, and first-responders
+- Attends events within the law enforcement / first-responder community to improve lead-capture and engagement
+- Interested in Remix for lead-capture + DBP (Superapp framework)
+
+### Field Trial — ATS 2025 (California Police Chiefs Association, Riverside CA, March 2025)
+
+**Solution deployed:** Remix booth-hub flow + Digital Business Profile in Superapp framework.
+
+**Booth flow:** Visitor → badge info captured (name etc.) → checked against pre-populated lead list → new lead added → customized Clip journey provided → notes captured → additional actions (sign
+waiver for B12 shot, book blood draw) → push notification sent to schedule follow-up meeting
+
+**Visitor flow:** Customized Clip journey → sign waiver form → B12 shot if needed → push notification for follow-up
+
+#### The Good
+
+1. Content prep (videos, questionnaires, lead list, blood draw calendar) solid
+2. Opt Health was flexible and willing to experiment
+3. Most visitors followed the DBP/Clip through despite UX friction
+4. QR codes with custom journeys worked
+5. Capture badge shortcut on iOS/iPadOS worked well (happy path: search known name in lead list)
+6. Digital signature for waiver worked nicely — tested on iPad
+7. 100% of visitors had iOS devices
+8. Booth app sync flow worked well overall
+9. Push notifications worked — some visitors responded to follow-up meeting requests and booked via the calendar screen pushed at end-of-day
+
+#### The Bad
+
+1. Audience mismatch: most were police chiefs evaluating agency adoption, not SWAT officers scheduling blood draws — pre-built blood-draw scheduling flow went unused
+2. Booth staff not prepared — main contact had downloaded Remix, logged in, seen a demo, but could not run the flow independently. Too many steps, insufficient familiarity
+3. **iPad >>> iPhone** for booth use: QR code scanning, waiver signing (screen size, keyboard). "Super weird to hand your phone to someone to sign"
+4. **Caching bug**: first 2 QR code shares served an older xcaliber clip from a previous trial (container app had cached it). Had to delete + reinstall container app to get latest flows
+5. **Search UX issues**: searching "Ryan K" required full last name; typing pre-selects entire search term so backspace deletes everything instead of last character
+6. Waiver form issues: had to re-enter visitor name (should transfer from lead detail), date-picker required too many interactions (most users born 60s/70s/80s), accepted signature did not auto-save (
+   some lost), form not iPad-optimised
+7. App Clip experience too slow and choppy for booth context — 5–10 second load time; >1/3 of visitors pocketed phone before content loaded
+8. Remix DXP banner on App Clip invoke: 80%+ of users ready to tap it; must be removed or bypassed
+9. NFC tags not viable in busy B2B booth setting (too many steps, no cycles)
+10. Add-lead form too long; saved lead did not appear in list until manual re-sync (Drawer → Update sync flows)
+
+#### The Ugly
+
+1. Booth app on iPhone crashed into unrecoverable state: "OnInitDataForVmServer Error when communicating with server" — Home button looped, had to delete flow; flow did not auto-resync to device,
+   required John to send a `.remix` file to recover
+2. Prep checklist (booth app, clip, onboarding, experience variables) too complex for typical event/booth staff persona; multiple conflicting QR codes from other collateral at booth
+
+#### Key Learnings
+
+- Must include an **incentive** for visitors to go through the DBP/Clip (raffle, waiver, coupon) — otherwise no motivation
+- Full experience needs redesign for "wow factor": production → booth → visitor flow
+- iPad is the right device for booth operations, not phone
+- App Clip loading and Remix DXP banner are critical UX blockers for event use cases
+
+**Quote from Chris Collins (Opt Health):** *"I think this has the potential to give our leads and customers a really cool and differentiated experience"* and *"Was a major help having you assist with
+the Remix integration. Super excited to build this out further and refine the experience."*
 
 ---
 

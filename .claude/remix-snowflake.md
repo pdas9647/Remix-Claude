@@ -6,13 +6,13 @@
 
 ## Remix in Snowflake/Snowpark
 
-> Source: [Remix in Snowflake/Snowpark](https://www.notion.so/2841d464528f804ba6fbe2d8feb7a963)
+> Source: [Remix in Snowflake/Snowpark](https://www.notion.so/2841d464528f804ba6fbe2d8feb7a963) — updated 2026-03-19
 > GitHub: https://github.com/remixlabs/remix-issues/issues/143
 
 Spike on a "self-host" Remix deployable entirely within **Snowpark Container Service**, so Snowflake-using customers have a deployment contained entirely within Snowflake. Separate from the main
 desktop product.
 
-### Snowflake Workspaces
+### Snowflake-Connected Workspaces
 
 | Name                    | Workspace ID | Snowflake Account | Account URL                                |
 |-------------------------|--------------|-------------------|--------------------------------------------|
@@ -21,6 +21,40 @@ desktop product.
 
 Both have dedicated Snowflake auth flows. Sign-in requires a user in the corresponding Snowflake account. Remix identity = email on Snowflake user profile; sign-in uses Snowflake credentials (
 username + password/passkey).
+
+### Snowflake Accounts
+
+| Account           | URL                                         | Purpose                                                      |
+|-------------------|---------------------------------------------|--------------------------------------------------------------|
+| `REMIX`           | `app.snowflake.com/oxfsvki/remix`           | Internal dev; hosts Remix DXP packaged application + listing |
+| `REMIX_DEMO`      | `app.snowflake.com/oxfsvki/remix_demo`      | Demoing Remix to Snowflake customers                         |
+| `SNOWFLAKE_DEMO`  | `app.snowflake.com/oxfsvki/snowflake_demo`  | Demoing Remix to Snowflake internally                        |
+| `REMIX_SPCS_DEMO` | `app.snowflake.com/oxfsvki/remix_spcs_demo` | Testing the consumer side of the Remix DXP application       |
+| `TW30727`         | `app.snowflake.com/oxfsvki/TW30727`         | "Org account" that manages the others                        |
+
+**REMIX account details:**
+- Remix DXP package: `app.snowflake.com/oxfsvki/remix/#/apps/packages/REMIX_PKG`
+- Remix DXP listing: `app.snowflake.com/oxfsvki/remix/#/data/provider-studio/provider/listing/REMIX_DXP`
+- Deployed builder (new/application version): `https://mw7zsh-oxfsvki-remix.snowflakecomputing.app/e`
+  - Demo agents/screens at `.../e/edit/run_in_spcs`
+- Older SPCS service (non-application): `https://ms7zsh-oxfsvki-remix.snowflakecomputing.app/e` — suspend once new builder is ready
+- **REMIX_SPCS_DEMO** deployed builder: `https://iqlr4z-oxfsvki-remix-spcs-demo.snowflakecomputing.app/e`
+
+### SPCS SQL API (Calls from Inside the Container)
+
+Demo agent in `run_in_spcs` workspace: `https://mw7zsh-oxfsvki-remix.snowflakecomputing.app/e/edit/run_in_spcs/run_sql`
+
+From inside the SPCS container, make SQL API calls to:
+```
+https://$snowflake_host/api/v2/statements
+```
+Using the token at `/snowflake/session/token`. Environment variables are only set in the container, not the client — the agent must be built first, then invoked from a screen.
+
+**`run_sql` agent:** Supports executing as **caller** or as the **service (application)**. Set `database`, `schema`, `warehouse` (required if no default warehouse). Database/schema can also be inline in the SQL, e.g. `select * from remix_dxp.core.emp_basic`.
+
+**`insert_row` agent:** Inserts records into tables registered as writable. Database/schema not configurable — fixed when registering the reference via `register_multi_reference` + `update_table_mapping`. See [package documentation](https://app.snowflake.com/oxfsvki/remix/#/apps/application/REMIX_DXP/security/readme) for setup.
+
+Can query: application-owned objects, or views onto consumer tables registered with references.
 
 ---
 

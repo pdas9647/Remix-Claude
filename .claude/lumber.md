@@ -144,3 +144,34 @@ Plus hidden columns: combined totals, travel, estimated hours (budget).
 **Filters:** Excludes REJECTED, CLOCKED_IN timesheets and PAID_HOLIDAY type.
 
 > Full mapping: fetch from [Job Costing Report](https://www.notion.so/2fb1d464528f808b987cce2583b7fb8a)
+
+---
+
+## Reporting Requirements (from Oleg document)
+
+> Source: [Lumber](https://www.notion.so/28c1d464528f801bac72d6c064d30db2) — updated 2026-03-17
+
+**Overall goals:**
+
+- Self-service reporting infrastructure for internal teams: build, customize, filter, export, save own report views
+- Same capability extended to customers (Phase 4)
+
+| Requirement                 | Detail                                                                                      | Priority    |
+|-----------------------------|---------------------------------------------------------------------------------------------|-------------|
+| Report Builder              | Select data sources, choose columns, apply filters, save custom report templates            | Must Have   |
+| Interactive Data Grid       | Sortable, resizable, searchable columns; pinned rows/columns; grouped headers; paginated    | Must Have   |
+| Excel & CSV Export          | One-click download of current report view (.xlsx + .csv), respecting active filters         | Must Have   |
+| Search & Filters            | Real-time text search across all columns; date range pickers; dropdown/multi-select filters | Must Have   |
+| Charts & Visualizations     | Bar charts, grouped/stacked series; charts linked to grid data and update with filters      | Should Have |
+| Saved Views                 | Save report configs (filters, columns, sort) as named views; share with team                | Should Have |
+| Design consistency          | Consistent with rest of Lumber UI                                                           | —           |
+| Report lifecycle management | Develop + test (preview), then package + publish reports to production                      | Must Have   |
+
+### Delivery Timeline
+
+| Phase   | Scope                                                                                                                                      |
+|---------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| Phase 1 | Remix Desktop on Mac; Lumber workspace on Remix-hosted agent server; Remix-provided Snowflake account; PostgreSQL one-off refresh (manual) |
+| Phase 2 | TBD                                                                                                                                        |
+| Phase 3 | TBD                                                                                                                                        |
+| Phase 4 | Customer self-service for reporting                                                                                                        |

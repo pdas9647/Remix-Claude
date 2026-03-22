@@ -212,3 +212,24 @@ For access setup, see [Accessing Remix libraries](https://www.notion.so/13c1d464
     - Package must include the widget records from step 1
 3. Install the packaged `.remix` file to the target device via the plugin-provided URL
 4. On device home screen: **Add Widget** → search "remix" → select size → add widget → long-press to edit and select the widget
+
+---
+
+## GTM Landing Page — HubSpot Toolkit (2024)
+
+> [Notion](https://www.notion.so/1451d464528f8011a322f0079081ebdf) | Under: 2025 GTM Working Docs [OLD]
+
+**Tagline:** "Extend HubSpot's functionality across different business platforms and use cases — No software development experience required."
+
+**Value propositions:**
+
+- View and act on business-critical metrics (lead status, issue tracking) from mobile home screen
+- Share HubSpot insights across communication platforms
+- Launch and optimize workflows outside of HubSpot, informed by HubSpot data
+- No extra HubSpot seat costs: share reports with stakeholders who don't need full HubSpot access
+
+**How to get started:** Connect → Configure → Assemble → Launch ("like building a Lego Tower")
+
+**Available content templates:** Video links, case studies, contact form, personalized contact info, CRM integration, calendar/meeting scheduler, SSO, additional as needed.
+
+**CTA:** Contact Remix for a free trial of the HubSpot Toolkit.

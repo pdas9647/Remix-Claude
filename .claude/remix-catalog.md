@@ -96,7 +96,9 @@ Snowflake connectors: see [remix-snowflake.md](./remix-snowflake.md)
 
 ### May 19 Remix DT Release
 
-Target: **IT, Ops persona**. Potential customers: Alteryx, Guidewire, Zendesk, UKG, Freshworks, OptHealth.
+> Website content detail: [Notion](https://www.notion.so/1ed1d464528f806abd03e3b73af5c876)
+
+Target: **IT/Builder + Biz Ops persona** at mid-to-large enterprise. Potential customers: Alteryx, Guidewire, Zendesk, UKG, Freshworks, OptHealth.
 
 **Work streams:**
 
@@ -106,6 +108,119 @@ Target: **IT, Ops persona**. Potential customers: Alteryx, Guidewire, Zendesk, U
 - Self-serve product trial: use cases by connector
 
 Invitee spreadsheet: [Google Sheets](https://docs.google.com/spreadsheets/d/1822XGm_nJx_5rht5VbL6PQmdoQdvVzYmizH-tAsiUI4/edit)
+
+**Core messaging (SaaS sprawl → AI → Remix DXP):**
+
+1. **Problem — SaaS sprawl**: 1000+ apps in large enterprises, 250+ in mid-size; fragmented data silos; vendor-specific AI compounds fragmentation; shadow IT worsens it
+2. **Catalyst — AI tipping point**: Unified context+data needed · Build>Buy compelling again · Rapid AI adoption · CX personalization at scale now expected
+3. **Solution — Remix DXP**: De-siloed data · Any LLM, works at the edge · Content library of agentic apps · Deployable everywhere (mobile, browser, web, private cloud) · Enterprise-grade security
+
+**Website home page sections:** (1) SaaS Sprawl Iceberg graphic → (2) AI Catalysts Bridge graphic → (3) Remix DXP solution graphic → (4) CTA: Request a demo
+
+**Example use cases for website:**
+- *Actionable analytics*: Query Account 360 (HubSpot + Zendesk + Confluence + Jira) in natural language → draft personalized emails to high-CSAT accounts
+- *Marketing campaign*: AI queries warm-lead list (100 CIOs) → distributes LinkedIn enrichment tasks to team → team sends personalized invites via Gmail/Outlook + SDR follow-up
+
+**Blog themes:** "SaaS Silos & AI: The Hidden Costs You Can't Afford" · "Beyond Build vs. Buy: Why 'Build' is Back in the AI Era"
+
+### Demo Scenarios (2025 GTM Working Docs)
+
+> [Notion](https://www.notion.so/1f81d464528f80f9a60bca23f49e28f7)
+
+Four demo scenario categories:
+
+1. **Actionable Analytics**
+    - Large dataset (parquet/CSV, e.g. NYC taxi) analyzed with Remix + AI → dashboard
+    - Cross-silo enterprise data (Customer-360: Billing, CSAT, Support, Usage) analyzed w/ AI
+    - Cross-silo data + connector + workflow (e.g. Customer-360 → Gmail connector → personalized emails)
+    - Analysis artifacts sent to systems-of-communication (e.g. chart → Slack)
+    - Personal use data (e.g. Strava + HealthKit → VO2max / half-marathon prediction)
+
+2. **Digital Business Profile**: Use template → auto-configure 'splash'/home screen with AI → preview → save → publish as App Clip URL
+
+3. **Quiz from content**: Topic or PDF → quiz AppClip with shareable URL (e.g. Blackjack rules)
+
+4. **Chrome Extension**
+    - Focused crawling: market research → collect articles → send to AI → Notion doc
+    - AI captures browsing activity/calendar → lists actions in extension (e.g. LinkedIn crawl → add to doc)
+    - Add from Gmail: query Gmail → automated task (e.g. respond to customer support ticket)
+
+### Demo Script — Lead-Gen at Events (Booth-Hub Flow)
+
+> [Notion](https://www.notion.so/1c31d464528f80faa37dc7472f9ce9b8)
+
+Step-by-step demo flow for trade-show/event lead generation:
+
+1. **Lead capture**: Booth-hub app → camera (iOS) scans badge or looks up lead list (pre-loaded from CRM/attendee list); add new lead manually if needed
+2. **Lead qualification**: Customizable survey (company size, vertical, role) → event staff determines which journey fits the visitor
+3. **QR code + DBP Clip**: Instantly generate QR code → visitor scans → receives personalized Digital Business Profile (value prop, marketing content, CTAs: video/case study/meeting scheduler)
+4. **Push notifications** (iOS only, ~8h window): Send targeted notifications to visitor's device while still at event — e.g. VIP dinner invite, additional content, follow-up meeting request
+5. **Meeting scheduling**: Send calendar link (Google or other) integrated into the DBP Clip
+6. **Continued engagement**: Respond to requests for case studies, ROI calculator (custom-built), order forms, NDAs for signature — all via the Clip
+7. **Analytics + CRM**: Each DBP screen has a beacon → view which screens opened, how many times, per lead. Export all leads to CRM (direct integration or CSV)
+
+### DXP Launch Use Cases (2025)
+
+> [Notion](https://www.notion.so/1dd1d464528f806c8323c8fe2f846d4e) — Marketing Plan for Remix DXP launch (old)
+
+Target: **Dept/LOB Lead, Ops Lead** (non-technical, process KPI owners) + **IT/Builder** persona.
+
+Three flagship use cases with step-by-step flows:
+
+**1. HubSpot Stage 4 Pipeline ("Show me my Stage 4 sales pipeline from HubSpot using Remix")**
+- Claude checks for HubSpot connector → prompts install if missing → user signs in
+- Connector displays deals in table/markdown → user asks for timeline view
+- Remix opens timeline dashboard → prompts to share/export/deploy as mobile app flow or widget
+
+**2. Quiz App from PDF ("Give me a quiz app for the attached content using Remix")**
+- Remix DT: upload PDF → set question count + difficulty (beginner/intermediate/expert)
+- Claude generates quiz app → displayed in Remix DT with QR code to test
+- User enters edit mode (questions/answers/images) → deploy as mobile flow or widget
+- Bonus: admin view for responses/leaderboard
+
+**3. Digital Business Profile ("Give me a Digital Business Profile using Remix")**
+- Remix DT collects: website URL, LinkedIn profile URL, YouTube video, Google Calendar sign-in, case study PDF
+- Claude generates DBP app → displayed in Remix DT with QR code
+- User enters edit mode → deploy as mobile flow or widget
+- Bonus: Superapp framework + push notifications to send additional screens
+
+**Content marketing assets planned:** Blog (weekly), email templates, landing page with step-by-step wizard + runtime embed + download links for Remix DT + Claude DT, pricing, Terms of Use, subscription agreement.
+
+**Campaign structure:** Cohort v1/v2/v3 contact lists → email outreach → LinkedIn targeted campaign → website with contact-us flows.
+
+### Sales Kickoff Portal (2025 GTM Concept)
+
+> [Notion](https://www.notion.so/15e1d464528f80ac828ad03a7518b982)
+
+Remix transforms the SKO (Sales Kickoff) experience with a suite of digital experiences:
+1. Built from compiled content assets (agenda, case studies, battle-cards, playbooks, ROI calculators, videos, quizzes)
+2. Deployed as app-experiences that persist beyond the SKO event
+3. Used daily for sales productivity
+
+**App experience for sales reps:** Sign in → access content assets (agenda, bookmarks, session surveys, marketing assets, lead-gen tools). Reps can browse/request assets and access lead-gen + prospect
+engagement tools.
+
+**Content asset types:** SKO event agenda w/ venue/speakers/surveys, case studies (by vertical/keyword/product), competitor battle-cards (pros/cons/objections), product brochures, sales playbooks by
+persona, DBP for sales reps, ROI calculator, marketing calendar, qualification criteria, videos, SME directory, training assessments/quizzes.
+
+### Landing Page — Field Sales / Lead-Gen Positioning (2025)
+
+> [Notion](https://www.notion.so/1361d464528f80689883f1f06ef9fb79)
+
+**Tagline:** "Transform Lead Capture and Engagement with Rich, Frictionless Digital Experiences"
+
+Key claims: 3× marketing qualified leads · 2× lead conversion · 10× productivity for booth staff, inside sales, account execs.
+
+**Digital Experience Stream flow:**
+1. Customized DBP of company value proposition → prospect activates at trade-show / social / text
+2. Prospect engages: requests info, sets meeting, shares micro-app with stakeholders
+3. Sales rep responds via pre-configured micro-apps → mobile notification to prospect
+
+**Content templates:** Video links, case studies, contact form, personalized contact info, CRM integration (Salesforce/HubSpot), calendar/meeting scheduler, SSO, additional as needed.
+
+**Pricing (2025):** 2-week free trial · $20/user/month · Free for external users · No setup fees (except custom dev).
+
+**Testimonial:** "With Remix our lead capture from trade-shows has improved significantly" — Ethan Alexander, Netradyne.
 
 ### GTM Sub-Pages
 
@@ -157,3 +272,68 @@ agent ([asset](https://remix.app/remix/asset?source=https://agt.remixlabs.com/ws
 | `gemini_json/text`                  | Gemini    | JSON or text response                          |
 
 OpenAI/Gemini agents have no artifacts — require manually updating API key fields.
+
+### Zendesk Customer Research (Aug 2025)
+
+> [Notion](https://www.notion.so/2481d464528f8027bb04f0bd83bf662c) — Surveying customers of Zendesk re use cases
+
+Two prospect conversations conducted Aug 2025:
+
+**Simpplr (Jai Valluri, VP Customer Support — ~500+ people, Aug 1 2025)**
+- 18 support engineers, email-only via Zendesk; no chat/voice; exploring chat as future channel
+- Support is existing-customer-only (pre-sales handled by separate team)
+- Plans: enhance KB + vector search, replace Sixsense with Thoughtspot for analytics dashboards, integrate Snowflake (full ticketing data, still in progress), evaluating Service Cloud beyond Zendesk
+- Pain: improving self-service, efficiency, response times (current SLAs: 1h premium / 4h standard for P1)
+- AI interest: embed AI within agent interface for case summaries, next-best actions, relevant KB articles
+- In-product AI: plan to embed support features directly in-product
+- Next: Vijay + Mukund to meet Jai; evaluate beyond Zendesk to Service Cloud
+
+**Opt Health (Chris Collins, Customer Success — ~25+ people, Aug 7 2025)**
+- Meeting notes brief; context in field trial report → [customer-projects-other.md](./customer-projects-other.md#opt-health)
+
+### Customer Support Domain Research (Oct 2025)
+
+> [Notion](https://www.notion.so/2961d464528f8070b287e1117d5a4cda) — Customer Support Domain - Research/Interviews
+
+**Meeting: Kris Bhandare, VP Customer Support, DataStax-IBM — Oct 24, 2025**
+(Participants: Vijay + Mukund / Remix)
+
+**DataStax context:** SaaS database (Cassandra-based, MongoDB competitor). ~150 SaaS product cases/month (20% of total). Post-IBM acquisition — large enterprise procurement complexity. Kris previously at Nutanix (60-70k cases/year, built custom automation).
+
+**Key pain points:**
+- 80–90% of cases are repetitive (latency, error messages) — human reads graphs and describes what's happening; AI can now do this
+- No efficient duplicate/similar-case surfacing → support engineers re-answer identical questions
+- Manual KB article creation is time-intensive; training content becomes stale
+- "Proving a negative" problem for case deflection metrics
+
+**AI opportunities Kris highlighted:**
+- Real-time Slack-based support with direct API access + role-based control (uses Thena.ai)
+- Automatic duplicate case detection + surface past solutions to agents
+- Auto-generate KB articles from recurring cases
+- Podcast-style training from docs (using Notebook LLM); quiz generation for assessment
+- Bite-sized TikTok-style training for just-in-time learning (DataStax eliminated training dept using AI)
+- Simulation systems running parallel to human agents for quality assurance
+
+**Kris's target:** 50% automation of specific case types → 10% monthly labor reduction
+
+**KPIs monitored:** NPS, CSAT, case volume, first response time, time-to-resolution. Dashboard: Salesforce + Tableau.
+
+**Enterprise buyer requirements (critical):**
+- Fast time-to-value: POC within **one week**, on real tickets in real environment (not simulations)
+- Minimal operational disruption; easy integration with existing CRM/ticketing/DB
+- IBM security review = 10+ people — complex procurement post-acquisition
+- Kris would have bought Remix at DataStax pre-IBM or at Nutanix; post-IBM = harder
+
+**Remix action items from meeting:**
+1. Rapid POC capability (within 1 week) on real tickets
+2. Lead with NPS/CSAT improvement, not just cost reduction
+3. Build rich educational content (videos, interactive checklists, not just static docs)
+4. Target mid-market first (less procurement friction than large enterprise)
+5. Pursue intros to Kris's SVP boss and **Sean Ryan** (former Nutanix, "very good at these things")
+
+**Key quotes:**
+> "80, 90% of the cases… the human does is look at graphs, look at charts and says, here is what's going on. That part of the interpretation can be done through AI now."
+> "Give me a value, time to value within three [weeks]… six months, a million dollars — no one's going to give you that."
+> "My customer is getting better responses, and faster responses… NPS, CSAT… anytime the NPS and CSAT is higher is when you respond very quickly."
+
+**Competitive tools mentioned:** Thena.ai (Slack/support integration), Notebook LLM (podcast gen), Tableau/Salesforce (dashboards).
