@@ -86,42 +86,18 @@ C API: `protoquery_init()`/`protoquery_compile()` for C/Go embedding (Go wrapper
 - Mix stdlib: `$twelve` for type-erasure casts, `_inline_` pragmas, `$DEFPRIMITIVES` for builtins
 - Tests: 28+ `T_*.ml` modules; shell integration tests; rebuild vs live envs
 
-## Recent PRs — Feb 22–28, 2026 (7 merged, all Gerd)
+## PR Archive — Feb 22 – Mar 21, 2026
 
-| PR        | Summary                                                                           |
-|-----------|-----------------------------------------------------------------------------------|
-| **#2226** | Blob support in compiler/stdlib HTTP (+2784 lines). Held until end of Feb.        |
-| **#2263** | zlib compress/decompress in stdlib (+2743 lines). Paired with groovebox/pull/464. |
-| **#2277** | exe-only .remix sets `asset_type=AppExecutable` (fixes install-as-Project bug)    |
-| #2278     | Handle bad/missing `appMeta` in remix file exporter                               |
-| #2280     | Delete `*.mixhdr` on lib deletion; fix over-deletion                              |
-| #2281     | REPL echo fix for agent calls (`subscribeFG`). Closes #2279.                      |
-| #2274     | Fix `localAgentsConfig`: agent agent not started                                  |
+★ Key: #2226 blob HTTP stdlib; #2263 zlib; #2277 exe-only .remix; #2182 remove domSym.mix; #2265 AST MatchPatterns; #1901 post-parse pseudo primitives; #2075 signals module; #2294 variant:*; #2282 $
+loadHook for REPL; #2045 db.asOf; #2270 build server v2.1; #2242 errorInfo runtime.json.
 
-## Recent PRs — Mar 1–7, 2026 (3 merged)
+## Recent PRs — Mar 22–31, 2026 (6 merged)
 
-| PR          | Summary                                                                                                                                                                                                                                    | Author |
-|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
-| **#2182** ★ | **Remove domSym.mix** (5 commits, 26 files, -1658 lines). Removes `{ ... }:dom` notation (`Edom`), DOM-specific types, `dom`/`domUtil`/`domSym` stdlib modules. Sync cells kept but not interpreted. Long-lived branch (created Nov 2025). | Gerd   |
-| **#2284**   | **Add `builder.blobGet`** — stdlib wrapper around `binary.blobGet` (+13 lines). Companion to turntable#11724.                                                                                                                              | Simon  |
-| #2286       | Fix stack overflow from large literals (continues series of stack overflow fixes in compiler)                                                                                                                                              | Gerd   |
-
-## Recent PRs — Mar 8–13, 2026 (2 merged)
-
-| PR          | Summary                                                                                                                                                                                                                           | Author     |
-|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
-| **#2265** ★ | **AST MatchPatterns** (73 commits, +1050/-117, 8 files) — match-patterns are now part of the AST layer, continuing the ongoing Parser→AST migration (follows #2260 / AST Layer initiative). Long-running branch (created Feb 11). | camlfriend |
-| **#1901** ★ | **Fix post-parse pseudo primitives** (+3/-1, 1 file) — pseudo primitives used directly are now post-parsed so all types at point-of-use are visible. Correctness fix open since Sep 2024 (~18 months in flight before merging).   | Gerd       |
-
-## Recent PRs — Mar 15–17, 2026 (8 merged)
-
-| PR          | Summary                                                                                                                                                                                                 | Author |
-|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
-| **#2075** ★ | **Signals stdlib module** (+161, 4 files) — new `signal` module: one-shot agent notifications via `create`/`wait`/`send`/`cancel`. Cloud agent server only. Requires mix-rs#728. Long-lived (Jun 2025). | Gerd   |
-| **#2294** ★ | **Variant wildcard `"*"` in driver** (+40/-21, 5 files) — adds `compiler.variant_qcode`/`variant_wasm` constants; `"*"` accepts both QCode+WASM from filesystem. .remix export now defaults to `"*"`.   | Gerd   |
-| **#2296**   | **Remove `Pcheckpoint`/`CHECKPOINT` token** (+5/-30, 14 files) — eliminates checkpoint phrase from AST/lexer/parser/typing. Checkpoint logic folded into `$DEFPRIMITIVES`.                              | Gerd   |
-| **#2045**   | **Add `db.asOf`** (+37/-13, 3 files) — temporal base query: returns records current at a given timestamp using `_rmx_last_modified_at`/`_rmx_superseded_at`. Calendar import reordered in stdlib.       | Chris  |
-| **#2270**   | **Build server v2.1** (+96/-35, 4 files) — codegen supports `clipInput` alongside `screenInput`; `genResponse` adds `mixImports`; `catalogItem` type in `remixRecipe`; better codegen error messages.   | Gerd   |
-| **#2242**   | **errorInfo in runtime.json** (+55/-21, 1 file) — replaces `debugInfo` with `errorInfo` (nested `debugObjects`+`errorTracker`); adds `repository`/`recipe` types to `created` manifest.                 | Gerd   |
-| **#2282**   | **`$loadHook` for REPL** (+183/-29, 3 files) — session agent implements `$loadHook` FFI for dynamic module loading in REPL; VM config now sends specific FFI names instead of boolean.                  | Gerd   |
-| #2050       | **Int/float msgpack for lib version** (+16/-6, 1 file) — `Code.ml` accepts `Dfloat` in addition to `Dint` for library version in amp MsgPack interface.                                                 | Chris  |
+| PR          | Summary                                                                                                                                                                                                                                                   | Author     |
+|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| **#2307** ★ | **Viewstack refactor** (6 files, +314/-99) — splits `currentMainView` from `currentTopView`; adds `topViewName/Id`, `isViewAtTop`, `isScreenView`, `$vs_pendingProps`; `internal` moved to coroutine state; hidden sheets no longer activated by actions. | Gerd       |
+| **#2308**   | **`file.upload` stdlib helper** (+94/-5) — PUT upload with content-type, Cache-Control, OAuth token, overwrite guard (412), retry on 409; docs updated for `_rmx_upload_cache_control`.                                                                   | Gerd       |
+| **#2309**   | **`messaging.subscribe` in agents** (+3/-2) — subscribe allowed when `env.isAgent == true`.                                                                                                                                                               | Gerd       |
+| **#2100** ★ | **Stdlib .dox docs** (24 files, +3211/-92) — adds gset/loader/logging/macro/memo/metrics/mime/option/reflect/regex/util; removes dom/domSym/domUtil; CI ships per-lib JSON to GCS.                                                                        | Gerd       |
+| **#2299**   | **Blob get helpers** (+22/-13) — `builder.blobGetBinary/String/Json` over `blobGet`.                                                                                                                                                                      | simonh1000 |
+| **#2302**   | **Pin Docker API v1.43** (+2) — CI: `DOCKER_API_VERSION: 1.43`.                                                                                                                                                                                           | Chris      |

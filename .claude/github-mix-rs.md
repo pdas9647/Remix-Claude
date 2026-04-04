@@ -68,49 +68,21 @@ workspace apps → home.
 - Logging: `tracing` + `RUST_LOG`; `MIXRT_DEBUG`; VM logs on `mix-vm` target
 - HTTP FFI: `$http_do`/`$http_do_server`; `BlockUnsafeHttp` guards non-HTTPS/localhost on agent server
 
-## Recent PRs — Feb 22–28, 2026 (17 merged)
+## PR Archive — Feb 22 – Mar 21, 2026
 
-| PR         | Summary                                                                      | Author          |
-|------------|------------------------------------------------------------------------------|-----------------|
-| **#948**   | Configurable mixer HTTP port; `mixer_port=0` disables HTTP → custom protocol | Benedikt        |
-| **#1001**  | Generic JWT signing algs (not just ES256); Lumber Descope support            | Chris           |
-| **#1003**  | Fix builder params on desktop (+354/-122)                                    | Benedikt        |
-| **#1022**  | rmx_id index for record lookups (eliminates disk seeks)                      | Fred            |
-| **#1028**  | Reset internal `_rmx_*` fields on save (correctness)                         | Fred            |
-| **#1032**  | Faster oud: `_rmx_tailwind` re-install ~1.5min → seconds                     | Benedikt        |
-| **#1036**  | System plugins path fix (double path.Join)                                   | Fred            |
-| #1013      | Deep link param: `remix_file_url` → `url`                                    | Benedikt        |
-| #1015      | Fix already-installed check for URL-type apps                                | Benedikt        |
-| #1024-1033 | Minor: channel names, menu text, tailwind bumps, README, env var, tracing    | Benedikt/Arvind |
+★ Key: #948 configurable HTTP port · #1001 JWT multi-alg · #1022 rmx_id index · #1023 named Desktop client actions · #1038 revamp app install · #1048 remix:// intercept fix · #1057 renamed agent
+support · #818 OPFS (major, 196 commits) · #1063 idempotent .remix V2 reload · #1069 monorepo CI.
 
-## Recent PRs — Mar 1–7, 2026 (10 merged)
+## Recent PRs — Mar 22 – Apr 1, 2026 (9 merged)
 
-| PR          | Summary                                                                                                                                                     | Author     |
-|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
-| **#1038** ★ | **Revamp app install** (12 commits, 17 files). Adds `origin` to `deployment.json`; uses release info/url/etag to skip unnecessary re-installs. Fixes #1035. | Benedikt   |
-| **#1023** ★ | **Named client actions for Desktop** — `remix/builder_open` + `remix/desktop_open_screen` with route param objects. Companion to turntable#11751.           | Simon      |
-| **#1048** ★ | **Fix HTTP intercept for `remix://`** — custom protocol was excluded after #1035. Refactors convoluted intercept logic.                                     | Benedikt   |
-| **#1049**   | **Intercept less agent calls** — skip calls without `rmx-origin` header (non-agent HTTP should bypass agent permissions).                                   | Benedikt   |
-| **#1041**   | **Configurable compiler WS** — new `mixc_url` config option for Desktop. Fixes #1004.                                                                       | Benedikt   |
-| #1050       | Fixes for logging                                                                                                                                           | Benedikt   |
-| #1047       | Prevent invalid characters on arrow keys                                                                                                                    | Benedikt   |
-| #1046       | Ignore missing flat file, fallback to full scan                                                                                                             | Fred       |
-| #1042/#1044 | Rebuild missing id lookup from plain idx (then reverted due to issues)                                                                                      | Fred/Chris |
-
-## Recent PRs — Mar 8–13, 2026 (2 merged)
-
-| PR          | Summary                                                                                                                                                                                               | Author |
-|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
-| **#1057** ★ | **Support renamed agent** — when reading agent metadata, identify agents by their map key only; ignore the `name` field (which was removed in turntable#11814 / protoquery#2290). 5 commits, 2 files. | Gerd   |
-| #1055       | Pin Windows Rust compiler to 1.93.1 (CI stability fix)                                                                                                                                                | Fred   |
-
-## Recent PRs — Mar 15–20, 2026 (6 merged)
-
-| PR          | Summary                                                                                                                                                                                                                                                                                                                              | Author   |
-|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| **#818** ★  | **OPFS (Origin Private File System)** — major feature (196 commits, 51 files, +2657/-1223). Adds `mixfs` OPFS backend, new `js_api.rs` Wasm API, new `mixcore/bindings/js/` package, refactored `remix_file.rs` install. Replaces old Wasm API bindings. Tested .remix v1/v2, iOS webapp, IndexDB migration. Related: groovebox#450. | Benedikt |
-| **#1063** ★ | **Idempotent .remix V2 reload** — overhauls `onUpdateDelete` to collect IDs first, diff against saved IDs, then delete stale records. Replaces `.unwrap()` with proper error handling throughout V2 install. Adds `test_tailwind_twice` test. +178/-80.                                                                              | Fred     |
-| **#1069**   | **Monorepo CI v0.0.1** — adds `component-changed` script + `halt-if-no-component-change` / `update-users-if-changed` commands. CI skips unchanged components on branches. +75/-12.                                                                                                                                                   | Benedikt |
-| **#1065**   | **OPFS file URL** — adds `create_url_of_file` in OPFS backend using `Url::create_object_url_with_blob`. Refactors `file_url` to branch on OPFS vs standard backends.                                                                                                                                                                 | Benedikt |
-| **#1060**   | **OPFS desktop** — integrates OPFS into Tauri desktop: switches to `mixcore_opfs.wasm`, uses new `RemixFileReader` API with manifest validation, adds auth/signin trace logging.                                                                                                                                                     | Benedikt |
-| #1068       | Install `flex` in CI (build dep for monorepo)                                                                                                                                                                                                                                                                                        | Benedikt |
+| PR          | Summary                                                                                                                                                                                                             | Author   |
+|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
+| **#1082** ★ | **Agent GET + form-urlencoded** (3 files, +258/-57) — adds `GET /run-agent`, `POST application/x-www-form-urlencoded`; `AgentPathRewrite` fairing canonicalizes legacy `/agents/<agent>` → `/<agent>`; fixes #1051. | Benedikt |
+| **#1083** ★ | **S3 Cache-Control: no-cache** (1 file, +16/-4) — all S3 puts + presigned register URLs include `Cache-Control: no-cache`; sets `_rmx_upload_cache_control` in metadata (pairs with protoquery#2308).               | Benedikt |
+| **#1071** ★ | **Download file client action** (3 files, +43/-6) — new `remix/download-file` Desktop event: Tauri save dialog + `writeFile`; workaround for `<a download>` unsupported in Tauri; pairs with turntable#11837.       | Simon    |
+| **#1084**   | **Remove http-plugin** (7 files, +1/-102) — Tauri http plugin broke other client actions; removed; download works without it.                                                                                       | Simon    |
+| **#1081**   | **Better JS error messages** (1 file, +22/-8) — anyhow context chains in `mixcore/js_api.rs`: createDatabase, createMixcore, URL parse, .remix install.                                                             | Benedikt |
+| **#1079**   | **open-location anchors** (1 file, +5) — Desktop `open-location` now handles `#anchor` in URLs (was browser-only).                                                                                                  | Simon    |
+| **#1076**   | **Dox → rcm folder** (1 file, +1) — Desktop Makefile copies protoquery `.dox` JSON to `rcm/` for upcoming DocViewer plugin.                                                                                         | Gerd     |
+| **#1080**   | Builtin app versions bump (`make download-builtin-apps`).                                                                                                                                                           | Daniel   |
+| **#1056**   | Disable spellcheck in Desktop UI elements.                                                                                                                                                                          | Benedikt |

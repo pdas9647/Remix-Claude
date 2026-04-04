@@ -166,3 +166,9 @@ DOM.
 | PR  | Summary                                                                                                                         | Author |
 |-----|---------------------------------------------------------------------------------------------------------------------------------|--------|
 | #54 | **rmx-tui-grid test page & JSX types** — adds test page with sample data, JSX `IntrinsicElements` declaration, formatting fixes | tlentz |
+
+## Recent PRs — Mar 22–25, 2026 (1 merged)
+
+| PR  | Summary                                                                                                                                                                                                                          | Author |
+|-----|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
+| #55 | **`rmx-tui-grid` sort/unsort events** (+42/-5, 4 files) — adds `afterSort`/`afterUnsort` `CustomEvent` dispatchers on sort state change; `manifest.json` bumped v1→v2 with both events registered; test page fixed to 800×600px. | tlentz |
