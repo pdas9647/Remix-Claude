@@ -119,5 +119,7 @@ Notion index:
 ### Standup Notes
 - [standup-notes-jan-2026.md](./standup-notes-jan-2026.md) — Standup notes: decisions, ownership, customer updates, GTM pipeline (Jan 2026)
 - [standup-notes-feb-2026.md](./standup-notes-feb-2026.md) — Standup notes Feb 2–27: engineering process, Lumber facets/delivery, desktop bugs, workspace-as-environment
-- [standup-notes-mar-2026-1.md](./standup-notes-mar-2026-1.md) — Standup notes Mar 2–5: EKS deployment, MCP bridge revamp, env var overhaul, Lumber phased delivery, table primitives, 2026 strategic initiatives
-- [standup-notes-mar-2026.md](./standup-notes-mar-2026.md) — Standup notes Mar 10–19: Lumber 5-report scope, USG Global demo, RCS/Twilio integration, "experiences" architecture, command FFI, agent aliases, table component debate, Snowflake schema design
+- [standup-notes-mar-2026.md](./standup-notes-mar-2026.md) — Standup notes Mar 2–31: EKS/MCP, USG Global demo, RCS/Twilio, "experiences" arch, command FFI, table component, Lumber delivery, GTM
+  framework, OPFS fix, platform freeze
+- [standup-notes-apr-2026.md](./standup-notes-apr-2026.md) — Standup notes Apr 1–3: RCS federal credit union trial, Twilio tooling, system plugin versioning, TUI charts, Snowflake submission
+  near-complete, sales doubled

@@ -17,7 +17,7 @@
 
 ## 2026-01-29 — [Google Doc](https://docs.google.com/document/d/1vCcRlwX92enDij8K4S8rD5FV_yk4vg8NyCiWsHhB15o)
 
-- **Scripted chat demo**: Wilbur demoed pre-recorded, non-AI chat flow for public use. Experiences within chat are interactive. Adding intro screen + lead-gen ending.
+- **Scripted chat demo**: Wilber demoed pre-recorded, non-AI chat flow for public use. Experiences within chat are interactive. Adding intro screen + lead-gen ending.
 - **Lumber components**: John modifying agents for SQL generation + alias records. Mark: scatterplot, notebook (more templated), Parquet-in-Snowflake as data source.
 
 ---
@@ -46,7 +46,7 @@
 
 ## 2026-01-26 — [Google Doc](https://docs.google.com/document/d/129K2WIMWaZ02QDV84J4NYRSZDyHH6uIIUEuCKNGp-7Y)
 
-- **Desktop blockers**: File upload broken (needs Elm change, affects builder + runtime). UI grayed out (Wilbur). Loading ~20s to L2 (missing cache-control headers from mixer).
+- **Desktop blockers**: File upload broken (needs Elm change, affects builder + runtime). UI grayed out (Wilber). Loading ~20s to L2 (missing cache-control headers from mixer).
 - **Blob URLs**: Gerd demonstrated bypassing scene graph size limit (>10 MB) for images. Client-side only.
 - **Rust CI**: Aggressive optimization flags → 3 min link time; reduced to 2 sec with lighter flags.
 - **runtime.json hotfix**: Wrong file open flags when overwriting broke it in production.
