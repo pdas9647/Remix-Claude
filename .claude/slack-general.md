@@ -1,6 +1,6 @@
 # #general Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Mar 21, 2026
+**Coverage:** Dec 20, 2025 – Apr 3, 2026
 **Channel ID:** C02BD0B8B
 
 ---
@@ -179,3 +179,27 @@ Daily standups Mon–Fri via https://meet.google.com/hrz-onty-twp
 
 - **Arvind**: Won't make standup, meeting a friend downtown; back online right after
 - **Reza**: Not on standup due to personal commitments; asked Arvind to ping when back online
+
+### Mar 24, 2026 — Lumber call prep
+
+- **Reza**: Scheduled Lumber call for Mar 25; tagged Vijay, Arvind
+- **Arvind**: Will prep all report parts and have latest published for the call
+- **Benedikt**: Out rest of day — personal milestone (family)
+
+### Mar 26, 2026 — GitHub AI training policy + stdlib docs plugin
+
+- **Simon**: Company must decide on GitHub AI training opt-in/opt-out (GitHub requires organizational stance); team leans opt-out
+- **Gerd**: Released **Mix stdlib docs plugin**; AMP URL issue fixed; desktop requires HTTP cache disable/reload to get latest version
+
+### Mar 30, 2026 — DNS incident + HR transition + Gerd OOO
+
+- **Chris**: CI failures from GoDaddy billing issue that briefly parked remixlabs.com (~2hrs Mar 29; fixed ~17:30Z but DNS still propagating); retry helps
+- **Oliver**: Slack rejecting remixlabs.com as email domain (related to DNS lapse); workspace URL is figly.slack.com; resolved Mar 31
+- **Suma**: US employees rolling off **Trinet/Zenefits on Mar 31** to new benefits agency; portal live June 2026; benefits/coverage unaffected
+- **Gerd**: OOO Apr 1 (Wed after standup) through following week (~Apr 1-10)
+
+### Apr 2, 2026 — NEW CUSTOMER: Starlight (first RCS experience customer)
+
+- **Mukund**: Signed **Starlight** (get-starlight.com) — fintech for credit union member financial relief; 700K members, 10 credit unions
+- Remix will build **RCS + web portal experiences** to drive benefit enrollment conversions
+- Remix first **RCS experience customer**; closed by RCS demos built by Wilber + team

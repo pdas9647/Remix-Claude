@@ -160,3 +160,22 @@
 ### Mar 19, 2026 — Huddle (no details)
 
 - A huddle was started (Slackbot notification only; no message content)
+
+### Mar 31, 2026 — Remix file HTML harness review
+
+- **Arvind** called a cross-team huddle: "remix file html harness review"
+- Attendees: Simon, John, Wilber, Mark, Didier, Vijay
+
+### Mar 31, 2026 — Lumber: delivery scope and model discussion
+
+- **Reza** called huddle with Vijay, Arvind, John: "Lumber delivery scope, what is left and delivery model"
+- No substantive outcome recorded in thread; coordination only
+
+### Apr 3, 2026 — Lumber: report builder Notion page + Claude-generated node graphs
+
+- **Reza** shared Notion page with Claude-generated node graphs for **5 Lumber reports**: https://www.notion.so/Report-Builder-3351d464528f800d8b5ce12f6517c93f
+- Each report has SQL statements in data fetch nodes + CTEs
+- Source: PDF from client **Oleg** (Greg) with 5 report specs
+- **Missing**: HRIS report — Anand has not provided HR data
+- "Project labor overview" report added by Reza to show the bubble chart
+- Attendees: Reza, Arvind, Mark, John, Vijay

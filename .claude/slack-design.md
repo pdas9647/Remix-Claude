@@ -1,6 +1,6 @@
 # #design Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Mar 21, 2026
+**Coverage:** Dec 20, 2025 – Apr 3, 2026
 **Channel ID:** C4BLR910S
 **Purpose:** Design systems, visual IDE, icon and widget libraries
 
@@ -114,3 +114,11 @@ app: https://remix-dev.remixlabs.com/e/edit/table_builder/home.
 
 **L0 simplified to home screenshot only [Mar 18, Didier]:** Didier confirmed the new L0 design: only the home screenshot is shown per project. The "last 3 modified screens" panel has been removed. *"I
 think it's simpler."*
+
+## Mar 21–Apr 3 Additions
+
+**rmx-remix webcomp sizing / flex control [Mar 26, Arvind → Simon/Didier]:** Developers need to control sizing of `rmx-remix` webcomp from an external flex parent. Proposal: new prop (e.g.
+`fill-available`) or allow inline style override. No resolution yet.
+
+**Settings node: remove remote sources + modal sidepanel [Apr 3, Didier → Arvind]:** "Remote Sources" section visible in settings node preview is flagged as an anomaly — Didier proposes removing it.
+Broader proposal: settings node should become a modal sidepanel, not fake L2 navigation.

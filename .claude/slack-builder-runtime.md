@@ -1,6 +1,6 @@
 # #builder-runtime Slack Channel — Remix Labs
 
-**Coverage:** Dec 31, 2025 – Mar 21, 2026
+**Coverage:** Dec 31, 2025 – Apr 3, 2026
 **Channel ID:** C58HC9EC8
 **Topic:** Builder, remix.app, WebApp
 
@@ -109,3 +109,22 @@ design question.
 
 **inevent tile QoL improvements [Mar 19, Didier → John]:** Small description added for each event + selected nodes always visible in the inevent tile, even when the screen is used as a plugin. (
 Screenshot shared.)
+
+## Mar 24–Apr 3 Additions
+
+**Auto-navigate trap fixed [Mar 24, Tyler]:** Navigation cells auto-navigated to sub-screens inside builder, trapping users. Fix: turntable/pull/11843. Modal now shows "Stay" option.
+
+**Snowflake plugin: mixcore.wasm + screen params [Mar 26, Gerd → Simon]:** Two issues: (1) mixcore.wasm fails to load if plugin URL has wrong path; (2) `_rmx_` prefix is restricted — screen params
+can't use it. turntable/pull/11856: run plugin independently of host params.
+
+**Toast misalignment in rmx-remix no-shadow [Mar 30→Apr 1, Tyler]:** Toasts misalign in `rmx-remix` webcomp with `no-shadow=true`. Root cause: toast anchored to shadow root, not `document.body`. Fix:
+turntable/pull/11871. Resolved Apr 1.
+
+**Rename collapsed nodes at L2 [Apr 1, Didier]:** Shipped — nodes can now be renamed while collapsed at L2.
+
+**MDI icon picker guidance [Apr 1]:** Use Studio's built-in icon picker (not direct MDI imports) for cross-surface compatibility.
+
+**New L1 macro: Rebuild & Make post-clone [Apr 3, Wilber]:** New macro at L1 to run Rebuild & Make after a repository clone. Shipped.
+
+**Subscription node visibility scoping [Apr 3, Arvind + Simon]:** Subscription node should not fire on non-visible screens. Arvind: lower views in a viewstack are silent EXCEPT the last view under an
+overlay (must stay active). Simon: needs formalization. **No final decision.**

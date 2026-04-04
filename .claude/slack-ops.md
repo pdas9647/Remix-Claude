@@ -1,6 +1,6 @@
 # #ops Slack Channel — Remix Labs
 
-**Coverage:** Feb 1 – Mar 21, 2026
+**Coverage:** Feb 1 – Apr 3, 2026
 **Channel ID:** C07P57B89
 **Purpose:** Weekly production release promotion workflow (beta → production)
 
@@ -51,3 +51,14 @@ mix-rs/issues/1043 — sync failure should not be fatal.
 - Very short messages; threads only for blockers or build hand-offs
 
 | (no harmony PR) | Mar 19 | Mar 19 | — | Chris kicked off a promotion but held dev→beta due to OPFS regressions not fully settled. |
+
+## Mar 26–Apr 3 Promotion Logs
+
+| Promotion PR     | Posted | Kicked Off | Mobile Beta | Notes                                                                                                                                       |
+|------------------|--------|------------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| harmony/pull/368 | Mar 26 | Apr 2      | 2723 → 2749 | Arka approved Mar 31. Arvind's node-boundary fix (turntable/pull/11888) added to beta Apr 3 before prod promotion. Next beta to test: 2749. |
+| harmony/pull/370 | Apr 2  | (pending)  | —           | Posted for next week. Team asked to comment if blocking issues.                                                                             |
+
+**Turntable CI failing [Apr 2, Didier]:** CI blocked for a few hours — couldn't merge anything. Self-resolved.
+
+**TT `update-users` job failing [Mar 31, Tyler]:** CircleCI job failing repeatedly. Chris: likely dependency mismatch; next mix-rs auto-update expected to fix.

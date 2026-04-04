@@ -1,6 +1,6 @@
 # #backend Slack Channel — Remix Labs
 
-**Coverage:** Jan 2 – Mar 21, 2026
+**Coverage:** Jan 2 – Apr 3, 2026
 **Channel ID:** CHTGC5BGQ
 **Purpose:** server, compiler, and database stuff
 
@@ -152,3 +152,15 @@ builder entirely. Same root cause as Feb 26. Gerd: fix is to skip files with ill
 
 **Snowflake packaging PR ready to merge [Mar 19, Chris → Benedikt]:** mix-rs#912 (Snowflake packaging) is ready for review/merge once OPFS fixups are done. Open question: should the packaging config
 get its own repo, since it's mostly independent of mix-rs and just references a particular image build.
+
+## Mar 23 – Apr 3 Additions
+
+**protoquery CI Docker fix [Mar 23, Chris]:** CircleCI stopped building Docker images — API mismatch between docker CLI and Circle-provided daemon. Fix: pin API version. protoquery/pull/2302. Chris:
+auto-downgrade was supposed to handle this but didn't; workaround simple enough not worth digging into (docker/cli#2533).
+
+**Mixer CLI local auth gaps [Mar 24, Simon → Gerd/Benedikt/Chris]:** Simon investigated running mixer from command line for CI integration. Three issues found:
+
+1. `--ws-dir /amptest` → "Read-only file system" error — must use relative path `./amptest`. Resolved.
+2. `POST /v0/ws` → "No matching routes" — Simon's rcm had a Nov 2025 mixer binary; `create workspace` is v0 only, not v1. Needed rcm update.
+3. `mktoken`-issued token rejected as "not a workspace creator" — mixer doesn't default to locally signed tokens like amp does. Fix: `--workspace-creator user/email` flag or `WORKSPACE_CREATORS` env
+   var. **No easy CI solve yet.** Simon filed mix-rs#1075; Chris: short-term option is to use Snowflake build (has local token support but lacks S3). Parked.

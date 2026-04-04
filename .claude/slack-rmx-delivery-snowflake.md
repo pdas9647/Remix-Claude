@@ -1,6 +1,6 @@
 # #rmx-delivery-snowflake Slack Channel — Remix Labs
 
-**Coverage:** Mar 25, 2025 – Mar 21, 2026
+**Coverage:** Mar 25, 2025 – Apr 3, 2026
 **Channel ID:** C08JPJ6EES3
 **Nature:** Snowflake GTM partnership, not a customer delivery
 
@@ -159,3 +159,40 @@ deployments, SPCS queries/inserts: https://www.notion.so/Remix-in-Snowflake-Snow
 
 Vijay suggested including the Lumber runtime flow in the Snowflake Marketplace submission. Mukund asked Arvind: (1) what's the latest version and is it accessible from Remix DT Studio? (2) Does this
 mean providing the reviewer access to a workspace with Remix agents? No replies recorded in this period.
+
+### Mar 24–27 — SPCS Active Build Begins
+
+**Two SPCS environments established [Mar 24, Chris]:**
+
+- **Dev (build target):** `https://mw7zsh-oxfsvki-remix.snowflakecomputing.app/e` — Mukund, Arvind, Padmanabha as workspace admins
+- **Consumer test:** `https://iqlr4z-oxfsvki-remix-spcs-demo.snowflakecomputing.app/e` — empty; for verifying export+install flow
+- Strategy: build/test in dev org, export+install into consumer org to confirm it works.
+
+**SPCS plugins + mixcore still broken [Mar 27, Chris]:** mixcore not loading → most FFIs unavailable. Workaround: service agent for file assembly. Working export screen:
+`.../snowflake_test/export_with_agent?app=<app_name>`.
+
+### Mar 25 – Apr 3 — SPCS Active Build (Group channel C09GTR1TDC3)
+
+**Core flow working [Mar 25, Padmanabha]:** `query_customer` agent → `REMIX_DXP.CORE.CUSTOMER_MASTER` (exposed as view). Customer360 list UI built end-to-end. Two initial blockers: tailwind not
+loading + export plugin blank.
+
+**Data access constraints:** External tables must be explicitly referenced. Chris exposed 7 `CUSTOMER_360.RAW_DATA` tables as views in `REMIX_DXP.SHARED_SCHEMA` (e.g. `CUSTOMER_MASTER_DEMO`) —
+accessible from both remix + remix_spcs_demo accounts without changes on consumer side.
+
+**Auth in SPCS:** No OAuth/RSA needed. Container provides session token at `/snowflake/session/token`. Agents must be built + deployed server-side (Make) before invocation from screens.
+
+**GET_DDL not possible** on objects outside the app. Use `INFORMATION_SCHEMA.COLUMNS` for schema metadata. Padmanabha hardcoded DDL for 7 demo tables as workaround.
+
+**Cortex:** `AI_COMPLETE` → use `SNOWFLAKE.CORTEX.COMPLETE`. Enable per Snowflake Native App docs. Default warehouse (`COMPUTE_WH`) set on service [Apr 2].
+
+**Agent env URL bug [Apr 3]:** `client_frontendBaseURL` / `client_backendBaseURL` = `___URL_PLACEHOLDER____` when invoked server-side. Fix:
+`env.getWithDefault(requestHeaders.origin) > withDefault(env.frontendBaseURL)`.
+
+**cloud_workspace adapted for Snowflake [Apr 2]:** Installed in both accounts. Allows granting permissions beyond initial admin.
+
+**Marketplace trial flow confirmed [Apr 1, Mukund]:** Install → SPCS container → Customer 360 sample + widget builder → widget preview → contact Remix.
+
+**"Launch app" button [Apr 3]:** Setting default web endpoint shows Launch button on app page; `/` can redirect to a runtime screen.
+
+**Status Apr 3:** widget_preview working in dev (mw7zsh). Padmanabha posted to demo env for review:
+`iqlr4z-oxfsvki-remix-spcs-demo.snowflakecomputing.app/e/preview/customer360_spcs_test/widget_preview`.

@@ -1,6 +1,6 @@
 # #bugbash Slack Channel — Remix Labs
 
-**Coverage:** Jan 20 – Mar 21, 2026
+**Coverage:** Jan 20 – Apr 3, 2026
 **Channel ID:** C862WHQMS
 **Bug reporting guide:** https://www.notion.so/Bug-reporting-3061d464528f80cdacf7eed2612bad07
 
@@ -99,9 +99,9 @@ Async cloud subscribe messages arrive at frontend but not rendered until next us
 desktop-only, not amp. Gerd: "one of the reasons we want to drop amp." Simon confirmed works for wasm mixc. Simon + Gerd discussing solution; turntable#11795 adds unfreeze for amp. **In progress —
 partial fix.**
 
-### Curly quotes in desktop Studio (Arvind, Mar 13) 🟡
+### ~~Curly quotes in desktop Studio~~ (Arvind, Mar 13) ✅
 
-Tauri webkit default `spellcheck` causes autocorrect curly quotes. Fix: globally disable with `spellcheck=false`. PR: mix-rs#1056 (Benedikt). Test channel: `bb-disable-spellcheck`.
+PR mix-rs#1056 approved Mar 27; deployed.
 
 ### Cell propagation count shows 0 on screens (Gerd, Mar 12) 🟡
 
@@ -183,3 +183,39 @@ Simon's fix turntable#11830 adds collaborator on paste. Broader open question: s
 
 Adding multiple writers to a Repository project with comma-separated emails (e.g. `a@b.com, c@d.com`) instead of space-separated corrupts the writers list and locks the creator out. Workaround:
 manually edit `projects/<Name>.json` in the Repository cloud files (the `writers` field). Root fix needed: UI validation + creator should always retain permission. **No fix yet.**
+
+---
+
+## Mar 21 – Apr 3 New Open Bugs
+
+### IndexDB → OPFS migration: all plugins broken (Vijay, Mar 28) 🔴
+
+OPFS migration fails on upgrade ("OPFS already exists"); all plugins dead. Debug build v10809 (`bb-debug-indexdb-migration`) didn't fix. Root: `createWritable` undefined. **Unresolved.**
+
+### member_of + entity filter empty in mixer (Wilber, Mar 31) 🔴
+
+Combined `member_of` + `entity` filter returns no results on desktop/mixer; works on amp. Fix: mix-rs/pull/1085 — awaiting review.
+
+### Node titles expand unboundedly in builder (Didier/Arvind, Apr 2) 🔴
+
+Flex layout change broke node width bounding — long names stretch nodes. PR turntable/pull/11888 partial; broader CSS fix pending. **Must land before beta/prod.**
+
+### Type select styling broken in Safari/desktop (John, Apr 3) 🟡
+
+Styled HTML `<select>` unsupported in WebKit (desktop). Arvind to push CSS fix.
+
+### Published .remix stale in catalog (Mark, Mar 25) 🟡
+
+Republish shows old version. Root: missing `Cache-Control: no-cache` on uploads; needs code change. Workaround: change filename per publish.
+
+### New web components + file upload button broken in desktop (Vijay, Apr 1) 🟡
+
+Net-new web components blank on desktop (work on remix/remix-dev). "Choose files" button dead in plugins; drag/drop works. Under investigation.
+
+### App Clips "file code refs not allowed" on dev (Wilber, Mar 25) 🟡
+
+Old Wasm-executable .remix files fail on dev.remix.app; work on beta/prod. Benedikt adding v2 support. Workaround: re-export as bytecode.
+
+### Deploying to local workspace converts app to executable (Simon/Gerd, Mar 27) 🟡
+
+Deploying agent to `localhost/local` marks appmeta `binary` — no recovery. Gerd: disallow deploys to local. **No fix yet.**

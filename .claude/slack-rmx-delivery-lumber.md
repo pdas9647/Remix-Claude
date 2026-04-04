@@ -1,6 +1,6 @@
 # #rmx-delivery-lumber Slack Channel — Remix Labs
 
-**Coverage:** Oct 9, 2025 – Mar 21, 2026
+**Coverage:** Oct 9, 2025 – Apr 3, 2026
 **Channel ID:** C09KL3K7P0D
 
 ---
@@ -68,16 +68,12 @@ corrupts exec-only app. Mar 1: Arvind checked in latest lumber home/catalog/repo
 4. `snowflake facet → CTE query generator` — accumulates facets into SQL (conditions only applied when set)
 5. Execute against Snowflake
 
-**Facet types in scope:** Date range, pill picker (month/quarter/year), month+year carousel, dropdown multi/single picker, keyword search.
-
 **Table component [Feb 26] (Arvind):** Self-contained, configured by SQL statement string. CTE orchestrator overrides with filtered SQL when facets selected; returns default query before any
 selection. Forward pattern: each paste-able catalog component has CTE orchestrator built in.
 
 **Crunch mode [Feb 27] — target: Wednesday Mar 4:**
 
-1. **Infra:** Chris + Didier — agent server install + integration
-2. **Tools:** Arvind + John — home, catalog, report mgmt, Studio publish (all 4 essentially functional)
-3. **Content + QA:** Reza + India team — catalog components, Snowflake schema, report content, QA
+Infra (Chris+Didier), Tools (Arvind+John: home/catalog/reports/publish), Content+QA (Reza+India).
 
 **Scope pushback (Vijay):** Lumber tried to add scope. Vijay told Manish "his guys were smoking something." Conditions: one owner + full scoping exercise, or no new scope. Oleg to own scoping.
 
@@ -110,18 +106,8 @@ Chris asked about deliverables timeline and whether to keep beta stable or rever
 **WIP in-house table component — perf issue (Arvind, Mar 11):** Remix-primitive table component (80 rows, 40 keys) is sluggish in runtime and painful in Studio. Multi-day thread with Arvind, Didier,
 Vijay, Gerd, Simon exploring optimisations:
 
-- Callables per-cell vs per-column (Gerd's column-oriented approach faster)
-- Vijay's "flatten → transform → unflatten" pattern ~5x faster
-- **Root cause identified:** `get state` nodes fire on every state change regardless of field — causes extra propagations; separate screen state fields not independently addressable
-- **Bug found + fixed:** `pub/sub retained` flag broken in codegen — Gerd found root cause, Simon opened [turntable/pull/11810](https://github.com/remixlabs/turntable/pull/11810), merged Mar 13 (bug
-  since July 2025)
-- **Screenshot on save causing long save times** — Didier confirmed: screenshot library (~4 years unmaintained) walking DOM = slow; looking at alternatives. Vijay suggested using Rust renderer.
-- **`onload` double-firing on query comp at L2** — Gerd: caused by state node propagation (tile 20 outputs scenegraph twice, 3MB each time); workaround: use pubsub view-scope for `query_status`; fix
-  coming
-- **L2 freeze on callable-heavy screen** — Gerd: "super slow" not fully frozen; 10-row limit suggested for dev. Still open.
-- **`get state` per-field propagation issue** — Simon: can fix for state nodes via codegen, not for screen/app state (dynamic structure). Gerd proposed per-field var cells as workaround. Longer fix
-  needed.
-- protoquery/issues/2291 filed (Gerd, Mar 13) for retained pub/sub bug
+- Key fixes: Gerd's column-matrix (callables per-column) + Vijay's flatten-transform-unflatten ~5x faster. `pub/sub retained` codegen bug fixed (turntable/pull/11810, Mar 13). `get state` per-field
+  fix: state nodes via codegen; screen/app state deferred.
 
 **DECISION REVERSAL — back to TUI webcomponent (Arvind, Mar 12):** After perf testing, Arvind decided to revert to TUI Grid webcomponent for Lumber delivery (perf reasons). In-house Remix primitive
 grid continues as a longer-term goal.
@@ -156,3 +142,25 @@ starting point for building the 5 Lumber reports.
 **SQL base query architecture decision (Mark → Vijay/Arvind, Mar 21, approved):** Only the "base query" is shown and editable in the UI. The table component internally wraps it with facets +
 pagination to build the full SQL. Flow: `base_sql` in → facets from state → pagination from nested component → full SQL built internally. User never sees/edits the full query. Handles both
 natural-language AI queries and custom SQL uniformly. Approved by Vijay + Arvind. Arvind: will add a "view full final query" modal with copy button after Mark ships this.
+
+### Mar 23–Apr 3: Charts + Demo Crisis + Report Builder Redesign
+
+**TUI grid sort-by-column event [Mar 23, Arvind → Tyler]:** Column header click must fire a sort event for Snowflake SQL sort order to respond. cc: Mark, Reza.
+
+**Pre-demo crisis [Mar 27, Reza, 3am]:** 5 open issues before Friday Lumber demo → moved to Monday:
+
+1. CTE must apply to base table (not final dataset) for facets
+2. Table shows source-table columns, not SQL GROUP BY result columns
+3. Views not supported as data sources (tables only)
+4. Demo can't be driven from Desktop catalog (publish/cache bug)
+5. Numeric columns show excess decimals despite SQL rounding
+
+**Mark pushed repo fixes [Mar 27]:** CTE fix, column/filtering improvements, view-datasource support. NOT published to catalog (cache issue).
+
+**Scope: stacked-column chart only for Monday [Mar 27, Arvind]:** Job costing report only chart needed. John WIP: column+facet, h-bar+facet, scatter+facet, bubble.
+
+**TUI built-in download [Mar 30, Arvind]:** TUI Grid has CSV/XLSX; charts have PDF/PNG. May be sufficient.
+
+**Report builder redesign [Apr 1–3, Reza]:** Clean node types (data / filters / display) piped independently. JSON is isomorphic to Remix node graph → AI can one-shot an entire report definition.
+Tested with Claude Code against Snowflake. Notion: https://www.notion.so/Report-Builder-3351d464528f800d8b5ce12f6517c93f |
+Assets: https://www.notion.so/Claude-Code-generated-assets-3371d464528f809c9c5ed929c8709ecd

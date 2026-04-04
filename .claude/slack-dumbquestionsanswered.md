@@ -1,6 +1,6 @@
 # #dumbquestionsanswered Slack Channel — Remix Labs
 
-**Coverage:** Feb 16 – Mar 21, 2026
+**Coverage:** Feb 16 – Apr 2, 2026
 **Channel ID:** C86KWF7MG
 **Purpose:** "the dumbness of the programmer has no limits" — quick Q&A, platform clarifications
 
@@ -173,7 +173,8 @@ Arvind shared a screenshot of something unclear inside the Mac Claude client, as
 
 **Question:** What does the "pack wasm code" option do in `export_package`, and when should/shouldn't it be used?
 
-**Answer (Gerd):** It's obsolete and can go away. When binaries were stored in the DB, wasm code had separate records and the exporter needed to know whether to pack wasm or qcode. Now that binaries are stored in the filesystem, the distinction is gone. Gerd will check how to remove it.
+**Answer (Gerd):** It's obsolete and can go away. When binaries were stored in the DB, wasm code had separate records and the exporter needed to know whether to pack wasm or qcode. Now that binaries
+are stored in the filesystem, the distinction is gone. Gerd will check how to remove it.
 
 ---
 
@@ -190,7 +191,8 @@ Arvind shared a screenshot of something unclear inside the Mac Claude client, as
 
 **Question:** Is there any way to set anchors so you can jump to specific positions in a text via `#<anchor>` URLs? (Needed for the stdlib viewer.)
 
-**Answer (Tyler):** Not supported before, but Tyler merged turntable#11834 (Mar 21) — adds an `id` property to any DOM node in the card editor. Builder no longer auto-generates `id` for card internal actions/webcomps; uses `data-rmx-cid` instead. No uniqueness enforcement (user-space). Arvind follow-up: needs **smooth scroll** support — if not optional, make it the runtime default.
+**Answer (Tyler):** Not supported before, but Tyler merged turntable#11834 (Mar 21) — adds an `id` property to any DOM node in the card editor. Builder no longer auto-generates `id` for card internal
+actions/webcomps; uses `data-rmx-cid` instead. No uniqueness enforcement (user-space). Arvind follow-up: needs **smooth scroll** support — if not optional, make it the runtime default.
 
 ---
 
@@ -199,3 +201,33 @@ Arvind shared a screenshot of something unclear inside the Mac Claude client, as
 **Question:** Is projecting through a ref field in the query node no longer supported? (e.g. accessing `from.entity` when `from` is a ref.)
 
 **Answer (Simon):** Still works — just type `assigned.name` (or the equivalent field path) directly. Simon demonstrated with a screenshot.
+
+## Mar 24–Apr 2 Additions
+
+**L1 screenshots in repo push/pull [Mar 24, Arvind → Gerd]:** Screenshots: not included. Positions: included but not tracked as changes. Decision: don't push screenshots; preserve existing local ones
+on pull (don't null them).
+
+**Navigate to screen in rmx-remix webcomp [Mar 24, Arvind → Didier]:** No URL-only mechanism. Workaround: 2 bindings (source + screen-name) or encode both in URL and split with a function tile. Arvind
+chose to update data model to store screen-name explicitly.
+
+**Missing agents in table builder clone [Mar 24, Padmanabha → Mark]:** `get_current_data_source` lives in Facet Builder repo. Fix: pull `facet_builder` from Lumber workspace.
+
+**Open Link + anchor scroll [Mar 25–26, Gerd → Simon]:** Open Link errors on anchor-only URLs in Desktop. HTML links ≠ JS scrollTo. Fix: mix-rs/pull/1079 — aligns Desktop to browser. Merged.
+
+**FFI fallback when FFI absent [Mar 26, Chris → Benedikt]:** Use Mix FFI fallback syntax (see Mix Syntax Notion doc). Amp: compile-time check. Mixer/JS VM: runtime error catchable.
+
+**.remix export size regression [Mar 28–30, Arvind → Wilber/Gerd]:** Publish plugin stored temp .remix files in project Files without cleanup → 90-100MB export (was ~800KB). Fix: use
+`binary.blobCreate(appstate, bin, content_type)` — in-memory blob, no filesystem write. Wilber needs to update plugin.
+
+**Binding result types from wasm [Mar 28–30, Vijay]:** No clean solution in spreadsheet. Pattern: `result.withDefault` + `state.lastError` (Gerd). Simon's monadic codegen draft:
+`remix-dev.remixlabs.com/e/edit/simon/monadic2`. Open.
+
+**base64 → unzip in Mix [Mar 30, Didier]:** `asset_preview > binary.ofBase64 > binary.decompress(deflate-raw) > binary.toString > string.parseEscJSON`. `binary.decompress` recently added by Gerd.
+
+**File upload CORS on agt-dev [Mar 31–Apr 2, Vijay → Chris/Wilber]:** `file.upload` FFI works on dev; presigned URL Cache-Control not yet on beta/prod. Wilber reverted to client action. Fix:
+Cache-Control + CORS fix to beta Apr 2 (Chris).
+
+**"Component refresh" event [Apr 1, Wilber → Arvind]:** Renamed from "on load" inside components. Fires on init + when comp params receive new values. Fires immediately in REPL. Key for plug-and-play
+assembly components.
+
+**`text-md` not a Tailwind class [Apr 2, Wilber → Arvind]:** Correct class is `text-base`. Arvind: will add `text-md` alias in theme.

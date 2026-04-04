@@ -1,6 +1,6 @@
 # #desktop Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Mar 21, 2026
+**Coverage:** Dec 20, 2025 – Apr 3, 2026
 **Channel ID:** C04T4HW06CC
 **Bug tracker:** https://github.com/remixlabs/mix-rs/issues/937
 
@@ -158,3 +158,13 @@ this to the `desktop-releases` app (https://remix.remixlabs.com/e/edit/desktop-r
 **OPFS partial recovery: still broken as of Mar 21 [Benedikt → Gerd]:** v0.10597 restored workspace tools plugin but Gerd's repository plugins still fail — white screen of death, Rust fetch blocks
 indefinitely. Benedikt reverted recommendation back to build 10464. Root cause: Gerd's plugins vs workspace tools behave differently despite both being .remix v2.0; Rust-side blocking fetch under
 investigation.
+
+## Mar 23–Apr 3: OPFS Recovery + Export FFI
+
+**OPFS restored [Mar 23, v0.10644]:** Plugins + workspace form fixed; update hold lifted.
+**Plugin cache [Mar 23, Gerd]:** `Build_Tools` no Cache-Control (same root cause as .remix files).
+**Windows v0.0.23 [Mar 24, Fred]:** Turntable updates.
+**rmx_artifact v1.46 [Mar 27]:** mix-rs/pull/1080 approved.
+**`make setup dev` hangs [Mar 28, Didier]:** Post-OAuth "waiting for auth"; unresolved.
+**export_package FFI [Mar 31, Simon]:** mix-rs/pull/1084 (bypasses tauri-plugin-http); CORS concern pending.
+**Restore windows on update [Apr 1, Arvind]:** Feature request; open.

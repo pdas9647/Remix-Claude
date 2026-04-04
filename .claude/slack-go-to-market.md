@@ -1,6 +1,6 @@
 # #go-to-market Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Mar 21, 2026 (+ earlier GTM context; channel is very low-traffic)
+**Coverage:** Dec 20, 2025 – Apr 3, 2026 (+ earlier GTM context; channel is very low-traffic)
 **Channel ID:** C7HGRVDL3
 **Purpose:** GTM updates/status; target application & process scenarios, incl. for demo workflows
 
@@ -187,3 +187,17 @@ Chris listed all running amp servers and proposed shutting down the unused ones.
 - `play` — stays temporarily; Arvind: has projects that need archival before shutdown
 - `gainsolutions`, `nevista`, `xcaliber` — candidates for shutdown (Mukund agreed)
 - `agt-uk` — Chris asked if still needed; no answer recorded
+
+## Mar 28 — Claude + .remix binary as marketing content engine (Arvind)
+
+Arvind demoed a 3-step workflow:
+
+1. Upload `table_builder.remix` to Claude → asked it to reverse-engineer → got detailed product spec
+2. Prompt for marketing copy → Claude generated a `.md` landing page brief
+3. Prompt for landing page → Claude generated a working `.html` site (light/minimal, styled with Remix brand colors)
+
+**Key insight (Arvind):** "The built exec itself has info that Claude can be prompted into delivering marketing content for" — no skills or `design.md` needed; ~10-minute workflow. Uploading 3–4
+product binaries would yield a more complete result.
+
+**Longer-term vision:** Invest in content + design Claude skills that instruct it to embed live Remix runtime portions (webcomps) in the generated pages — could become a rapid content engine for
+first-pass product pages.
