@@ -181,7 +181,8 @@ With GCP cluster access: `source kube-config.sh prod|poc|beta|dev` in `M`, then 
 Mixer uses nightly snapshots (same approach as Amp). Server runs as user `remixlabs` in group `www-data` — `chgrp`/`chown` needed if SSH as root.
 
 - **Index directories:** `<db_name>/v2/` — only current version needed, but set must match `vers.json`. Dirs not in `vers.json` are harmless and removable.
-- **Interrupted flush recovery:** orphaned write-log records (index doesn't reference them, numbering off). Fix: use latest version in `vers.json` to get expected record count → truncate `db.off` and `db.dat` to that count → clean `vers.json` → restart server. See [ChrisDB](https://www.notion.so/2f01d464528f807da58ecafbde85d3c4) for the full recovery script.
+- **Interrupted flush recovery:** orphaned write-log records (index doesn't reference them, numbering off). Fix: use latest version in `vers.json` to get expected record count → truncate `db.off` and
+  `db.dat` to that count → clean `vers.json` → restart server. See [ChrisDB](https://www.notion.so/2f01d464528f807da58ecafbde85d3c4) for the full recovery script.
 
 ### Amp Rollbacks
 
@@ -198,3 +199,39 @@ Mixer uses nightly snapshots (same approach as Amp). Server runs as user `remixl
 2. **Repro:** Provide minimal repro — link to cloud builder screen, .remix file, or step-by-step. Include: product/surface, version, OS/browser
 3. **Fix or file:** Engineering either fixes immediately (link PR in thread) or creates a GitHub issue. Reporter ensures one happens
 4. **Mark resolution** (emoji on original Slack post): ✅ fixed, 👍 expected, 📝 ticket created, 🚧 content bug, 🤷 no repro
+
+---
+
+## Release Cadence & Branch Strategy
+
+> Source: [Planning discussion 2026-03-31](https://www.notion.so/3341d464528f80cf9a7dc4e6e711d1f1)
+> Parent: Platform Engineering (Internal) Home > [Planning docs](https://www.notion.so/14f28c95321d4bd1a5e07e65e6c05a10)
+> Related: [rcm#98](https://github.com/remixlabs/rcm/issues/98)
+
+### Monthly Public Release Cadence (confirmed 2026-03-31)
+
+- Monthly minor version releases: each monthly promotion is marked as a new minor version (`1.0`, `1.1`, etc.)
+- Weekly promotions (beta→prod) increment the patch version (`1.0.0`, `1.0.1`, `1.0.2` → `1.1.0`, …)
+- Patch versions may get public release notes; internal planning/roadmap focuses on monthly minor cadence
+- "Public release" = existing version packet promoted monthly (time-based, not feature-based)
+- Milestone labels on GitHub issues/PRs correspond to minor versions
+
+### Task Management
+
+- **Global Task View** on Notion + **GitHub board** (`https://github.com/orgs/remixlabs/projects/2/views/1`)
+- **Monday pre-standup:** review tasks board
+- **Tuesday standup:** reserved for other discussions
+
+### Open Issues (as of 2026-03-31)
+
+- **Turntable stdLibId coupling:** Turntable closes over a `stdLibId` which can be out of sync with Desktop's protoquery dependencies. TT only really needs the API to start/stop and send code to the
+  compiler (changes much more slowly than stdLibId). Needs architectural fix.
+- **Stable vs feature branch:** Need a split where fixes can be applied to a stable branch independently of feature development. Questions: monorepo vs rcm semantic versions, how to handle a single
+  stable release.
+
+### Next Steps (as of 2026-03-31)
+
+- Chris: sketch stable/feature branch design for the **current multi-repo + rcm setup** (improved rcm support)
+- Benedikt: sketch **monorepo** approach for same
+- Next week: compare designs, come to consensus on release flow + component management
+- Separate discussion: propose content team involvement in release process design

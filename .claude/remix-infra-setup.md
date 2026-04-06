@@ -167,6 +167,7 @@ Pref keys use a `builder.` namespace prefix (since turntable #11788):
 
 - `builder.search.libs` — catalog list for L1/L2 search (one URL per line, `#` comments supported)
 - `builder.plugins.show_system_plugins` — show system plugins in L0/L1/L2 when `true`
+- `builder.remote_sources` — list of `{host, ws, db, name}` objects shown as remote DB sources in the builder (`name` is optional)
 
 To override default catalogs for all org users: set `builder.search.libs` in `set_default_prefs`. Individual users can further override with their own `builder.search.libs`.
 

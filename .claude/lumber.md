@@ -9,6 +9,10 @@
 > - [Payroll reporting](https://www.notion.so/3041d464528f80c4bc54c355306a4129)
 > - [Payroll tables documentation](https://www.notion.so/3041d464528f8000b005f648dcf2bef6)
 > - [Payroll reports](https://www.notion.so/3041d464528f80ae954cc7968a6373fd)
+> - [New schema](https://www.notion.so/32f1d464528f807295d8ee25ae47852c)
+> - [CTE vs substitution variables](https://www.notion.so/32f1d464528f80f0ba2cdd94c7d3f3d2)
+> - [Report Builder](https://www.notion.so/3351d464528f800d8b5ce12f6517c93f)
+> - [Claude Code generated assets](https://www.notion.so/3371d464528f809c9c5ed929c8709ecd)
 
 ---
 
@@ -19,6 +23,7 @@
 - **Lumber reporting:** `https://remix-india.remixlabs.com/e/edit/lumber_reporting`
 - **Web catalog:** `remix.app/run?_rmx_url=https://agt.files.remix.app/iaEj4QYboi/_rmx_files/apps/catalog.remix`
 - **Table configurator:** `https://agt.files.remix.app/iaEj4QYboi/_rmx_files/apps/component_table.remix`
+- **Pull plugin repos:** "Table Builder" and "Facet Builder" (clone head revision, then Rebuild & Publish)
 
 ---
 
@@ -175,3 +180,219 @@ Plus hidden columns: combined totals, travel, estimated hours (budget).
 | Phase 2 | TBD                                                                                                                                        |
 | Phase 3 | TBD                                                                                                                                        |
 | Phase 4 | Customer self-service for reporting                                                                                                        |
+
+---
+
+## Report Builder — Proposed Node Model
+
+> Source: [Report Builder](https://www.notion.so/3351d464528f800d8b5ce12f6517c93f) — updated 2026-04-03
+
+### Problem Statement (4 issues with current implementation)
+
+1. Cannot handle multi-source reports (e.g. job costing) where different data sources share common facets but have different SQL outputs
+2. Each report element runs SQL independently — inefficient
+3. "Simplicity" creates opacity; a cleaner node graph with clear functional definitions and visible data edges is better
+4. Current model lacks expressive power for facet-driven multi-element reports and trigger-based refresh
+
+### Thesis: Report Node Types
+
+| Node Type             | Role                                                                                               |
+|-----------------------|----------------------------------------------------------------------------------------------------|
+| **Facet nodes**       | UI controls (dropdown, date range, etc.) — each produces a filter fragment                         |
+| **Facet Aggregator**  | Combines all facets into a CTE WHERE clause; one aggregator per set of co-faceted data             |
+| **Data Fetch nodes**  | Source: Snowflake view; assembles CTE + SELECT + Sort + Pagination; outputs result set             |
+| **Display nodes**     | Table, Bar Chart, Bubble Chart, etc. — consume result sets from Data Fetch nodes                   |
+| **Sort / Pagination** | Modifier nodes driven by user interaction on Table display; feed back into Data Fetch for re-query |
+
+### Node Graph Pattern
+
+```
+Facet 1 → Facet Aggregator → Data Fetch 1 → Display: Table  ←→ Sort/Pagination
+Facet 2 ↗                 ↘ Data Fetch 2 → Display: Bar Chart
+Facet N ↗                              ↘ Display: Bubble Chart
+```
+
+- Multiple facets feed one aggregator
+- One aggregator can drive multiple Data Fetch nodes (different views, same WHERE clause)
+- Multiple Display nodes can consume the same Data Fetch result
+- Table display nodes have `sort` and `pagination` out-bindings that re-trigger Data Fetch
+
+### Applied to Job Costing Report
+
+| Node                     | Detail                                                                      |
+|--------------------------|-----------------------------------------------------------------------------|
+| Facet: Project           | All Projects or single; filters `dim_project_key`                           |
+| Facet: Date Range        | `start_date`, `end_date`; filters `date_worked`                             |
+| Facet Aggregator         | `WHERE dim_project_key = N AND date_worked BETWEEN start AND end`           |
+| Data Fetch: Table        | Source: `V_JOB_COSTING_TABLE`; groups by `cost_code`; 14 output columns     |
+| Data Fetch: Chart        | Source: `V_JOB_COSTING_CHART`; groups by `date_worked`; 7 columns           |
+| Display: Table           | 14 cols, grouped headers (REG/OT/DOT), totals row; drives Sort + Pagination |
+| Display: Hours Bar Chart | X = date, Y = stacked reg/ot/dot hours                                      |
+| Display: Cost Bar Chart  | X = date, Y = stacked reg/ot/dot costs                                      |
+
+### 5 Reports Defined in This Model
+
+| Report                 | Snowflake View(s)                | Key Grouping          |
+|------------------------|----------------------------------|-----------------------|
+| Job Costing            | `V_JOB_COSTING_TABLE` + `_CHART` | cost_code / date      |
+| Payroll Journal        | `V_PAYROLL_JOURNAL_*`            | payroll run / journal |
+| Payroll Summary        | `V_PAYROLL_SUMMARY_*`            | payroll totals        |
+| Project Labor Overview | `V_PROJECT_LABOR_OVERVIEW_*`     | project / date        |
+| Worker Compensation    | `V_WORKER_COMPENSATION_*`        | worker / cost code    |
+
+Report definitions stored as JSON (node-graph isomorphic with Remix node graph): `job_costing.json`, `payroll_journal.json`, `payroll_summary.json`, `project_labor_overview.json`,
+`worker_compensation.json`.
+
+---
+
+## Snowflake Star Schema (LUMBER_FI database)
+
+> Source: [Claude Code generated assets](https://www.notion.so/3371d464528f809c9c5ed929c8709ecd) — updated 2026-04-03
+> Snowflake account: `OXFSVKI-TW30727` → database: `LUMBER_FI` → schema: `PUBLIC`
+
+### Schema Design
+
+**Source:** PostgreSQL reporting tables (refreshed every 10 min from core PostgreSQL tables)
+**Target:** Snowflake star schema — `DIM_*` dimension tables + `FACT_*` fact tables
+
+PostgreSQL → Snowflake ETL is one-off for Phase 1. Dummy data loaded via Claude Code-generated Python script.
+
+### SQL Views for Reports
+
+| File                                     | View / Purpose                                |
+|------------------------------------------|-----------------------------------------------|
+| `3_create_job_costing_views.sql`         | `V_JOB_COSTING_TABLE` + `V_JOB_COSTING_CHART` |
+| `4_create_project_labor_overview_views`  | `V_PROJECT_LABOR_OVERVIEW_*`                  |
+| `7_create_payroll_journal_views.sql`     | `V_PAYROLL_JOURNAL_*`                         |
+| `8_create_payroll_summary_views.sql`     | `V_PAYROLL_SUMMARY_*`                         |
+| `9_create_worker_compensation_views.sql` | `V_WORKER_COMPENSATION_*`                     |
+
+### Snowflake Credentials (dev environment)
+
+```
+SNOWFLAKE_ACCOUNT=OXFSVKI-TW30727
+SNOWFLAKE_USER=<rmohsin or vchakrav>
+SNOWFLAKE_PASSWORD=<password>
+SNOWFLAKE_WAREHOUSE=COMPUTE_WH
+SNOWFLAKE_DATABASE=LUMBER_FI
+SNOWFLAKE_SCHEMA=PUBLIC
+```
+
+### Claude Code Workflow (used to bootstrap schema)
+
+1. PostgreSQL reporting schema from Lumber (`004051-*` + `004052-*` SQL files)
+2. Claude generates Snowflake star schema (`1_create_snowflake_tables.sql`)
+3. Claude generates dummy data (`generate_dummy_data.py` → `2_load_dummy_data.sql`)
+4. Claude generates SQL views per report type (files `3_` through `9_`)
+5. Claude generates JSON report node-graph definitions (5 JSON files)
+6. Python report renderer (`main.py` + `requirements.txt`) reads JSON, connects to Snowflake, renders with live facets
+
+Session context file for Claude Code: `remix-cte-report-building.md` (attached to Notion page — pass to Claude Code to restore session context).
+
+**Renderer directory structure:**
+
+```
+rpt_dir/
+  .env
+  main.py
+  requirements.txt
+  reports/
+    job_costing.json
+    payroll_journal.json
+    payroll_summary.json
+    project_labor_overview.json
+    worker_compensation.json
+```
+
+---
+
+## CTE Limitation Analysis
+
+> Source: [CTE vs substitution variables](https://www.notion.so/32f1d464528f80f0ba2cdd94c7d3f3d2) — updated 2026-03-26
+
+**Conclusion: Some reports cannot be built with the CTE pattern.**
+
+### The Problem (Job Costing Report)
+
+The job costing report has two kinds of aggregates in the same result row:
+
+- **Actuals** — hours and costs filtered by the selected project + date range
+- **Totals to date** — cumulative hours and costs across **all time** (unfiltered)
+
+Because both are GROUP BY aggregations (not raw rows), a single SQL query using CTEs cannot serve both simultaneously. The CTE WHERE clause would filter the unfiltered totals, breaking them.
+
+The only SQL that can produce the complete report requires `start_date` and `end_date` **inside the SQL itself**, not injected via a CTE prefix:
+
+```sql
+-- S1: actuals only — works with CTE pattern (filtered data)
+SELECT cost_code
+     , cost_code_description
+     , ROUND(SUM(regular_hours), 2)         AS actual_regular_hours
+     , ROUND(SUM(overtime_hours), 2)        AS actual_overtime_hours
+     , ROUND(SUM(double_overtime_hours), 2) AS actual_double_overtime_hours
+     , ROUND(SUM(regular_cost), 2)          AS actual_regular_cost
+     , ROUND(SUM(overtime_cost), 2)         AS actual_overtime_cost
+     , ROUND(SUM(double_overtime_cost), 2)  AS actual_double_overtime_cost
+FROM v_job_costing_detail
+GROUP BY cost_code, cost_code_description
+ORDER BY cost_code
+```
+
+The "totals to date" columns require a separate query against unfiltered data → they cannot coexist with the actuals in a single CTE-parameterized query.
+
+### Implication for Report Builder Design
+
+This is the direct motivation for the Report Builder node model (separate Data Fetch nodes per view/SQL), rather than a single CTE-parameterized report element. Each Data Fetch node queries its own
+Snowflake view independently, allowing different filter scopes on different result sets within the same report layout.
+
+---
+
+## New Proportionated Payroll Schema
+
+> Source: [New schema](https://www.notion.so/32f1d464528f807295d8ee25ae47852c) — updated 2026-03-26
+
+A new family of tables that records payroll data after proportionation (splitting payroll costs across projects/cost codes).
+
+### Conceptual Model
+
+| Table                                           | Mental model                             | Contains                                                                                                     |
+|-------------------------------------------------|------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| `prl_payroll_proportionated`                    | "Who worked where and when"              | Allocation per worker per project/cost code per payroll run; no amounts; all dimension IDs + JSONB snapshots |
+| `prl_payroll_proportionated_totals`             | "Total financial summary per allocation" | One-to-one with parent; gross, net, benefits, taxes, etc.                                                    |
+| `prl_payroll_proportionated_earning`            | "Earnings breakdown per allocation"      | By earning type; amount + hours + piece_units                                                                |
+| `prl_payroll_proportionated_worker_comp`        | "Hours and cost by workers' comp code"   | REG/OT/DOT + sick/holiday/PTO/bonus/misc by `comp_code_id`                                                   |
+| `prl_payroll_proportionated_reimbursement`      | "Reimbursements per allocation"          | By reimbursement code                                                                                        |
+| `prl_payroll_proportionated_benefit`            | "Benefits per allocation"                | By contributor type + benefit type                                                                           |
+| `prl_payroll_proportionated_tax`                | "Taxes per allocation"                   | By tax payer type                                                                                            |
+| `prl_payroll_proportionated_post_tax_deduction` | "Post-tax deductions per allocation"     | By deduction type                                                                                            |
+
+### Key Design Points
+
+- **Proportionation** = splitting a worker's payroll across multiple project/cost code allocations. When a worker works on multiple projects or cost codes in a pay period, one row per split appears in
+  `prl_payroll_proportionated`.
+- **No hours/dollars in the parent table** — `prl_payroll_proportionated` is purely the allocation record (dimension IDs + JSONB snapshots for historical integrity). All financial data lives in child
+  tables.
+- **`prl_payroll_proportionated_worker_comp` is a child table** because a single allocation can have hours classified under *multiple workers' compensation codes* (e.g. carpentry vs. heavy equipment
+  operating in the same day carry different insurance rates).
+- **`comp_code_id`** FK references `lfi_comp_code`.
+- All child tables share `worker_project_id` FK → `prl_payroll_proportionated.id`.
+
+### Relationships
+
+```
+prl_payroll_proportionated (1)
+  ├── (1) prl_payroll_proportionated_totals
+  ├── (n) prl_payroll_proportionated_earning
+  ├── (n) prl_payroll_proportionated_worker_comp  →  lfi_comp_code
+  ├── (n) prl_payroll_proportionated_reimbursement
+  ├── (n) prl_payroll_proportionated_benefit
+  ├── (n) prl_payroll_proportionated_tax
+  └── (n) prl_payroll_proportionated_post_tax_deduction
+```
+
+### `prl_payroll_proportionated` Key Columns
+
+Dimension FKs: `payroll_id`, `worker_id`, `branch_id`, `department_id`, `project_id`, `subproject_id`, `task_id`, `cost_code_id`, `cost_type_id`, `union_id`, `equipment_id`, `inventory_item_id`,
+`service_order_appointment_id`, `timesheet_id`, `job_code_id`, `job_classification_id`, `job_level_id`.
+
+Each FK has a corresponding `*_json` JSONB snapshot column for historical integrity. Also: `date_worked`, `internal_id` (UUID UK), `created_on`, `modified_on`.

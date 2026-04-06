@@ -117,6 +117,42 @@ Widgets free; everything else paid. Trial on desktop only (no free cloud workspa
 
 ---
 
+
+---
+
+## Products and Milestones
+
+> Source: [Products and Milestones](https://www.notion.so/32c1d464528f809c9c5ed929c8709ecd)
+> Related: [engineering-ci.md](./engineering-ci.md) — Release Cadence & Branch Strategy
+
+### Policy: One Global Milestone at a Time
+
+The team tracks a single active public milestone at any point. Work flows into the current milestone; work deferred goes to the next milestone. Monday standup reserved for milestone board review.
+
+### Milestone 1.0 (In Beta — April 2026)
+
+Goals for v1.0:
+
+- Platform in beta
+- CI for Windows and Chrome Extension
+- OPFS fixes
+- Lumber documentation for self-hosting
+- Snowflake Marketplace submission
+
+### Milestone 1.1 (Planned)
+
+Goals for v1.1:
+
+- Desktop usability and stability improvements
+- Mixer-based auth
+- Stdlib documentation in builder
+- Build server
+
+### Review Cadence
+
+- **Monday:** Weekly milestone board review (pre-standup)
+- Public milestone = monthly minor version (`1.0`, `1.1`, …); patch per weekly promotion (`1.0.x`)
+
 ## Sub-pages Index
 
 - [Global Task List](https://www.notion.so/1d71d464528f80a69c47d21033bc498c) — stored above
