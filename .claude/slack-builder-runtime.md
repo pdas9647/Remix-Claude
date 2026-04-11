@@ -1,6 +1,6 @@
 # #builder-runtime Slack Channel — Remix Labs
 
-**Coverage:** Dec 31, 2025 – Apr 3, 2026
+**Coverage:** Dec 31, 2025 – Apr 11, 2026
 **Channel ID:** C58HC9EC8
 **Topic:** Builder, remix.app, WebApp
 
@@ -128,3 +128,14 @@ turntable/pull/11871. Resolved Apr 1.
 
 **Subscription node visibility scoping [Apr 3, Arvind + Simon]:** Subscription node should not fire on non-visible screens. Arvind: lower views in a viewstack are silent EXCEPT the last view under an
 overlay (must stay active). Simon: needs formalization. **No final decision.**
+
+## Apr 4–11 Additions
+
+**Embedding .remix in a webpage (Didier, Apr 7, 18 replies):** Notion doc with examples: https://www.notion.so/Embedding-a-remix-into-a-webpage-33a1d464528f80c7b9cdd44e7c2baa0f
+Bug: Google fonts injected into `<head>` are blocked by shadow DOM. With `no-shadow` param, fonts work; without, they fail. Fix: turntable/pull/11898 (Didier, approved Tyler).
+
+**`builderUrl` param removal from Screen Plugins (Simon, Apr 9, 8 replies):** Removing `builderUrl` — no reliable mapping to assets/API prefix across Desktop/Browser/Snowflake/remix.app. Replacement:
+env variables for host-independent prefixes. Wilber agreed, will update Starlight plugin. PR: turntable/pull/11914.
+
+**Settings L1 modal UX (Didier, Apr 9, 9 replies):** Editing app settings now shows a clean L1 modal instead of the L2 sidepanel. PWA settings separated — open question: still needed given
+Desktop/mobile/AppClip/RCS coverage? Vijay: discuss early next week. **No decision yet.**

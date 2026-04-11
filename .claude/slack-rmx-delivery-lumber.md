@@ -1,6 +1,6 @@
 # #rmx-delivery-lumber Slack Channel — Remix Labs
 
-**Coverage:** Oct 9, 2025 – Apr 3, 2026
+**Coverage:** Oct 9, 2025 – Apr 11, 2026
 **Channel ID:** C09KL3K7P0D
 
 ---
@@ -94,33 +94,18 @@ Chris asked about deliverables timeline and whether to keep beta stable or rever
 
 ### Mar 7–14: Table Perf + Grid Decision Reversal + Bugs
 
-**High priority items announced (Arvind, Mar 9):**
-
-1. Activate in-house table component (sortable, resizable, searchable, pinned rows/cols, grouped headers, paginated)
-2. "Download as file" function — save CSV or XLSX to user filesystem
-3. Finalise `table + facets` config flow (or limited version; full UX staged for next delivery)
-   — cc'd: Reza, John, Mark
+**High priority items (Arvind, Mar 9):** Activate in-house table; download as CSV/XLSX; finalise table+facets config flow.
 
 **Gerd + Tyler joined channel (Mar 11):** Gerd Stolpmann and Tyler Lentz added to #rmx-delivery-lumber.
 
-**WIP in-house table component — perf issue (Arvind, Mar 11):** Remix-primitive table component (80 rows, 40 keys) is sluggish in runtime and painful in Studio. Multi-day thread with Arvind, Didier,
-Vijay, Gerd, Simon exploring optimisations:
-
-- Key fixes: Gerd's column-matrix (callables per-column) + Vijay's flatten-transform-unflatten ~5x faster. `pub/sub retained` codegen bug fixed (turntable/pull/11810, Mar 13). `get state` per-field
-  fix: state nodes via codegen; screen/app state deferred.
+**WIP in-house table perf (Arvind, Mar 11):** 80×40 grid sluggish in Studio/runtime. Key fixes: column-matrix (callables per-column) + flatten-transform-unflatten (~5x). pub/sub retained bug fixed (
+turntable/pull/11810).
 
 **DECISION REVERSAL — back to TUI webcomponent (Arvind, Mar 12):** After perf testing, Arvind decided to revert to TUI Grid webcomponent for Lumber delivery (perf reasons). In-house Remix primitive
 grid continues as a longer-term goal.
 
-- **India team task:** Exercise TUI Grid config object against full TUI documentation; verify all features needed for Lumber's first 5 reports (grouped columns, colspan headers, etc.)
-- **India team task:** Document minimum set of "rich" (non-plain-text) cell types — use case, data type, screenshot — so Tyler can add minimal rich renderers inside the webcomponent
-- Tyler will work on supporting minimal styling via column config object (no external card injection)
-
 **Lumber customer update (Vijay, Mar 12):** Manish said Lumber will be putting data into tables **this week by Friday (Mar 13)**. Also asked if reporting can be made **self-serve in the medium term
 ** (lots of reports needed). Vijay + Reza + Arvind held huddle to discuss.
-
-**Release cadence clarification (Chris, Mar 12):** No beta promotion happened week of Mar 7 (no response to his earlier question). Chris's read: main deliverables to Lumber are **content demos** now;
-full deployment likely weeks or months out. Plans to promote new beta (harmony/pull/367, beta 2674) on Mar 13.
 
 ### Mar 14–21: In-House Table Back On + Table/Facet Design Sprint
 
@@ -136,8 +121,6 @@ starting point for building the 5 Lumber reports.
 - Single `data` in_param: accepts one object with `{ db, sql, columns }` — no out_params, no event bindings
 - Goal: paste → hook top-right into layout → live
 - Pushed to repo (Table Builder project in Lumber workspace); Mark reviewing
-- Issues found by Mark: (1) SQL textarea doesn't auto-populate on screen load — only populates after clicking "Update data"; (2) pagination size selector (25/50/100/500) broken
-- Mark's fix plan: inject a default `SELECT * FROM X` from inside the CTE component as the initial SQL
 
 **SQL base query architecture decision (Mark → Vijay/Arvind, Mar 21, approved):** Only the "base query" is shown and editable in the UI. The table component internally wraps it with facets +
 pagination to build the full SQL. Flow: `base_sql` in → facets from state → pagination from nested component → full SQL built internally. User never sees/edits the full query. Handles both
@@ -164,3 +147,20 @@ natural-language AI queries and custom SQL uniformly. Approved by Vijay + Arvind
 **Report builder redesign [Apr 1–3, Reza]:** Clean node types (data / filters / display) piped independently. JSON is isomorphic to Remix node graph → AI can one-shot an entire report definition.
 Tested with Claude Code against Snowflake. Notion: https://www.notion.so/Report-Builder-3351d464528f800d8b5ce12f6517c93f |
 Assets: https://www.notion.so/Claude-Code-generated-assets-3371d464528f809c9c5ed929c8709ecd
+
+### Apr 4–11: Composable Architecture Delivery Sprint
+
+**Status (Vijay/Arvind, Apr 6):** Vijay asked if deliverable ready for Lumber. Arvind: not today; Notion checklist to follow.
+
+**Embedding in Lumber portal (Didier/Arvind, Apr 6–8):** Anon test .remix published in lumber workspace. Auth TBD: how Lumber user creds map to Remix token. Decision: webcomp for embedding into
+existing page (one JS import); `rmx-app-record.js` if owning full page.
+
+**Job costing defects (Reza, Apr 6–7):** Columns don’t refresh on SQL change without restart. Confirmed: job costing uses two views (`V_JOB_COSTING_TABLE` by cost code, `V_JOB_COSTING_CHART` by
+date) — same CTE facets, separate Data Fetch nodes required. UX ask: column picker reorder.
+
+**Data Fetch + Facets demo (Mark, Apr 9):** Screen showing independently configured Data Fetch + Facet per data source. `table_builder` + `facet_builder` repos updated — pull latest.
+
+**TUI chart auto-sizing + regression (Apr 8–9):** `auto` w/h fix deployed; parent needs explicit height or chart grows unboundedly. Grid: `bodyHeight: "fitToParent"`. Chart then regressed (cache) →
+Tyler published new `/v3`. **Action required: sync library assets + republish apps.**
+
+**Report build demo (Mark, Apr 10):** Demo video: report built from scratch with multiple tables, each with independent data source/facets/pagination/sorting.

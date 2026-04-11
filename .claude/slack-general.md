@@ -1,6 +1,6 @@
 # #general Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Apr 3, 2026
+**Coverage:** Dec 20, 2025 – Apr 10, 2026
 **Channel ID:** C02BD0B8B
 
 ---

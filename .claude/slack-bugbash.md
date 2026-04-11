@@ -1,6 +1,6 @@
 # #bugbash Slack Channel — Remix Labs
 
-**Coverage:** Jan 20 – Apr 3, 2026
+**Coverage:** Jan 20 – Apr 11, 2026
 **Channel ID:** C862WHQMS
 **Bug reporting guide:** https://www.notion.so/Bug-reporting-3061d464528f80cdacf7eed2612bad07
 
@@ -219,3 +219,13 @@ Old Wasm-executable .remix files fail on dev.remix.app; work on beta/prod. Bened
 ### Deploying to local workspace converts app to executable (Simon/Gerd, Mar 27) 🟡
 
 Deploying agent to `localhost/local` marks appmeta `binary` — no recovery. Gerd: disallow deploys to local. **No fix yet.**
+
+## Apr 4-11 New Open Bugs
+
+### Desktop keyboard shortcuts broken (Mark, Apr 10) 🟡
+
+`Cmd+A`/`Cmd+K+C` don’t work in function nodes; `Cmd+A` fails to select all at L1/L2. Benedikt will look.
+
+### Component drill-in/out wrong level (Mark, Apr 10) 🟡
+
+Builder ends at wrong level after drilling in/out. Didier added footer safety code (turntable/pull/11917); root cause not repro’d.

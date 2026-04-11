@@ -33,6 +33,7 @@ username + password/passkey).
 | `TW30727`         | `app.snowflake.com/oxfsvki/TW30727`         | "Org account" that manages the others                        |
 
 **REMIX account details:**
+
 - Remix DXP package: `app.snowflake.com/oxfsvki/remix/#/apps/packages/REMIX_PKG`
 - Remix DXP listing: `app.snowflake.com/oxfsvki/remix/#/data/provider-studio/provider/listing/REMIX_DXP`
 - Deployed builder (new/application version): `https://mw7zsh-oxfsvki-remix.snowflakecomputing.app/e`
@@ -45,14 +46,18 @@ username + password/passkey).
 Demo agent in `run_in_spcs` workspace: `https://mw7zsh-oxfsvki-remix.snowflakecomputing.app/e/edit/run_in_spcs/run_sql`
 
 From inside the SPCS container, make SQL API calls to:
+
 ```
 https://$snowflake_host/api/v2/statements
 ```
+
 Using the token at `/snowflake/session/token`. Environment variables are only set in the container, not the client — the agent must be built first, then invoked from a screen.
 
-**`run_sql` agent:** Supports executing as **caller** or as the **service (application)**. Set `database`, `schema`, `warehouse` (required if no default warehouse). Database/schema can also be inline in the SQL, e.g. `select * from remix_dxp.core.emp_basic`.
+**`run_sql` agent:** Supports executing as **caller** or as the **service (application)**. Set `database`, `schema`, `warehouse` (required if no default warehouse). Database/schema can also be inline
+in the SQL, e.g. `select * from remix_dxp.core.emp_basic`.
 
-**`insert_row` agent:** Inserts records into tables registered as writable. Database/schema not configurable — fixed when registering the reference via `register_multi_reference` + `update_table_mapping`. See [package documentation](https://app.snowflake.com/oxfsvki/remix/#/apps/application/REMIX_DXP/security/readme) for setup.
+**`insert_row` agent:** Inserts records into tables registered as writable. Database/schema not configurable — fixed when registering the reference via `register_multi_reference` +
+`update_table_mapping`. See [package documentation](https://app.snowflake.com/oxfsvki/remix/#/apps/application/REMIX_DXP/security/readme) for setup.
 
 Can query: application-owned objects, or views onto consumer tables registered with references.
 
@@ -154,7 +159,8 @@ Create an AI-powered search index on your table using the Cortex Service creatio
 ### Snowflake OAuth SQL
 
 ```sql
-CREATE OR REPLACE SECURITY INTEGRATION snowflake_connect
+CREATE
+OR REPLACE SECURITY INTEGRATION snowflake_connect
   TYPE = OAUTH
   OAUTH_CLIENT = CUSTOM
   OAUTH_CLIENT_TYPE = 'CONFIDENTIAL'
@@ -181,7 +187,8 @@ Navigate to your Snowflake account at `https://app.snowflake.com/<ORG_ID>/<ACC_I
 ### 2. Create the security integration
 
 ```sql
-CREATE OR REPLACE SECURITY INTEGRATION snowflake_connect
+CREATE
+OR REPLACE SECURITY INTEGRATION snowflake_connect
   TYPE = OAUTH
   OAUTH_CLIENT = CUSTOM
   OAUTH_CLIENT_TYPE = 'CONFIDENTIAL'
@@ -226,6 +233,7 @@ Replace `PUBLIC` with any other role as needed. Ref: https://docs.snowflake.com/
 ### 6. Create auth config in Remix
 
 Use the OAuth Manager App for your environment (see Common Patterns in connectors.md):
+
 1. Tap "New +" → fill in Client ID, Client Secret, auth/token endpoints, and scopes
 2. Name must be `snowflake_connect` (cannot be changed after creation)
 
@@ -265,29 +273,35 @@ Run in a Snowflake worksheet:
 
 ```sql
 -- Create the service account user
-CREATE USER <SERVICE_ACCOUNT>
+CREATE
+USER <SERVICE_ACCOUNT>
   TYPE = 'SERVICE'
   DEFAULT_ROLE = 'PUBLIC'
   DEFAULT_WAREHOUSE = 'COMPUTE_WH'
   COMMENT = 'General purpose service account with CRUD permissions.';
 
 -- Create open network policy (allows connections from any IP)
-CREATE NETWORK POLICY open_network_policy
+CREATE
+NETWORK POLICY open_network_policy
   ALLOWED_IP_LIST = ('0.0.0.0/0')
   COMMENT = 'Open network policy allowing all IPs for a service account';
 
 -- Assign network policy to service account
-ALTER USER <SERVICE_ACCOUNT> SET NETWORK_POLICY = 'OPEN_NETWORK_POLICY';
+ALTER
+USER <SERVICE_ACCOUNT> SET NETWORK_POLICY = 'OPEN_NETWORK_POLICY';
 
 -- Set the RSA public key (paste the key content from Step 2)
-ALTER USER <SERVICE_ACCOUNT> SET RSA_PUBLIC_KEY='<paste_public_key_here>';
+ALTER
+USER <SERVICE_ACCOUNT> SET RSA_PUBLIC_KEY='<paste_public_key_here>';
 
 -- Get the public key fingerprint
 DESC USER <SERVICE_ACCOUNT>
-  ->> SELECT SUBSTR(
-        (SELECT "value" FROM $1
-           WHERE "property" = 'RSA_PUBLIC_KEY_FP'),
-        LEN('SHA256:') + 1) AS key;
+  ->>
+SELECT SUBSTR(
+               (SELECT "value"
+                FROM $1
+                WHERE "property" = 'RSA_PUBLIC_KEY_FP'),
+               LEN('SHA256:') + 1) AS key;
 ```
 
 > **Note:** `open_network_policy` allows all IPs (`0.0.0.0/0`). Review before production use.
@@ -297,12 +311,12 @@ DESC USER <SERVICE_ACCOUNT>
 
 Four parameters required:
 
-| Parameter | Where to get it |
-|---|---|
-| `account_id` | Snowflake → account name (bottom-left) → hover "Account" → "View Account Details" → copy Account Identifier |
-| `user` | The `<SERVICE_ACCOUNT>` name from Step 3 |
-| `public_key_fingerprint` | Output of last query in Step 3 |
-| `base64_key` | Run command below |
+| Parameter                | Where to get it                                                                                             |
+|--------------------------|-------------------------------------------------------------------------------------------------------------|
+| `account_id`             | Snowflake → account name (bottom-left) → hover "Account" → "View Account Details" → copy Account Identifier |
+| `user`                   | The `<SERVICE_ACCOUNT>` name from Step 3                                                                    |
+| `public_key_fingerprint` | Output of last query in Step 3                                                                              |
+| `base64_key`             | Run command below                                                                                           |
 
 Get the base64-encoded private key:
 
@@ -314,3 +328,48 @@ cat rsa_key.p8 | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | base64 | pbcopy
 
 Use the **Snowflake Key Pair JWT Token Creator** asset to generate tokens:
 https://remix.app/remix/asset?source=https://agt.remixlabs.com/ws/remix_labs/d5cyzPdtcaN6hLNIBJUayTrwoWZOGddB
+
+
+---
+
+## SPCS Marketplace Build — Mar 24–Apr 3, 2026
+
+> Source: #rmx-delivery-snowflake + Snowflake group (C09GTR1TDC3)
+
+### Environments
+
+Two SPCS environments established (Mar 24, Chris):
+
+| Environment        | URL                                                       | Purpose                                          |
+|--------------------|-----------------------------------------------------------|--------------------------------------------------|
+| Dev (build target) | `mw7zsh-oxfsvki-remix.snowflakecomputing.app/e`           | Build + test; admins: Mukund, Arvind, Padmanabha |
+| Consumer test      | `iqlr4z-oxfsvki-remix-spcs-demo.snowflakecomputing.app/e` | Empty; verify export+install flow                |
+
+Strategy: build/test in dev org, export+install into consumer org to confirm.
+
+### Technical Findings (Mar 25–Apr 3)
+
+**Auth in SPCS:** No OAuth/RSA needed. Container provides session token at `/snowflake/session/token`. Agents must be built + deployed server-side (Make) before invocation from screens.
+
+**Data access:** External tables must be explicitly referenced. Chris exposed 7 `CUSTOMER_360.RAW_DATA` tables as views in `REMIX_DXP.SHARED_SCHEMA` (e.g. `CUSTOMER_MASTER_DEMO`) — accessible from
+both `remix` + `remix_spcs_demo` accounts without consumer-side changes.
+
+**Schema metadata:** `GET_DDL` not possible on objects outside the app. Use `INFORMATION_SCHEMA.COLUMNS` for column metadata.
+
+**Cortex:** `AI_COMPLETE` → use `SNOWFLAKE.CORTEX.COMPLETE`. Enable per Snowflake Native App docs. Default warehouse (`COMPUTE_WH`) set on service [Apr 2].
+
+**Mixcore broken in SPCS [Mar 27]:** `mixcore` not loading → most FFIs unavailable. Workaround: service agent for file assembly. Export screen: `.../snowflake_test/export_with_agent?app=<app_name>`.
+
+**Agent env URL placeholder bug [Apr 3]:** `client_frontendBaseURL` / `client_backendBaseURL` = `___URL_PLACEHOLDER____` when agent invoked server-side. Fix:
+`env.getWithDefault(requestHeaders.origin) > withDefault(env.frontendBaseURL)`.
+
+**cloud_workspace adapted for Snowflake [Apr 2]:** Installed in both accounts — allows granting permissions beyond initial admin.
+
+**"Launch app" button [Apr 3]:** Setting default web endpoint shows Launch button on app page; `/` redirects to a runtime screen.
+
+### Marketplace Trial Flow (confirmed Apr 1, Mukund)
+
+Install → SPCS container → Customer360 sample + widget builder → widget preview → contact Remix.
+
+`widget_preview` working in dev (mw7zsh) as of Apr 3. Demo URL:
+`iqlr4z-oxfsvki-remix-spcs-demo.snowflakecomputing.app/e/preview/customer360_spcs_test/widget_preview`

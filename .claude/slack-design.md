@@ -1,6 +1,6 @@
 # #design Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Apr 3, 2026
+**Coverage:** Dec 20, 2025 – Apr 11, 2026
 **Channel ID:** C4BLR910S
 **Purpose:** Design systems, visual IDE, icon and widget libraries
 
@@ -122,3 +122,8 @@ think it's simpler."*
 
 **Settings node: remove remote sources + modal sidepanel [Apr 3, Didier → Arvind]:** "Remote Sources" section visible in settings node preview is flagged as an anomaly — Didier proposes removing it.
 Broader proposal: settings node should become a modal sidepanel, not fake L2 navigation.
+
+## Apr 4–11 Additions
+
+**Unused tags in catalog facet panel (Simon, Apr 8):** Tags for items outside the current library selection shown disabled (not hidden). Arvind: consistent with other facets — disabled at count=0 to
+avoid panel jumping; tags might be a special case. No decision.

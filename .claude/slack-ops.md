@@ -1,6 +1,6 @@
 # #ops Slack Channel — Remix Labs
 
-**Coverage:** Feb 1 – Apr 3, 2026
+**Coverage:** Feb 1 – Apr 11, 2026
 **Channel ID:** C07P57B89
 **Purpose:** Weekly production release promotion workflow (beta → production)
 

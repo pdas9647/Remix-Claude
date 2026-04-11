@@ -1,6 +1,6 @@
 # #backend Slack Channel — Remix Labs
 
-**Coverage:** Jan 2 – Apr 3, 2026
+**Coverage:** Jan 2 – Apr 11, 2026
 **Channel ID:** CHTGC5BGQ
 **Purpose:** server, compiler, and database stuff
 
@@ -164,3 +164,8 @@ auto-downgrade was supposed to handle this but didn't; workaround simple enough 
 2. `POST /v0/ws` → "No matching routes" — Simon's rcm had a Nov 2025 mixer binary; `create workspace` is v0 only, not v1. Needed rcm update.
 3. `mktoken`-issued token rejected as "not a workspace creator" — mixer doesn't default to locally signed tokens like amp does. Fix: `--workspace-creator user/email` flag or `WORKSPACE_CREATORS` env
    var. **No easy CI solve yet.** Simon filed mix-rs#1075; Chris: short-term option is to use Snowflake build (has local token support but lacks S3). Parked.
+
+## Apr 4-11 Additions
+
+**File-not-found returns 410 Gone [Apr 7, Simon → Chris]:** `file.get(null, "/conch.png")` returns "resource has been deleted" when file doesn’t exist. Chris confirmed: mixer maps file-not-found to
+HTTP 410 (Gone) — misleading vocabulary. Also: many 410s in Snowflake runtime console are harmless (client probing for optional code files).

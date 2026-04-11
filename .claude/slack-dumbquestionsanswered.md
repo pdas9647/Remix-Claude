@@ -1,6 +1,6 @@
 # #dumbquestionsanswered Slack Channel — Remix Labs
 
-**Coverage:** Feb 16 – Apr 2, 2026
+**Coverage:** Feb 16 – Apr 11, 2026
 **Channel ID:** C86KWF7MG
 **Purpose:** "the dumbness of the programmer has no limits" — quick Q&A, platform clarifications
 
@@ -231,3 +231,6 @@ Cache-Control + CORS fix to beta Apr 2 (Chris).
 assembly components.
 
 **`text-md` not a Tailwind class [Apr 2, Wilber → Arvind]:** Correct class is `text-base`. Arvind: will add `text-md` alias in theme.
+
+**Q: Catalog item field shape (Apr 9, Simon)**
+A: Object shapes aren't declared. Extract comp's absorbed default config. Groups: bundle config+comp as one item.

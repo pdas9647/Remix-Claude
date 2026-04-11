@@ -1,6 +1,6 @@
 # #go-to-market Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Apr 3, 2026 (+ earlier GTM context; channel is very low-traffic)
+**Coverage:** Dec 20, 2025 – Apr 11, 2026 (+ earlier GTM context; channel is very low-traffic)
 **Channel ID:** C7HGRVDL3
 **Purpose:** GTM updates/status; target application & process scenarios, incl. for demo workflows
 

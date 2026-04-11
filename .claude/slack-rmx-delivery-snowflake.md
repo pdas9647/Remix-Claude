@@ -1,6 +1,6 @@
 # #rmx-delivery-snowflake Slack Channel — Remix Labs
 
-**Coverage:** Mar 25, 2025 – Apr 3, 2026
+**Coverage:** Mar 25, 2025 – Apr 11, 2026
 **Channel ID:** C08JPJ6EES3
 **Nature:** Snowflake GTM partnership, not a customer delivery
 
@@ -84,14 +84,9 @@
 
 - Submitted to Snowflake Build Day demos; Snowflake Cortex feature reference shared
 
-### Jul 30, 2025 — GTM strategy discussion: free widgets for Snowflake users
+### Jul 30, 2025 — GTM: free widgets for Snowflake users
 
-- Mukund/Vijay idea: "Free-forever mobile widgets (Android, iOS) for all Snowflake users"
-    - Download Remix app → pick widget template → Snowflake OAuth → widgets installed; no flows/actions unless paid
-- **Vijay's framing:** give away enterprise widgets across data sources (incl. Parquet); charge for *actionability* (tap-through flows)
-- **Technical friction:** Snowflake OAuth setup requires a high-level admin per account; can't be fully self-serve without native app install
-- Chris: if Remix listed as native app in Snowflake Marketplace, OAuth config could be packaged in
-- Vijay mentioned Cisco interest in a "digital twin for every employee" initiative
+Idea: free-forever mobile widgets; charge for actionability (flows). OAuth friction solved by native app packaging. Vijay: Cisco interest in "digital twin for every employee."
 
 ### Aug 7–8, 2025 — .remix upload to SPCS; last known Snowflake call
 
@@ -102,30 +97,8 @@
 
 ### Feb 23–26, 2026 — Snowflake Marketplace submission push (Mukund)
 
-**Goal:** Submit Remix listing to Snowflake Marketplace for approval/review by end of Feb 23 week; initiate marketing campaign the following week.
-
-**Bootstrap experience checklist (Mukund's recap):**
-
-- Chris working on mixer (mixr) running inside Snowpark with auth
-- Initial libraries + styles + demo workspace to set up
-- Widget building flows in web: pick data source, preview widgets
-- Sample Snowflake tables with flows (e.g. customer360 dataset)
-- Instructions / readme
-- Mobile app experience: separate step, optional; web-side auth comes standard with Snowflake
-
-**Deployed internal SPCS instance (Chris):**
-
-- Builder URL: `mw7zsh-oxfsvki-remix.snowflakecomputing.app/e`
-- Default workspace available at that URL; admins: Chris, Mukund, John, Vijay, Wilber
-- `snowflake_widgets` copied over; `cloud_workspace` tool present but not fully editable via builder
-- Runtime screens broken (assets moved to wrong place in image — needs fixing)
-- Demo of run-inside-SPCS auth: `.../e/edit/run_in_spcs`
-    - `run_sql` agent runs server-side, calls Snowflake API with local token
-    - `use_run_sql` screen demonstrates calling it from the browser
-- **Auth note:** Snowflake account has two URL forms (`yub45648.snowflakecomputing.com` and `oxfsvki-remix.snowflakecomputing.com`); same account, different locator formats. MFA codes work for both
-  once the correct form is used. Mukund needed a role grant from Chris.
-
-**Feb 26:** Mukund asked John + Wilber to test the widget build flow in the SPCS env — wants to submit the marketplace listing ASAP.
+Goal: submit listing by end of Feb 23 week. Bootstrap: mixer in Snowpark, libraries/styles, widget build flows, customer360 sample data, readme. Internal SPCS instance deployed at
+`mw7zsh-oxfsvki-remix.snowflakecomputing.app/e`; admins: Chris/Mukund/John/Vijay/Wilber. Feb 26: Mukund asked John+Wilber to test widget build flow.
 
 ---
 
@@ -196,3 +169,22 @@ accessible from both remix + remix_spcs_demo accounts without changes on consume
 
 **Status Apr 3:** widget_preview working in dev (mw7zsh). Padmanabha posted to demo env for review:
 `iqlr4z-oxfsvki-remix-spcs-demo.snowflakecomputing.app/e/preview/customer360_spcs_test/widget_preview`.
+
+### Apr 4–11, 2026 — Marketplace Listing Push + SPCS Build
+
+**Widget preview polished (Padmanabha, Apr 6):** Updated aggregate card, clearer metadata, visible generated SQL. Deployed to iqlr4z consumer env. Mukund approved; has a landing page request.
+
+**Platform tasks remaining (Chris, Apr 6):** Include initial .remix files in image + load on startup; support default web endpoint → demo screen redirect.
+
+**Tailwind styles missing in SPCS (Apr 7):** Styles work on remix-india but missing in SPCS env. Fix: export `_rmx_tailwind` from remix-india, reinstall in SPCS account.
+
+**Landing page review (Padmanabha → Mukund/Chris, Apr 7):** Marketplace landing page at `mw7zsh.../snowflake_widgets_analytics/home`. Chris: fix title/subheader typos, remove placeholder descriptions.
+Mukund approved styling and edited content.
+
+**App package v1.98 ready (Chris, Apr 8):** Package updated; ready to publish as public listing. Mukund: listing work not yet started.
+
+**DB rename breaks widget preview (Padmanabha/Chris, Apr 10):** mw7zsh `widget_preview` broken — `REMIX_DXP` not found. Cause: Chris renamed underlying DB for public listing (now `remix_dxp`). Fix:
+set `DATABASE` input to `REMIX_DXP_INTERNAL`. Tip: `SYS_CONTEXT('SNOWFLAKE$APPLICATION', 'NAME')` returns current app DB name dynamically.
+
+**iqlr4z consumer env broken (Apr 10–11):** `REMIX_DXP_INTERNAL` not present in iqlr4z. Root cause: Chris accidentally deleted the internal listing when renaming for public submission — needs
+recreation. Data access non-functional; Snowpark service still running.

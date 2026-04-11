@@ -179,3 +179,20 @@
 - **Missing**: HRIS report — Anand has not provided HR data
 - "Project labor overview" report added by Reza to show the bubble chart
 - Attendees: Reza, Arvind, Mark, John, Vijay
+
+## Apr 6–9: Lumber Delivery Push
+
+**Delivery checklist review huddle [Apr 6, Arvind → Reza/Mark/John]:** Post-standup huddle to review outstanding Lumber delivery items. Checklist tracking in
+Notion: https://www.notion.so/2ed1d464528f83f2808f0188ca86bde2
+
+**Lumber architecture + urgency [Apr 7, Reza/Vijay/Arvind]:** 21-reply coordination thread:
+
+- **Vijay:** "We really need to get back to them about when we can give them something" — customer timeline required urgently
+- **Architecture confirmed:** Composable components — data fetch, display, and facets as separate, configurable pieces wired together in Studio (hardwiring where it makes sense, State only where it
+  doesn't complicate component code). Arvind: 100% aligned.
+- **Arvind's tasks by Apr 8 morning:** (1) Table config UX — select columns, sticky left column, grouped headers (TUI grid); (2) basic chart config UX
+- **Errors** can live inside components
+- **Colspan/grouped header config** is a pure config object — Arvind will work through it
+- Reza shared Claude-generated report assets: https://www.notion.so/Claude-Code-generated-assets-3371d464528f809c9c5ed929c8709ecd
+
+**Lumber huddle [Apr 8, Reza]:** Logistics only — no substantive decisions recorded.
