@@ -121,5 +121,6 @@ Notion index:
 - [standup-notes-feb-2026.md](./standup-notes-feb-2026.md) — Standup notes Feb 2–27: engineering process, Lumber facets/delivery, desktop bugs, workspace-as-environment
 - [standup-notes-mar-2026.md](./standup-notes-mar-2026.md) — Standup notes Mar 2–31: EKS/MCP, USG Global demo, RCS/Twilio, "experiences" arch, command FFI, table component, Lumber delivery, GTM
   framework, OPFS fix, platform freeze
-- [standup-notes-apr-2026.md](./standup-notes-apr-2026.md) — Standup notes Apr 1–3: RCS federal credit union trial, Twilio tooling, system plugin versioning, TUI charts, Snowflake submission
+- [standup-notes-apr-2026.md](./standup-notes-apr-2026.md) — Standup notes Apr 1–10: RCS federal credit union trial, Twilio tooling, system plugin versioning, TUI charts, Snowflake submission,
+  monorepo debate, desktop DB bloat, Starlight kickoff
   near-complete, sales doubled
