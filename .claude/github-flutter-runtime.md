@@ -69,3 +69,7 @@ in SharedPreferences.
 | #439 | Feb 6  | Fixed widgets                                             | Didier |
 | #438 | Feb 6  | Reformatting Kotlin files                                 | Didier |
 | #437 | Jan 19 | Dynamic AppClip                                           | Didier |
+
+## Recent PRs — Apr 5–12, 2026 (0 merged)
+
+No merged PRs in this period. Repo remains quiet; last merge was #441 (Feb 20, 2026).

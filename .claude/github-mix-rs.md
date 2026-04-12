@@ -86,3 +86,9 @@ support · #818 OPFS (major, 196 commits) · #1063 idempotent .remix V2 reload �
 | **#1076**   | **Dox → rcm folder** (1 file, +1) — Desktop Makefile copies protoquery `.dox` JSON to `rcm/` for upcoming DocViewer plugin.                                                                                         | Gerd     |
 | **#1080**   | Builtin app versions bump (`make download-builtin-apps`).                                                                                                                                                           | Daniel   |
 | **#1056**   | Disable spellcheck in Desktop UI elements.                                                                                                                                                                          | Benedikt |
+
+## Recent PRs — Apr 5–10, 2026 (1 merged)
+
+| PR    | Summary                                                                                                                                                                                         | Author |
+|-------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
+| #1085 | **Fix `and` processing** (5 commits, 2 files, +582/-62) — fixes query engine `and` operator handling. Branch `fred/fix-in`; no PR description. Substantial diff suggests non-trivial logic fix. | fredim |

@@ -57,57 +57,33 @@ rmx-base (Elm), rmx-editor (Elm), rmx-remix (JS runtime), rmx-runtime (JS execut
 
 - Migrations: M_018–M_020 not read. Tests: ~100+ Elm + ~210 JSON fixtures not explored. Renderer: `shared/Renderer/` not read.
 
-## PR Archive — Mar 1–21, 2026
+## PR Archive — Mar 1–Apr 3, 2026
 
-★ Key: #11774/#11792 table primitives; #11724 BlobGet action; #11751 tab/window opening refactor (breaking: location-changed payload); #11750 CodegenLib catalog items; #11788 namespaced user prefs;
-#11786 paste replace modal; #11789 webcomp methods with args; #11791 File node content binding; #11794 catalog fetch perf (O(n²)→O(n)); #11539 OPFS storage backend (major); #11834 data-rmx-cid
-anchors; #11807 pub-sub modelling + Cloud Sub UI; #11815 screenshot overhaul (html-to-image); #11820+#11823 callable build fixes; #11813 L3 QB codegen standardization.
+★ Key: table primitives; BlobGet action; tab/window opening refactor (breaking: location-changed payload); CodegenLib catalog; namespaced user prefs; paste replace modal; webcomp methods with args;
+File node content binding; catalog fetch O(n²)→O(n); OPFS backend; data-rmx-cid anchors; pub-sub + Cloud Sub UI; screenshot overhaul; callable build fixes; L3 QB codegen; remote DBs into SyncedPrefs (
+CloudDbMode refactored) ★; .remix v2.1 manifests; Desktop download file (+ mix-rs#1071) ★; IDB→OPFS migration in worker; RmxMode simplified (Run variant removed); File Register returns full file ★;
+screenName in AppRecord; extract out bindings ★; viewstack embed node ★ (Apr 2, long-running).
 
-## Recent PRs — Mar 22–Apr 3, 2026 (55 merged)
+## Recent PRs — Apr 5–10, 2026 (18 merged)
 
 ★ High-signal marked.
 
-| PR           | Summary                                                                                                                                                                                                       | Author                                                   |
-|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------|
-| **#11829** ★ | **Remote DBs in synced prefs** (23 commits, 31 files, +440/-363) — `remoteSources` moved from per-app `CloudDbMode` into `SyncedPrefs` (synced per-workspace per-user). `CloudDbMode` simplified to `Off      | On{selected}`. Remote sources now in Edit menu at L1/L2. | dprophete  |
-| **#11836** ★ | **Decode .remix v2.1 manifests** — front-end support for protoquery build server v2.1 format.                                                                                                                 | simonh1000                                               |
-| **#11837** ★ | **Desktop: download file** (3 files, +27/-2) — client action `remix/download-file` for Tauri; `<a download>` unsupported in Tauri. Pairs with mix-rs#1071.                                                    | simonh1000                                               |
-| **#11850** ★ | **IDB→OPFS migration in worker + disable** (15 commits, 3 files) — migration moved to mixcore worker using `createSyncAccessHandle`; migration disabled due to macOS/Safari `createWritable` incompatibility. | benozol                                                  |
-| **#11858** ★ | **RmxMode simplification** — removed `Run` from `RmxMode`; L2 mode switcher moved from navbar dropdown → Edit menu. Configure/artifact-viewer mode shows single back-to-edit button.                          | dprophete                                                |
-| **#11869** ★ | **File Register returns full `file`** (11 commits, 7 files, +181/-41) — breaking change: output binding now exposes entire file object (`kind: client`) instead of a specific field.                          | simonh1000                                               |
-| **#11873** ★ | **screenName param in AppRecord** — `.remix` files' `screenName` param now respected to set start page.                                                                                                       | simonh1000                                               |
-| **#11890** ★ | **Extract out bindings** (4 commits, 5 files, +209/-95) — binding editor now supports extracting out bindings (was in-bindings only). No value initialization needed; data flows naturally from source.       | dprophete                                                |
-| **#11685** ★ | **Pretty Comp in-params** — long-running PR (Feb 5) merged: improved component in-param display.                                                                                                              | simonh1000                                               |
+| PR           | Summary                                                                                                                                                                                                  | Author     |
+|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| **#11886** ★ | **Viewstack embed** (18 commits, 17 files, +684/-422) — New `Embed` node type implementing Gerd's viewstack embedding. Will include triggerable runner in due course.                                    | simonh1000 |
+| **#11894** ★ | **Simplified settings** (13 commits, 20 files, -267 net) — Settings editing moved from L2 → L1 modal. Removed 'transition page' card (never used). Simplifies L2 save code and navbar.                   | dprophete  |
+| **#11893** ★ | **L1 rebuild+make macro** (4 commits, 25 files, +290/-173) — New macro `RebuildAndMake` invokable by plugins (e.g. Gerd's tooling plugin). Threads continuation action through async make pipeline.      | simonh1000 |
+| **#11905** ★ | **Remove Mixer.elm** (7 commits, 31 files, +161/-216) — All mixer alias types replaced by `{mixerHost:String, workspace:String}`. Removes dedicated `Mixer.elm` module; consolidation refactor.          | simonh1000 |
+| **#11910** ★ | **Event overrides apply to Elm-handled client actions** (3 commits, 12 files, +132/-90) — Host-provided client action overrides now take precedence even for actions previously decoded directly in Elm. | simonh1000 |
+| **#11907** ★ | **FocusElement & CloseApp → client actions** (8 commits, 11 files, +140/-161) — Both actions removed from hardcoded Elm path and routed through client action pipeline. Pairs with #11910.               | simonh1000 |
+| **#11899** ★ | **Flip between list and loop** (6 commits, 7 files, +2172/-73) — Binding editor: list↔loop flip now supported. Cards special-cased to bind into list container. Large diff primarily from new tests.     | dprophete  |
 
-### Features & fixes
+### Fixes & minor
 
-- #11833 — Fix mixcore webcomp (OPFS follow-up for web components after #11539)
-- #11832 — LocalFile node content binding (complement to #11791)
-- #11841 — `switchApp` terminates machine (VM lifecycle leak fix)
-- #11853 — Use new query syntax for sorting (QB 2.0 sort codegen)
-- #11831 — Stdlib .dox in Studio (pairs with protoquery#2100)
-- #11856 — Builder with mixer uses `routeInfo` in flags (plugin params fix)
-- #11867 — L2 echoes for subscriptions
-- #11877 — Disable URL updating from custom page with AppRecord
-- #11879 — AMP `index.html` updates
-- #11880 — Redirect to sign-in on anon token
-
-### Minor / UI
-
-- #11830 — Paste at L1 adds you as collaborator | #11839 — baseflags/loadflags fix
-- #11843 — Always ask before navigating away | #11844 — Rename Debug data
-- #11845 — Preview: more consistent UI | #11846 — Model fatal errors better
-- #11847 — Remove `id` deprecation warning | #11848 — Remove UnrecognisedAction
-- #11849 — State machine mouseover fix | #11851 — Refresh bindings fix
-- #11852 — Remote data name | #11855 — L3 function session pool fix
-- #11857 — Small UI fixes | #11859 — TUI CSS change | #11860 — Service agent fix
-- #11861 — Close VM when closing L2 | #11862 — No double-fetch blob URLs
-- #11863 — remix-required.css flex-shrink fix | #11864 — Desktop artifact viewer fix
-- #11865 — WebApp documentation | #11870 — Datatree fx codegen
-- #11871 — Don't pass selector to toastify | #11874 — Fix isDisabled on cloned mod
-- #11875 — Small UI tweaks | #11878 — Fix mixcore.wasm references (OPFS)
-- #11881 — file-plus icon for File Register | #11882 — More tile descriptions
-- #11883 — L1 macros refactoring | #11884 — Runtime error not reset by cell data
-- #11885+#11887 — EDo/EInitialize list (merged then reverted) | #11888 — L2 node sizing fixes
-- #11889 — Fix toasts in builder/plugins | #11895 — Group node + L3 usage width fixes
-- #11797 — Renamed collapsed nodes (long-running, finally merged Apr 1)
+- #11891 — Better L2 error handling (-430 net, dead code removal + renamings)
+- #11892 — EDo/EInitialize take a list (re-land after Apr 2 revert)
+- #11898 — Fixed webcomp font issues
+- #11901+#11902+#11903 — File node tests + bugfix
+- #11904 — Clean up runtime code (refactor) | #11906 — Remove passthrough RuntimeAction
+- #11908 — Model `SwitchApp_` | #11913 — Fix compile error
+- #11653 — Lodash security bump (dependabot, `builder/rmx-files`)

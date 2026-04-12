@@ -147,28 +147,14 @@ DOM.
 - What is the `rcm` tool (`rcm comp publish`)? Appears in commented-out code
 - How does the `module: true` vs `module: false` distinction affect Studio runtime loading?
 
-## Recent PRs — Mar 1–7, 2026 (2 merged)
+## PR Archive — Mar 1–Apr 4, 2026
 
-| PR  | Summary                                                                                               | Author    |
-|-----|-------------------------------------------------------------------------------------------------------|-----------|
-| #51 | **Chart sizing** — sets overall webcomp size from chart options so it doesn't get squeezed in builder | dprophete |
-| #50 | Fix deps and formatting for tui-chart/tui-grid                                                        | tlentz    |
+★ Key: #46 new `rmx-tooltip` (shipped Mar 11); #52 method args support (companion to turntable#11789); #54 tui-grid test page + JSX types; #55 tui-grid `afterSort`/`afterUnsort` events (manifest
+v1→v2); #51 chart sizing fix; #50 tui deps/formatting.
 
-## Recent PRs — Mar 8–13, 2026 (2 merged)
+## Recent PRs — Apr 5–9, 2026 (2 merged)
 
-| PR        | Summary                                                                                                                                                                                | Author     |
-|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
-| **#46** ★ | **New: `rmx-tooltip`** (+1451, 8 files, 7 commits) — basic tooltip web component; open since Jul 2025, finally shipped. Shadow DOM component with theming params planned as follow-up. | simonh1000 |
-| #52       | **Method args support** — web component method invocation protocol updated to accept arguments. Companion to turntable#11789.                                                          | simonh1000 |
-
-## Recent PRs — Mar 15–22, 2026 (1 merged)
-
-| PR  | Summary                                                                                                                         | Author |
-|-----|---------------------------------------------------------------------------------------------------------------------------------|--------|
-| #54 | **rmx-tui-grid test page & JSX types** — adds test page with sample data, JSX `IntrinsicElements` declaration, formatting fixes | tlentz |
-
-## Recent PRs — Mar 22–25, 2026 (1 merged)
-
-| PR  | Summary                                                                                                                                                                                                                          | Author |
-|-----|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
-| #55 | **`rmx-tui-grid` sort/unsort events** (+42/-5, 4 files) — adds `afterSort`/`afterUnsort` `CustomEvent` dispatchers on sort state change; `manifest.json` bumped v1→v2 with both events registered; test page fixed to 800×600px. | tlentz |
+| PR  | Summary                                                                                                                                                                            | Author |
+|-----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
+| #56 | **`rmx-tui-grid`/`rmx-tui-chart` height/width fix** (+266/-47, 6 files) — height/width styles now applied to container elements; `auto` handling fixed for chart; test page added. | tlentz |
+| #57 | **Manifest updates for rmx-tui-chart/grid** (1 commit, 2 files, +4/-4) — manifest sync following #56 fixes.                                                                        | tlentz |
