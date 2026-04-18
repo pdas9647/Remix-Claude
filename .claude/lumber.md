@@ -396,3 +396,264 @@ Dimension FKs: `payroll_id`, `worker_id`, `branch_id`, `department_id`, `project
 `service_order_appointment_id`, `timesheet_id`, `job_code_id`, `job_classification_id`, `job_level_id`.
 
 Each FK has a corresponding `*_json` JSONB snapshot column for historical integrity. Also: `date_worked`, `internal_id` (UUID UK), `created_on`, `modified_on`.
+
+### Full Column Schema
+
+> Source: [New schema](https://www.notion.so/32f1d464528f807295d8ee25ae47852c)
+
+```mermaid
+erDiagram
+    prl_payroll_proportionated {
+        bigint id PK
+        uuid internal_id UK
+        bigint payroll_id FK
+        jsonb payroll_json
+        bigint worker_id FK
+        jsonb worker_json
+        bigint branch_id FK
+        jsonb branch_json
+        bigint department_id FK
+        jsonb department_json
+        bigint project_id FK
+        jsonb project_json
+        bigint subproject_id FK
+        jsonb subproject_json
+        bigint task_id FK
+        jsonb task_json
+        bigint cost_code_id FK
+        jsonb cost_code_json
+        bigint cost_type_id FK
+        jsonb cost_type_json
+        bigint union_id FK
+        jsonb union_json
+        bigint equipment_id FK
+        jsonb equipment_json
+        bigint inventory_item_id FK
+        jsonb inventory_item_json
+        bigint service_order_appointment_id FK
+        jsonb service_order_appointment_json
+        bigint timesheet_id FK
+        date date_worked
+        bigint job_code_id FK
+        jsonb job_code_json
+        bigint job_classification_id FK
+        jsonb job_classification_json
+        bigint job_level_id FK
+        jsonb job_level_json
+        timestamp created_on
+        timestamp modified_on
+    }
+
+    prl_payroll_proportionated_totals {
+        bigint id PK
+        uuid internal_id UK
+        bigint worker_project_id FK
+        double employee_gross
+        double employee_reimbursements
+        double company_benefits
+        double employee_benefits
+        double company_taxes
+        double employee_taxes
+        double post_tax_deductions
+        double employee_net
+        double employee_direct_deposit_net
+        double employee_manual_check_net
+        double contractor_gross
+        double contractor_reimbursements
+        double contractor_net
+        double contractor_direct_deposit_net
+        double contractor_manual_check_net
+        double liability
+        double cash_requirement
+        timestamp created_on
+        timestamp modified_on
+    }
+
+    prl_payroll_proportionated_earning {
+        bigint id PK
+        uuid internal_id UK
+        bigint worker_project_id FK
+        varchar earning_type
+        varchar earning_entry_type
+        uuid grouping_key
+        varchar description
+        double amount
+        double hours
+        double piece_units
+        timestamp created_on
+        timestamp modified_on
+    }
+
+    prl_payroll_proportionated_worker_comp {
+        bigint id PK
+        uuid internal_id UK
+        bigint worker_project_id FK
+        bigint comp_code_id FK
+        json comp_code_json
+        uuid grouping_key
+        varchar description
+        double regular_earning_rate
+        double regular_hours
+        double regular_amount
+        double overtime_earning_rate
+        double overtime_hours
+        double overtime_amount
+        double double_overtime_earning_rate
+        double double_overtime_hours
+        double double_overtime_amount
+        double sick_earning_rate
+        double sick_hours
+        double sick_pay_amount
+        double holiday_earning_rate
+        double holiday_hours
+        double holiday_pay_amount
+        double pto_earning_rate
+        double pto_hours
+        double pto_pay_amount
+        double bonus_amount
+        double miscellaneous_hours
+        double miscellaneous_amount
+        double reimbursement_amount
+        timestamp created_on
+        timestamp modified_on
+    }
+
+    prl_payroll_proportionated_reimbursement {
+        bigint id PK
+        uuid internal_id UK
+        bigint worker_project_id FK
+        varchar reimbursement_code
+        uuid grouping_key
+        varchar description
+        double amount
+        timestamp created_on
+        timestamp modified_on
+    }
+
+    prl_payroll_proportionated_benefit {
+        bigint id PK
+        uuid internal_id UK
+        bigint worker_project_id FK
+        varchar contributor_type
+        varchar benefit_type
+        varchar benefit_entry_type
+        uuid grouping_key
+        varchar description
+        double amount
+        timestamp created_on
+        timestamp modified_on
+    }
+
+    prl_payroll_proportionated_tax {
+        bigint id PK
+        uuid internal_id UK
+        bigint worker_project_id FK
+        varchar tax_payer_type
+        uuid grouping_key
+        varchar description
+        double amount
+        timestamp created_on
+        timestamp modified_on
+    }
+
+    prl_payroll_proportionated_post_tax_deduction {
+        bigint id PK
+        uuid internal_id UK
+        bigint worker_project_id FK
+        varchar post_tax_deduction_type
+        varchar post_tax_deduction_entry_type
+        uuid grouping_key
+        varchar description
+        double amount
+        timestamp created_on
+        timestamp modified_on
+    }
+
+    lfi_comp_code {
+        bigint id PK
+    }
+
+    prl_payroll_proportionated ||--o| prl_payroll_proportionated_totals : "one-to-one totals"
+    prl_payroll_proportionated ||--o{ prl_payroll_proportionated_earning : "has many earnings"
+    prl_payroll_proportionated ||--o{ prl_payroll_proportionated_worker_comp : "has many worker comp"
+    prl_payroll_proportionated ||--o{ prl_payroll_proportionated_reimbursement : "has many reimbursements"
+    prl_payroll_proportionated ||--o{ prl_payroll_proportionated_benefit : "has many benefits"
+    prl_payroll_proportionated ||--o{ prl_payroll_proportionated_tax : "has many taxes"
+    prl_payroll_proportionated ||--o{ prl_payroll_proportionated_post_tax_deduction : "has many deductions"
+    prl_payroll_proportionated_worker_comp }o--o| lfi_comp_code : "comp code lookup"
+```
+
+---
+
+## Job Costing Report — Snowflake SQL
+
+> Source: [Building the Job Costing Report](https://www.notion.so/33a1d464528f80ee9972da8682e47f4e)
+> Parent: Lumber > Report Builder
+
+### Bottom Table — `V_JOB_COSTING_TABLE`
+
+Groups by `cost_code` / `cost_code_description`. Returns 14 columns: period actuals (REG/OT/DOT hours + costs via `SUM`) and all-time totals (via `MAX` of pre-aggregated columns in the view).
+
+```sql
+SELECT
+    cost_code
+  , cost_code_description
+  , ROUND(SUM(regular_hours), 2)                  AS actual_regular_hours
+  , ROUND(SUM(overtime_hours), 2)                 AS actual_overtime_hours
+  , ROUND(SUM(double_overtime_hours), 2)           AS actual_double_overtime_hours
+  , ROUND(SUM(regular_cost), 2)                   AS actual_regular_cost
+  , ROUND(SUM(overtime_cost), 2)                  AS actual_overtime_cost
+  , ROUND(SUM(double_overtime_cost), 2)            AS actual_double_overtime_cost
+  , MAX(total_regular_hours_to_date)               AS total_regular_hours_to_date
+  , MAX(total_overtime_hours_to_date)              AS total_overtime_hours_to_date
+  , MAX(total_double_overtime_hours_to_date)        AS total_double_overtime_hours_to_date
+  , MAX(total_regular_cost_to_date)                AS total_regular_cost_to_date
+  , MAX(total_overtime_cost_to_date)               AS total_overtime_cost_to_date
+  , MAX(total_double_overtime_cost_to_date)         AS total_double_overtime_cost_to_date
+FROM LUMBER_FI.PUBLIC.V_JOB_COSTING_TABLE
+GROUP BY cost_code, cost_code_description
+```
+
+> Note: `SUM` for period actuals (facet-filtered rows), `MAX` for totals-to-date (pre-aggregated in view — all-time, not filtered). This is the CTE limitation: both aggregates in same query, different
+> scopes.
+
+### Charts — `V_JOB_COSTING_CHART`
+
+Groups by `date_worked` (formatted as `YYYY-MM-DD`). 7 columns: 3 hours series + 3 cost series + date category.
+
+```sql
+SELECT
+    TO_CHAR(date_worked, 'YYYY-MM-DD') AS CATEGORY
+  , ROUND(SUM(regular_hours), 2)       AS reg_hours
+  , ROUND(SUM(overtime_hours), 2)      AS ot_hours
+  , ROUND(SUM(double_overtime_hours), 2) AS dot_hours
+  , ROUND(SUM(regular_cost), 2)        AS reg_cost
+  , ROUND(SUM(overtime_cost), 2)       AS ot_cost
+  , ROUND(SUM(double_overtime_cost), 2) AS dot_cost
+FROM LUMBER_FI.PUBLIC.V_JOB_COSTING_CHART
+GROUP BY date_worked
+ORDER BY date_worked
+```
+
+---
+
+## Lumber Delivery Task List
+
+> Source: [Lumber delivery task list](https://www.notion.so/2ed1d464528f83f2808f0188ca86bde2) — Notion database
+> Parent: Lumber
+
+Notion task tracking database for Lumber delivery. Schema:
+
+| Property      | Type         | Values / Notes                                                                               |
+|---------------|--------------|----------------------------------------------------------------------------------------------|
+| `Task`        | title        | Task description                                                                             |
+| `Status`      | status       | Not started, In progress, In review, Done, Abandoned, Needs more info, New/unprioritized     |
+| `Priority`    | select       | high, medium, low, Never                                                                     |
+| `Milestone`   | select       | 1.0, 1.1                                                                                     |
+| `Work Stream` | multi-select | Marketing, Infrastructure, Catalog, Desktop                                                  |
+| `area`        | multi-select | builder, catalog, content, data service, desktop, documentation, backend, frontend, platform |
+| `Assigned To` | person       | —                                                                                            |
+| `issue`       | url          | GitHub issue link                                                                            |
+
+Views: Task List (grouped by Priority), Recently completed, 1.0 (milestone filter), Tasks by milestone.
+

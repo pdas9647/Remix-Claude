@@ -221,3 +221,52 @@ type output = {
 | Windows  | `wsb` (Windows Sandbox)                          |
 | macOS    | `sandbox-exec` or alcless                        |
 | Linux    | `cgroups` for resources, landlock for filesystem |
+
+---
+
+## `rmx-remix` Runtime Web Component — Wasm Loading Optimization
+
+> Source: [Consolidate rmx-remix loading](https://www.notion.so/33b1d464528f80679028e69ba9d3dbee) — 2026-04-06
+> Related: [Embedding a .remix into a webpage](https://www.notion.so/33a1d464528f80c7b9cdd44e7c2baa0f)
+
+**Problem (as of 2026-04-06):** `rmx-remix.js` embeds `mixcore.wasm` and `mixrt.wasm` as base64:
+
+- Bloats `rmx-remix.js` file size → inspector unusable in Safari
+- Prevents Wasm **compilation caching** (browser caches compiled Wasm only when loaded from URL)
+
+### 3-Step Fix Plan
+
+**Step 1: Create `<rmx-remix-light>` with dynamically linked Mixcore**
+
+Same as `rmx-remix` but adds attributes:
+
+- `mixcore-js-url` — dynamic URL to the Mixcore JS file
+- `mixcore-wasm-url` — dynamic URL to the Mixcore Wasm file
+
+The JS and Wasm are linked together (must be from same build).
+
+**Step 2: Add `mixrt-wasm-url` attribute**
+
+Also dynamically link `mixrt.wasm` to enable compilation caching for MixRT as well.
+
+**Step 3: Restructure `.remix` install + code loading**
+
+Current problem: `mixcore` JS + Wasm are fetched and compiled twice — once in the main thread (to install the `.remix` file) and again in the Groovebox worker (for FFIs). Root cause: `.remix` install
+must happen in the main thread because the Groovebox worker can only link **installed files**.
+
+Proposed startup sequence (all initial steps in parallel):
+
+- fetch + compile streaming `mixrt.wasm` → start VM
+- fetch + compile streaming `mixcore_bg.wasm`
+- fetch `mixcore.js`
+- fetch `.remix` file
+
+Then sequentially:
+
+- instantiate mixcore
+- install `.remix`
+- load code in VM + link
+- call entry
+
+This avoids double-compilation by compiling `mixcore` Wasm once and transferring to the worker.
+

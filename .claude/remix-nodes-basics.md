@@ -134,3 +134,20 @@ A read/write object where you specify fields (and/or enable arbitrary location a
 **Static locations:** Analogue of Set State but for in-bindings.
 
 **Dynamic locations:** If no field is set, Get State acts as a preview of the current state value.
+
+---
+
+## Embed Nodes
+
+> Source: [Embed nodes](https://www.notion.so/33d1d464528f80baa4e4e98b79d268a8)
+> Parent: Remix Studio User Guide
+> Related: turntable#11886 (Apr 9, 2026)
+
+Embed nodes allow inserting another screen into the currently running screen. Uses `viewstack.embed` primitive.
+
+**Key behaviors:**
+
+- The embedded screen has **its own viewstack** → can be highly interactive with nested navigation
+- Once an embedded screen has started, it **no longer listens to the in-params** of the Embed node — value changes are not propagated into it
+- To pass values dynamically after embedding starts, use **Pub-Sub** instead
+

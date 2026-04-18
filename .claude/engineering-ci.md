@@ -235,3 +235,71 @@ Mixer uses nightly snapshots (same approach as Amp). Server runs as user `remixl
 - Benedikt: sketch **monorepo** approach for same
 - Next week: compare designs, come to consensus on release flow + component management
 - Separate discussion: propose content team involvement in release process design
+
+---
+
+## Monorepo vs Polyrepo — Analysis (Apr 2026)
+
+> Source: [Releases and repositories](https://www.notion.so/33a1d464528f805c9cd9d1fed3acf783)
+> Author: Chris (builds on Benedikt's notes at 3341d464)
+> Parent: Platform Engineering (Internal) Home
+
+### Release Channels Model (Rust-inspired)
+
+Proposed: `nightly` → `beta` → `stable` channels (same as Rust's model).
+
+- `nightly` = latest `main` build
+- `beta` = promoted every 6 weeks (or monthly for Remix); receives back-ported fixes
+- `stable` = released from `beta`
+
+Core challenge: **back-porting multi-component changes** is the hardest problem at the intersection of polyrepo pain and release channels.
+
+### Polyrepo Problems (Status Quo)
+
+1. **Global consistency** — `X → Y → Z` and `X → Z` can produce inconsistent indirect deps. Mitigation: add dependency manifest to artifacts + consistency check in update flow.
+2. **Cyclic dependencies** — groovebox↔mix-rs cycle; mixcore→…→turntable→desktop cycle. Fix: move desktop into turntable, use cross-repo crate dep on rest of mix-rs.
+3. **Multi-component changes** — three sub-problems:
+    - rcm config adjustments during dev + reverting afterward
+    - Dummy intermediate PRs needed to generate builds for downstream
+    - Merging triggers spurious auto-updates; each downstream PR needs rcm config reverted manually
+
+### Three Options Evaluated
+
+#### Option 1: Full Monorepo
+
+Merge groovebox, mix-rs, protoquery, turntable, possibly extension, flutter-runtime, remix.app.
+
+**Pros:** Simple multi-component updates, one repo, easy hotfix (one PR), easy to snapshot state for a branch.
+
+**Cons:** Significant transition cost; one access-control scope; cross-component PRs need multiple reviewers; need artifact caching for unchanged components; possible IDE issues.
+
+#### Option 2: Double Down on Polyrepo
+
+Break groovebox into C/JS components; move desktop to its own repo.
+
+**Pros:** Minimal changes, stays compartmentalized.
+
+**Cons:** Doesn't solve most problems; splits tightly coupled C/JS code in groovebox.
+
+#### Option 3: Partial/Incremental Consolidation
+
+Merge groovebox + mix-rs; make mixrun/mixer/groovebox dev-deps of protoquery; move desktop to turntable; make amp a dev-dep of turntable.
+
+Result: simplified chain:
+
+```
+protoquery ──────────────────────────────────────> amp
+                                            mixcore+groovebox+mixrun+mixer ──────────────> turntable+desktop
+```
+
+**Pros:** Some steps toward monorepo; can test transition incrementally.
+
+**Cons:** Not all changes are toward monorepo (e.g. moving desktop); still need cross-repo release coordination.
+
+### rcm Improvements Needed (for any polyrepo option)
+
+For back-porting multi-component changes, proposed rcm enhancements:
+
+1. Branches in root component trigger downstream branch updates (auto-create if needed → solves dummy PR problem)
+2. Merging a root PR with matching downstream PRs: revert rcm dep to mainline in each downstream, then auto-merge chain (gated on "no branch deps" CI check)
+

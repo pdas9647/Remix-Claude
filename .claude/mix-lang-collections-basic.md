@@ -231,3 +231,79 @@ module end
 - **`undefined` handling**: `length` and `keys` return `undefined`; other operations error
 - **`descend`**: nested access — `map.descend(["a","b"], {a:{b:10}})` → `10`
 - **`invert`**: swaps mapping — `invert({a:["x","y"], b:["x"]})` → `{x:["a","b"], y:["a"]}`
+
+---
+
+## `container`
+
+> Source: [container](https://www.notion.so/1061d464528f81d48148cb3151b18612)
+
+Utility module for mixed-type navigation and manipulation — operates on **both arrays and maps**. Type `word` = `string | number`.
+
+```
+module container
+  // Lookup
+  def safeGet : word -> data -> data          // since PR#379
+  def descend : array(word) -> data -> data   // since PR#379
+
+  // Update
+  def pathUpdate : array(word) -> data -> data -> data           // since PR#769
+  def pathUpdateAndAugment : array(word) -> data -> data -> data // since PR#1804
+
+  // Iterating
+  def deepIterPath : (data -> array(word) -> null) -> data -> null  // since PR#478
+
+  // Mapping
+  def shallowMap : (data -> data) -> data -> data
+  def deepMap : (data -> data) -> data -> data      // since PR#379
+
+  // Searching
+  def shallowFind : (data -> bool) -> data -> data
+  def deepFind : (data -> bool) -> data -> data
+  def shallowFindMapped : (data -> S) -> data -> S
+  def deepFindMapped : (data -> S) -> data -> S
+  def shallowFindIndex : (data -> bool) -> data -> word
+  def deepFindPath : (data -> bool) -> data -> array(word)
+
+  // Merging
+  def shallowMerge : data -> data -> data             // since PR#769
+  def deepMerge : data -> data -> data                // since PR#769
+  def deepMergeBuilder : data -> data -> data         // since PR#1700
+  def mergeReplaceBuilder : data -> data -> data      // since PR#1675
+
+  // Conversion
+  def toStream : data -> stream(data)
+  def toStreamPairs : data -> stream([data,data])
+module end
+```
+
+### Key behaviors
+
+- **`safeGet(key, c)`** — looks up `key` in map (string key) or array (number key); returns `undefined` on any problem (wrong type, missing key, undefined input)
+- **`descend(path, c)`** — walks mixed path (strings for maps, numbers for arrays); returns `undefined` on any failure. `descend([], c)` = `c`
+- **`pathUpdate(path, newValue, c)`** — immutably updates nested path; equivalent to `c with .a[1] = v` for dynamic paths
+- **`pathUpdateAndAugment`** — like `pathUpdate` but adds missing intermediate fields/indices rather than failing
+- **`deepIterPath(f, c)`** — calls `f(node, path)` for every node in `c` and all its descendants
+- **`shallowMap/shallowFind/shallowFindMapped/shallowFindIndex`** — operate only on direct children of the container
+- **`deepFind/deepFindMapped/deepFindPath`** — recurse through all descendants; children of `x` searched after `x`
+- **`shallowMerge(c1, c2)`** — merges outermost structure; `c2` wins on conflict
+- **`deepMerge(c1, c2)`** — recursive merge; `c2` wins on conflict at each level
+- **`deepMergeBuilder`** — like `deepMerge` but does not replace with `null` (respects builder merge semantics)
+- **`mergeReplaceBuilder`** — underlies "without passthrough" in the builder's Object node; `c2` always replaces on conflict
+
+### Example — `descend`
+
+```
+def c = { a: [1, 2, { b: "a", d: "X" }], b: { c: [3, "4"] } }
+descend(["a", 2, "d"], c)   // "X"
+descend(["b"], c)            // { c: [3, "4"] }
+descend(["a", 3, "b"], c)   // undefined
+descend(["b"], null)         // undefined
+```
+
+### Example — `deepFindMapped`
+
+```
+// Find value of key "key" anywhere in a deeply nested map
+deepFindMapped(x -> if (datacase(x) == "object") x."key" else undefined, map)
+```

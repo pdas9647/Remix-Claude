@@ -131,6 +131,50 @@ fileset contains executable binaries.
 | **By URL**      | `https://remix.app/run?_rmx_url=<.remix URL>` | Any hosted .remix file      |
 | **Drag & Drop** | `https://remix.app/run`                       | Drop .remix file in browser |
 
+---
+
+### `rmx-remix` Web Component Embedding
+
+> Source: [Embedding a .remix into a webpage](https://www.notion.so/33a1d464528f80c7b9cdd44e7c2baa0f)
+> Prod: `https://remix.app/js/rmx-remix.js` | Dev: `https://dev.remix.app/js/rmx-remix.js`
+
+Simplest way to embed a `.remix` into any webpage. For full-screen performance, prefer the [full-screen stack](https://www.notion.so/1ae1d464528f80f88f23e4dd46fa3464).
+
+**Attributes:**
+
+| Attribute     | Type         | Required | Description                                          |
+|---------------|--------------|----------|------------------------------------------------------|
+| `src`         | string       | Yes      | URL of the `.remix` file                             |
+| `screen-name` | string       | No       | Screen to display (defaults to home screen)          |
+| `params`      | JSON string  | No       | Params to pass to the first screen                   |
+| `no-shadow`   | boolean flag | No       | Disable shadow DOM                                   |
+
+**Single embed:**
+
+```html
+
+<script src="https://remix.app/js/rmx-remix.js" type="module"></script>
+<rmx-remix src="https://agt.files.remix.app/iaEj4QYboi/_rmx_files/apps/embed.remix"></rmx-remix>
+```
+
+**With params:**
+
+```html
+
+<rmx-remix
+        src="https://agt.files.remix.app/iaEj4QYboi/_rmx_files/apps/embed.remix"
+        params='{"first":"john","last":"doe"}'
+></rmx-remix>
+```
+
+**Multiple on one page:**
+
+```html
+
+<rmx-remix src="...embed.remix" params='{"first":"john"}'></rmx-remix>
+<rmx-remix src="...schedule.remix" screen-name="home" params='{"entity":"contact","phone":"+1..."}'></rmx-remix>
+```
+
 #### Embedded on a Web Page
 
 Load the Remix runtime directly in any web page:
