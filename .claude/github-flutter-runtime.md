@@ -73,3 +73,9 @@ in SharedPreferences.
 ## Recent PRs — Apr 5–12, 2026 (0 merged)
 
 No merged PRs in this period. Repo remains quiet; last merge was #441 (Feb 20, 2026).
+
+## Recent PRs — Apr 13–17, 2026 (1 merged)
+
+| PR       | Summary                                                                                                                                                                                                                                                   | Author     |
+|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| **#443** | **Fix mixer agent call headers** (2 commits, 3 files, +13/-15) — `httpAuthHeaders` now always sends `content-type: application/json` and `accept: application/json` unless overridden. Required follow-up to mix-rs#1082 (form-urlencoded agent support). | cvermilion |

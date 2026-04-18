@@ -87,3 +87,27 @@ screenName in AppRecord; extract out bindings ★; viewstack embed node ★ (Apr
 - #11904 — Clean up runtime code (refactor) | #11906 — Remove passthrough RuntimeAction
 - #11908 — Model `SwitchApp_` | #11913 — Fix compile error
 - #11653 — Lodash security bump (dependabot, `builder/rmx-files`)
+
+## Recent PRs — Apr 13–17, 2026 (26 merged)
+
+★ High-signal marked.
+
+| PR           | Summary                                                                                                                                                                                                                                                                   | Author     |
+|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| **#11928** ★ | **Invoke & eval JS via client action** (15 commits, 10 files, +141/-20) — 2 new client actions: `invoke function` + `eval code`. Enables arbitrary JS invocation from the runtime action pipeline.                                                                        | simonh1000 |
+| **#11923** ★ | **WebApp switches to TypeScript** (25 commits, 19 files, +407/-414) — Merges `rmx-init-runtime` into `rmx-fullscreen`; applies TypeScript to old webapp code; AMP homepage uses ES6 version. Follow-ups: move helpers to TS, export typings to rcm.                       | simonh1000 |
+| **#11921** ★ | **Client-side subscribe** (11 commits, 10 files, +1572/-54) — Pub/sub subscribe now uses client action codegen; fixes hard-coded topic style. Large diff primarily tests.                                                                                                 | simonh1000 |
+| **#11915** ★ | **Merge External & Client runtime action handling** (15 commits, 12 files, +128/-146) — Unifies `PerformHostEffect` and `PerformClientAction` into a single runtime message (difference: client action requires result-like return, host effect does not). Closes #11766. | simonh1000 |
+| **#11929** ★ | **CreateFromExternal macro: Webcomp + Wasm manifests** (3 commits, 4 files, +94/-29) — `CreateFromExternal` macro now accepts Webcomp and Wasm manifests in addition to catalog items.                                                                                    | simonh1000 |
+| **#11900** ★ | **File node: bindings not state for main params** (20 commits, 18 files, +809/-382) — File node `db` and `path` moved from persisted state → binding default values; now editable in L2 navbar. Includes migration of old data.                                           | simonh1000 |
+
+### Fixes & minor
+
+- #11945 misc improvements | #11944 rcm update fix | #11943 lodash 4.17.21→4.18.1 in builder/codegen (dependabot)
+- #11940 fix remix-dev amp.html | #11939 add rmx-file-loader | #11937 fix file upload UI update
+- #11936 L0 delete bugfix | #11935 fix preview navigation back to home screen | #11930 builder webpack changes
+- #11927 fix desktop rebuild issue | #11931 navigate code cleanup [tech debt]
+- #11925 L0 macro: create app | #11926 L1 macro fix for paste content
+- #11919 card placeholder select | #11914 remove plugin `builder_url` binding
+- #11917 disable footer menu when busy | #11916 fix L0 view issue
+- #11920 subscribe state decoding | #11911 replace rmx-runtime for .remix preview | #11922 minor changes
