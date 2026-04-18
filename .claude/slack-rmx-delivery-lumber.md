@@ -1,6 +1,6 @@
 # #rmx-delivery-lumber Slack Channel — Remix Labs
 
-**Coverage:** Oct 9, 2025 – Apr 11, 2026
+**Coverage:** Oct 9, 2025 – Apr 18, 2026
 **Channel ID:** C09KL3K7P0D
 
 ---
@@ -21,10 +21,6 @@
 
 ---
 
-## Phase 1 (Oct–Nov 2025): WFJ Benefits — DROPPED
-
-Mobile + web app for WFJ benefits enrollment. **Dropped Oct 25** — WFJ POST API not exposed ("non-starter"), WFJ lacked bandwidth to document business rules.
-
 ## Phase 2 (Jan 2026+): Analytics Reporting — ACTIVE
 
 Report builder for Lumber teams to configure/present tabular reports over Snowflake data. Self-hosted in Lumber's AWS.
@@ -40,12 +36,6 @@ Report builder for Lumber teams to configure/present tabular reports over Snowfl
 - **Success criteria:** Lumber's Rajesh/Trinadh can build new reports themselves. Customers building their own is **out of scope V1**.
 
 ### Timeline
-
-**Jan 21:** Re-kickoff. **Jan 26:** Lumber kickoff call. Shreesha demanding first-week-Feb go-live — "pointlessly aggressive" (Reza).
-
-**Jan 29:** Cortex agent only returns label/value (widget-oriented). Resolution (Feb 6): Padmanabha created `_v2` agents for table widget type.
-
-**Feb 2-3:** Schema + data in Snowflake. Notion pages with Mermaid diagrams, SQL, CSV.
 
 **Feb 6:** First demo to Lumber. **Bug caught mid-demo:** table showing STATIC copied data, not live Snowflake data. Fix: base catalog component must always use LIVE querying.
 
@@ -71,10 +61,6 @@ corrupts exec-only app. Mar 1: Arvind checked in latest lumber home/catalog/repo
 **Table component [Feb 26] (Arvind):** Self-contained, configured by SQL statement string. CTE orchestrator overrides with filtered SQL when facets selected; returns default query before any
 selection. Forward pattern: each paste-able catalog component has CTE orchestrator built in.
 
-**Crunch mode [Feb 27] — target: Wednesday Mar 4:**
-
-Infra (Chris+Didier), Tools (Arvind+John: home/catalog/reports/publish), Content+QA (Reza+India).
-
 **Scope pushback (Vijay):** Lumber tried to add scope. Vijay told Manish "his guys were smoking something." Conditions: one owner + full scoping exercise, or no new scope. Oleg to own scoping.
 
 ### Mar 2–7: Requirements Call + Facet Pattern + Grid Descope
@@ -95,8 +81,6 @@ Chris asked about deliverables timeline and whether to keep beta stable or rever
 ### Mar 7–14: Table Perf + Grid Decision Reversal + Bugs
 
 **High priority items (Arvind, Mar 9):** Activate in-house table; download as CSV/XLSX; finalise table+facets config flow.
-
-**Gerd + Tyler joined channel (Mar 11):** Gerd Stolpmann and Tyler Lentz added to #rmx-delivery-lumber.
 
 **WIP in-house table perf (Arvind, Mar 11):** 80×40 grid sluggish in Studio/runtime. Key fixes: column-matrix (callables per-column) + flatten-transform-unflatten (~5x). pub/sub retained bug fixed (
 turntable/pull/11810).
@@ -164,3 +148,17 @@ date) — same CTE facets, separate Data Fetch nodes required. UX ask: column pi
 Tyler published new `/v3`. **Action required: sync library assets + republish apps.**
 
 **Report build demo (Mark, Apr 10):** Demo video: report built from scratch with multiple tables, each with independent data source/facets/pagination/sorting.
+
+### Apr 13–18: Auth Design + Delivery Push
+
+**Delivery push (Apr 14–16):** Dev→prod promoted; dedicated Lumber Desktop release channel created. Windows excluded (L2 crash). Mobile beta 2788 targeted.
+
+**Lumber auth design (Apr 15, Chris):** Runtime works (mixer trusts Descope tokens). Studio needs OAuth/OIDC — Lumber must set up Descope app with `auth.remixlabs.com` as callback, no Remix code
+changes. Self-contained mixer auth alternative requires code changes.
+
+**Report flow v7 (Apr 17, Mark):** Paginated/all data copy variants; recursive Snowflake partition fetch; initial sort+facet values from UI; agent aliases; next event on Data Fetch; date format fixed.
+
+**Data formatting (Apr 17, Arka):** Dates as day-numbers — add `DATE_OUTPUT_FORMAT: YYYY-MM-DD` param. Decimal drift — `::NUMBER(10,2)` cast; SQL prompt needs update.
+
+**Embed (Apr 16–18, Didier/Chris/Arvind):** Google Doc drafted (pending: Desktop URL, rmx-remix.js URL, .remix params). Plan: co-publish rmx-remix.js with each desktop installer. Embed needs anon
+agents — Arvind making workspace agents anon. Final integration passes Lumber portal token.

@@ -1,6 +1,6 @@
 # #desktop Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Apr 11, 2026
+**Coverage:** Dec 20, 2025 – Apr 18, 2026
 **Channel ID:** C04T4HW06CC
 **Bug tracker:** https://github.com/remixlabs/mix-rs/issues/937
 
@@ -40,24 +40,11 @@ tile + invoke agent.
 
 **CORS in preview [Dec 29]:** Preview VMs lack mixcore FFI → fall back to HTTP → CORS. Fix: turntable/pull/11620 (route through FFI). Basic auth unsupported in mixcore: mix-rs/issues/926.
 
-**Autocorrect corrupting JSON [Dec 29]:** macOS smart quotes in inputs. Fix: `spellcheck="false"` + `autocorrect="off"` — turntable/pull/11626, turntable/pull/11666.
-
-**Arrow key tofu chars [Jan 31]:** Inserts garbage on first launch. Workaround: open DevTools. Tauri/webview bug, needs upstream repro. Still unfixed in prod as of Feb 28 (absent in dev builds —
-different Tauri/webview?).
-
-**Syncing preferences error [Feb 2]:** Workspace shows "legacy". Fix: mix-rs/pull/965. Windows auto-update broken — Fred manually distributes.
-
-**`.remix` always opens `home` [Feb 5]:** remix.app hardcoded to `home` screen. Workaround: Navigate tile on `home`'s onLoad.
-
-**Downloads broken [Jan 5-8]:** Download webcomp not wired to Tauri. Partial fix: mix-rs/pull/954. Blob FFIs: groovebox/pull/457.
-
 ---
 
 ## Architecture & Infrastructure
 
 **Claude Desktop / MCP auto-launch [Feb 11]:** Remix Desktop auto-launched via MCP config. Decision: remove auto-start; user manually starts or setup flow writes config deliberately.
-
-**`_rmx_tailwind` invisible after D&D install [Feb 10]:** D&D install doesn't write `_rmx_admin` db entry. Regular installs work.
 
 **`_rmx_admin` db [Feb 14]:** Hidden, implicitly created by mixer. Stores app meta for L0. Access: `remix://localhost/a/v1/ws/local/appmeta/`. D&D install bug: no meta written here.
 
@@ -97,8 +84,6 @@ posted v0.0.16–v0.0.18. Wipe path: `~/AppData/Local/com.remixlabs.desktop/work
 
 **Upgrade fails: `relative URL without a base` [Feb 27]:** Platform 1.46 bump broke `desktop_home_remix` (old GCS endpoint). Fix: Didier migrated version files. Home app is NOT built-in — comes from
 workspace sync group. Override: `REMIX_DESKTOP_WORKSPACE_APPS_PATH`.
-
-**Pre-prod checklist [Feb 27] (Arvind):** (1) Arrow key tofu chars, (2) autocorrect/curly quotes, (3) MCP config cleanup, (4) solid sync, (5) default home.
 
 **Sync model proposal (Didier):** Move all `.remix` apps to synced (mobile-like model); only `_rmx_desktop` stays in binary. Others (`_rmx_artifact`, `_rmx_search`, `_rmx_tailwind`, `_rmx_extension`)
 all sync.
@@ -168,3 +153,18 @@ investigation.
 **`make setup dev` hangs [Mar 28, Didier]:** Post-OAuth "waiting for auth"; unresolved.
 **export_package FFI [Mar 31, Simon]:** mix-rs/pull/1084 (bypasses tauri-plugin-http); CORS concern pending.
 **Restore windows on update [Apr 1, Arvind]:** Feature request; open.
+
+## Apr 11–18 Additions
+
+**Windows v0.0.24 + v0.0.25 [Apr 14–16, Fred]:** Fred cut v0.0.24 (stability fixes) and v0.0.25 (turntable updates).
+
+**Windows crashes at L2 — unresolved [Apr 14–15, Sirshendu → team]:** Desktop on Windows crashes when navigating to L2. Sirshendu reproduced consistently; Simon couldn’t on Mac. No fix yet.
+
+**Wasm tiles confirmed [Apr 15, Simon → Sirshendu]:** Wasm function tiles work correctly in Desktop/mixer context.
+
+**Cmd+A / Cmd+Z broken in text inputs [Apr 16, Arvind → Benedikt]:** Select-all and undo non-functional in Desktop text inputs. Root cause: Tauri/WKWebView does not dispatch Cmd+A or Cmd+Z to DOM.
+Known upstream Tauri limitation. Unresolved.
+
+**Function tile library tab empty [Apr 16, Sirshendu → Simon]:** Library tab in function tile editor shows no items. Repro confirmed. Open.
+
+**Workspace tools: arbitrary backend servers [Apr 17, Arvind]:** remix-issues#166 — workspace tools should support arbitrary backend servers, not just localhost. Needed for self-hosted deployments.

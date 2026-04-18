@@ -1,6 +1,6 @@
 # #rmx-delivery-snowflake Slack Channel — Remix Labs
 
-**Coverage:** Mar 25, 2025 – Apr 11, 2026
+**Coverage:** Mar 25, 2025 – Apr 18, 2026
 **Channel ID:** C08JPJ6EES3
 **Nature:** Snowflake GTM partnership, not a customer delivery
 
@@ -188,3 +188,7 @@ set `DATABASE` input to `REMIX_DXP_INTERNAL`. Tip: `SYS_CONTEXT('SNOWFLAKE$APPLI
 
 **iqlr4z consumer env broken (Apr 10–11):** `REMIX_DXP_INTERNAL` not present in iqlr4z. Root cause: Chris accidentally deleted the internal listing when renaming for public submission — needs
 recreation. Data access non-functional; Snowpark service still running.
+
+### Apr 13, 2026 — Provider billing enabled; Stripe integration needed (Chris)
+
+Snowflake Marketplace account now enabled for **provider billing**. Before publishing a paid listing, someone must set up Stripe integration for receiving payments.

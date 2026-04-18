@@ -1,6 +1,6 @@
 # #design Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Apr 11, 2026
+**Coverage:** Dec 20, 2025 – Apr 18, 2026
 **Channel ID:** C4BLR910S
 **Purpose:** Design systems, visual IDE, icon and widget libraries
 
@@ -127,3 +127,7 @@ Broader proposal: settings node should become a modal sidepanel, not fake L2 nav
 
 **Unused tags in catalog facet panel (Simon, Apr 8):** Tags for items outside the current library selection shown disabled (not hidden). Arvind: consistent with other facets — disabled at count=0 to
 avoid panel jumping; tags might be a special case. No decision.
+
+## Apr 11–18 Additions
+
+**Asset preview panel: CTA button hidden [Apr 16, Simon → Didier/Arvind]:** In the catalog asset preview panel, the action/CTA button was not visible. Didier and Arvind reviewed. Open.

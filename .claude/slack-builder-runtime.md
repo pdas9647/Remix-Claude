@@ -1,6 +1,6 @@
 # #builder-runtime Slack Channel — Remix Labs
 
-**Coverage:** Dec 31, 2025 – Apr 11, 2026
+**Coverage:** Dec 31, 2025 – Apr 18, 2026
 **Channel ID:** C58HC9EC8
 **Topic:** Builder, remix.app, WebApp
 
@@ -139,3 +139,25 @@ env variables for host-independent prefixes. Wilber agreed, will update Starligh
 
 **Settings L1 modal UX (Didier, Apr 9, 9 replies):** Editing app settings now shows a clean L1 modal instead of the L2 sidepanel. PWA settings separated — open question: still needed given
 Desktop/mobile/AppClip/RCS coverage? Vijay: discuss early next week. **No decision yet.**
+
+## Apr 11–18, 2026 Additions
+
+### JS invoke via client actions [Apr 15–17, Simon/Didier/Tyler]
+
+Simon demonstrated invoking arbitrary JS functions via client actions (only index.html changes — any platform host can enable this). Tyler: **cannot include in default runtime or Chrome extension**
+due to `import(...)` syntax (Chrome store rejection). Simon: will implement in full-screen / `rmx-remix` web component instead.
+
+Didier's alternative: **wasm-based js-eval (QuickJS)** — provide JS string + function name + args → result. Works in agents and browser; no `import()` needed. Desktop: JS files in Files tile are
+backed by the local filesystem — editing in Finder is picked up live by the builder. Extension restriction: no webcomps, no wasm, no custom JS modules.
+
+Apr 17 Simon: both approaches working at remix-dev.remixlabs.com/e/edit/simon/from_file and /eval_js. **Client actions only — not available in agents.**
+
+### E2E test coverage table [Apr 17, Benedikt]
+
+Benedikt started a Notion table of all modern stack configs with one-step manual tests: notion/33b1d464528f803d9c2fc9d8c52471db. Simon added runtime hosting doc (notion: 3451d464). Existing
+playwright (`test:playwright`) uses Amp; Mixer switch blocked on mix-rs#1075. CI can fetch .remix files from internet — no need to commit to repo.
+
+### Remote file fetch in File node — decision [Apr 16, Simon/Gerd]
+
+Simon proposed adding `file.get` from remote mixer to the File node. Gerd: `file-manager` requires workspace admin privilege — end users won't have it. **Decision: don't add; define an agent instead.
+**

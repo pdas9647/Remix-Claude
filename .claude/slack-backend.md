@@ -1,6 +1,6 @@
 # #backend Slack Channel — Remix Labs
 
-**Coverage:** Jan 2 – Apr 11, 2026
+**Coverage:** Jan 2 – Apr 18, 2026
 **Channel ID:** CHTGC5BGQ
 **Purpose:** server, compiler, and database stuff
 
@@ -169,3 +169,14 @@ auto-downgrade was supposed to handle this but didn't; workaround simple enough 
 
 **File-not-found returns 410 Gone [Apr 7, Simon → Chris]:** `file.get(null, "/conch.png")` returns "resource has been deleted" when file doesn’t exist. Chris confirmed: mixer maps file-not-found to
 HTTP 410 (Gone) — misleading vocabulary. Also: many 410s in Snowflake runtime console are harmless (client probing for optional code files).
+
+## Apr 11–18, 2026 Additions
+
+**Desktop CI release [Apr 17, Chris]:** mix-rs#1093 — skip-if-no-changes prevented beta/release from releasing; fixed. New `release.CHANNEL.BUILD` tag for desktop-only CI; `rmx-remix.js` co-published
+with installer.
+
+**File link content-type [Apr 16, Simon/Gerd]:** `file-manager` is admin-only, returns `application/octet-stream`. Public files must use `/files/<path>` API. Simon: builder File node misleads users —
+end users can't replicate. Gerd: use an agent.
+
+**Flexible query projection [Apr 17, Fred]:** mix-rs#958 (draft): queries can now project arbitrary values beyond records. New: bitmap serialization return type — collect a predicate's bitmap, reuse
+in a later query. Names under review.

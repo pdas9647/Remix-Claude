@@ -1,6 +1,6 @@
 # #dumbquestionsanswered Slack Channel — Remix Labs
 
-**Coverage:** Feb 16 – Apr 11, 2026
+**Coverage:** Feb 16 – Apr 18, 2026
 **Channel ID:** C86KWF7MG
 **Purpose:** "the dumbness of the programmer has no limits" — quick Q&A, platform clarifications
 
@@ -46,14 +46,6 @@ Each surface has different URL semantics:
 
 ---
 
-## [Feb 23] Agent node: Params → Fields binding toggle needs manual refresh (Arvind → Simon)
-
-**Question:** When toggling from Params bindings to Fields bindings on an agent node, why must you manually hit Refresh? Why not auto-fetch the field bindpoints?
-
-**Answer:** Fixed — turntable/pull/11744
-
----
-
 ## [Feb 23] `parseJSON` fails on multi-dot version strings (Arvind → Gerd/Tyler)
 
 **Question:** Why does `{"version": 0.9880.0}` not parse with `parseJSON`? Should it be treated as a string?
@@ -91,28 +83,9 @@ it?
 
 ---
 
-## [Feb 20] Download latest mixer with wasm support (Vijay)
-
-**Answer:** https://github.com/remixlabs/mix-rs/tree/main/mixer#precompiled-binaries, or use `rcm`.
-
----
-
-## [Feb 19] Leftover file from `export_package` plugin (Arvind → Gerd)
-
-Unknown file appearing in project. **Answer:** Leftover from `export_package` plugin — safe to delete. Will go away once blob URL support is complete.
-
----
-
 ## [Feb 17] Uppercase DB names (Arvind → Gerd)
 
 **Question:** DB names should be lowercase? **Answer (Gerd):** No — uppercase DB names are fine. No lowercase convention required.
-
----
-
-## [Feb 17] `files` vs `_rmx_files` in Lumber workspace (Arvind → Wilber)
-
-`files` is the old DB name before it was renamed to `_rmx_files`. Found in Lumber workspace because it's an older workspace created before the naming change. Safe to delete `files`. Wilber confirmed
-it's not created by current customer tooling.
 
 ---
 
@@ -121,12 +94,6 @@ it's not created by current customer tooling.
 **Question:** `/v1/ws/{ws}/app/{app}/file-manager/copy` returns `Exists` error when destination exists. Force/override option?
 
 **Answer:** No overwrite option. Workaround: delete-then-copy. Already captured in standup notes (Mar 3).
-
----
-
-## [Mar 5] URL issue with Gerd's workspace (Gerd → team)
-
-Gerd hit a URL-related issue. Debugging discussion; details in thread.
 
 ---
 
@@ -147,14 +114,6 @@ Desktop also bypasses CORS (HTTP client, not browser). **Architecture pattern: p
 
 ---
 
-## [Mar 6] Tools and Settings moved to plugin menu (Sirshendu → Simon)
-
-**Question:** Is "Tools and Settings" gone from the builder?
-
-**Answer (Simon):** Moved to the plugin menu like all other plugins. Still accessible there.
-
----
-
 ## [Mar 9] Lumber workspace: how to find and log in (Simon → Reza)
 
 **Question:** What tool to find the Lumber workspace for Desktop testing?
@@ -162,11 +121,6 @@ Desktop also bypasses CORS (HTTP client, not browser). **Architecture pattern: p
 **Answer:** Customer workspace IDs listed in the "Desktop info" tab of #desktop channel and on the Customer Success Projects Notion page. Reza confirmed: just log in with the Lumber workspace per that
 page.
 
----
-
-## [Mar 12] Mac Claude client unknown UI element (Arvind → Vijay/John)
-
-Arvind shared a screenshot of something unclear inside the Mac Claude client, asking Vijay and John what it means. Vijay didn't know; deferred to John. **Unresolved.**
 ---
 
 ## [Mar 15] "Pack wasm code" option in export package — obsolete (Didier → Gerd)
@@ -234,3 +188,20 @@ assembly components.
 
 **Q: Catalog item field shape (Apr 9, Simon)**
 A: Object shapes aren't declared. Extract comp's absorbed default config. Groups: bundle config+comp as one item.
+
+---
+
+## [Apr 17] Save & Deploy: Desktop-only? (Padmanabha → team)
+
+**Question:** Is "Save & Deploy" a Desktop-specific action?
+
+**Answer:** Yes — Save & Deploy is Desktop-only. On cloud/web, deployment flows through the mixer publish pathway. Desktop combines save + publish into a single action.
+
+---
+
+## [Apr 17] libmixcore.a / libmixrun.a for arm64 (Vijay → team)
+
+**Question:** Building a pure Swift app that needs `libmixcore.a` and `libmixrun.a` for arm64.
+
+**Answer:** `libmixcore.a` (~63MB, 80% LLVM bitcode) is the Mix language core; `libmixrun.a` (~18MB) is the Groovebox runtime. Both produced by mix-rs CI. Ask Chris or Benedikt for arm64 artifacts
+from a recent CI build.

@@ -1,6 +1,6 @@
 # #general Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Apr 10, 2026
+**Coverage:** Dec 20, 2025 – Apr 18, 2026
 **Channel ID:** C02BD0B8B
 
 ---
@@ -203,3 +203,9 @@ Daily standups Mon–Fri via https://meet.google.com/hrz-onty-twp
 - **Mukund**: Signed **Starlight** (get-starlight.com) — fintech for credit union member financial relief; 700K members, 10 credit unions
 - Remix will build **RCS + web portal experiences** to drive benefit enrollment conversions
 - Remix first **RCS experience customer**; closed by RCS demos built by Wilber + team
+
+### Apr 14–18, 2026 — Lumber delivery progress + Chris OOO
+
+- **Arvind** (Apr 14): Lumber delivery in progress — reworking column selection with **column ordering**; AI-based table/chart config returning TUI comp configs → will integrate into table & chart
+  config tools; delivery call (builder walkthrough) with Lumber team scheduled
+- **Chris** (Apr 18): OOO spring break week in western Massachusetts; reachable if @-mentioned for urgent issues

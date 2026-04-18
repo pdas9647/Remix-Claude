@@ -1,6 +1,6 @@
 # #bugbash Slack Channel — Remix Labs
 
-**Coverage:** Jan 20 – Apr 11, 2026
+**Coverage:** Jan 20 – Apr 18, 2026
 **Channel ID:** C862WHQMS
 **Bug reporting guide:** https://www.notion.so/Bug-reporting-3061d464528f80cdacf7eed2612bad07
 
@@ -99,10 +99,6 @@ Async cloud subscribe messages arrive at frontend but not rendered until next us
 desktop-only, not amp. Gerd: "one of the reasons we want to drop amp." Simon confirmed works for wasm mixc. Simon + Gerd discussing solution; turntable#11795 adds unfreeze for amp. **In progress —
 partial fix.**
 
-### ~~Curly quotes in desktop Studio~~ (Arvind, Mar 13) ✅
-
-PR mix-rs#1056 approved Mar 27; deployed.
-
 ### Cell propagation count shows 0 on screens (Gerd, Mar 12) 🟡
 
 Works for components but not screens. Works in browser but not desktop. Simon has PR up for review.
@@ -162,12 +158,6 @@ Benedikt proposed `Content-Disposition: attachment` header on mixer. **No fix ye
 
 `__wasm_bindgen_func_elem_2405 is not a function` on dev.remix.app when loading remix files. Root cause: transitive dependency clash in rcm components. Affects **remix.app**, **Desktop plugins**, and
 **Desktop workspace form**. Repro: https://dev.remix.app/about/remix. Benedikt investigating; discussion in #C027XQTJG6P. **Unresolved / Critical.**
-
-### File download button in Desktop freezes app (Didier → Benedikt/Simon, Mar 18) 🔴
-
-Downloading a file from the files tile throws an error with no way to close the window — must quit and restart Desktop. Simon: missed applying same URL check to the download button (applied to get_url
-only). Needs a tauri-specific solution or general file-access-by-URL approach. Talk scheduled between Simon + Benedikt for Monday Mar 23. Related to the existing "File download opens without auth"
-issue (Mar 3). **Unresolved.**
 
 ### Paste callable comp → "unknown target" build error (Didier/Simon, Mar 17–18) 🟡
 
@@ -229,3 +219,10 @@ Deploying agent to `localhost/local` marks appmeta `binary` — no recovery. Ger
 ### Component drill-in/out wrong level (Mark, Apr 10) 🟡
 
 Builder ends at wrong level after drilling in/out. Didier added footer safety code (turntable/pull/11917); root cause not repro’d.
+
+## Apr 11–18, 2026 New Open Bugs
+
+### D&D .remix (auth required) in anon mode fails (Didier, Apr 16) 🟡
+
+Dragging a `.remix` app requiring auth into Desktop then running in anon mode returns an error. Repro: create+export any prod app, drag into Desktop, run in anon mode. Simon couldn't repro using an
+anon-allowed app. **Unresolved.**

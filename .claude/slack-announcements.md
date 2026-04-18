@@ -1,6 +1,6 @@
 # #announcements Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Mar 21, 2026
+**Coverage:** Dec 20, 2025 – Apr 18, 2026
 **Channel ID:** CK8S97CUV
 **Purpose:** Important info everyone should read; also used for cross-team huddle coordination
 
@@ -196,3 +196,21 @@ Notion: https://www.notion.so/2ed1d464528f83f2808f0188ca86bde2
 - Reza shared Claude-generated report assets: https://www.notion.so/Claude-Code-generated-assets-3371d464528f809c9c5ed929c8709ecd
 
 **Lumber huddle [Apr 8, Reza]:** Logistics only — no substantive decisions recorded.
+
+## Apr 11–18, 2026 Additions
+
+### Query perf: relationship subqueries [Apr 15, 43 replies]
+
+Lumber queries slow (9s+): QB emits N separate `AND` subqueries for relationship fields instead of a merged subquery. Decision: **optimize in mix-rs engine** (not QB codegen; Simon confirmed no
+codegen changes needed). Fred implementing: mix-rs#998 (9s→2.5s, approved Apr 16), mix-rs#1094 (optimizer PR, approved Apr 17), mix-rs#1095 (Chris follow-up suggestions).
+
+### Webcomp publish + JS invoke [Apr 14–16]
+
+- Simon (Apr 14): new macro Manifest → web comp node; JS external action via headers
+- Apr 16: JS invoke huddle (Didier/Vijay/Simon/John)
+
+### Lumber huddles [Apr 14–17]
+
+- **Apr 14** — Desktop handoff (Reza + Didier; Arvind unavailable)
+- **Apr 16** — Lumber sync (Arvind/Reza/Vijay/Didier/Chris/Mark); Lumber auth in scope
+- **Apr 17** — Lumber call (Didier/team); Chris referenced mix-rs/issues/982 (auth token info)

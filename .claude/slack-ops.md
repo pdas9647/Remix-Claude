@@ -1,6 +1,6 @@
 # #ops Slack Channel — Remix Labs
 
-**Coverage:** Feb 1 – Apr 11, 2026
+**Coverage:** Feb 1 – Apr 18, 2026
 **Channel ID:** C07P57B89
 **Purpose:** Weekly production release promotion workflow (beta → production)
 
@@ -62,3 +62,10 @@ mix-rs/issues/1043 — sync failure should not be fatal.
 **Turntable CI failing [Apr 2, Didier]:** CI blocked for a few hours — couldn't merge anything. Self-resolved.
 
 **TT `update-users` job failing [Mar 31, Tyler]:** CircleCI job failing repeatedly. Chris: likely dependency mismatch; next mix-rs auto-update expected to fix.
+
+## Apr 14–17 Promotion Logs
+
+| Promotion PR     | Posted | Kicked Off | Mobile Beta | Notes                                                                                                                                                                                                  |
+|------------------|--------|------------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| harmony/pull/371 | Apr 14 | Apr 16     | 2788        | Superseded harmony/pull/370 — added turntable/pull/11920 to beta before promoting. Kicked off beta→release Apr 16; dev held (builder issues on dev). Mobile beta 2788 pushed as Lumber-targeted build. |
+| harmony/pull/372 | Apr 17 | (pending)  | —           | Posted for next week. Team asked to comment if blocking issues.                                                                                                                                        |
