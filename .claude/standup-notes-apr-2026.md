@@ -2,7 +2,7 @@
 
 **Coverage:** Apr 1–10, 2026
 **Format:** Condensed bullets per standup. Google Doc link on each date for on-demand full transcript fetch.
-**See also:** [standup-notes-mar-2026.md](./standup-notes-mar-2026.md) — Mar 2–31
+**See also:** [standup-notes-apr-2026-2.md](./standup-notes-apr-2026-2.md) — Apr 13–17 | [standup-notes-mar-2026.md](./standup-notes-mar-2026.md) — Mar 2–31
 
 ---
 
