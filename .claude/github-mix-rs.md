@@ -101,3 +101,10 @@ support · #818 OPFS (major, 196 commits) · #1063 idempotent .remix V2 reload �
 | **#1093** ★ | **Desktop release from tags** (13 commits, 4 files, +82/-40) — CI pipeline now triggers desktop release from tags matching `release.CHANNEL.BUILD`; skips "halt if no changes" when running from a tag. Followup: version string to incorporate `BUILD` from tag.                | cvermilion |
 | **#1092**   | **Fix Tauri keyboard shortcut clashes** (1 commit, 1 file, +1/-8) — Tauri native shortcut handlers clashed with browser shortcuts, breaking builder and Monaco editor shortcuts. Removed all Tauri edit-menu shortcuts except copy/paste (copy/paste still needs Tauri handler). | tlentz     |
 | **#1091**   | **Fix desktop config default** (14 commits, 5 files, +28/-14) — Fixes desktop config default; rcm branch reset.                                                                                                                                                                  | benozol    |
+
+## Recent PRs — Apr 18–25, 2026 (2 merged)
+
+| PR          | Summary                                                                                                                                                                                                    | Author     |
+|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| **#1090** ★ | **remove rmx-runtime** (6 commits, 3 files, +4/-3) — Removes the `rmx-runtime` web component from Desktop, reducing memory footprint. Long-lived (Apr 14→21).                                              | simonh1000 |
+| **#1097**   | **fix remix/location-changed for runtime** (1 commit, 1 file, +3/-7) — Desktop was putting app/screen into search params, but on reload parsed them from the path. Reload now returns to correct location. | simonh1000 |

@@ -101,3 +101,11 @@ loadHook for REPL; #2045 db.asOf; #2270 build server v2.1; #2242 errorInfo runti
 | **#2100** ★ | **Stdlib .dox docs** (24 files, +3211/-92) — adds gset/loader/logging/macro/memo/metrics/mime/option/reflect/regex/util; removes dom/domSym/domUtil; CI ships per-lib JSON to GCS.                                                                        | Gerd       |
 | **#2299**   | **Blob get helpers** (+22/-13) — `builder.blobGetBinary/String/Json` over `blobGet`.                                                                                                                                                                      | simonh1000 |
 | **#2302**   | **Pin Docker API v1.43** (+2) — CI: `DOCKER_API_VERSION: 1.43`.                                                                                                                                                                                           | Chris      |
+
+## Recent PRs — Apr 18–25, 2026 (3 merged)
+
+| PR          | Summary                                                                                                                                                                                                   | Author        |
+|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| **#2267** ★ | **repository library — pull support** (28 commits, 16 files, +3964/-6) — New `repository` extra lib: `repoTypes`, `repoID`, `repoEditor`, `repoUtil`, `repoCall`, `repoPull`. Long-lived (Feb 13→Apr 21). | gerdstolpmann |
+| **#2314** ★ | **repository library — push support** (10 commits, 9 files, +670/-41) — Follow-up to #2267; adds push capability to the repository library.                                                               | gerdstolpmann |
+| **#2304**   | **more documentation** (7 commits, 7 files, +1492/-196) — Stdlib dox additions (long-lived Mar 24→Apr 21).                                                                                                | gerdstolpmann |

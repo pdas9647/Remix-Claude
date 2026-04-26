@@ -57,57 +57,32 @@ rmx-base (Elm), rmx-editor (Elm), rmx-remix (JS runtime), rmx-runtime (JS execut
 
 - Migrations: M_018–M_020 not read. Tests: ~100+ Elm + ~210 JSON fixtures not explored. Renderer: `shared/Renderer/` not read.
 
-## PR Archive — Mar 1–Apr 3, 2026
+## PR Archive — Mar 1–Apr 17, 2026
 
-★ Key: table primitives; BlobGet action; tab/window opening refactor (breaking: location-changed payload); CodegenLib catalog; namespaced user prefs; paste replace modal; webcomp methods with args;
-File node content binding; catalog fetch O(n²)→O(n); OPFS backend; data-rmx-cid anchors; pub-sub + Cloud Sub UI; screenshot overhaul; callable build fixes; L3 QB codegen; remote DBs into SyncedPrefs (
-CloudDbMode refactored) ★; .remix v2.1 manifests; Desktop download file (+ mix-rs#1071) ★; IDB→OPFS migration in worker; RmxMode simplified (Run variant removed); File Register returns full file ★;
-screenName in AppRecord; extract out bindings ★; viewstack embed node ★ (Apr 2, long-running).
+★ Key Mar 1–Apr 3: table primitives; BlobGet; tab/window refactor (breaking: location-changed payload); CodegenLib catalog; namespaced prefs; webcomp method args; File node content binding; catalog O(
+n²)→O(n); OPFS backend; pub-sub + Cloud Sub UI; screenshot overhaul; remote DBs→SyncedPrefs ★; .remix v2.1; Desktop download file ★; IDB→OPFS worker migration; File Register returns full file ★;
+viewstack embed node ★.
+★ Key Apr 5–10 (#11886 viewstack embed; #11894 settings L2→L1 modal; #11893 RebuildAndMake macro; #11905+#11907+#11910 Mixer.elm removed + client action pipeline; #11899 list↔loop flip; #11900 File
+node db/path→binding defaults ★).
+★ Key Apr 13–17 (#11921 pub/sub subscribe via client action codegen ★; #11915 External+Client runtime actions unified ★; #11923 webapp JS→TypeScript + rmx-init-runtime merged ★; #11929
+CreateFromExternal accepts Webcomp+Wasm manifests; #11928 invoke+eval JS via client action ★).
 
-## Recent PRs — Apr 5–10, 2026 (18 merged)
-
-★ High-signal marked.
-
-| PR           | Summary                                                                                                                                                                                                  | Author     |
-|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
-| **#11886** ★ | **Viewstack embed** (18 commits, 17 files, +684/-422) — New `Embed` node type implementing Gerd's viewstack embedding. Will include triggerable runner in due course.                                    | simonh1000 |
-| **#11894** ★ | **Simplified settings** (13 commits, 20 files, -267 net) — Settings editing moved from L2 → L1 modal. Removed 'transition page' card (never used). Simplifies L2 save code and navbar.                   | dprophete  |
-| **#11893** ★ | **L1 rebuild+make macro** (4 commits, 25 files, +290/-173) — New macro `RebuildAndMake` invokable by plugins (e.g. Gerd's tooling plugin). Threads continuation action through async make pipeline.      | simonh1000 |
-| **#11905** ★ | **Remove Mixer.elm** (7 commits, 31 files, +161/-216) — All mixer alias types replaced by `{mixerHost:String, workspace:String}`. Removes dedicated `Mixer.elm` module; consolidation refactor.          | simonh1000 |
-| **#11910** ★ | **Event overrides apply to Elm-handled client actions** (3 commits, 12 files, +132/-90) — Host-provided client action overrides now take precedence even for actions previously decoded directly in Elm. | simonh1000 |
-| **#11907** ★ | **FocusElement & CloseApp → client actions** (8 commits, 11 files, +140/-161) — Both actions removed from hardcoded Elm path and routed through client action pipeline. Pairs with #11910.               | simonh1000 |
-| **#11899** ★ | **Flip between list and loop** (6 commits, 7 files, +2172/-73) — Binding editor: list↔loop flip now supported. Cards special-cased to bind into list container. Large diff primarily from new tests.     | dprophete  |
-
-### Fixes & minor
-
-- #11891 — Better L2 error handling (-430 net, dead code removal + renamings)
-- #11892 — EDo/EInitialize take a list (re-land after Apr 2 revert)
-- #11898 — Fixed webcomp font issues
-- #11901+#11902+#11903 — File node tests + bugfix
-- #11904 — Clean up runtime code (refactor) | #11906 — Remove passthrough RuntimeAction
-- #11908 — Model `SwitchApp_` | #11913 — Fix compile error
-- #11653 — Lodash security bump (dependabot, `builder/rmx-files`)
-
-## Recent PRs — Apr 13–17, 2026 (26 merged)
+## Recent PRs — Apr 18–25, 2026 (21 merged)
 
 ★ High-signal marked.
 
-| PR           | Summary                                                                                                                                                                                                                                                                   | Author     |
-|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
-| **#11928** ★ | **Invoke & eval JS via client action** (15 commits, 10 files, +141/-20) — 2 new client actions: `invoke function` + `eval code`. Enables arbitrary JS invocation from the runtime action pipeline.                                                                        | simonh1000 |
-| **#11923** ★ | **WebApp switches to TypeScript** (25 commits, 19 files, +407/-414) — Merges `rmx-init-runtime` into `rmx-fullscreen`; applies TypeScript to old webapp code; AMP homepage uses ES6 version. Follow-ups: move helpers to TS, export typings to rcm.                       | simonh1000 |
-| **#11921** ★ | **Client-side subscribe** (11 commits, 10 files, +1572/-54) — Pub/sub subscribe now uses client action codegen; fixes hard-coded topic style. Large diff primarily tests.                                                                                                 | simonh1000 |
-| **#11915** ★ | **Merge External & Client runtime action handling** (15 commits, 12 files, +128/-146) — Unifies `PerformHostEffect` and `PerformClientAction` into a single runtime message (difference: client action requires result-like return, host effect does not). Closes #11766. | simonh1000 |
-| **#11929** ★ | **CreateFromExternal macro: Webcomp + Wasm manifests** (3 commits, 4 files, +94/-29) — `CreateFromExternal` macro now accepts Webcomp and Wasm manifests in addition to catalog items.                                                                                    | simonh1000 |
-| **#11900** ★ | **File node: bindings not state for main params** (20 commits, 18 files, +809/-382) — File node `db` and `path` moved from persisted state → binding default values; now editable in L2 navbar. Includes migration of old data.                                           | simonh1000 |
+| PR           | Summary                                                                                                                                                                                                                                                                                                  | Author     |
+|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| **#11677** ★ | **State nodes** (12 commits, 9 files, +165/-91) — Long-lived (Feb 4→Apr 21). State data section is clickable to select a field/path; bound values marked as such in the UI.                                                                                                                              | simonh1000 |
+| **#11938** ★ | **Client Actions in the Runtime** (24 commits, 14 files, +122/-129) — `ClientAction` runtime type gets `expectResultType` field (false for External Actions). Codegen uses `msg_perform_host_effect` for External, `msg_perform_client_action` for Client. Completes client action pipeline unification. | simonh1000 |
+| **#11965** ★ | **Desktop builder shows channel** (4 commits, 6 files, +81/-11) — Builder UI now displays its release channel, read via existing client action.                                                                                                                                                          | simonh1000 |
+| **#11955**   | **EAction takes a list of exprs** (4 commits, 13 files, +257/-275) — Action codegen always wraps in `{ }` blocks; prevents accidental codegen bugs.                                                                                                                                                      | simonh1000 |
+| **#11963**   | **Runtime error cleanup** (9 commits, 7 files, +78/-108) — Better fatal error type names; `OnInitDataForVmServer` no longer handled individually in Runtime.                                                                                                                                             | simonh1000 |
 
 ### Fixes & minor
 
-- #11945 misc improvements | #11944 rcm update fix | #11943 lodash 4.17.21→4.18.1 in builder/codegen (dependabot)
-- #11940 fix remix-dev amp.html | #11939 add rmx-file-loader | #11937 fix file upload UI update
-- #11936 L0 delete bugfix | #11935 fix preview navigation back to home screen | #11930 builder webpack changes
-- #11927 fix desktop rebuild issue | #11931 navigate code cleanup [tech debt]
-- #11925 L0 macro: create app | #11926 L1 macro fix for paste content
-- #11919 card placeholder select | #11914 remove plugin `builder_url` binding
-- #11917 disable footer menu when busy | #11916 fix L0 view issue
-- #11920 subscribe state decoding | #11911 replace rmx-runtime for .remix preview | #11922 minor changes
+- #11966 ensure content binding on local file [bug] | #11964 QB2 init handles wizard-in-use case | #11962 explicit amp runtime
+- #11961 CreateApp macro from L1 & L2 | #11960 rcm update | #11959 minor fixes | #11958 compiler error fix
+- #11956 separate out shared code | #11954 better modelling of flags for remix.app | #11953 files /public folder
+- #11948 builder emitted as ES6 | #11949 merge query params while using flags | #11947 minor fixes
+- #11952 macro codegen bugfix | #11951 restore webpack ws proxy | #11946 remove hard-coded dev file paths
