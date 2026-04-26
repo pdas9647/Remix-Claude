@@ -124,5 +124,5 @@ Notion index:
 - [standup-notes-apr-2026.md](./standup-notes-apr-2026.md) — Standup notes Apr 1–10: RCS federal credit union trial, Twilio tooling, system plugin versioning, TUI charts, Snowflake submission,
   monorepo debate, desktop DB bloat, Starlight kickoff
   near-complete, sales doubled
-- [standup-notes-apr-2026-2.md](./standup-notes-apr-2026-2.md) — Standup notes Apr 13–17: 2-layer repo model, Starlight self-host + Dscope auth, Lumber auth clarified, Snowflake paid listing +
-  Summit (Jun 1–4), RCS strategy 3-trends
+- [standup-notes-apr-2026-2.md](./standup-notes-apr-2026-2.md) — Standup notes Apr 13–24: 2-layer repo model, Starlight self-host + Dscope auth, Lumber first external user milestone, Wasi web runtime,
+  AI table config, Snowflake submission ~1 week out, pricing model design

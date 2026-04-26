@@ -1,8 +1,67 @@
 # Standup Notes — Apr 2026 (Part 2)
 
-**Coverage:** Apr 13–17, 2026
+**Coverage:** Apr 13–24, 2026
 **Format:** Condensed bullets per standup. Google Doc link on each date for on-demand full transcript fetch.
 **See also:** [standup-notes-apr-2026.md](./standup-notes-apr-2026.md) — Apr 1–10
+
+---
+
+## 2026-04-24 — [Google Doc](https://docs.google.com/document/d/1PIgVXaK1KOQ4NRAFae-hCm23xcAtMhXgi3FXwUKUB9o)
+
+- **Snowflake marketplace submission**: ~1 more week; blocked on Mixer access from Chris.
+- **Twilio submission (Julio)**: Final language tweaks; expected same day.
+- **Starlight**: Using product in ~1 week -- Remix env first, then self-hosted Mixer.
+- **USD new sales cycle**: Snowflake partner + e-commerce embeddings search.
+- **Pricing model (Vijay + John + Chris)**: "workflow users" + "server unit" (N workspaces) -- definition pending.
+- **Snowflake Summit**: Team has booth (Jun 1-4).
+- **Twilio conference (next week)**: RCS partnership exploration.
+- **Website embedded chat**: Token expiring -- Simon + Benedikt to investigate (likely OPFS-related).
+- **Lumber call (Apr 24)**: Reza + Aaron managing; direct install + report building on call.
+
+---
+
+## 2026-04-23 — [Google Doc](https://docs.google.com/document/d/1ODW0fqJv__e4l8ppagT7TSRnB5C1OnkRXmrBBddY4NM)
+
+- **Lumber search facet (Mark)**: Multicolumn text search facet nearly done.
+- **Snowflake decimal issue**: Floats stored as numbers in base tables -- Reza to fix.
+- **Starlight home app (John)**: Flow bookmarks as cloud records via RMX prefs (not local desktop); admins set defaults, users customize. Studio menu bar removal needed for non-Studio users.
+- **Plugin backend (Wilbur)**: Plugin supports arbitrary backend servers.
+- **RCS URL shortener**: Cloudflare worker + KV store; each client deploys own worker.
+- **Compiler regression**: Library components (AI card generator) failing -- possibly file node bug + missed migration.
+- **Lumber handoff call (Apr 24, 9:30)**: Oleg + Greg to build reports themselves.
+- **Twilio**: Hurdle not yet cleared.
+
+---
+
+## 2026-04-22 — [Google Doc](https://docs.google.com/document/d/1xC_e7Y6zwhePVEmLOb-vpoaP247oeHe8FuUgwSDC6MM)
+
+- **Lumber demo (Fri Apr 25)**: Oleg + Greg attending. QA: 0 blockers, 2 reports built.
+- **Search facet gap**: Mark to implement single-column keyword search before Friday.
+- **Report status**: 3 of 5 published; Job Costing deferred (needs chart process); Payroll Journal (table-only) to be built.
+- **Lumber QA channel**: Release channel mapping to be confirmed with Chris.
+
+---
+
+## 2026-04-21 — [Google Doc](https://docs.google.com/document/d/1ptbvPqD2W03bRklUmswlGfGKh6Lfh4YTNS8-5r-XDTs)
+
+*(Morning session unrecorded.)*
+
+- **AMP elimination (Simon)**: In progress.
+- **Mac desktop hotkey conflict (Tyler)**: Native edit menu vs browser shortcuts; removing native handlers breaks text inputs. Tauri/WK WebView open issue. Zed editor proposed as alternative.
+- **Chrome extension CI**: Now publishes to Web Store via Chrome Web API.
+- **AI table config (Arvind)**: Hits AI trained on 2E grid docs -- generates column structure + groupings. Tree view for group reordering next; chart equivalent to follow.
+- **Lumber deployment**: Issues with latest release cut.
+
+---
+
+## 2026-04-20 — [Google Doc](https://docs.google.com/document/d/1s4IJzDE-b7mx5DtmZjqg-w7udyjo82dgz4wwAa7P4vQ)
+
+- **Wasi in web runtime**: WebAssembly FFIs now available in web builder (was desktop-only).
+- **Query optimization (Fred Im)**: Bitmap/roaring bitmap approach for query perf PR.
+- **AST + type checker (Oliver Bandel)**: Two-stage modular pipeline: parse->AST phrase -> transform->typed phrases -> Hindley-Milner type inference.
+- **Real record type proposal**: For builder.
+- **Lumber channel decision**: India team couldn't create new apps in stale Lumber channel (fix in beta but not backported). Decision: drop separate Lumber build channel; use beta.
+- **Catalog feature proposal**: Save configured runtime components for assemblers.
 
 ---
 
