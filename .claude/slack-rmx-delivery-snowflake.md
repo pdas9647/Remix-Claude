@@ -1,6 +1,6 @@
 # #rmx-delivery-snowflake Slack Channel — Remix Labs
 
-**Coverage:** Mar 25, 2025 – Apr 18, 2026
+**Coverage:** Mar 25, 2025 – Apr 25, 2026
 **Channel ID:** C08JPJ6EES3
 **Nature:** Snowflake GTM partnership, not a customer delivery
 
@@ -80,20 +80,9 @@
     - Style 1: direct REST API calls with Snowflake token
     - Style 2: token exchange → session token for mixer service in Snowpark
 
-### Jul 24–25, 2025 — Snowflake Build Day
-
-- Submitted to Snowflake Build Day demos; Snowflake Cortex feature reference shared
-
-### Jul 30, 2025 — GTM: free widgets for Snowflake users
-
-Idea: free-forever mobile widgets; charge for actionability (flows). OAuth friction solved by native app packaging. Vijay: Cisco interest in "digital twin for every employee."
-
-### Aug 7–8, 2025 — .remix upload to SPCS; last known Snowflake call
-
-- Chris: direct .remix file upload from local builder to SPCS working (concept validated for desktop too)
-- Aug 8: bi-weekly call with Snowflake ("Remix TV show"); Reza showed Alteryx/Snowflake demo
-- Snowflake predictably asked: "is it using Cortex?" → Vijay: "tell them to enable Cortex for us for free"
-- **Channel went quiet after Aug 8, 2025 — resumed Feb 2026 with Marketplace push**
+- **Jul–25, 2025:** Snowflake Build Day demos submitted; Cortex feature reference shared.
+- **Jul 30, 2025:** GTM idea — free-forever mobile widgets, charge for actionability; OAuth friction solved by native app packaging.
+- **Aug 7–8, 2025:** .remix upload from local builder to SPCS validated; bi-weekly call (“Remix TV show”); Snowflake asked “is it using Cortex?”; **channel quiet after Aug 8 — resumed Feb 2026**.
 
 ### Feb 23–26, 2026 — Snowflake Marketplace submission push (Mukund)
 
@@ -192,3 +181,15 @@ recreation. Data access non-functional; Snowpark service still running.
 ### Apr 13, 2026 — Provider billing enabled; Stripe integration needed (Chris)
 
 Snowflake Marketplace account now enabled for **provider billing**. Before publishing a paid listing, someone must set up Stripe integration for receiving payments.
+
+## Apr 18–25, 2026 Additions
+
+**SPCS consumer env down [Apr 23, Padmanabha]:** `iqlr4z-oxfsvki-remix-spcs-demo.snowflakecomputing.app/e` returning “Service MIXER not reachable: no service hosts found” — consumer SPCS instance
+down. No resolution recorded in window.
+
+**Snowflake Marketplace review feedback [Apr 23, Mukund]:** Reviewer “So Hyun” (Snowflake) returned two **required** fixes before listing approval:
+
+1. **Install failure:** `REMIX_DXP.CORE.MIXER does not exist` in VERSION_SETUP phase — dependency ordering bug in setup_script.sql. Must test install from a **separate consumer account** (not provider
+   account).
+2. **In-product README required:** Must be readable inside Snowflake (not just on Notion). Must include: product description, config steps, stored procedures/UDFs, required privileges, example SQL
+   commands.

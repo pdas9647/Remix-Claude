@@ -1,6 +1,6 @@
 # #rmx-delivery-lumber Slack Channel — Remix Labs
 
-**Coverage:** Oct 9, 2025 – Apr 18, 2026
+**Coverage:** Oct 9, 2025 – Apr 25, 2026
 **Channel ID:** C09KL3K7P0D
 
 ---
@@ -37,35 +37,19 @@ Report builder for Lumber teams to configure/present tabular reports over Snowfl
 
 ### Timeline
 
-**Feb 6:** First demo to Lumber. **Bug caught mid-demo:** table showing STATIC copied data, not live Snowflake data. Fix: base catalog component must always use LIVE querying.
-
-**Feb 11:** 90-min session with Lumber engineers. **Risk:** Lumber building their own ETL/calculation layer (Java+SQL); may question need for Snowflake+Remix. Schema: payroll 38 tables, unions 19,
-prevailing wages 15, company config 40, compensation 39.
+**Feb 11:** 90-min session with Lumber engineers. Schema: payroll 38 tables, unions 19, prevailing wages 15, company config 40, compensation 39.
 
 **Feb 18:** Integration UX finalized. One `.remix` per report. Single new Lumber sidebar item → dashboard of available reports → two-panel view. White-label, no Remix branding. Integration spec sent
 to Lumber engineers.
 
-### Feb 24-28: Desktop + Facets + Crunch
+### Feb 24-28: Facets + Table Architecture
 
-**Desktop install [Feb 24-25]:** Fresh install 410 error fixed in v0.9920. Remaining: synced apps appear in Projects not Packages (appmeta pending). **Critical:** opening catalog at L0 auto-compiles +
-corrupts exec-only app. Mar 1: Arvind checked in latest lumber home/catalog/reports to `iaEj4QYboi` repositories.
+**Facet pipeline (Mark):** `snowflake data source setter` → `snowflake facet builder` (per-column TEXT+DATE) → `snowflake facet → CTE query generator` (conditions accumulated; applied only when set).
+**Table component (Arvind):** self-contained SQL-configured; CTE orchestrator wraps with filtered SQL when facets active.
 
-**Facet components [Feb 25-26] (Mark):**
-
-1. `snowflake data source setter` — select table
-2. `snowflake facet builder` — per-column facets (TEXT + DATE)
-3. Copy facet component into screen
-4. `snowflake facet → CTE query generator` — accumulates facets into SQL (conditions only applied when set)
-5. Execute against Snowflake
-
-**Table component [Feb 26] (Arvind):** Self-contained, configured by SQL statement string. CTE orchestrator overrides with filtered SQL when facets selected; returns default query before any
-selection. Forward pattern: each paste-able catalog component has CTE orchestrator built in.
-
-**Scope pushback (Vijay):** Lumber tried to add scope. Vijay told Manish "his guys were smoking something." Conditions: one owner + full scoping exercise, or no new scope. Oleg to own scoping.
+**Scope lock (Vijay):** Lumber tried to add scope; Vijay refused — one owner + full scoping exercise required. Oleg owns scoping.
 
 ### Mar 2–7: Requirements Call + Facet Pattern + Grid Descope
-
-**Integration setup (Chris, Mar 2):** Checking with Reza/India team on who provided integration setup on Lumber's side. Test HTML page approach proposed to confirm integration.
 
 **Facet config pattern decision (Arvind, Mar 4):** Facet selection driven **Data → out** (not by pre-selecting type). Selecting a field yields values + presumed type; may offer 2–3 relevant types (
 e.g., menu + pill-button if N is small). Mark building runtime configurator screen → single Catalog item replacing "Generic Facet."
@@ -76,20 +60,12 @@ remix cards in cells. TUI Grid webcomp work paused for delivery. In-house config
 **Requirements call with Oleg + Greg (Reza, Mar 5):** 3:30pm Pacific. Oleg presenting scope of first release (not a Remix demo). Attendees: Vijay, John, Arvind, Reza. Oleg to record and share video.
 Chris asked about deliverables timeline and whether to keep beta stable or revert to normal release cadence.
 
-**Apps pushed to workspace (Arvind, Mar 7):** `_rmx_home_desktop`, `catalog`, and `reports` apps all pushed to Lumber workspace. Testing bulk paste.
+### Mar 7–14: Table Perf + Grid Decisions
 
-### Mar 7–14: Table Perf + Grid Decision Reversal + Bugs
+**Grid oscillation (Mar 9–16):** In-house table sluggish (80×40) — Mar 12 reverted to TUI webcomp (perf); Mar 16 reversed back to in-house after column matrix (callables per-column not per-cell)
+brought 80×40 load to sub-2s. pub/sub retained bug fixed (turntable/pull/11810).
 
-**High priority items (Arvind, Mar 9):** Activate in-house table; download as CSV/XLSX; finalise table+facets config flow.
-
-**WIP in-house table perf (Arvind, Mar 11):** 80×40 grid sluggish in Studio/runtime. Key fixes: column-matrix (callables per-column) + flatten-transform-unflatten (~5x). pub/sub retained bug fixed (
-turntable/pull/11810).
-
-**DECISION REVERSAL — back to TUI webcomponent (Arvind, Mar 12):** After perf testing, Arvind decided to revert to TUI Grid webcomponent for Lumber delivery (perf reasons). In-house Remix primitive
-grid continues as a longer-term goal.
-
-**Lumber customer update (Vijay, Mar 12):** Manish said Lumber will be putting data into tables **this week by Friday (Mar 13)**. Also asked if reporting can be made **self-serve in the medium term
-** (lots of reports needed). Vijay + Reza + Arvind held huddle to discuss.
+**Self-serve ask (Vijay, Mar 12):** Manish: data in Snowflake tables by Fri Mar 13; asked if reporting can be self-serve medium-term (many reports needed).
 
 ### Mar 14–21: In-House Table Back On + Table/Facet Design Sprint
 
@@ -162,3 +138,24 @@ changes. Self-contained mixer auth alternative requires code changes.
 
 **Embed (Apr 16–18, Didier/Chris/Arvind):** Google Doc drafted (pending: Desktop URL, rmx-remix.js URL, .remix params). Plan: co-publish rmx-remix.js with each desktop installer. Embed needs anon
 agents — Arvind making workspace agents anon. Final integration passes Lumber portal token.
+
+### Apr 18–25: QA Sprint + Oleg/Greg Demo Prep
+
+**FLOAT → NUMBER(p,s) precision fix [Apr 20, Mark]:** Snowflake FLOAT columns return imprecise decimals (27.79 → 27.789999...). Root cause: FLOAT is approximate. Fix: (1) alter column type to NUMBER(
+p,s), or (2) view with CAST(ROUND(col, 2) AS NUMBER(12,2)). Mark created `V_WORKER_COMPENSATION_NUMS` view on `V_WORKER_COMPENSATION_NEW` as demo.
+
+**Channel switch to beta [Apr 20, Arvind]:** India team moved to beta — release v0.10557.0 blocked (Padmanabha: red toast on project creation; can’t create/import screen).
+
+**Column order UX [Apr 21, Arvind]:** AI config handles complex header grouping, but drag/sort for column order also needed. Options: (1) tree editor respecting group boundaries; (2) TUI Grid native
+drag + emit events to update config/variant. Open.
+
+**Table config + QA milestone [Apr 22, Arvind]:** Pushed AI-based table config + column reorder to catalog. Asked team: have all 4 table-only reports been built and published on lumber-qa?
+
+**Clean install test [Apr 22, Arvind]:** Requested full Desktop wipe + reinstall from scratch (as Lumber user would) + report build, then report back.
+
+**DATA FETCH reload bug [Apr 23, Padmanabha]:** Right-click → Reload on DATA FETCH AND QUERIES screen errors: `RmxBase.attemptInit Missing: screenName`. cc: Vijay.
+
+**Oleg/Greg demo + handoff target [Apr 23–24, Arvind]:** 9:30am PAC call Apr 24 demoing current state-of-the-art. Target: handoff call with Lumber tech team Mon Apr 27; delivery must reach lumber-qa
+beforehand. Raised: channel switcher needed for Lumber users?
+
+**Pagination bug in query_builder [Apr 24, Arvind]:** Pager visible with 12-row SQL result; clicking pages does nothing. Not blocking delivery.

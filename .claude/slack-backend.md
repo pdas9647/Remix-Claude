@@ -1,6 +1,6 @@
 # #backend Slack Channel — Remix Labs
 
-**Coverage:** Jan 2 – Apr 18, 2026
+**Coverage:** Jan 2 – Apr 25, 2026
 **Channel ID:** CHTGC5BGQ
 **Purpose:** server, compiler, and database stuff
 
@@ -9,11 +9,6 @@
 ---
 
 ## Key Decisions & Technical Discussions
-
-### Blob URL support in HTTP FFI [Jan 2-6]
-
-Web components returning `blob:` URLs failed in API Connect. Decision: new `binary.fromBlobURL` — separate from `http` module. HTTP FFI dispatch: `$http_do_server` (mixcore), `$http_do_client` (JS
-fetch), `$http_do` (auto-dispatch). Ticket: mix-rs/issues/928.
 
 ### DB save FFI overhaul [Jan 13-28, 89 replies]
 
@@ -25,15 +20,6 @@ FFIs: `$db_save_ar`, `$db_upsert_ar`. Old FFIs preserved for backward compat. No
 `mixrt.wasm` downloaded every page load (~8s for two loads per L2 open). Root cause: nginx gzip converts strong ETag to weak → no 304. Fix: upload pre-compressed with `gsutil cp -Z` → strong ETag
 preserved. PR: turntable/pull/11660. Also: mix-rs/issues/962 (mixer Cache-Control), mix-rs/issues/963.
 
-### Build server SSE + string.contains_ci [Jan 30]
-
-Build server now supports SSE notifications for progress (60s timeout no longer applies). New `string.contains_ci` for case-insensitive search.
-
-### parseQueryString multi-clause [Feb 3]
-
-Piped queries failed ("not exactly one clause"). Fix: protoquery/pull/2259 (Gerd, 2hr turnaround). REPL connect command:
-`mix_client -local-vm -env 'remoteDatabaseServer="http://localhost:2025/v1/ws/local/app"' -env 'token="$TOKEN"' -app queries`.
-
 ### QB 2.0 field discovery [Feb 3-13, 31 replies]
 
 Simon needs field metadata for query tile UI (which fields are refs). Fred added type inference from index tokens — `"type": "ref"` when token conforms to ref format. Heuristic-based (tokens don't
@@ -42,10 +28,6 @@ store types natively). Simon confirmed working Feb 13.
 ### Delete FFI backward compat break [Feb 10-11, 27 replies]
 
 `db.delete` changed to return case value → broke tests + auto-update. **Lesson:** never change existing FFI signatures; add new ones (`delete_ar`). Fix: mix-rs/pull/992.
-
-### Mixer v0 API prefix [Feb 12]
-
-Simon merged builder PR using `/v0` before agt deployment → prefs errors. Chris deployed same day; resolved.
 
 ### Non-ES256 JWT [Feb 17]
 
@@ -58,10 +40,6 @@ mix-rs/pull/1001 (Chris): supports RS256 etc. Lumber's Descope tokens now work w
 ### File upload PUT semantics [Feb 18]
 
 `file.register` returns R2 presigned URL; PUT overwrites by default (S3/R2 standard). Use `If-None-Match: *` to prevent overwrite. Not changeable server-side.
-
-### Builder compile loop [Feb 19]
-
-Amp build returns 200 but no `_rmx-type==file` records → builder retries forever. Chris: amp-only, not worth fixing (moving away from amp); Simon must add builder-side check. amp/issues/2655.
 
 ---
 
@@ -131,6 +109,8 @@ can set — `get-prefs` agent returns value to any caller, but regular users can
 | Feb 27 | amp/pull/2790        | FFI coverage for compress/decompress | Gerd     |
 | Feb 28 | mix-rs/pull/1026     | ARM64 Linux mixer build              | Chris    |
 | Mar 6  | mix-rs/pull/1050     | Fix truncated log messages           | Benedikt |
+| Apr 18 | mix-rs/pull/1086     | Mixcore JS bindings consolidation    | Benedikt |
+| Apr 24 | mix-rs/pull/1100     | Blank query deleted records fix      | Fred     |
 
 ---
 
@@ -180,3 +160,13 @@ end users can't replicate. Gerd: use an agent.
 
 **Flexible query projection [Apr 17, Fred]:** mix-rs#958 (draft): queries can now project arbitrary values beyond records. New: bitmap serialization return type — collect a predicate's bitmap, reuse
 in a later query. Names under review.
+
+## Apr 18–25, 2026 Additions
+
+**Mixcore JS bindings consolidation [Apr 18, Benedikt]:** 5 coordinated PRs: mix-rs/1086, groovebox/481, turntable/11897, flutter-runtime/442, remix.app/213.
+
+**`db_get_a` missing from mixcore [Apr 23, Gerd/Fred]:** `db.getArray` not in mixcore. Workaround: iterate `db.get_one` per ID — slightly more efficient than query (skips AST/bitmap overhead); nulls
+for missing IDs need post-processing. No FFI needed.
+
+**Blank query returns deleted records [Apr 23–24, Gerd/Fred]:** mix-rs/998 broke protoquery tests — blank query fallback to all-bitmap wasn't using pre-filtered all (returned deleted records when DB
+shared across tests). Fix: mix-rs/1100 (Fred, Apr 24).

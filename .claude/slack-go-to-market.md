@@ -1,6 +1,6 @@
 # #go-to-market Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Apr 18, 2026 (+ earlier GTM context; channel is very low-traffic)
+**Coverage:** Dec 20, 2025 – Apr 25, 2026 (+ earlier GTM context; channel is very low-traffic)
 **Channel ID:** C7HGRVDL3
 **Purpose:** GTM updates/status; target application & process scenarios, incl. for demo workflows
 
@@ -201,3 +201,10 @@ product binaries would yield a more complete result.
 
 **Longer-term vision:** Invest in content + design Claude skills that instruct it to embed live Remix runtime portions (webcomps) in the generated pages — could become a rapid content engine for
 first-pass product pages.
+
+## Apr 18–25 Additions
+
+**RCS gaining ground in Europe [Apr 18, Simon]:** Simon noted that while "Europe was all about WhatsApp," he received a push notification from his bank via RCS — a concrete data point that RCS is
+penetrating even in WhatsApp-dominant markets.
+
+**Google RCS deck shared [Apr 21, Mukund]:** Mukund shared the deck presented to the Google RCS team the previous week (file attachment). No further discussion recorded.

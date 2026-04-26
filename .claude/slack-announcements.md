@@ -1,25 +1,12 @@
 # #announcements Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Apr 18, 2026
+**Coverage:** Dec 20, 2025 – Apr 25, 2026
 **Channel ID:** CK8S97CUV
 **Purpose:** Important info everyone should read; also used for cross-team huddle coordination
 
 ---
 
 ## Key Events
-
-### Jan 7, 2026 — WebAuthn / Passkey design for Funda
-
-- Vijay, Chris, Gerd, John discussed passkey (WebAuthn) auth design for Funda
-- **Gerd's design**: A passkey agent handles all checks; it fetches a platform token from `auth.remixlabs.com` using a securely stored private key; the auth DB stores a `pubkey` record with userId +
-  claims that passkeys map to
-
-### Jan 13–16, 2026 — Salesforce demo
-
-- Team prepped retail + hospitality chat demos for a Salesforce meeting
-- Scenarios: shopping cart assistance, store finder with appointment booking, product FAQs, Airbnb-style nearby amenities & operating instructions
-- Demo workspace: https://remix.remixlabs.com/e/edit/service_desk/chat_corner
-- Demo went well; Salesforce team was impressed
 
 ### Jan 20–22, 2026 — Desktop readiness status check
 
@@ -214,3 +201,10 @@ codegen changes needed). Fred implementing: mix-rs#998 (9s→2.5s, approved Apr 
 - **Apr 14** — Desktop handoff (Reza + Didier; Arvind unavailable)
 - **Apr 16** — Lumber sync (Arvind/Reza/Vijay/Didier/Chris/Mark); Lumber auth in scope
 - **Apr 17** — Lumber call (Didier/team); Chris referenced mix-rs/issues/982 (auth token info)
+
+### Apr 24, 2026 — MILESTONE: First external Remix Desktop user
+
+- **Reza**: Oleg/Greg from Lumber (first known non-Remix person) installed Remix Desktop, created a project, built a report, and published it — guided by Arvind
+- **Greg's feedback**: column header sort needed (cc: Tyler, Mark); brand theming for TUI tables/charts
+- **Two bugs observed**: binding cards into layout; TUI grid vanishing — rare, recoverable by closing/reopening
+- **Mukund**: "Getting them to drive from DT Studio was the right move"

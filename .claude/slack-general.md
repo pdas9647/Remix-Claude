@@ -1,6 +1,6 @@
 # #general Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Apr 18, 2026
+**Coverage:** Dec 20, 2025 – Apr 25, 2026
 **Channel ID:** C02BD0B8B
 
 ---
@@ -52,18 +52,10 @@ Daily standups Mon–Fri via https://meet.google.com/hrz-onty-twp
 - Repository Tool available: https://remix-dev.remixlabs.com/e/edit/Repository
 - Discussion: need a "publish read-only builder view" feature — not yet built; current read-only DB access not exposed in builder
 
-### Jan 22, 2026 — Debug tip
-
-- Gerd: Shared screenshot of how to enable "track messages" in JS log (requires setting in desktop app)
-
 ### Jan 23, 2026 — Chat + digital experiences demo
 
 - Mukund: Demo recording: https://drive.google.com/file/d/14rMkRdtZL3OnBgL65kHSVRvminyxlICP/view
 - Chris: Added entire team to standup calendar event → Gemini notes + recordings now auto-shared with team
-
-### Jan 25–26, 2026 — India holiday
-
-- India team out Jan 26 for Republic Day
 
 ### Jan 29, 2026 — Action item: _rmx_auth rollout
 
@@ -209,3 +201,8 @@ Daily standups Mon–Fri via https://meet.google.com/hrz-onty-twp
 - **Arvind** (Apr 14): Lumber delivery in progress — reworking column selection with **column ordering**; AI-based table/chart config returning TUI comp configs → will integrate into table & chart
   config tools; delivery call (builder walkthrough) with Lumber team scheduled
 - **Chris** (Apr 18): OOO spring break week in western Massachusetts; reachable if @-mentioned for urgent issues
+
+### Apr 20–21, 2026 — Didier OOO; Gerd repo bugfixes; Wilber multi-server
+
+- **Gerd**: Repository plugins updated — bugfixes for pulling in changes; tests added; red flashing nodes should no longer appear
+- **Wilber**: Workspace plugin updated — now supports multiple agent servers instead of hardcoded list; issue found Apr 23 by Arvind

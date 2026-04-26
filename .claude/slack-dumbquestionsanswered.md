@@ -1,6 +1,6 @@
 # #dumbquestionsanswered Slack Channel — Remix Labs
 
-**Coverage:** Feb 16 – Apr 18, 2026
+**Coverage:** Feb 16 – Apr 25, 2026
 **Channel ID:** C86KWF7MG
 **Purpose:** "the dumbness of the programmer has no limits" — quick Q&A, platform clarifications
 
@@ -205,3 +205,14 @@ A: Object shapes aren't declared. Extract comp's absorbed default config. Groups
 
 **Answer:** `libmixcore.a` (~63MB, 80% LLVM bitcode) is the Mix language core; `libmixrun.a` (~18MB) is the Groovebox runtime. Both produced by mix-rs CI. Ask Chris or Benedikt for arm64 artifacts
 from a recent CI build.
+
+## Apr 18–25 Additions
+
+**`env.channel` values [Apr 21, Simon]:** `env.channel` returns the release channel: `dev`, `test`, or `public`. Notion doc:
+notion.so/Identifiers-org-workspace-channel-29d1d464528f80cf92ace1c0cdd3f094
+
+**Auth into own web app [Apr 22, Vijay]:** How to authenticate users in a self-hosted web app. No answer recorded in channel.
+
+**Plugins not showing [Apr 22, Benedikt]:** Only one plugin visible in lumber/WS workspaces. Thread with screenshot. Open.
+
+**`remixlabs.com/run.html` outdated [Apr 24, Simon]:** Legacy URL broken. Correct URL for running DnD .remix files: `remix.app/run`.

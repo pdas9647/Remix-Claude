@@ -1,6 +1,6 @@
 # #desktop Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Apr 18, 2026
+**Coverage:** Dec 20, 2025 – Apr 25, 2026
 **Channel ID:** C04T4HW06CC
 **Bug tracker:** https://github.com/remixlabs/mix-rs/issues/937
 
@@ -125,24 +125,13 @@ didn't. Workaround: hidden unfreeze button in edit menu debug panel (Arvind).
 - Browser-vs-native debate resurfaces frequently; Tauri limitations recurring friction
 - Windows support manual/secondary (no auto-update)
 
-## Mar 14–21: OPFS Regressions + Update Freeze
+## Mar 14–21: OPFS Regressions (resolved Mar 23)
 
-**OPFS regression: sign-in logo missing in Tauri [Mar 18, Benedikt → Didier]:** OPFS changes broke rendering of embedded blob images — the sign-in screen logo disappeared in Tauri (works fine in
-browser). Fix: mix-rs#1065. Test flow: https://remix.app/remix/signin?surface=desktop. Rolled out via `bb-opfs-file-url` channel.
+**OPFS regressions [Mar 18–21, Benedikt]:** Two bugs: (1) sign-in logo missing in Tauri — embedded blob images broken (fix: mix-rs#1065); (2) system plugins crash “Name is invalid” — .remix URL
+slashes not URL-encoded in OPFS path (fix: turntable#11824). Hold issued Mar 19 (build 10464 safe); lifted Mar 23 with v0.10644.
 
-**OPFS regression: Desktop plugins broken — "Name is invalid" [Mar 18, Gerd → Benedikt]:** After updating to v0.10502.0, opening any system plugin crashes with
-`TypeError: Failed to execute 'getDirectoryHandle': Name is not allowed`. Root cause: .remix file URL used as an OPFS path component without URL-component-encoding (slashes not escaped). Repro on ws
-`6xX25jCW6I`. Fix: turntable#11824. Both fixes bundled in post-OPFS summary (Mar 19): turntable#11824 + mix-rs#1065.
-
-**⚠️ DO NOT UPDATE past build 10464 (as of Mar 19–21) [Benedikt]:** Benedikt issued a hold — "everything infected" by the wasm dep clash bug (rcm transitive dependency clash, see #bugbash).
-Revert/install build 10464: `http://agt.files.remix.app/remix/desktop-releases/files/10464/darwin-aarch64/Remix-dev.dmg`. Fred separately posted Windows v0.0.21 with recent fixes.
-
-**Feature request: "disable a release" in release agent [Mar 19, Arvind → Benedikt]:** Arvind proposed marking a release as disabled to prevent unsafe updates from propagating. Benedikt: could add
-this to the `desktop-releases` app (https://remix.remixlabs.com/e/edit/desktop-releases). Release JSON is served from a fixed URL per channel, created by the `new_release` agent in CI.
-
-**OPFS partial recovery: still broken as of Mar 21 [Benedikt → Gerd]:** v0.10597 restored workspace tools plugin but Gerd's repository plugins still fail — white screen of death, Rust fetch blocks
-indefinitely. Benedikt reverted recommendation back to build 10464. Root cause: Gerd's plugins vs workspace tools behave differently despite both being .remix v2.0; Rust-side blocking fetch under
-investigation.
+**Feature request: “disable a release” in release agent [Mar 19, Arvind → Benedikt]:** Mark a release disabled to block unsafe updates. Could add to `desktop-releases` app (release JSON served from
+fixed URL per channel, created by `new_release` agent in CI). Open.
 
 ## Mar 23–Apr 3: OPFS Recovery + Export FFI
 
@@ -168,3 +157,24 @@ Known upstream Tauri limitation. Unresolved.
 **Function tile library tab empty [Apr 16, Sirshendu → Simon]:** Library tab in function tile editor shows no items. Repro confirmed. Open.
 
 **Workspace tools: arbitrary backend servers [Apr 17, Arvind]:** remix-issues#166 — workspace tools should support arbitrary backend servers, not just localhost. Needed for self-hosted deployments.
+
+## Apr 18–25 Additions
+
+**Login page scrollable / Lumber build channel [Apr 20, Padmanabha/Arvind/Chris]:** v0.10557.0 login page vertically scrollable; workspace field off-screen on mobile (SE2). Didier: debug experiment,
+fixed. Lumber Desktop build: **lumber-qa** channel. Padmanabha couldn’t sign in to lumber-qa — Arvind: try **beta channel** as working deliverable.
+
+**New project creation error [Apr 20, Padmanabha]:** Error immediately after creating new project. Open.
+
+**Release channel install error [Apr 20, Arka]:** Error after clean uninstall + reinstall of release channel. Open.
+
+**Desktop can’t switch channel [Apr 21, Padmanabha]:** No channel-switch UI in Desktop. Open.
+
+**Windows build for lumber-qa [Apr 22, Sirshendu]:** Request for Windows release on lumber-qa channel. Open.
+
+**Sync overwrite corrupts binding [Apr 22, Padmanabha]:** “Sync nodes overwriting local changes” makes card out-binding invalid (lumber-qa, Generate CSV). Inconsistent repro. Open.
+
+**Navbar: wrong open window count [Apr 23, Simon]:** Desktop navbar shows fewer windows than actually open. Open.
+
+**`_rmx_tailwind` styles missing in Desktop [Apr 23, Padmanabha]:** Theme not rendering in remix-desktop. Open.
+
+**Desktop fails to start offline [Apr 25, Simon]:** Offline — DB rejects all requests during app sync, blocking Desktop and dev-environment builder. Open.

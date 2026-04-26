@@ -1,6 +1,6 @@
 # #builder-runtime Slack Channel — Remix Labs
 
-**Coverage:** Dec 31, 2025 – Apr 18, 2026
+**Coverage:** Dec 31, 2025 – Apr 25, 2026
 **Channel ID:** C58HC9EC8
 **Topic:** Builder, remix.app, WebApp
 
@@ -9,12 +9,6 @@
 ---
 
 ## Key Decisions & Discussions
-
-**Artifact URL for mixer-backed builder [Dec 31]:** `https://sh-builder.remix-app-2j0.pages.dev/e/artifact?_rmx_host=https://agt-dev.remixlabs.com&_rmx_ws=simon&_rmx_asset=...`
-
-**Service agent build fix + mqtt SetLocal removal [Jan 5]:** Fixed desktop rebuild for service agents; removed unused `mqtt SetLocal` from runtime. turntable/pull/11625.
-
-**Branch picker doesn't work with mixer [Jan 9]:** Branch URL drops path when `_rmx_host`/`_rmx_ws` params present. Branch picker is amp-only; no mixer equivalent planned.
 
 **Amp feature cleanup [Jan 16]:** Didier removed InMem DB (replaced by app state tile) and session mirroring (unused). No objections. Debug channel: stdlib debug port for remote-controlling apps via
 pub/sub; works in browser/desktop, not service agents.
@@ -28,10 +22,6 @@ pub/sub; works in browser/desktop, not service agents.
 URL→download+insert, scenegraph→card. Missing: HTML→card (html2card).
 
 **Workspace plugin: cloud export [Jan 24]:** Wilber added cloud workspace export. Issue: export silently fails with "register" for debug objects; works with "omit".
-
-**appName vs dbName confusion [Jan 26]:** Dual naming causes confusion; backend prefers appName, frontend uses dbName. John proposed optional display name only; ongoing.
-
-**DragGroup decoder removal [Feb 6]:** turntable/pull/11692. Old cards using DragGroup no longer decode.
 
 **L0 plugins [Feb 12]:** turntable/pull/11708. Repository apps can be added to L0 dashboard. Button merged but hidden (no plugins registered yet).
 
@@ -161,3 +151,11 @@ playwright (`test:playwright`) uses Amp; Mixer switch blocked on mix-rs#1075. CI
 
 Simon proposed adding `file.get` from remote mixer to the File node. Gerd: `file-manager` requires workspace admin privilege — end users won't have it. **Decision: don't add; define an agent instead.
 **
+
+## Apr 18–25, 2026 Additions
+
+**Auth flow lands on DnD screen [Apr 24, Simon]:** After completing auth on dev.remix.app, the DnD screen is shown instead of the target app. Simon investigating — possibly a token/state mismatch in
+the auth redirect.
+
+**Group-by query: projection + z-index [Apr 24, John]:** (1) Projecting field values from group-by query tile no longer works — was previously possible; Simon tagged. (2) Z-index rendering issue when
+displaying group-by results (screenshot shared).

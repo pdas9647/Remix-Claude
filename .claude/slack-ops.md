@@ -1,6 +1,6 @@
 # #ops Slack Channel — Remix Labs
 
-**Coverage:** Feb 1 – Apr 18, 2026
+**Coverage:** Feb 1 – Apr 25, 2026
 **Channel ID:** C07P57B89
 **Purpose:** Weekly production release promotion workflow (beta → production)
 
@@ -69,3 +69,19 @@ mix-rs/issues/1043 — sync failure should not be fatal.
 |------------------|--------|------------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | harmony/pull/371 | Apr 14 | Apr 16     | 2788        | Superseded harmony/pull/370 — added turntable/pull/11920 to beta before promoting. Kicked off beta→release Apr 16; dev held (builder issues on dev). Mobile beta 2788 pushed as Lumber-targeted build. |
 | harmony/pull/372 | Apr 17 | (pending)  | —           | Posted for next week. Team asked to comment if blocking issues.                                                                                                                                        |
+
+## Apr 18–25: Stdlib ID Mismatch Blocks TT Deploys
+
+**[Apr 22, Simon/Gerd]** Simon's latest TT merge to main triggered a CI failure:
+
+```
+Stdlib ID mismatch: protoquery = turntable — stopping build here
+```
+
+This blocked **both** Desktop deploy and remix.app deploy (remix.app promotion waits for Desktop to complete first). Result: nothing deployed that day. Simon requested decoupling remix.app from
+Desktop's stdlib ID check.
+
+**Gerd's response:** Not easily fixable in the current CI setup. Root fix: turntable should not need to know the stdlib ID at all — simplify the dependency graph. (See also:
+`turntable stdLibId coupling` in engineering process notes.)
+
+**Simon's follow-up:** No per-PR CI failure notifications available — would like notifications for own PR failures on main without noise from all other branches/PRs. Not implemented.

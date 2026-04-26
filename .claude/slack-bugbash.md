@@ -1,6 +1,6 @@
 # #bugbash Slack Channel — Remix Labs
 
-**Coverage:** Jan 20 – Apr 18, 2026
+**Coverage:** Jan 20 – Apr 25, 2026
 **Channel ID:** C862WHQMS
 **Bug reporting guide:** https://www.notion.so/Bug-reporting-3061d464528f80cdacf7eed2612bad07
 
@@ -37,21 +37,9 @@ Styles module on remix-dev throws Constants rebuild error; no "make" button at L
 
 Too many styles → stack overflow at compile time. Workaround: compile on amp, or remove `[app_versions]` from config.toml and restart. Gerd fixing; full fix not imminent.
 
-### Large action tile input overflows CSS (Gerd, Feb 25) 🟡
-
-Large bound input overflows; EDIT button unreachable. Repro: `remix-dev.remixlabs.com/e/edit/overflow/home`. No fix.
-
 ### Propagation results not shown on first invoke (Gerd, Feb 25) 🟡
 
 Results exist in messages but not displayed until second invocation. Intermittent. Filed: protoquery/issues/2279.
-
-### Monaco exceptions on mouse click in Mix editor (Gerd, Feb 26) 🟡
-
-JS exceptions on every click in Mix code editor when running desktop from browser. Environment-specific (local machines only).
-
-### File browser / D&D broken in Firefox (Sirshendu, Feb 26) 🟡
-
-Browse Files and drag-and-drop fail in Firefox; works in Chrome. Inconsistent repro.
 
 ### Deploy rmx-sync/prefs/search to customer workspaces (Didier, Feb 28) 🟡
 
@@ -61,37 +49,9 @@ Latest `rmx-sync` on prod fixes dedup. Need to deploy to every customer workspac
 
 `form_urlencoded` decodes space then re-encodes as `+`. Fix: mix-rs/pull/1003 (Benedikt), Simon reviewing.
 
-### Sign-in fails first attempt in container app (Wilber, Feb 19) 🟡
-
-Works on second attempt. amp/issues/2789; Chris investigating.
-
 ### Deleted agent still in first deployment (Wilber, Jan 21) 🟡
 
 Compiled binaries not removed when agent deleted in builder. Workaround: manually delete `/code/<agent>.*` before deploying.
-
-### rmx-tui-grid doesn't re-render after async data (Padmanabha, Jan 20) 🟡
-
-Grid stays empty until connectors reconnected. Race condition suspected. Workaround: add Set Value node before grid. Tyler investigating.
-
-### System/bootstrap modules deletable (Arvind, Feb 17) 🟡
-
-turntable/issues/11725 — should not be deletable.
-
-### Option key loses focus during L2 node rename (Padmanabha, Jan 29) 🟡
-
-Pressing ⌥ while renaming loses focus + error toasts. Unanswered.
-
-### Desktop memory consumption (Wilber, Jan 28) 🟡
-
-Two windows = 4+ GB; compiler runs once per window (~600MB baseline). No active fix planned.
-
-### Settings module rebuild shows anomalous dialog on amp (Arvind, Feb 20) 🟡
-
-Unexpected OS-style dialog when rebuilding Settings after editing Symbols. Simon investigating.
-
-### Orderly: GCS carousel install skips Recents (Arvind, Feb 20) 🟡
-
-Direct GCS install doesn't land in Recents.
 
 ### Cloud subscribe not updating in Studio L2 (Arvind, Mar 9, 60 replies) 🔴
 
@@ -226,3 +186,29 @@ Builder ends at wrong level after drilling in/out. Didier added footer safety co
 
 Dragging a `.remix` app requiring auth into Desktop then running in anon mode returns an error. Repro: create+export any prod app, drag into Desktop, run in anon mode. Simon couldn't repro using an
 anon-allowed app. **Unresolved.**
+
+## Apr 18–25, 2026 New Open Bugs
+
+### http.get timeout param crashes mixrt (Gerd, Apr 23) 🔴
+
+`http.get(..., timeout: 50)` panics mixrt with "invalid type: number, expected null or option variant some" deserialization error. **New regression; unresolved.**
+
+### Workspace tooling inaccessible on desktop dev (Arvind, Apr 23) 🔴
+
+Query returns "Database cloud_workspace does not exist" — all workspace tooling dead on desktop dev. Showstopper. cc: Benedikt, Fred. **Unresolved.**
+
+### Styling broken on remix.remixlabs.com/remix_app/home (Simon, Apr 24) 🟡
+
+Production home URL has broken styles. Screenshot shared with Arvind + Mark. **Unresolved.**
+
+### Token corrupted on remixlabs.com/experience_chat.html (Mukund, Apr 24) 🟡
+
+Token corrupted error visible on the public experience_chat page. **Unresolved.**
+
+### snowflake_snowflake_demo fails to build: item_7 not found (Padmanabha, Apr 23) 🟡
+
+`snowflake_snowflake_demo` on remix-india fails — `variable not found: item_7` across 19 modules. Was working 4–5 months ago. **Unresolved.**
+
+### Web component error in customers page (Arpita, Apr 20) 🟡
+
+Web component throwing console errors on customers page and other pages with web components. Sirshendu unable to repro. **Unresolved.**

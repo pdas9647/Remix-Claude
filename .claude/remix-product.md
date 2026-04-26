@@ -122,8 +122,19 @@ Widgets free; everything else paid. Trial on desktop only (no free cloud workspa
 
 ## Products and Milestones
 
-> Source: [Products and Milestones](https://www.notion.so/32c1d464528f809c9c5ed929c8709ecd)
+> Sources: [Products and Milestones (original)](https://www.notion.so/32c1d464528f808085dcdf6827b2701e), [Products and Milestones (discussion)](https://www.notion.so/32c1d464528f809c9c5ed929c8709ecd)
 > Related: [engineering-ci.md](./engineering-ci.md) — Release Cadence & Branch Strategy
+
+### Core Products
+
+Five core products currently shipping:
+
+1. **Remix Desktop** (Studio)
+2. **Remix Copilot** (Chrome extension)
+3. **Remix Server** (self-host Mixer)
+    - Includes: Remix Server for Snowflake SPCS
+4. **Remix Web app** (deployed at remix.app, no official name)
+5. **Remix Mobile** (iOS and Android container apps)
 
 ### Policy: One Global Milestone at a Time
 
