@@ -126,3 +126,6 @@ Notion index:
   near-complete, sales doubled
 - [standup-notes-apr-2026-2.md](./standup-notes-apr-2026-2.md) — Standup notes Apr 13–24: 2-layer repo model, Starlight self-host + Dscope auth, Lumber first external user milestone, Wasi web runtime,
   AI table config, Snowflake submission ~1 week out, pricing model design
+- [standup-notes-apr-2026-3.md](./standup-notes-apr-2026-3.md) — Standup notes Apr 27–30: Parquet backend strategic shift, repo consolidation (4-repo 2-level), Vibecode front-end composition layer,
+  custom table primitives decision, Snowflake listing rejected (permission grants)
+- [standup-notes-may-2026.md](./standup-notes-may-2026.md) — Standup notes May 1+: Snowflake Summit prep (Jun 1–4), homegrown tooling decision, dashboard + chat client demos, GTM partner strategy
