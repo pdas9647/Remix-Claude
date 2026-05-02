@@ -152,8 +152,6 @@ DOM.
 ★ Key: #46 new `rmx-tooltip` (shipped Mar 11); #52 method args support (companion to turntable#11789); #54 tui-grid test page + JSX types; #55 tui-grid `afterSort`/`afterUnsort` events (manifest
 v1→v2); #51 chart sizing fix; #50 tui deps/formatting.
 
-## Recent PRs — Apr 5–9, 2026 (2 merged)
-
 | PR  | Summary                                                                                                                                                                            | Author |
 |-----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
 | #56 | **`rmx-tui-grid`/`rmx-tui-chart` height/width fix** (+266/-47, 6 files) — height/width styles now applied to container elements; `auto` handling fixed for chart; test page added. | tlentz |

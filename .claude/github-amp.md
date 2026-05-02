@@ -76,9 +76,14 @@ via `rmxcodec` binary format.
 - Solo mode: desktop serves builder (`/e/`), runtime (`/r/`), groovebox (`/g/`) static files
 - Dependencies: `eleventwo` (DB), `elaws` (AWS), `siwago` (Apple Sign In), forked `hmq`/`gosnowflake`
 
-## Recent PRs — 2026-03-22
+## Recent PRs — Apr 26 – May 2, 2026
 
-> Last scanned: 2026-03-22. No new merged PRs since Mar 15, 2026.
+| PR        | Date   | What                                                                                                                                                                                                      | Who           |
+|-----------|--------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| **#2792** | May 2  | **accept sign-ins with no unique ID from provider** — removes `ProviderId == ""` guard from `IdentityFromRecord`; OAuth/OIDC sign-ins no longer rejected when provider doesn't return a unique subject ID | cvermilion    |
+| **#2791** | Apr 27 | **rcm** — component lock bump: groovebox 3342→3402, protoquery 8126→8216, protoquery-wasm 8126→8216, mixrun 11004→11215                                                                                   | gerdstolpmann |
+
+## Prior PRs (through Mar 22, 2026)
 
 | PR    | Date   | What                                                                     | Who   |
 |-------|--------|--------------------------------------------------------------------------|-------|
