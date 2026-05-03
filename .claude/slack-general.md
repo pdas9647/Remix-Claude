@@ -1,6 +1,6 @@
 # #general Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Apr 25, 2026
+**Coverage:** Dec 20, 2025 – May 2, 2026
 **Channel ID:** C02BD0B8B
 
 ---
@@ -138,17 +138,11 @@ Daily standups Mon–Fri via https://meet.google.com/hrz-onty-twp
 - Chris posted a Notion doc summarizing the engineering meeting's product strategy: https://www.notion.so/Product-strategy-for-2026-31b1d464528f8099b350ffccbd9892ec
 - Will be kept up-to-date as strategy evolves
 
-### Mar 9, 2026 — DST shift
-
-- Chris: US went on daylight savings/summer time — standup now at **15:45 UTC**
 
 ### Mar 12, 2026 — "Remixperiences" coined
 
 - Arvind coined "Remixperiences" — portmanteau for AI-dispatched Remix experiences across channels (RCS, chat, landing pages)
 
-### Mar 13, 2026 — Simon reduced availability
-
-- Simon will miss standup; mostly out next week but will check messages, fix bugs, and make progress on existing projects
 
 ---
 
@@ -206,3 +200,10 @@ Daily standups Mon–Fri via https://meet.google.com/hrz-onty-twp
 
 - **Gerd**: Repository plugins updated — bugfixes for pulling in changes; tests added; red flashing nodes should no longer appear
 - **Wilber**: Workspace plugin updated — now supports multiple agent servers instead of hardcoded list; issue found Apr 23 by Arvind
+
+### Apr 27–May 2, 2026 Additions
+
+- **Apr 30**: India team (Padmanabha) out May 1 — Buddha Purnima holiday
+- **May 1**: Gerd out — German public holiday (May Day)
+- **May 1**: Vijay shared `builder_to_wasm` repo: https://github.com/remixlabs/builder_to_wasm — compilation prototype demonstrated at standup (Vibecode/builder→Wasm direction); Chris: “it would be
+  inconsistent with long-standing practice to use a good name”

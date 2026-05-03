@@ -1,6 +1,6 @@
 # #rmx-delivery-lumber Slack Channel — Remix Labs
 
-**Coverage:** Oct 9, 2025 – Apr 25, 2026
+**Coverage:** Oct 9, 2025 – May 2, 2026
 **Channel ID:** C09KL3K7P0D
 
 ---
@@ -42,30 +42,18 @@ Report builder for Lumber teams to configure/present tabular reports over Snowfl
 **Feb 18:** Integration UX finalized. One `.remix` per report. Single new Lumber sidebar item → dashboard of available reports → two-panel view. White-label, no Remix branding. Integration spec sent
 to Lumber engineers.
 
-### Feb 24-28: Facets + Table Architecture
+### Feb 24–28: Facets + Table Architecture
 
-**Facet pipeline (Mark):** `snowflake data source setter` → `snowflake facet builder` (per-column TEXT+DATE) → `snowflake facet → CTE query generator` (conditions accumulated; applied only when set).
-**Table component (Arvind):** self-contained SQL-configured; CTE orchestrator wraps with filtered SQL when facets active.
+Facet pipeline: Snowflake setter → facet builder (TEXT+DATE) → CTE query generator. Table: self-contained SQL-configured. Scope locked by Vijay; Oleg owns scoping.
 
-**Scope lock (Vijay):** Lumber tried to add scope; Vijay refused — one owner + full scoping exercise required. Oleg owns scoping.
+### Mar 2–7: Facet Pattern + Grid Descope
 
-### Mar 2–7: Requirements Call + Facet Pattern + Grid Descope
+Facet: data-driven out-params (not pre-typed); single Catalog item replaces “Generic Facet.” Grid: native primitives (table/th/tr/td) over TUI Grid webcomp — weeks not months. Requirements call Mar 5
+with Oleg/Greg.
 
-**Facet config pattern decision (Arvind, Mar 4):** Facet selection driven **Data → out** (not by pre-selecting type). Selecting a field yields values + presumed type; may offer 2–3 relevant types (
-e.g., menu + pill-button if N is small). Mark building runtime configurator screen → single Catalog item replacing "Generic Facet."
+### Mar 7–14: Table Perf + Oscillation
 
-**Grid descope decision (Arvind, Mar 4):** Consensus: offer native table primitives (table/th/tr/td — Tyler adding) instead of finessing TUI Grid webcomp. Enables highly customised rich grids with
-remix cards in cells. TUI Grid webcomp work paused for delivery. In-house configurable grid is weeks, not months. Agreed: define "good-enough" scope for current grid, accept throwaway work.
-
-**Requirements call with Oleg + Greg (Reza, Mar 5):** 3:30pm Pacific. Oleg presenting scope of first release (not a Remix demo). Attendees: Vijay, John, Arvind, Reza. Oleg to record and share video.
-Chris asked about deliverables timeline and whether to keep beta stable or revert to normal release cadence.
-
-### Mar 7–14: Table Perf + Grid Decisions
-
-**Grid oscillation (Mar 9–16):** In-house table sluggish (80×40) — Mar 12 reverted to TUI webcomp (perf); Mar 16 reversed back to in-house after column matrix (callables per-column not per-cell)
-brought 80×40 load to sub-2s. pub/sub retained bug fixed (turntable/pull/11810).
-
-**Self-serve ask (Vijay, Mar 12):** Manish: data in Snowflake tables by Fri Mar 13; asked if reporting can be self-serve medium-term (many reports needed).
+In-house table sluggish (80×40); reverted to TUI Mar 12, reversed back Mar 16 after column matrix (callables per-column) → sub-2s incl. Snowflake. turntable/11810 pub/sub fix.
 
 ### Mar 14–21: In-House Table Back On + Table/Facet Design Sprint
 
@@ -159,3 +147,17 @@ drag + emit events to update config/variant. Open.
 beforehand. Raised: channel switcher needed for Lumber users?
 
 **Pagination bug in query_builder [Apr 24, Arvind]:** Pager visible with 12-row SQL result; clicking pages does nothing. Not blocking delivery.
+
+### Apr 25–May 2: Auth + Embed Delivery
+
+**Lumber auth token exchange [Apr 28, Didier/Arvind]:** Flow confirmed: `auth.remixlabs.com/a/x/auth/lumber_qa/token?token=<projectID>:<refreshJWT>` exchanges Lumber JWT for Remix token. Stage-admin
+project ID: `P2Zne0vibP6VccnwmuPXAfOl1jz0`. Didier’s JS wrapper working May 2.
+
+**rmx-remix unified login [May 1, Didier]:** Webcomp now handles auth itself — no more anon agents needed for embed. Sign-in broken on release (component mismatch); fixed in `0.11350.0` (promoted May
+1). `rmx-remix.js`: `https://agt.files.remix.app/remix/desktop-releases/files/11350/js/rmx-remix.js`.
+
+**Decision: release channel [May 2, Didier]:** Lumber delivery targets `release` channel. Vijay: Lumber eng team to set up embed; Reza handling Sunday night.
+
+**Client status [Mukund]:** (1) reports built, (2) auth wired, (3) embed integration, (4) May 4 handoff call with Lumber tech team. Arvind added how-to doc to Desktop home app.
+
+**Catalog UX issues [Padmanabha]:** Notion: https://www.notion.so/3501d464528f8099b21cf64bfc5b71c2

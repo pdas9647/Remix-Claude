@@ -1,6 +1,6 @@
 # #bugbash Slack Channel — Remix Labs
 
-**Coverage:** Jan 20 – Apr 25, 2026
+**Coverage:** Jan 20 – May 2, 2026
 **Channel ID:** C862WHQMS
 **Bug reporting guide:** https://www.notion.so/Bug-reporting-3061d464528f80cdacf7eed2612bad07
 
@@ -75,9 +75,6 @@ Read-only attribute doesn't work for checkboxes, at least on desktop.
 
 "trailing characters at line 12 column 2" crashes desktop on startup. Root cause: malformed Claude config JSON. Fix: mix-rs#1039 (shouldn't be fatal). Workaround: re-save the JSON file.
 
-### Desktop DMG missing Applications shortcut icon (Didier, Mar 12) 🟡
-
-DMG installer shows no proper icon for Applications folder. Cosmetic.
 
 ### State machine editor L3 hover styles broken (Didier, Mar 6) 🔴
 
@@ -93,9 +90,6 @@ again without error markers. **Unresolved.**
 Created app on desktop with `_rmx_tailwind`, published via publish plugin, used as catalog item source → all styles missing. Workaround: open empty Styles module, Save & Make, republish. Didier
 suspects cross-instance export (prod→desktop) may cause it. No confirmed root cause.
 
-### Desktop toasts cut off / mispositioned (Arvind, Mar 4) 🟡
-
-Toast notifications sometimes show cut off, sometimes appear bottom-left. No repro steps available.
 
 ### Theme auto-make error referencing _rmx_auth (Arvind, Mar 3) 🟡
 
@@ -150,9 +144,6 @@ Combined `member_of` + `entity` filter returns no results on desktop/mixer; work
 
 Flex layout change broke node width bounding — long names stretch nodes. PR turntable/pull/11888 partial; broader CSS fix pending. **Must land before beta/prod.**
 
-### Type select styling broken in Safari/desktop (John, Apr 3) 🟡
-
-Styled HTML `<select>` unsupported in WebKit (desktop). Arvind to push CSS fix.
 
 ### Published .remix stale in catalog (Mark, Mar 25) 🟡
 
@@ -212,3 +203,14 @@ Token corrupted error visible on the public experience_chat page. **Unresolved.*
 ### Web component error in customers page (Arpita, Apr 20) 🟡
 
 Web component throwing console errors on customers page and other pages with web components. Sirshendu unable to repro. **Unresolved.**
+
+## Apr 28–May 2, 2026 Unresolved Bugs
+
+**Agent add slow: "Creating N-1 modules" [Apr 28, Arvind/Gerd]:** Adding a single agent triggers full rebuild popup and is slow. Root cause: frontend compiler + backend file storage → many small
+round-trips (< 10KB, 3–5ms each). No fix yet.
+
+**File-manager crash on stale path [Apr 30, Benedikt]:** Obsolete `channel/<ch>/version/<v>/` R2 file brings down `file-manager/content` listing + cloud workspace plugin deploy. Bad files deleted (
+Chris); systemic fix open: mix-rs#1064.
+
+**`rmx-remix` webcomp issues [Apr 30, Didier/Benedikt]:** (1) Double embed bug → turntable/11979 (Didier, in progress); (2) Mixcore `"deprecated parameters"` init warning in all webcomps on dev (
+Benedikt investigating). Symptom: Snowflake landing page web comp sections intermittently invisible.

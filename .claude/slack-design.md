@@ -1,6 +1,6 @@
 # #design Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Apr 25, 2026
+**Coverage:** Dec 20, 2025 – May 2, 2026
 **Channel ID:** C4BLR910S
 **Purpose:** Design systems, visual IDE, icon and widget libraries
 
@@ -131,3 +131,16 @@ avoid panel jumping; tags might be a special case. No decision.
 ## Apr 11–18 Additions
 
 **Asset preview panel: CTA button hidden [Apr 16, Simon → Didier/Arvind]:** In the catalog asset preview panel, the action/CTA button was not visible. Didier and Arvind reviewed. Open.
+
+## Apr 27–May 2, 2026 Additions
+
+**AI-driven design direction: library components + AI composition [Apr 29, Arvind]:** While building the Snowflake marketing/corporate landing page using Claude + skills, Arvind posted directional
+framing for 2026:
+
+1. **DO push library components story** — pre-determined, vetted components that are complex and standalone, and get **auto-selected** based on need + content, so the UI is highly deterministic within
+   assembled layout blocks
+2. **DO NOT compete with AI-native workflows** — lean into AI's capabilities: let it weave together styles/theme, adaptive layouts, static content, and auto-configured components to produce a slick
+   result. NOT a text/chat interface, but doing the work for the user with minimal input
+
+Note (Arvind): "neither pushback nor critique of the demo'd approach, which was both interesting and refreshing, it's just an overall directional point in thinking through the design outcomes we want
+for a good 2026 story." Tagged Vijay, John, Mukund.

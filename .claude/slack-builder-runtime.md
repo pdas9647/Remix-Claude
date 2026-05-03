@@ -1,6 +1,6 @@
 # #builder-runtime Slack Channel — Remix Labs
 
-**Coverage:** Dec 31, 2025 – Apr 25, 2026
+**Coverage:** Dec 31, 2025 – May 2, 2026
 **Channel ID:** C58HC9EC8
 **Topic:** Builder, remix.app, WebApp
 
@@ -107,8 +107,6 @@ Screenshot shared.)
 **Snowflake plugin: mixcore.wasm + screen params [Mar 26, Gerd → Simon]:** Two issues: (1) mixcore.wasm fails to load if plugin URL has wrong path; (2) `_rmx_` prefix is restricted — screen params
 can't use it. turntable/pull/11856: run plugin independently of host params.
 
-**Toast misalignment in rmx-remix no-shadow [Mar 30→Apr 1, Tyler]:** Toasts misalign in `rmx-remix` webcomp with `no-shadow=true`. Root cause: toast anchored to shadow root, not `document.body`. Fix:
-turntable/pull/11871. Resolved Apr 1.
 
 **Rename collapsed nodes at L2 [Apr 1, Didier]:** Shipped — nodes can now be renamed while collapsed at L2.
 
@@ -159,3 +157,9 @@ the auth redirect.
 
 **Group-by query: projection + z-index [Apr 24, John]:** (1) Projecting field values from group-by query tile no longer works — was previously possible; Simon tagged. (2) Z-index rendering issue when
 displaying group-by results (screenshot shared).
+
+## Apr 27–May 2, 2026 Additions
+
+**Runtime as ES6 embedding library [Apr 30, Simon]:** Simon reworked the runtime library to support embedding multiple `.remix` files via JavaScript (ES6 library), as an alternative to `rmx-remix`
+webcomp. Didier: "not a big fan of multiple ways to do the same thing" — concerned about fullscreen vs webcomp duplication (fullscreen ends up loading the webcomp for login anyway). **Open design
+question** — discussion with Tyler deferred post-standup.

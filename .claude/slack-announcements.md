@@ -1,6 +1,6 @@
 # #announcements Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Apr 25, 2026
+**Coverage:** Dec 20, 2025 – May 2, 2026
 **Channel ID:** CK8S97CUV
 **Purpose:** Important info everyone should read; also used for cross-team huddle coordination
 
@@ -38,9 +38,6 @@
     - Claims include `tenants` with `COMPANY_ADMIN` role, `DS` auth
     - Issue tracked: https://github.com/remixlabs/mix-rs/issues/982
 
-### Feb 13, 2026 — File uploading discussion
-
-- Simon initiated cross-team chat on file uploading: Wilber, John, Mark, Gerd
 
 ### Feb 15, 2026 — Theme migration: delete old styles (@all)
 
@@ -89,10 +86,6 @@
 - **Simon**: Confirmed invoking parameterless methods works fine via `event` type in manifest; parameterized methods are the problem — "actions with payloads all over again"
 - Discussion started but no final decision recorded; huddle held with Vijay
 
-### Mar 6, 2026 — Lumber huddle + product strategy
-
-- John started Lumber huddle
-- Reza checking in with Arvind, John, Vijay for follow-up
 
 ### Mar 9, 2026 — Lumber: set client expectations on first phase
 
@@ -116,10 +109,9 @@
 - Simon referenced L3 data tree issue: turntable#11804
 - Simon attempted repro but couldn't reproduce the huge-tree scrolling problem
 
-### Mar 12–14, 2026 — Lumber: frequent sync huddles
+### Mar 12–14, 2026 — Lumber sync huddles
 
-- Mar 12: Reza + Arvind Lumber discussion (Vijay on customer call)
-- Mar 14: Vijay called Lumber quick sync (Reza, Mark, John, Arvind, Didier); Arvind no major updates since prior sync
+- Mar 12: Reza + Arvind; Mar 14: Vijay quick sync (Reza, Mark, John, Arvind, Didier)
 
 ---
 
@@ -144,9 +136,6 @@
 - Reza included Arvind: *"would be good to stay in sync since you have a view of all the moving parts"*
 - **Padmanabha** shared active workspace during huddle: `https://remix-india.remixlabs.com/e/edit/lumber_agents`
 
-### Mar 19, 2026 — Huddle (no details)
-
-- A huddle was started (Slackbot notification only; no message content)
 
 ### Mar 31, 2026 — Remix file HTML harness review
 
@@ -208,3 +197,14 @@ codegen changes needed). Fred implementing: mix-rs#998 (9s→2.5s, approved Apr 
 - **Greg's feedback**: column header sort needed (cc: Tyler, Mark); brand theming for TUI tables/charts
 - **Two bugs observed**: binding cards into layout; TUI grid vanishing — rare, recoverable by closing/reopening
 - **Mukund**: "Getting them to drive from DT Studio was the right move"
+
+## Apr 28–May 1, 2026 Additions
+
+**Desktop back from DNU [Apr 28, Arvind]:** DNU lifted — team back on Desktop build `11249`.
+
+**Lumber sync huddles [Apr 28–30]:** Three back-to-back coordination calls (Apr 28, Apr 29, Apr 30) with Reza, Vijay, Arvind, John, Mukund, Didier. Scheduling logistics only; no decisions recorded in
+threads.
+
+**Snowflake offering discussion [Apr 30, Mukund]:** Dedicated huddle on the Snowflake offering with Chris, Vijay, Arvind, Didier, John (evening Apr 30).
+
+**Lumber reports + catalog update [May 1, Arvind]:** Reports app updated; Arvind wrapping up README in the home app + adding column chart component (custom SQL snippet) to catalog.

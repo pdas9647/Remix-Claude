@@ -1,6 +1,6 @@
 # #rmx-delivery-snowflake Slack Channel — Remix Labs
 
-**Coverage:** Mar 25, 2025 – Apr 25, 2026
+**Coverage:** Mar 25, 2025 – May 2, 2026
 **Channel ID:** C08JPJ6EES3
 **Nature:** Snowflake GTM partnership, not a customer delivery
 
@@ -37,20 +37,11 @@
 
 ### Apr 9–10, 2025 — SPCS exploration
 
-- Initial Snowflake account (Shritesh) was on GCP; Snowpark required AWS/Azure → switched
-- Chris: got mixer Docker image deployed in SPCS; can invoke agents from command line
-- SPCS pricing concern: smallest instance $130/mo vs EC2 equivalent at $30–43/mo
-- Snowflake shared DataOps.live approach for SPCS deployment
+Switched GCP account to AWS (Snowpark requirement). Chris: mixer Docker image deployed in SPCS, agents invokable from CLI. SPCS pricing: ~$130/mo vs EC2 $30–43/mo.
 
-### May 7–9, 2025 — Python/SQL bridge POC in SPCS
+### May 7–9, 2025 — Python/SQL bridge POC
 
-- No Rust Snowflake SDK → Chris wrote tiny Python gateway server between mixer and Snowflake
-- Got full SQL queries working from agent via the bridge:
-  `SELECT * from emp_basic` returning results through mixer
-- Vijay shared pyremix/pyo3 work — Python-callable Remix workspace:
-  `from pyremix import Workspace; ws.invoke('pyremix', 'demo', ...)`
-- Chris: long-term better approach = Go static library compiled into Rust mixer (Python is a nicer POC)
-- Accelerator guidebook: https://docs.google.com/document/d/1USk3DKHLsFXnyNy-8XRFjWFYNB09kXb14tBhl7_dJRc/edit
+No Rust Snowflake SDK → Chris wrote Python gateway between mixer and Snowflake; full SQL queries working through the bridge. Long-term plan: Go static library compiled into Rust mixer.
 
 ### May 29, 2025 — Officially in Snowflake Startup Accelerator
 
@@ -72,17 +63,10 @@
     - Fix: bundle Google Fonts + MDI with builder (Didier), or deploy `_rmx_style` app from GCS
 - Showed to Cam at the bi-weekly check-in → Cam confirmed best demos in the accelerator
 
-### Jul 12, 2025 — Snowflake OAuth into Snowpark working
+### Jul 12, 2025 — Snowflake OAuth + Jul–Aug summary
 
-- Chris: OAuth-into-Snowpark flow working (forked Snowflake Go library; traced Python + Go connectors)
-- Mechanism: Snowflake OAuth token → exchange for short-lived session token → used against mixer in Snowpark
-- Demo screen (both OAuth styles): https://remix-dev.remixlabs.com/e/edit/agent-demo/oauth_home
-    - Style 1: direct REST API calls with Snowflake token
-    - Style 2: token exchange → session token for mixer service in Snowpark
-
-- **Jul–25, 2025:** Snowflake Build Day demos submitted; Cortex feature reference shared.
-- **Jul 30, 2025:** GTM idea — free-forever mobile widgets, charge for actionability; OAuth friction solved by native app packaging.
-- **Aug 7–8, 2025:** .remix upload from local builder to SPCS validated; bi-weekly call (“Remix TV show”); Snowflake asked “is it using Cortex?”; **channel quiet after Aug 8 — resumed Feb 2026**.
+OAuth-into-Snowpark working: Snowflake token → session token exchange → mixer in Snowpark. Demo: remix-dev.remixlabs.com/e/edit/agent-demo/oauth_home (direct REST + session-token styles). Jul–25:
+Build Day demos submitted. Jul 30: GTM idea — free mobile widgets, charge for actionability. Aug 7–8: .remix upload to SPCS validated; **channel quiet after Aug 8 — resumed Feb 2026**.
 
 ### Feb 23–26, 2026 — Snowflake Marketplace submission push (Mukund)
 
@@ -193,3 +177,14 @@ down. No resolution recorded in window.
    account).
 2. **In-product README required:** Must be readable inside Snowflake (not just on Notion). Must include: product description, config steps, stored procedures/UDFs, required privileges, example SQL
    commands.
+
+### Apr 29–May 2, 2026 — Snowflake Summit GTM Strategy
+
+**4-part GTM [Apr 29, Mukund]:** Snowflake Summit (Jun 1–4) strategy:
+
+1. **Build on Desktop, deploy in Snowpark** — Marketplace listing + 2-week free trial; target SIs + GTM partners
+2. **Embed analytics anywhere** — Desktop Studio + "Remix Canvas" (Vijay’s new build surface; placeholder name, to be renamed); embed reports/dashboards into any page
+3. **Mobile widgets from Snowflake data** — new branded mobile app with Snowflake as data source
+4. **Data lake → digital experiences** — Snowflake data → interactive RCS/web/chat end-user experiences
+
+Note: "build in Snowflake" = build on Desktop Studio, deploy natively in Snowflake. Snowflake Intelligence app flagged as potential integration point. Discussion continued Apr 30.

@@ -1,6 +1,6 @@
 # #dumbquestionsanswered Slack Channel — Remix Labs
 
-**Coverage:** Feb 16 – Apr 25, 2026
+**Coverage:** Feb 16 – May 2, 2026
 **Channel ID:** C86KWF7MG
 **Purpose:** "the dumbness of the programmer has no limits" — quick Q&A, platform clarifications
 
@@ -55,14 +55,6 @@ something in the system was returning the version unquoted from an external acti
 
 ---
 
-## [Feb 23] Runner link: navigate to a specific screen (Arvind → Didier)
-
-**Question:** For a runner link like `https://remix.app/run?_rmx_url=...`, how do I go straight to a particular screen?
-
-**Answer (Didier):** `/run/<screenname>?_rmx_url=...`
-
----
-
 ## [Feb 24] Deeplink param mismatch: desktop `remix_file_url` vs Flutter `url` (Wilber → Didier/Benedikt)
 
 **Question:** Desktop deeplink uses `?remix_file_url=` but Flutter uses `?url=` for `run-remix-file`. Intentional?
@@ -83,12 +75,6 @@ it?
 
 ---
 
-## [Feb 17] Uppercase DB names (Arvind → Gerd)
-
-**Question:** DB names should be lowercase? **Answer (Gerd):** No — uppercase DB names are fine. No lowercase convention required.
-
----
-
 ## [Mar 2] File copy API has no overwrite option (Arvind)
 
 **Question:** `/v1/ws/{ws}/app/{app}/file-manager/copy` returns `Exists` error when destination exists. Force/override option?
@@ -103,14 +89,6 @@ it?
 
 **Answer (Benedikt + Chris):** Not a bug. CORS is browser-enforced. Proxying through a service agent works because agent server isn't a browser — request to HubSpot comes from server, not browser JS.
 Desktop also bypasses CORS (HTTP client, not browser). **Architecture pattern: proxy third-party API calls through service agents to avoid CORS on remix.app.**
-
----
-
-## [Mar 6] L1 module copy puts AST in clipboard (Arvind → Didier)
-
-**Question:** Does copying modules at L1 put the L1 code in the clipboard?
-
-**Answer (Didier):** No — it puts the AST of every node into the clipboard. It does end up in the system clipboard but may not render in visual clipboard managers (Raycast) due to size.
 
 ---
 
@@ -216,3 +194,14 @@ notion.so/Identifiers-org-workspace-channel-29d1d464528f80cf92ace1c0cdd3f094
 **Plugins not showing [Apr 22, Benedikt]:** Only one plugin visible in lumber/WS workspaces. Thread with screenshot. Open.
 
 **`remixlabs.com/run.html` outdated [Apr 24, Simon]:** Legacy URL broken. Correct URL for running DnD .remix files: `remix.app/run`.
+
+## Apr 27–May 2, 2026 Additions
+
+**`file.upload` absent from release/beta [Apr 29, Wilber/Chris]:** Available since Desktop v10820; beta/release were on a 7-week-old commit (mix-rs#1093 fix not backported). Chris pushed → beta at
+`0.11284.0`; release CI signing error still pending.
+
+**Repo "rehash" changes on first push [Apr 27, Gerd]:** Checksum algorithm fix caused one-time false positives — identical assets appear as changes. Fix: push once. Plugin updated (Apr 29): these show
+as **"rehash"**, not real edits.
+
+**Snowflake cold start [Apr 27, Chris]:** Service agents: few-second code-load on first call. Snowflake warehouses: idle VM wakeup delay (configurable via idle-timeout + VM size). Expected "Monday
+morning" behavior on infrequent reports.

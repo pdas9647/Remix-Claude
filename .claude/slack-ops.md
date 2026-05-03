@@ -1,6 +1,6 @@
 # #ops Slack Channel — Remix Labs
 
-**Coverage:** Feb 1 – Apr 25, 2026
+**Coverage:** Feb 1 – May 2, 2026
 **Channel ID:** C07P57B89
 **Purpose:** Weekly production release promotion workflow (beta → production)
 
@@ -85,3 +85,11 @@ Desktop's stdlib ID check.
 `turntable stdLibId coupling` in engineering process notes.)
 
 **Simon's follow-up:** No per-PR CI failure notifications available — would like notifications for own PR failures on main without noise from all other branches/PRs. Not implemented.
+
+## Apr 25–May 2, 2026 Additions
+
+**Weekly promotion [Apr 30, Chris]:** Kicked off weekly promotion — **skipping `beta.remix.app`** due to a component-mismatch bug (turntable/rmx-remix webcomp double-embed issue; ref: #bugbash). Will
+find a nearby build with correct component set; otherwise defer.
+
+**Desktop `release` channel: `0.11350.0` [May 1, Chris]:** New release pushed to desktop `release` channel — fixes the version incompatibility issues (including the `file.upload` FFI gap reported Apr
+29).

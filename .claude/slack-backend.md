@@ -1,6 +1,6 @@
 # #backend Slack Channel — Remix Labs
 
-**Coverage:** Jan 2 – Apr 25, 2026
+**Coverage:** Jan 2 – May 2, 2026
 **Channel ID:** CHTGC5BGQ
 **Purpose:** server, compiler, and database stuff
 
@@ -61,7 +61,6 @@ over-optimization in `get_by_ref`. mix-rs/pull/1022, merged.
 
 **ARM64 Linux mixer build [Feb 28]:** Lumber requested. mix-rs/pull/1026, merged.
 
-**Desktop unresponsive: make-agent VM [Feb 28]:** VM not closed (Simon's side); worker error passback under investigation.
 
 ## Mar 2–6 Additions
 
@@ -90,27 +89,29 @@ can set — `get-prefs` agent returns value to any caller, but regular users can
 
 ## PRs & Tickets Referenced
 
-| Date   | PR / Issue           | What                                 | Who      |
-|--------|----------------------|--------------------------------------|----------|
-| Jan 2  | mix-rs/issues/928    | Blob URL support in HTTP FFI         | Gerd     |
-| Jan 13 | mix-rs/issues/913    | Save unchanged record FFI error      | Gerd     |
-| Jan 14 | mix-rs/pull/947      | Initial save FFI fix                 | Fred     |
-| Jan 21 | mix-rs/pull/912      | Snowflake packaging                  | Chris    |
-| Jan 21 | mix-rs/pull/918      | Index cleaner                        | Fred     |
-| Jan 26 | turntable/pull/11660 | Wasm caching gsutil -Z               | Gerd     |
-| Jan 30 | protoquery/pull/2252 | Stdlib save case integration         | Gerd     |
-| Feb 3  | protoquery/pull/2259 | parseQueryString multi-clause        | Gerd     |
-| Feb 11 | mix-rs/pull/992      | Revert delete FFI signature          | Fred     |
-| Feb 17 | mix-rs/pull/1001     | Non-ES256 JWT                        | Chris    |
-| Feb 17 | mix-rs/pull/948      | Unify desktop/mixer startup          | Benedikt |
-| Feb 25 | mix-rs/pull/1022     | Fix too-many-files-open in deletion  | Fred     |
-| Feb 26 | mix-rs/pull/1028     | Deletion/flush patch                 | Fred     |
-| Feb 26 | mix-rs/pull/1036     | System-plugins path fix              | Fred     |
-| Feb 27 | amp/pull/2790        | FFI coverage for compress/decompress | Gerd     |
-| Feb 28 | mix-rs/pull/1026     | ARM64 Linux mixer build              | Chris    |
-| Mar 6  | mix-rs/pull/1050     | Fix truncated log messages           | Benedikt |
-| Apr 18 | mix-rs/pull/1086     | Mixcore JS bindings consolidation    | Benedikt |
-| Apr 24 | mix-rs/pull/1100     | Blank query deleted records fix      | Fred     |
+| Date   | PR / Issue           | What                                         | Who      |
+|--------|----------------------|----------------------------------------------|----------|
+| Jan 2  | mix-rs/issues/928    | Blob URL support in HTTP FFI                 | Gerd     |
+| Jan 13 | mix-rs/issues/913    | Save unchanged record FFI error              | Gerd     |
+| Jan 14 | mix-rs/pull/947      | Initial save FFI fix                         | Fred     |
+| Jan 21 | mix-rs/pull/912      | Snowflake packaging                          | Chris    |
+| Jan 21 | mix-rs/pull/918      | Index cleaner                                | Fred     |
+| Jan 26 | turntable/pull/11660 | Wasm caching gsutil -Z                       | Gerd     |
+| Jan 30 | protoquery/pull/2252 | Stdlib save case integration                 | Gerd     |
+| Feb 3  | protoquery/pull/2259 | parseQueryString multi-clause                | Gerd     |
+| Feb 11 | mix-rs/pull/992      | Revert delete FFI signature                  | Fred     |
+| Feb 17 | mix-rs/pull/1001     | Non-ES256 JWT                                | Chris    |
+| Feb 17 | mix-rs/pull/948      | Unify desktop/mixer startup                  | Benedikt |
+| Feb 25 | mix-rs/pull/1022     | Fix too-many-files-open in deletion          | Fred     |
+| Feb 26 | mix-rs/pull/1028     | Deletion/flush patch                         | Fred     |
+| Feb 26 | mix-rs/pull/1036     | System-plugins path fix                      | Fred     |
+| Feb 27 | amp/pull/2790        | FFI coverage for compress/decompress         | Gerd     |
+| Feb 28 | mix-rs/pull/1026     | ARM64 Linux mixer build                      | Chris    |
+| Mar 6  | mix-rs/pull/1050     | Fix truncated log messages                   | Benedikt |
+| Apr 18 | mix-rs/pull/1086     | Mixcore JS bindings consolidation            | Benedikt |
+| Apr 24 | mix-rs/pull/1100     | Blank query deleted records fix              | Fred     |
+| Apr 29 | mix-rs/pull/1106     | Query optimization: short-circuit predicates | Fred     |
+| Apr 29 | mix-rs/pull/1107     | mixer_wasi: non-trapping float in wasm-opt   | Benedikt |
 
 ---
 
@@ -124,14 +125,12 @@ can set — `get-prefs` agent returns value to any caller, but regular users can
 
 ## Mar 14–21 Additions
 
-**OPFS landed [Mar 18, Benedikt]:** Origin Private File System shipped. New (sane) file system backend for the browser. On **Desktop**: used only for the workspace form. On **dev.remix.app**: replaces
-IndexedDB as the whole local storage. Celebrated with 🎉. Arvind asked when it would reach desktop (dev) — answer: already used for workspace form.
+**OPFS landed [Mar 18, Benedikt]:** `dev.remix.app` now uses OPFS instead of IndexedDB; Desktop uses it for workspace form only.
 
-**`.DS_Store` illegal path bug [Mar 18, Simon → Gerd]:** Mixer throws `"invalid path '/.DS_Store': illegal path segment .DS_Store"` when Finder creates `.DS_Store` near `.mixsrc` files — breaks the
-builder entirely. Same root cause as Feb 26. Gerd: fix is to skip files with illegal paths during listing. Issue: mix-rs#1064. Simon committed turntable#11835 as interim debugging aid (Mar 21).
+**`.DS_Store` illegal path [Mar 18, mix-rs#1064]:** Mixer throws error when Finder creates `.DS_Store` near `.mixsrc` files — fix: skip files with illegal paths; turntable#11835 as interim debug aid (
+Mar 21).
 
-**Snowflake packaging PR ready to merge [Mar 19, Chris → Benedikt]:** mix-rs#912 (Snowflake packaging) is ready for review/merge once OPFS fixups are done. Open question: should the packaging config
-get its own repo, since it's mostly independent of mix-rs and just references a particular image build.
+**Snowflake packaging ready [Mar 19, Chris]:** mix-rs#912 ready once OPFS fixups done. Open: separate repo for packaging config (mostly independent of mix-rs).
 
 ## Mar 23 – Apr 3 Additions
 
@@ -170,3 +169,13 @@ for missing IDs need post-processing. No FFI needed.
 
 **Blank query returns deleted records [Apr 23–24, Gerd/Fred]:** mix-rs/998 broke protoquery tests — blank query fallback to all-bitmap wasn't using pre-filtered all (returned deleted records when DB
 shared across tests). Fix: mix-rs/1100 (Fred, Apr 24).
+
+## Apr 25–May 2, 2026 Additions
+
+**`mixer_wasi` CI failure fixed [Apr 29, Benedikt]:** `mixer_wasi` failing on `main` — root cause: rust/llvm now produces non-trapping float conversions that must be enabled in `wasm-opt`. Fix:
+mix-rs/pull/1107.
+
+**CI "only run on changes" masking bug [Apr 29, Chris]:** If a `main` job fails and no changes land before the next run, the failed job is skipped as a no-op → CI flips red→green without the fix. In
+this case an unrelated `protoquery` merge triggered an `M` update that accidentally pulled in the stale `mixer` changes. No systematic fix yet.
+
+**Query optimization sub-PR approved [Apr 29, Fred]:** mix-rs/1106 short-circuits predicate passes to reduce overhead. Approved by Chris — unblocks merge of main optimization PR (mix-rs/1094).

@@ -1,6 +1,6 @@
 # #rmx-delivery-bomisco Slack Channel — Remix Labs
 
-**Coverage:** Oct 17, 2025 – Apr 25, 2026
+**Coverage:** Oct 17, 2025 – May 2, 2026
 **Channel ID:** C09MW6WCP6C
 
 ---
