@@ -63,6 +63,38 @@ Can query: application-owned objects, or views onto consumer tables registered w
 
 ---
 
+## Snowflake Marketplace Listing
+
+> Source: [Snowflake Marketplace Listing](https://www.notion.so/3491d464528f807b93cce6bc29af94e0)
+> Parent: Go To Market home
+
+### Remix DXP — Listing Description
+
+**Tagline:** Digital Experience Platform for the AI-Native Data Stack
+
+Build and deploy digital experiences and agentic workflows rapidly — on Snowflake. Remix is a composition-oriented platform that uses AI to rapidly build and deploy app experiences and agentic
+workflows natively in Snowpark. Unlike traditional app-building tools or developer-focused IDEs, Remix enables business users with minimal coding skills to assemble enterprise-grade applications from
+pre-built components — without any data leaving Snowflake.
+
+Key differentiators:
+
+- AI intelligently selects, configures, and composes from a large catalog of out-of-the-box components
+- Leverages Cortex AI as the primary interface to Snowflake's AI Data Cloud
+- Deploy across mobile, desktop, browser, and co-pilot surfaces
+
+### Business Need Use Cases
+
+| Use Case                          | Description                                                                                                                                                                  |
+|-----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 360-Degree Customer View          | Unify data from Salesforce, HubSpot, Zendesk into Snowflake; deploy interactive Customer 360 widgets to mobile/desktop                                                       |
+| Personalized Customer Experiences | Build personalized digital experiences/landing pages powered by Snowflake data lake; AI-powered composition for rapid role-based deployment                                  |
+| Information At-a-Glance Widgets   | Build near-real-time widgets via natural language queries; deploy to mobile/desktop; business users build in minutes via OAuth (no Snowpark setup); auto-update every 15 min |
+| Embedded Analytics and Reporting  | Custom tabular reports and interactive dashboards from Snowflake data; Cortex AI Text-SQL; deploy without ETL across all surfaces                                            |
+| Agentic Workflow Orchestration    | Event-triggered playbooks and AI-powered service agents; automate customer support, sales & marketing, lead-to-cash workflows natively in Snowflake                          |
+| Personalized RCS Marketing        | Leverage Snowflake data for rich targeted messages (RCS) across Chat, Web, Text, WhatsApp, and more                                                                          |
+
+---
+
 ## Remix Snowflake Reference Implementation (Spike)
 
 > Source: [Remix Snowflake reference implementation](https://www.notion.so/2931d464528f80cc9da8ede348733125) — WIP spike,

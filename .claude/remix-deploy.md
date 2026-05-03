@@ -175,26 +175,110 @@ Simplest way to embed a `.remix` into any webpage. For full-screen performance, 
 <rmx-remix src="...schedule.remix" screen-name="home" params='{"entity":"contact","phone":"+1..."}'></rmx-remix>
 ```
 
-#### Embedded on a Web Page
+### Remix Runtime Library (RRL)
 
-Load the Remix runtime directly in any web page:
+> Source: [The Remix Runtime Library (RRL)](https://www.notion.so/3451d464528f80fc9317e827b1378902)
+> Template: https://rrl-template.pages.dev/ | GitHub: https://github.com/remixlabs/template-website
+
+The RRL (`rmx-app-record.js`) is the JavaScript interface to Remix's Runtime. Used by remix.app, Desktop, legacy Amp instances, and the Elm dev environment. Supports embedded or full-screen display of
+`.remix` files. **Alternative for simpler cases:** the `rmx-remix` web component above.
+
+#### Entry Points (`rmx-app-record.js`)
+
+| Function         | Mode        | Signature                                              |
+|------------------|-------------|--------------------------------------------------------|
+| `loadAppRecord`  | Full-screen | `loadAppRecord(appRecord, flags, eventOverrides)`      |
+| `loadRemixUrl`   | Full-screen | `loadRemixUrl(url, flags, eventOverrides)`             |
+| `embedAppRecord` | Embedded    | `embedAppRecord(appRecord, id, flags, eventOverrides)` |
+| `embedRemixUrl`  | Embedded    | `embedRemixUrl(url, id, flags, eventOverrides)`        |
+
+- `appRecord` can be a string key (e.g. `"about/remix"`) or a full `AppRecord` object with `key`, `remix_url`, `title`, `constants`, `params`
+- `id` is the DOM element id to mount the embedded runtime into
+
+**Full-screen example:**
+```html
+<!doctype html>
+<head>
+    <link rel="stylesheet" href="rmx-fullscreen.css" crossorigin/>
+</head>
+<body>
+<script type="module">
+    import {loadRemixUrl} from "./rmx-app-record.js";
+
+    loadRemixUrl("https://agt-dev.files.remix.app/simon/files/corporate.remix", {}, {});
+</script>
+</body>
+```
+
+**Embedded example:**
 
 ```html
 
-<link href="https://remix.app/static/rmx-fullscreen.css" rel="stylesheet"/>
+<div id="uid-remix"></div>
 <script type="module">
-    import {load} from "https://dev.remix.app/js/rmx-app-record.js";
+    import {embedAppRecord} from "/runtime/rmx-app-record.js";
 
-    const appRecord = "about/remix"; // or a full AppRecord object
-    load(appRecord, "https://dev.remix.app/static/mixcore.wasm", {});
+    const appRecord = {
+        key: "",
+        remix_url: "https://agt-dev.files.remix.app/simon/files/corporate.remix",
+        title: "My Embedded Remix",
+        constants: {company: "Salesforce"},
+        params: {subtitle: "You need us!"},
+    };
+    embedAppRecord(appRecord, "uid-remix", {}, {});
 </script>
 ```
 
-**Required assets** (can be self-hosted): `rmx-app-record.js`, `rmx-fullscreen.css`, `mixcore.wasm`, `mixrt.wasm`
+**For DB-stored apps** (Desktop preview): use `rmx-init-runtime.js` → `initRuntime(flags, "", eventOverrides)`. Loads the runtime directly; used internally by the other entry points. (TypeScript
+typings pending mixcore resolution.)
+
+#### Flags (all optional)
+
+| Flag           | Description                                                   |
+|----------------|---------------------------------------------------------------|
+| `assetsPrefix` | Prefix for platform (rcm) assets (default: `location.origin`) |
+| `mixerHost`    | Mixer host (for Desktop / SPCS mode)                          |
+| `workspace`    | Mixer workspace                                               |
+| `dbName`       | Mixer DB name                                                 |
+| `screenName`   | Mixer screen name                                             |
+| `params`       | Params to pass to the first screen                            |
+| `mixcore`      | Override mixcore location                                     |
+| `debug`        | `true` → extra debugging output; forces mix error page        |
+
+#### Event Overrides
+
+Handlers for Client Actions. Platform provides defaults; pass `{}` in normal use. Used to implement Custom Client Actions.
+
+#### Query Params
+
+| Param                  | Description                                       |
+|------------------------|---------------------------------------------------|
+| `_rmx_host`            | Sets mixer host                                   |
+| `_rmx_ws`              | Sets mixer workspace                              |
+| `_rmx_base`            | Sets Amp base (legacy)                            |
+| `_rmx_debug`           | Turns debug mode on; forces mix error page        |
+| `_rmx_mixc`            | Overrides compiler location                       |
+| `_rmx_debugChannel`    | Sets up VM debug channel (untested)               |
+| `_rmx_anon=true`       | Prevents passing user token to runtime (untested) |
+| `_rmx_vm=server`       | Use server VM via Amp (default)                   |
+| `_rmx_vm=client`       | Use client-side Wasm VM (no Amp server VM)        |
+| `_rmx_vm=client:<URL>` | Run Wasm app at URL with no Amp session (legacy)  |
+
+#### Required Directory Structure (self-hosted)
+
+```
+/rcm/
+  mixrt.wasm
+  mixcore-opfs.wasm
+  mixcore_bg.wasm
+  mixcore.js
+/runtime/js/
+  rmx-remix.js          # required for auth
+rmx-app-record.js       # entry point (can be anywhere)
+rmx-fullscreen.css      # fullscreen stylesheet (can be anywhere)
+```
 
 **Optional:** `firebase-messaging-sw.js` (for Web Push Messaging), host event handler callbacks
-
-**Other embedding:** iframe of remix.app, web-components
 
 ---
 
