@@ -56,6 +56,9 @@ Notion index:
 - [server-apis-auth.md](./server-apis-auth.md) — Auth integrations (OAuth/OIDC/Apple/SFDC configs, callback URLs, token storage)
 - [server-apis-legacy.md](./server-apis-legacy.md) — Legacy Platform Server API (doc CRUD, queries, app mgmt, .remix install, files, agents)
 - [server-apis-cloud.md](./server-apis-cloud.md) — Cloud Agent Server: arch (RBAC), Mixer API (run-agent, remixgen), v1 API (permissions, files)
+- [server-apis-agent-swagger.md](./server-apis-agent-swagger.md) — Live Swagger endpoints for agt.remixlabs.com: all v0+v1 routes (workspaces, apps, agents, documents, file-manager, signals)
+- [asset-component-search.md](./asset-component-search.md) — Workflow for "find best asset/component for X": library workspaces, `_rmx_search/get_assets_light` agent, preview decoding, share-link
+  format, bi-weekly sync prompt
 - [engineering-ci.md](./engineering-ci.md) — CI: CircleCI setup, contexts, Docker images; rcm (component manager); ops (promotion, AWS, rollbacks); bug reporting process
 
 ### Mix Language
