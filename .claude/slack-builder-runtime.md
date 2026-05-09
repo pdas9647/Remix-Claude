@@ -1,6 +1,6 @@
 # #builder-runtime Slack Channel — Remix Labs
 
-**Coverage:** Dec 31, 2025 – May 2, 2026
+**Coverage:** Dec 31, 2025 – May 9, 2026
 **Channel ID:** C58HC9EC8
 **Topic:** Builder, remix.app, WebApp
 
@@ -10,18 +10,7 @@
 
 ## Key Decisions & Discussions
 
-**Amp feature cleanup [Jan 16]:** Didier removed InMem DB (replaced by app state tile) and session mirroring (unused). No objections. Debug channel: stdlib debug port for remote-controlling apps via
-pub/sub; works in browser/desktop, not service agents.
-
-**Groups as catalog items [Jan 20]:** Groups can be saved as catalog items with syncing. Complex external binding reconnection after sync. Merged.
-
-**runtime.json 570KB → 106KB [Jan 21]:** Stripped tailwind style views (full card-picker views per style). turntable/pull/11650. Also: runtime.json duplicated in .remix (v1 artifact); use
-`export_package` plugin for v2.
-
-**Scenegraph JSON paste [Jan 24]:** Direct paste of scenegraph JSON creates card tile. turntable/pull/11656. Full paste catalog: string→value, rectangular JSON→table, arbitrary JSON→object, catalog
-URL→download+insert, scenegraph→card. Missing: HTML→card (html2card).
-
-**Workspace plugin: cloud export [Jan 24]:** Wilber added cloud workspace export. Issue: export silently fails with "register" for debug objects; works with "omit".
+**Jan 16–24 shipped:** Amp InMem DB + session mirroring removed; groups as catalog items; runtime.json 570KB→106KB (tailwind style views stripped); scenegraph JSON paste (string/JSON/URL/card); workspace cloud export.
 
 **L0 plugins [Feb 12]:** turntable/pull/11708. Repository apps can be added to L0 dashboard. Button merged but hidden (no plugins registered yet).
 
@@ -163,3 +152,12 @@ displaying group-by results (screenshot shared).
 **Runtime as ES6 embedding library [Apr 30, Simon]:** Simon reworked the runtime library to support embedding multiple `.remix` files via JavaScript (ES6 library), as an alternative to `rmx-remix`
 webcomp. Didier: "not a big fan of multiple ways to do the same thing" — concerned about fullscreen vs webcomp duplication (fullscreen ends up loading the webcomp for login anyway). **Open design
 question** — discussion with Tyler deferred post-standup.
+
+
+## May 2–9, 2026 Additions
+
+**Batch-convert nodes to anonymous [May 4, Simon]:** turntable/pull/11986 — converts multiple selected nodes to anonymous in one action.
+
+**Svelte + React runtime library integrations [May 6–7, Simon/Didier]:** Simon: Runtime Library works directly in Svelte. Didier: published npm wrapper package `remixlabs-rmx-remix-react-1.0.0-11350.tgz` on GCS — `npm install <gcs-url>`; `import RmxRemix from "remixlabs/rmx-remix-react"`. Targeted at Lumber (React app). Doc revision in progress.
+
+**Pagination Transform node proposal [May 7, Simon]:** New yellow node for pagination. Option 1: expose `first`/`skip` bindings (familiar, like QB). Option 2 (Simon's preference): expose `items_per_page` + `page_number` → auto-converts to `skip`/`first`. Handles 80% case simply; function nodes available for custom logic.

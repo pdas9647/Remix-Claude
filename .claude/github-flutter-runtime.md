@@ -85,3 +85,7 @@ No merged PRs in this period. Repo remains quiet; last merge was #441 (Feb 20, 2
 | PR       | Date   | Summary                                                                                                                                                                                                                                                                                                                                                                                           | Author  |
 |----------|--------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
 | **#442** | Apr 27 | **Use consolidated mixcore JS** (long-lived Apr 6→Apr 27) — Companion to turntable#11897 (same author, same effort). `ios/web/appclip.html`: removes the custom `MixcoreRmxPost` class and switches to `kind: "webkit"` — the native webkit message handler is now used directly for Mixcore FFI in the Flutter iOS AppClip context. `rcm-lock.json`: turntable 61456→61500, mixcore 11026→11194. | benozol |
+
+## Scan — Apr 28 – May 9, 2026
+
+> No merged PRs. Repo remains quiet; last merge was #442 (Apr 27, 2026).

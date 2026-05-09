@@ -156,3 +156,7 @@ v1→v2); #51 chart sizing fix; #50 tui deps/formatting.
 |-----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
 | #56 | **`rmx-tui-grid`/`rmx-tui-chart` height/width fix** (+266/-47, 6 files) — height/width styles now applied to container elements; `auto` handling fixed for chart; test page added. | tlentz |
 | #57 | **Manifest updates for rmx-tui-chart/grid** (1 commit, 2 files, +4/-4) — manifest sync following #56 fixes.                                                                        | tlentz |
+
+## Scan — May 2–9, 2026
+
+> No merged PRs. Repo remains quiet; last merge was #57 (Apr 9, 2026).

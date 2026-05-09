@@ -86,21 +86,9 @@ C API: `protoquery_init()`/`protoquery_compile()` for C/Go embedding (Go wrapper
 - Mix stdlib: `$twelve` for type-erasure casts, `_inline_` pragmas, `$DEFPRIMITIVES` for builtins
 - Tests: 28+ `T_*.ml` modules; shell integration tests; rebuild vs live envs
 
-## PR Archive — Feb 22 – Mar 21, 2026
+## PR Archive — Feb 22 – Mar 31, 2026
 
-★ Key: #2226 blob HTTP stdlib; #2263 zlib; #2277 exe-only .remix; #2182 remove domSym.mix; #2265 AST MatchPatterns; #1901 post-parse pseudo primitives; #2075 signals module; #2294 variant:*; #2282 $
-loadHook for REPL; #2045 db.asOf; #2270 build server v2.1; #2242 errorInfo runtime.json.
-
-## Recent PRs — Mar 22–31, 2026 (6 merged)
-
-| PR          | Summary                                                                                                                                                                                                                                                   | Author     |
-|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
-| **#2307** ★ | **Viewstack refactor** (6 files, +314/-99) — splits `currentMainView` from `currentTopView`; adds `topViewName/Id`, `isViewAtTop`, `isScreenView`, `$vs_pendingProps`; `internal` moved to coroutine state; hidden sheets no longer activated by actions. | Gerd       |
-| **#2308**   | **`file.upload` stdlib helper** (+94/-5) — PUT upload with content-type, Cache-Control, OAuth token, overwrite guard (412), retry on 409; docs updated for `_rmx_upload_cache_control`.                                                                   | Gerd       |
-| **#2309**   | **`messaging.subscribe` in agents** (+3/-2) — subscribe allowed when `env.isAgent == true`.                                                                                                                                                               | Gerd       |
-| **#2100** ★ | **Stdlib .dox docs** (24 files, +3211/-92) — adds gset/loader/logging/macro/memo/metrics/mime/option/reflect/regex/util; removes dom/domSym/domUtil; CI ships per-lib JSON to GCS.                                                                        | Gerd       |
-| **#2299**   | **Blob get helpers** (+22/-13) — `builder.blobGetBinary/String/Json` over `blobGet`.                                                                                                                                                                      | simonh1000 |
-| **#2302**   | **Pin Docker API v1.43** (+2) — CI: `DOCKER_API_VERSION: 1.43`.                                                                                                                                                                                           | Chris      |
+★ Key: #2226 blob HTTP stdlib; #2263 zlib; #2277 exe-only .remix; #2182 remove domSym.mix; #2265 AST MatchPatterns; #1901 post-parse pseudo primitives; #2075 signals module; #2294 variant:*; #2282 $loadHook for REPL; #2045 db.asOf; #2270 build server v2.1; #2242 errorInfo runtime.json; #2307 viewstack refactor (split currentMainView/currentTopView); #2308 file.upload stdlib helper; #2309 messaging.subscribe in agents; #2100 stdlib .dox docs (24 files); #2299 blob get helpers; #2302 pin Docker API v1.43.
 
 ## Recent PRs — Apr 18–25, 2026 (3 merged)
 
@@ -117,3 +105,10 @@ loadHook for REPL; #2045 db.asOf; #2270 build server v2.1; #2242 errorInfo runti
 | **#2317** ★ | Apr 28 | **Weak push (rehash-only changes)** — Adds `rehashRepoAsset` to `repoTypes.pushType`; `changeInfo` gains `changeContentHash: option(string)`. `repoUtil.compareHeadWithDatabase` now detects when a head asset's hash matches a `legacyContentHash` on the DB asset and classifies it as `rehashRepoAsset` (no full data re-upload needed). `dbRemote.getArray` refactored into chunked `getArrayChunk` (100-record limit per request) + `slice` helper; `getStream` uses `stream.flatMap` over chunks. | gerdstolpmann |
 | **#2316**   | Apr 28 | **CI: decouple test_wasm from update-users** — `test_wasm` no longer a prerequisite for the `update-users` CI job.                                                                                                                                                                                                                                                                                                                                                                                      | gerdstolpmann |
 | **#2315**   | Apr 27 | **rcm fixup** — `rcm-lock.json` bump: groovebox 3356→3402, mixrun 11083→11215, mixer 11083→11211.                                                                                                                                                                                                                                                                                                                                                                                                       | gerdstolpmann |
+
+## Recent PRs — May 4–8, 2026 (2 merged)
+
+| PR      | Date  | Summary                                                                                                                                                                                                          | Author        |
+|---------|-------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| #2322   | May 8 | **`expose_internals` made required** — Converts `?expose_internals:bool` (optional, defaulted to `false`) to `~expose_internals:bool` (required) across `Mix.mli`, `Compiler.ml`, `Syntax.ml`, `Typing.ml`, `Typutil.ml`, `Universe.ml`, `VMSupport.ml`, and 5 test modules. Prevents silent default at all call sites. | gerdstolpmann |
+| #2319   | May 4 | **Fix Wasm tests** — Bumps wasicaml 133→148; adds `libpthread.a` stub to Wasm build (`pthread_detach` returns 0 for WASI compatibility); fixes CI `test_wasm` suite.                                            | gerdstolpmann |

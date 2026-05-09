@@ -1,6 +1,6 @@
 # #ops Slack Channel — Remix Labs
 
-**Coverage:** Feb 1 – May 2, 2026
+**Coverage:** Feb 1 – May 9, 2026
 **Channel ID:** C07P57B89
 **Purpose:** Weekly production release promotion workflow (beta → production)
 
@@ -93,3 +93,12 @@ find a nearby build with correct component set; otherwise defer.
 
 **Desktop `release` channel: `0.11350.0` [May 1, Chris]:** New release pushed to desktop `release` channel — fixes the version incompatibility issues (including the `file.upload` FFI gap reported Apr
 29).
+
+
+## May 2–9, 2026 Additions
+
+**Weekly promotion [May 4, Chris]:** This week's promotion PR harmony/pull/373 — kicked off May 7.
+
+**Simon missed promotion cut [May 7, Simon]:** turntable/pull/12003 did not make harmony/pull/373.
+
+**Next week's promotion PR [May 7, Chris]:** harmony/pull/374.

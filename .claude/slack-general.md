@@ -1,6 +1,6 @@
 # #general Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – May 2, 2026
+**Coverage:** Dec 20, 2025 – May 9, 2026
 **Channel ID:** C02BD0B8B
 
 ---
@@ -21,46 +21,14 @@ Daily standups Mon–Fri via https://meet.google.com/hrz-onty-twp
 
 ## Key Events
 
-### Dec 26, 2025 — Company strategy
+### Dec 2025 – Jan 2026: Key Events
 
-- Vijay delivered informal 2026 company strategy in standup ("No slides, no videos — just a great off the cuff discussion")
-
-### Jan 5, 2026 — Chrome extension "Copilot" rename
-
-- Tyler published new extension version: right-click sign-out added; runtime sends signal on bad token to force re-auth
-- Simon raised Microsoft trademark concern on name "Copilot"; Mukund confirmed "Remix Copilot" is acceptable (multiple apps use the word in Chrome store)
-
-### Jan 12, 2026 — Platform tech: blob URLs + stdlib fix
-
-- **Gerd**: Fixed "stdlib ID mismatch" error — new desktop build is now blocked when upstream repos differ in stdlib ID
-- Created amp-free rebuild scripts that recompile the 10 most recent projects as part of CI flows
-- Added `blobCreate` FFI for blob URL management from Mix to work around 10MB scenegraph message limit (replaces long `data:` URLs for computed images)
-    - PRs: protoquery #2226, groovebox #457, mix-rs #935
-
-### Jan 15, 2026 — Repository Tool + scatterplot
-
-- **Gerd**: Published Repository Tool walkthrough in Notion: https://www.notion.so/Repository-Tool-2e91d464528f800985eee93ec9fd5842
-- **Mark**: regl-scatterplot web component working example at https://remix.remixlabs.com/e/edit/scatterplot/home
-  — accepts parquet file as `data` in-binding; point selection returns metadata via out-bindings; deeper visualizations (bar charts) being added
-
-### Jan 16, 2026 — GTM
-
-- Mukund + Vijay: Actively trying to close 2–3 deals; John demoed to Salesforce
-
-### Jan 20, 2026 — Repository Tool live
-
-- Repository Tool available: https://remix-dev.remixlabs.com/e/edit/Repository
-- Discussion: need a "publish read-only builder view" feature — not yet built; current read-only DB access not exposed in builder
-
-### Jan 23, 2026 — Chat + digital experiences demo
-
-- Mukund: Demo recording: https://drive.google.com/file/d/14rMkRdtZL3OnBgL65kHSVRvminyxlICP/view
-- Chris: Added entire team to standup calendar event → Gemini notes + recordings now auto-shared with team
-
-### Jan 29, 2026 — Action item: _rmx_auth rollout
-
-- Didier + Benedikt debugged and modified base `_rmx_auth` app on prod
-- **Action item**: `_rmx_auth.remix` must be updated on every workspace; John Dismore and Wilber Claudio are the only ones with access to all workspaces — assigned to them
+- **Dec 26**: Vijay delivered informal 2026 company strategy at standup (no slides/videos)
+- **Jan 5**: "Remix Copilot" Chrome extension name confirmed acceptable (Mukund); Tyler: sign-out + bad-token re-auth signal
+- **Jan 12**: `blobCreate` FFI added (Gerd) — blob URL management from Mix; stdlib ID mismatch fix; amp-free rebuild CI scripts (protoquery#2226, mix-rs#935)
+- **Jan 15–20**: Repository Tool live at remix-dev.remixlabs.com/e/edit/Repository (Gerd Notion walkthrough); regl-scatterplot webcomp (Mark)
+- **Jan 23**: Chat + digital experiences demo recording (Mukund); Gemini notes auto-shared with team (Chris)
+- **Jan 29**: `_rmx_auth.remix` update needed on every workspace — assigned to John Dismore + Wilber Claudio
 
 ### Jan 30, 2026 — GTM pipeline update (Mukund)
 
@@ -207,3 +175,16 @@ Daily standups Mon–Fri via https://meet.google.com/hrz-onty-twp
 - **May 1**: Gerd out — German public holiday (May Day)
 - **May 1**: Vijay shared `builder_to_wasm` repo: https://github.com/remixlabs/builder_to_wasm — compilation prototype demonstrated at standup (Vibecode/builder→Wasm direction); Chris: “it would be
   inconsistent with long-standing practice to use a good name”
+
+
+### May 2–9, 2026: rcm2 Launch + Notes
+
+**rcm2: new major version [May 8, Gerd]:** Engineering switching to `rcm2` (reached `main`; CI coming). Enforce now: `rcm install -g rcm`. Old `rcm` stays alongside. Breaking change: config file must be `rcm.config.json` (was `rcm.config.mjs`; no longer JS). Benefits: no node/gsutil dependency, works on Windows. Commands: `comp`, `dep`, `gcs`, `install`, `lookup`, `comp publish`, `users`. Plan: cycle through repos to port each to rcm2.
+
+**env.tokenClaims [May 6, Gerd]:** Exists in Mix stdlib — useful for reading JWT claims at runtime (Chris had forgotten).
+
+**Vijay at Twilio Signal conference [May 6]:** Photos shared; Arvind: "narrow window to make great decisions."
+
+**Fred [May 4]:** Query optimization merged; now adding result-limit parameter for grouping.
+
+**Oliver OOO May 11–17** (CW20; back May 18).

@@ -1,6 +1,6 @@
 # #bugbash Slack Channel — Remix Labs
 
-**Coverage:** Jan 20 – May 2, 2026
+**Coverage:** Jan 20 – May 9, 2026
 **Channel ID:** C862WHQMS
 **Bug reporting guide:** https://www.notion.so/Bug-reporting-3061d464528f80cdacf7eed2612bad07
 
@@ -8,18 +8,11 @@
 
 ## Open / In-Progress Bugs
 
-### No portable `baseURL` across surfaces (Arvind, Feb 28) 🔴
-
-`remix://localhost/a/...` stopped working on desktop; `http://localhost:2025/...` hardcoded to default port. No single `baseURL` works across desktop, web, and embed. Benedikt proposed typed host-env
-struct in Mix. **No decision yet; needed for Lumber delivery.**
-
-### Snowflake runtime `runtime.json` 410 (Chris, Feb 28) 🔴
-
-Asset loading fixed but runtime screens return 410 for `runtime.json`. Repro: `mw7zsh-oxfsvki-remix.snowflakecomputing.app/e`. Simon tagged. **Unresolved.**
+### No portable `baseURL` (Arvind, Feb 28) 🔴
+`remix://localhost/a/...` broken on desktop; no single URL works across surfaces. Benedikt proposed typed host-env struct. **Needed for Lumber; unresolved.**
 
 ### Desktop unresponsive: make-agent VM unclosed (Simon, Feb 28) 🔴
-
-VM not closed after use; worker error propagation under investigation (Gerd/Benedikt). **Unresolved.**
+VM not closed after use; error propagation under investigation. **Unresolved.**
 
 ### Stdlib version bump → "needs refreshing" modal (Arvind, Feb 17) 🔴
 
@@ -86,20 +79,13 @@ Mouse-over styles for state machine editor at L3 no longer working — CSS anima
 again without error markers. **Unresolved.**
 
 ### Published .remix missing styles from desktop (Mark, Mar 5) 🟡
-
-Created app on desktop with `_rmx_tailwind`, published via publish plugin, used as catalog item source → all styles missing. Workaround: open empty Styles module, Save & Make, republish. Didier
-suspects cross-instance export (prod→desktop) may cause it. No confirmed root cause.
-
+`_rmx_tailwind` styles missing when published via desktop. Workaround: open empty Styles module, Save & Make, republish.
 
 ### Theme auto-make error referencing _rmx_auth (Arvind, Mar 3) 🟡
-
-Opening theme on desktop triggers auto-make that errors referencing `_rmx_auth` screen. Themes should not need full make (only constants recompile). Proposed fix: add themes to "fake cases" list. *
-*Not confirmed fixed.**
+Opening theme triggers auto-make error on `_rmx_auth`. Proposed: add to "fake cases" list. **Not confirmed fixed.**
 
 ### File download in Desktop opens without auth (Benedikt, Mar 3) 🟡
-
-Workspace Tools opens file URL in browser without auth (anonymous access error). Files from L1 opens URL inside studio instead of new tab. Simon: need desktop client action for "save as" flow.
-Benedikt proposed `Content-Disposition: attachment` header on mixer. **No fix yet.**
+Workspace Tools opens file URL anonymously. Proposed `Content-Disposition: attachment` fix. **No fix yet.**
 
 ---
 
@@ -114,9 +100,7 @@ Benedikt proposed `Content-Disposition: attachment` header on mixer. **No fix ye
 **Desktop workspace form**. Repro: https://dev.remix.app/about/remix. Benedikt investigating; discussion in #C027XQTJG6P. **Unresolved / Critical.**
 
 ### Paste callable comp → "unknown target" build error (Didier/Simon, Mar 17–18) 🟡
-
-Pasting a screen containing callable comps triggers "unknown target" make error on Desktop (client VM). Works on amp. Root cause: 2 distinct bugs. Simon PR: turntable#11823; Didier parallel fix:
-turntable#11820. Arvind proposed bidirectional review to pick the less risky one. **PRs under review.**
+Pasting screen with callable comps errors on Desktop. PRs turntable#11823 + #11820. **Under review.**
 
 ### L0 collaborator list not updated on L1 paste/delete (Arvind, Mar 20) 🟡
 
@@ -214,3 +198,30 @@ Chris); systemic fix open: mix-rs#1064.
 
 **`rmx-remix` webcomp issues [Apr 30, Didier/Benedikt]:** (1) Double embed bug → turntable/11979 (Didier, in progress); (2) Mixcore `"deprecated parameters"` init warning in all webcomps on dev (
 Benedikt investigating). Symptom: Snowflake landing page web comp sections intermittently invisible.
+
+
+## May 2–9, 2026 New Open Bugs
+
+### Node uid duplication → DB corruption (Mark/Simon, May 5–8) 🔴
+10 UIDs 2-way duplicated in `editor_node4`; Mark's 3.7MB DB collapses machines. Copy-paste race condition. remix-issues/167; turntable/12006 is housekeeping only. **Core race unresolved.**
+
+### rmx-remix CSS style leakage (Didier, May 7) 🟡
+`text-align` bleeds through Shadow DOM. Fix: `:host { all: initial }`. PR turntable/12001.
+
+### `calendar.dateTime` serialized as string in object node (Wilber, May 6) 🟡
+Datetime values come through as strings via object node. **Unresolved.**
+
+### Session pool errors + freeze on D&D (Mark, May 7) 🟡
+D&D `facet_builder` triggers session pool errors + UI freeze. **Unresolved.**
+
+### Screen tile undeletable in Symbols (Simon, May 5) 🟡
+Cannot delete screen tile from Symbols panel. PR turntable/11995.
+
+### NodeSearch macro broken in prod (Arvind, May 6) 🟡
+Fix exists; pending prod promotion.
+
+### Workspace tool file delete error (Didier, May 7) 🟡
+File deletion via workspace tool returns error. **Unresolved.**
+
+### Webcomp intermittent first-load error (Sirshendu, May 7) 🟡
+Web component fails on first load intermittently. **Unresolved.**

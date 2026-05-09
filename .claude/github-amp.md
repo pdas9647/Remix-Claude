@@ -76,6 +76,10 @@ via `rmxcodec` binary format.
 - Solo mode: desktop serves builder (`/e/`), runtime (`/r/`), groovebox (`/g/`) static files
 - Dependencies: `eleventwo` (DB), `elaws` (AWS), `siwago` (Apple Sign In), forked `hmq`/`gosnowflake`
 
+## Scan — May 3–9, 2026
+
+> No merged PRs. Repo remains quiet; last merge was #2792 (May 2, 2026).
+
 ## Recent PRs — Apr 26 – May 2, 2026
 
 | PR        | Date   | What                                                                                                                                                                                                      | Who           |

@@ -1,6 +1,6 @@
 # #rmx-delivery-lumber Slack Channel — Remix Labs
 
-**Coverage:** Oct 9, 2025 – May 2, 2026
+**Coverage:** Oct 9, 2025 – May 9, 2026
 **Channel ID:** C09KL3K7P0D
 
 ---
@@ -15,9 +15,8 @@
   Kannan (reporting lead, first Remix user)
 - **Remix team:** Mukund (GTM), Reza (CS lead), Vijay (product), Didier+Chris (platform/infra), Arvind (UX/build), Padmanabha (build), John (platform), Mark (facets), Tyler (webcomponents),
   Gerd+Simon (platform/codegen)
-- **Notion:
-  ** [Lumber main](https://www.notion.so/Lumber-28c1d464528f801bac72d6c064d30db2) | [Postgres schema](https://www.notion.so/Schema-of-Lumber-Postgres-2f71d464528f8092b0dce634ef55bfb7) | [Job Costing](https://www.notion.so/Job-Costing-Report-2fb1d464528f808b987cce2583b7fb8a)
-- **Integration doc:** [https://docs.google.com/document/d/1xHHOfZi94LdDfDbsktjrFc5IvBKJiyguDxXzafDv63s/edit](https://docs.google.com/document/d/1xHHOfZi94LdDfDbsktjrFc5IvBKJiyguDxXzafDv63s/edit)
+- **Notion:** [Lumber main](28c1d464) | [Postgres schema](2f71d464) | [Job Costing](2fb1d464)
+- **Integration doc:** https://docs.google.com/document/d/1xHHOfZi94LdDfDbsktjrFc5IvBKJiyguDxXzafDv63s/edit
 
 ---
 
@@ -161,3 +160,10 @@ project ID: `P2Zne0vibP6VccnwmuPXAfOl1jz0`. Didier’s JS wrapper working May 2.
 **Client status [Mukund]:** (1) reports built, (2) auth wired, (3) embed integration, (4) May 4 handoff call with Lumber tech team. Arvind added how-to doc to Desktop home app.
 
 **Catalog UX issues [Padmanabha]:** Notion: https://www.notion.so/3501d464528f8099b21cf64bfc5b71c2
+
+
+## May 2–9, 2026 Additions
+
+**Embed doc + Lumber India planning [May 2–7, Didier/Mukund]:** Didier updated Google doc with npm React install + React SSO example; posted to lumberfi channel. Mukund wants Lumber India team to test embed into demo portal; call planned.
+
+**Greg struggles with Job Cost Report [May 8, Greg/Mukund]:** Greg tried building solo — stuck at multiple steps; couldn't replicate 1:1. Second Remix person also attempted with partial success only. Screenshots shared with Arvind.

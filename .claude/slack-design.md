@@ -1,6 +1,6 @@
 # #design Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – May 2, 2026
+**Coverage:** Dec 20, 2025 – May 9, 2026
 **Channel ID:** C4BLR910S
 **Purpose:** Design systems, visual IDE, icon and widget libraries
 
@@ -144,3 +144,8 @@ framing for 2026:
 
 Note (Arvind): "neither pushback nor critique of the demo'd approach, which was both interesting and refreshing, it's just an overall directional point in thinking through the design outcomes we want
 for a good 2026 story." Tagged Vijay, John, Mukund.
+
+
+## May 2–9, 2026 Additions
+
+**Symbol previews in projects view [May 6, Simon]:** Requested adding preview thumbnails for symbols in the L0 projects view — data already available; just needs surfacing. Tagged Didier + Arvind.

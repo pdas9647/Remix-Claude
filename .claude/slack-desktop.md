@@ -1,6 +1,6 @@
 # #desktop Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – Apr 25, 2026
+**Coverage:** Dec 20, 2025 – May 9, 2026
 **Channel ID:** C04T4HW06CC
 **Bug tracker:** https://github.com/remixlabs/mix-rs/issues/937
 
@@ -36,10 +36,6 @@ tile + invoke agent.
 
 **"Open Link" broken [Feb 5]:** `window.open` doesn't work in Tauri. Fix: mix-rs/pull/977 — opens in default browser. remix.app incompatible with Tauri native webview.
 
-**Timezone wrong [Feb 5-9]:** Runtime had invalid `America/San Francisco`. Fix: mix-rs/pull/979, desktop v9640. Service agents still ignore timezone: mix-rs/issues/987.
-
-**CORS in preview [Dec 29]:** Preview VMs lack mixcore FFI → fall back to HTTP → CORS. Fix: turntable/pull/11620 (route through FFI). Basic auth unsupported in mixcore: mix-rs/issues/926.
-
 ---
 
 ## Architecture & Infrastructure
@@ -55,8 +51,6 @@ tile + invoke agent.
 **Window title sync [Jan 12]:** `document.title` → Tauri window title via `on_document_title_changed` hook — mix-rs/pull/943.
 
 **config.toml open questions [Feb 22]:** `apps_url` possibly outdated; `app_versions` accumulates old entries.
-
-**Reload Studio window action needed [Feb 18]:** No mechanism to programmatically reload a window after installing .remix.
 
 ---
 
@@ -178,3 +172,14 @@ fixed. Lumber Desktop build: **lumber-qa** channel. Padmanabha couldn’t sign i
 **`_rmx_tailwind` styles missing in Desktop [Apr 23, Padmanabha]:** Theme not rendering in remix-desktop. Open.
 
 **Desktop fails to start offline [Apr 25, Simon]:** Offline — DB rejects all requests during app sync, blocking Desktop and dev-environment builder. Open.
+
+
+## Apr 27–May 9, 2026 Additions
+
+**Wrong window size on L1 open [Apr 27, Arvind]:** Apps (e.g. `query_builder` from lumber repo) open as mobile-size window despite laptop form factor. Open.
+
+**Save dialog: filename always "Untitled" [Apr 28, Gerd]:** New save dialog doesn't pick up suggested filename from export_package plugin. Open.
+
+**Release channel consolidation [Apr 29, John]:** Requested one canonical release channel for Desktop.
+
+**New builds [May 7, Chris]:** Release 0.11402.0, beta 0.11403.0.

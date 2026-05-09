@@ -1,6 +1,6 @@
 # #rmx-delivery-snowflake Slack Channel — Remix Labs
 
-**Coverage:** Mar 25, 2025 – May 2, 2026
+**Coverage:** Mar 25, 2025 – May 9, 2026
 **Channel ID:** C08JPJ6EES3
 **Nature:** Snowflake GTM partnership, not a customer delivery
 
@@ -27,13 +27,7 @@
 
 ### Apr 8, 2025 — Technical deep dive
 
-- 1-hour SE call; agenda: current + future state architecture, SPCS/Cortex/Native App plans, business value
-- Canvas: https://figly.slack.com/docs/T02BD0B81/F08MF3AGUSV
-- Chris's plan of attack for SPCS integration:
-    1. Get mixer running on Snowpark Container Services (SPCS)
-    2. Auth from mixer to Snowflake; run SQL queries
-    3. Deploy amp + builder in SPCS
-    4. (Stretch) Deploy as native applications
+1-hour SE call on SPCS/Cortex/Native App plans. Chris's plan: (1) mixer in SPCS, (2) Snowflake auth+SQL, (3) deploy amp+builder, (4) Native App stretch goal.
 
 ### Apr 9–10, 2025 — SPCS exploration
 
@@ -188,3 +182,10 @@ down. No resolution recorded in window.
 4. **Data lake → digital experiences** — Snowflake data → interactive RCS/web/chat end-user experiences
 
 Note: "build in Snowflake" = build on Desktop Studio, deploy natively in Snowflake. Snowflake Intelligence app flagged as potential integration point. Discussion continued Apr 30.
+
+
+## May 2–9, 2026 Additions
+
+**Consumer SPCS restored [May 2, Chris]:** `remix_spcs_demo` back up at `https://mrlr4z-oxfsvki-remix-spcs-demo.snowflakecomputing.app`; Mukund + Padmanabha as admins. Data sharing confirmation still pending.
+
+**Public vs private marketplace listing [May 9, Mukund/Vijay]:** Private listing allows marketplace credits; public adds credibility, discovery, easier procurement/infosec. Awaiting partner manager confirmation. Vijay: no objection to public if it doesn't delay.

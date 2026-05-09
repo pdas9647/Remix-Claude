@@ -1,34 +1,14 @@
 # #dumbquestionsanswered Slack Channel — Remix Labs
 
-**Coverage:** Feb 16 – May 2, 2026
+**Coverage:** Feb 16 – May 9, 2026
 **Channel ID:** C86KWF7MG
 **Purpose:** "the dumbness of the programmer has no limits" — quick Q&A, platform clarifications
 
 ---
 
-## [Feb 20, 61 replies] `env.runtimeURL` deprecation (Arvind + Chris + Didier)
+## [Feb 20, 61 replies] `env.runtimeURL` deprecated
 
-**Question:** What replaces `env.runtimeURL(env.backendBaseURL, env.frontendBaseURL, "app_name", "screen_name", params)`?
-
-**Current status:** Still works but deprecated. protoquery/pull/2218 will formally remove `env.runtimeURL` and deprecate `backendBaseURL` / `frontendBaseURL`.
-
-**Replacement:**
-
-- Use `env.baseURL` instead of `backendBaseURL` / `frontendBaseURL` (always set, works on all surfaces)
-- For **in-app navigation**: use the Navigate action node — no URL construction needed
-- For **widget tap targets** (native iOS/macOS): use universal link deeplink format (the container app sets `client_frontendBaseURL` via `mixrun/src/widgets.rs`)
-- No stdlib replacement planned — surface-specific URL quirks make a generic abstraction more trouble than it's worth (Chris)
-
-**Why no universal stdlib replacement:**
-Each surface has different URL semantics:
-
-- Native widgets → universal links into container app (`https://app.remixlabs.com/<app>/<screen>`)
-- Desktop widgets → equivalent desktop deep links
-- Web "widgets" rendered in screens → same `.remix` exe, use Navigate actions directly
-
-**Gerd's position:** Runtime-specific URL construction should not be in stdlib — belongs in a catalog component or as a client action / env variable template.
-
-**Conclusion (Chris):** "Problem for userspace until we have clearer portable abstractions." Removing `env.runtimeURL` will be a compile-time error, so existing code will surface naturally.
+**Replace with:** `env.baseURL` (works on all surfaces). For in-app navigation: use Navigate action node. For widget tap targets (iOS/macOS): use universal link format. Each surface has different URL semantics — no stdlib replacement planned. `protoquery/pull/2218` will make removal a compile-time error.
 
 ---
 
@@ -205,3 +185,16 @@ as **"rehash"**, not real edits.
 
 **Snowflake cold start [Apr 27, Chris]:** Service agents: few-second code-load on first call. Snowflake warehouses: idle VM wakeup delay (configurable via idle-timeout + VM size). Expected "Monday
 morning" behavior on infrequent reports.
+
+
+## May 2–9, 2026 Q&A
+
+**img onError fallback [May 7, Arvind/Vijay]:** `<img onError={e => e.target.src='/placeholder.png'}>` — show placeholder for broken public image URLs. Vijay: add to standard img component.
+
+**Query tile perf: 17.5K records [May 6, Padmanabha]:** 34 min to open Query tile for large `grocery_product` entity even with `per_page=25`. Best approach for large datasets in Remix DB unclear. Open.
+
+**Repo feature on workspace [May 6, Arvind]:** Repository plugin not in App Hub — must deploy repo project agents to workspace manually.
+
+**Cross-DB tiles deprecation proposal [May 8, Didier]:** File/save/delete/query tiles still support cross-DB, but `.remix` is single-DB and client extension won't work cross-DB. Didier proposes removing cross-DB from these tiles. Open.
+
+**`fullscreen_init` gone in rmx-init-runtime.js [May 8, Chris]:** Snowflake runtime page migrated to `rmx-init-runtime.js`; old `window.fullscreen_init` no longer works. New init API TBD.
