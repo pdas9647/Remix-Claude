@@ -133,4 +133,7 @@ Notion index:
   AI table config, Snowflake submission ~1 week out, pricing model design
 - [standup-notes-apr-2026-3.md](./standup-notes-apr-2026-3.md) — Standup notes Apr 27–30: Parquet backend strategic shift, repo consolidation (4-repo 2-level), Vibecode front-end composition layer,
   custom table primitives decision, Snowflake listing rejected (permission grants)
-- [standup-notes-may-2026.md](./standup-notes-may-2026.md) — Standup notes May 1+: Snowflake Summit prep (Jun 1–4), homegrown tooling decision, dashboard + chat client demos, GTM partner strategy
+- [standup-notes-may-2026.md](./standup-notes-may-2026.md) — Standup notes May 1–8: Snowflake Summit prep (Jun 1–4), homegrown tooling, dashboard + chat demos, RCM2 Go port, AI-in-builder vision,
+  Starlight onboarding complete, Lumber portal integration, grocery catalog demo, service agent tooling deep dive
+- [standup-notes-may-2026-2.md](./standup-notes-may-2026-2.md) — Standup notes May 11–15: RCM2 GA + Windows-first, AMP builder phased deprecation, private Snowflake marketplace listing,
+  service agent alias framework execution, agentic search demo, discontinue Lumber wait, builder vs runtime separation

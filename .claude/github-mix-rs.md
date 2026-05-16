@@ -74,23 +74,88 @@ workspace apps → home.
 
 ## Recent PRs — Apr 26 – Apr 30, 2026 (9 merged)
 
-| PR          | Date   | Summary                                                                                                                                                                                                                                                                                                                                                                                                                          | Author        |
-|-------------|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
-| **#1094** ★ | Apr 30 | **Query optimization for subqueries** (long-lived Apr 16→Apr 30) — New `mixquery/optimize.rs`; reworks `exec.rs`, `pred.rs`, `writelog.rs`, `reg.rs`. Sub-PR #1106 merged into branch first.                                                                                                                                                                                                                                     | fredim        |
+| PR          | Date   | Summary                                                                                                                                                                                                                                                                                           | Author        |
+|-------------|--------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| **#1094** ★ | Apr 30 | **Query optimization for subqueries** (long-lived Apr 16→Apr 30) — New `mixquery/optimize.rs`; reworks `exec.rs`, `pred.rs`, `writelog.rs`, `reg.rs`. Sub-PR #1106 merged into branch first.                                                                                                      | fredim        |
 | **#1086** ★ | Apr 27 | **Consolidate mixcore-js** (long-lived Apr 3→Apr 27) — Rewrites `mixcore/bindings/javascript/` → `mixcore/bindings/js/`; new `groovebox-starter/worker` + `wasm-opfs-init` TS modules; removes old per-platform split files. Mix-rs leg of 3-repo effort (turntable#11897 + flutter-runtime#442). | benozol       |
-| **#1101** ★ | Apr 27 | **Consolidate mixcore js in Desktop** — Makefile: copies `mixcore_bg.wasm`+`mixcore.js` (new paths); `init()` gains jsUrl arg; rcm-lock: turntable→61500, mixcore→11194, groovebox→3388.                                                                                                              | benozol       |
-| **#1100**   | Apr 27 | **Blank-query "all" bitmap fix** — When there's no query, the "all" bitmap now only includes rows passing the prefilter (not all rows). Fixes incorrect result counts on unfiltered queries.                                                                                                                                                                                                                                     | fredim        |
-| **#1108**   | Apr 29 | **fix-case-sort** — Fixes sort behavior for case expressions in `mixquery`.                                                                                                                                                                                                                                                                                                                                                      | fredim        |
-| **#1107**   | Apr 29 | **Enable nontrapping float conversion in wasm-opt** — Adds `--enable-nontrapping-float-to-int` flag to wasm-opt in Mixer Wasm build; prevents trapping on NaN/inf float-to-int conversions.                                                                                                                                                                                                                                      | benozol       |
-| **#1105**   | Apr 28 | **Allow X-Requested-With in CORS** — Adds `X-Requested-With` to the allowed CORS headers in the Mixer HTTP server.                                                                                                                                                                                                                                                                                                               | cvermilion    |
-| **#1103**   | Apr 28 | **cargo fmt** — Rust formatting pass.                                                                                                                                                                                                                                                                                                                                                                                            | gerdstolpmann |
-| **#1102**   | Apr 27 | **CI: disable halt-if-component-changed for mixrun** — Comments out the "skip build if mixrun unchanged" CI optimization; was causing missed builds.                                                                                                                                                                                                                                                                             | gerdstolpmann |
+| **#1101** ★ | Apr 27 | **Consolidate mixcore js in Desktop** — Makefile: copies `mixcore_bg.wasm`+`mixcore.js` (new paths); `init()` gains jsUrl arg; rcm-lock: turntable→61500, mixcore→11194, groovebox→3388.                                                                                                          | benozol       |
+| **#1100**   | Apr 27 | **Blank-query "all" bitmap fix** — When there's no query, the "all" bitmap now only includes rows passing the prefilter (not all rows). Fixes incorrect result counts on unfiltered queries.                                                                                                      | fredim        |
+| **#1108**   | Apr 29 | **fix-case-sort** — Fixes sort behavior for case expressions in `mixquery`.                                                                                                                                                                                                                       | fredim        |
+| **#1107**   | Apr 29 | **Enable nontrapping float conversion in wasm-opt** — Adds `--enable-nontrapping-float-to-int` flag to wasm-opt in Mixer Wasm build; prevents trapping on NaN/inf float-to-int conversions.                                                                                                       | benozol       |
+| **#1105**   | Apr 28 | **Allow X-Requested-With in CORS** — Adds `X-Requested-With` to the allowed CORS headers in the Mixer HTTP server.                                                                                                                                                                                | cvermilion    |
+| **#1103**   | Apr 28 | **cargo fmt** — Rust formatting pass.                                                                                                                                                                                                                                                             | gerdstolpmann |
+| **#1102**   | Apr 27 | **CI: disable halt-if-component-changed for mixrun** — Comments out the "skip build if mixrun unchanged" CI optimization; was causing missed builds.                                                                                                                                              | gerdstolpmann |
 
 ## Recent PRs — May 1–8, 2026 (4 merged)
 
-| PR           | Date  | Summary                                                                                                                                                                                                                                                                                                                             | Author  |
-|--------------|-------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
-| **#1039** ★  | May 8 | **Revamp MCP** (long-lived Mar 2→May 8) — Moves MCP out of standalone `mixer/src/mcp.rs` (deleted, 315 lines) into the v1 API layer as `mixer/src/serve/api_v1/mcp.rs` (new, 216 lines) + `mcp_tool.rs` model. Desktop MCP bridge (`src-mcp-bridge/main.rs`) significantly reworked; `claude.rs` Claude Desktop integration updated (+88/-33). | benozol |
-| **#1099**    | May 6 | **Desktop panic hook** (Apr 24→May 6) — `std::panic::set_hook` installed in `run()`; new `panic_hook` captures `payload_as_str()`, `location()`, `Backtrace::force_capture()` and logs via `tracing::error!`. Desktop panics now produce structured logs instead of silent crashes. | benozol |
-| **#1111**    | May 6 | **OPFS Wasm init worker: catch exceptions** — Worker handler wrapped in try/catch; posts typed `Result<T>` (`{ok,result}` or `{ok:false,message}`). `wasm-opfs-init.ts` rejects promise on error. Also adds error context to `.remix` fetch/parse failures in `js_api.rs`. | benozol |
-| **#1115**    | May 8 | **Channel switch: require confirmation** — `switch_channel` gains `confirm: bool` param; shows dialog before switching. Removes old restriction to home-app-only switching. | benozol |
+| PR          | Date  | Summary                                                                                                                                                                                                                                                                                                                                        | Author  |
+|-------------|-------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
+| **#1039** ★ | May 8 | **Revamp MCP** (long-lived Mar 2→May 8) — Moves MCP out of standalone `mixer/src/mcp.rs` (deleted, 315 lines) into the v1 API layer as `mixer/src/serve/api_v1/mcp.rs` (new, 216 lines) + `mcp_tool.rs` model. Desktop MCP bridge (`src-mcp-bridge/main.rs`) significantly reworked; `claude.rs` Claude Desktop integration updated (+88/-33). | benozol |
+| **#1099**   | May 6 | **Desktop panic hook** (Apr 24→May 6) — `std::panic::set_hook` installed in `run()`; new `panic_hook` captures `payload_as_str()`, `location()`, `Backtrace::force_capture()` and logs via `tracing::error!`. Desktop panics now produce structured logs instead of silent crashes.                                                            | benozol |
+| **#1111**   | May 6 | **OPFS Wasm init worker: catch exceptions** — Worker handler wrapped in try/catch; posts typed `Result<T>` (`{ok,result}` or `{ok:false,message}`). `wasm-opfs-init.ts` rejects promise on error. Also adds error context to `.remix` fetch/parse failures in `js_api.rs`.                                                                     | benozol |
+| **#1115**   | May 8 | **Channel switch: require confirmation** — `switch_channel` gains `confirm: bool` param; shows dialog before switching. Removes old restriction to home-app-only switching.                                                                                                                                                                    | benozol |
+
+---
+
+## Groovebox / Mix VM (mixrt + machine-starter)
+
+> Source: [mixrt](https://www.notion.so/11f1d464528f80ca8396c6f29f351d26)
+> Parent: The Remix Platform → Platform Engineering (Internal) Home
+
+### Architecture
+
+The Mix VM is a C library (`machine-wasm/src` in groovebox), compiled to Wasm via [`wasi-sdk`](https://github.com/WebAssembly/wasi-sdk) → `mixrt.wasm`. This Wasm is then compiled back to C via
+`wasm2c` (from `wabt`) → `mixrt.h`/`mixrt.c` for native use in `mixer` and iOS app clips.
+
+| Artifact                 | Description                                                                 |
+|--------------------------|-----------------------------------------------------------------------------|
+| `libmixrt.a`             | Static library compiled from `machine-wasm/src` C sources                   |
+| `mixrt.wasm`             | Wasm output from `libmixrt.a` via `wasi-sdk`                                |
+| `mixrt.h`/`.c`           | wasm2c output for native environments (mixer CLI, iOS app clips)            |
+| `machine-wasm.js`        | Node bundle: `mixrt.wasm` baked in as single-file web worker module         |
+| `machine-wasm.worker.js` | Distributed via `machine-starter`; for web, `mixrt.wasm` provided by caller |
+
+### machine-starter
+
+JS npm package (internal only, distributed via `rcm` as `file://` dependency). Used by `turntable`.
+
+```js
+import {StartWASM2} from "@remix_labs/machine-starter";
+
+const config = {
+    baseURL: "https://...",
+    org: "local",
+    workspace: "local",
+    vmID: "0x1234",
+    user: "fred",
+    token: "abcd",
+    noOutputViaMQTT: ...,   // if true: "$outputWithVersion" FFI instead of MQTT output topic
+    machType: "WASM",       // always "WASM" even for QCode execution
+    mixrtCode: "https://somewhere/mixrt.wasm",  // web only: URL, base64 string, or Uint8Array
+};
+StartWASM2(hub, config);  // hub = messaging hub or channel
+```
+
+### FFI Configuration
+
+Three tiers (increasing precedence):
+
+1. **Worker-internal FFIs** — defined in `machine-wasm/js/ffi.js` (e.g. `$http_do`)
+2. **Mixcore FFIs** — via `MixcoreWrapper` in `machine-wasm/js/mixcore.js`; selected by `config.mixcore.kind`:
+    - `"webkit"` — Swift/WebKit: `window.webkit.messageHandlers["mixcore_ffi_dispatch"]` (iOS app clips)
+    - `"tauri"` — `window.__TAURI__.invoke("mixcore_ffi_dispatch", {co, name, argsBuf})`; needs `dbName`, `dbUser`, `dbDir`
+    - `"service-worker"` — browser builder: `mixcore` packaged as SW (`mix-rs/mixcore/sw`); pass `{kind: "service-worker", mixcoreId: "my-id"}`
+3. **Local FFIs** — defined in the `StartWASM2` caller context; invoked via MQTT hub message-passing:
+   ```js
+   config.localFFIs = {
+     "name_sync":  ((connector, args) => ...),
+     "name_async": (async (connector, args) => ...),
+     "name_raw": { isRaw: true, run: ((conn, buf) => ...) },       // Mix-encoded buffer in/out
+     "name_can_fail": { canFail: true, useJsonDecoder: true,
+                        run: ((conn, args) => {name:"ok",value:...}) },
+   };
+   ```
+
+### Value Types Across FFI Boundary
+
+Supported: `undefined`, `null`, `bool`, `number`, `string`, `Array`, plain objects (→ Mix maps), `Uint8Array` (→ Mix binary), `Case`, `Token`, `Opaque`. All other JS types are unsupported.

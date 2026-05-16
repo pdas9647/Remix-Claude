@@ -154,6 +154,72 @@ module env
 module end
 ```
 
+### Runtime Env Variables (via `env.current()`)
+
+> Source: [Runtime environment variables](https://www.notion.so/2071d464528f80998da3d86a74cb9533)
+
+Full variable listing exposed in the Mix environment. View your own env at `remix-dev.remixlabs.com/dda-misc/user_agent`.
+
+**Standard vars:**
+
+| Variable                           | Description                                                                                                                                        |
+|------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| `app`                              | Current app (DB) name                                                                                                                              |
+| `org`                              | Organization name                                                                                                                                  |
+| `workspace`                        | Workspace name                                                                                                                                     |
+| `actionPrefix`                     | Routing prefix for action messages (`"msg_type_invoke"`); short random ID by default; used by stdlib for multi-VM screen embedding                 |
+| `baseURL` / `frontendAssetsPrefix` | `baseURL` = prefix for Amp/Mixer API requests. `frontendAssetsPrefix` = prefix for platform (rcm) assets from `index.html` (Client Groovebox only) |
+| `user`                             | Email of the user                                                                                                                                  |
+| `userID`                           | Remix ID (`_rmx_id`) of the user                                                                                                                   |
+| `userIsAnonymous`                  | `true` for anonymous users                                                                                                                         |
+| `userPseudonym`                    | Display name (TBD)                                                                                                                                 |
+| `token`                            | Current Amp token                                                                                                                                  |
+| `hostEnvironment`                  | Current runtime type (see `hostEnvironment_t` above)                                                                                               |
+| `errorInfo`                        | Backtrace decode info; created by builder, stored in .remix, exposed by host                                                                       |
+| `isAgent`                          | `true` if currently in an agent context                                                                                                            |
+| `isBuilder`                        | `true` if running in the builder                                                                                                                   |
+| `platformVersion`                  | Object: `{remix, abi_major, abi_minor, compiler, compiler_available, amp, groovebox, mixswift, turntable, stdlib}`                                 |
+
+**Client vars** (accessible as `env.clientVars()` or with `client_` prefix):
+
+| Variable                              | Values / Description                                                                         |
+|---------------------------------------|----------------------------------------------------------------------------------------------|
+| `width` / `height`                    | Browser window dimensions                                                                    |
+| `online`                              | `true` if user is online                                                                     |
+| `timezone`                            | Current user timezone                                                                        |
+| `userAgent`                           | Browser user agent string                                                                    |
+| `os`                                  | `ios \| android \| macos \| windows \| linux \| unknown`                                     |
+| `platform`                            | `web \| mobile \| desktop`                                                                   |
+| `surface`                             | `app \| extension \| quicklook \| sharesheet \| appclip \| widget \| plugin \| notification` |
+| `channel`                             | `draft \| test \| public` (mobile only)                                                      |
+| `name` / `given_name` / `family_name` | Full / first / last name                                                                     |
+| `picture`                             | URL of user profile picture                                                                  |
+
+**Desktop client namespace** (`env.get("client_desktop.agentServer.url")` etc.):
+
+| Path                        | Description                   |
+|-----------------------------|-------------------------------|
+| `.desktop.agentServer.url`  | URL of the local agent server |
+| `.desktop.defaultWorkspace` | Always `"local"`              |
+| `.desktop.window.id`        | ID of the screen window       |
+
+**Extension client namespace** (`env.get("client_extension.*")`):
+
+| Path                                                             | Description                                               |
+|------------------------------------------------------------------|-----------------------------------------------------------|
+| `.extension.app.{db,name,src,v,ws}`                              | Info about the `_rmx_extension` app                       |
+| `.extension.flowConfig.{src,screenName,dbName,params,constants}` | Actively running flow config                              |
+| `.extension.id`                                                  | Chrome extension ID: `"chcpkplefjhcnpeihnfepchgmdhbjeng"` |
+| `.extension.instanceId`                                          | ID of running `RmxExtension` wrapper                      |
+| `.extension.isPopup`                                             | `true` when in chrome extension popup                     |
+| `.extension.isSidePanel`                                         | `true` when in side panel                                 |
+| `.extension.isTab`                                               | `true` when in a tab                                      |
+| `.extension.tab` / `.window`                                     | `null` when `isSidePanel` is true                         |
+| `.extension.localAgtServerUrl`                                   | Desktop agt server URL (`http://localhost:2025/ws/local`) |
+| `.extension.targetEnv`                                           | Build target: `"dev" \| "beta" \| "prod" \| "v"`          |
+| `.extension.version`                                             | Build version from manifest                               |
+| `.extension.location`                                            | `window.location.href` where instance is running          |
+
 ### Key Notes
 
 - `get_env()` in user code is **deprecated**; use `env.get` instead.
