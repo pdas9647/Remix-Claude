@@ -1,7 +1,7 @@
 # Remix Agent Server — Live API Endpoints (Swagger)
 
 Sourced from: `https://agt.remixlabs.com/v1/_doc/openapi.json`  
-Spec version: 0.1.0 (OAS 3.1) — last fetched 2026-05-06
+Spec version: 0.1.0 (OAS 3.1) — last fetched 2026-05-17
 
 **Auth:** Bearer JWT required on all endpoints. JWT expires ~30 days.  
 Re-fetch spec: `curl -s -H "Authorization: Bearer <token>" "https://agt.remixlabs.com/v1/_doc/openapi.json"`
@@ -68,12 +68,43 @@ Many v0 endpoints come in two flavors: `{ws_form}` (multipart/form-data) and `{w
 | GET    | `/v1/ws/{ws}/app/{app}/agent/{agent}/permissions`      | List all permissions for an agent → `APIGrant[]`   |
 | GET    | `/v1/ws/{ws}/app/{app}/agent/{agent}/permissions/{id}` | Get a specific permission grant by ID (`APIGrant`) |
 | DELETE | `/v1/ws/{ws}/app/{app}/agent/{agent}/permissions/{id}` | Delete a permission grant by ID (204)              |
+| GET    | `/v1/ws/{ws}/app/{app}/permissions`                    | List all permissions for an app → `APIGrant[]`     |
+| GET    | `/v1/ws/{ws}/app/{app}/permissions/{id}`               | Get an app permission grant by ID (`APIGrant`)     |
+| DELETE | `/v1/ws/{ws}/app/{app}/permissions/{id}`               | Delete an app permission grant by ID (204)         |
+| GET    | `/v1/ws/{ws}/permissions`                              | List all permissions at workspace level            |
+| GET    | `/v1/ws/{ws}/permissions/{id}`                         | Get a workspace permission grant by ID             |
+| DELETE | `/v1/ws/{ws}/permissions/{id}`                         | Delete a workspace permission grant by ID          |
+
+### App Metadata
+
+Separate from the app-info endpoints — these manage the metadata document directly.
+
+| Method | Path                            | Description                                              |
+|--------|---------------------------------|----------------------------------------------------------|
+| GET    | `/v1/ws/{ws}/appmeta`           | List app metadata for all apps in a workspace            |
+| GET    | `/v1/ws/{ws}/appmeta/{app}`     | Get app metadata for a single app                        |
+| PUT    | `/v1/ws/{ws}/appmeta/{app}`     | Update app metadata (or create if missing) — JSON body   |
+| PATCH  | `/v1/ws/{ws}/appmeta/{app}`     | Patch (upsert) app metadata — JSON body                  |
+
+### Runtime & Export
+
+| Method | Path                                    | Description                                                                   |
+|--------|-----------------------------------------|-------------------------------------------------------------------------------|
+| GET    | `/v1/ws/{ws}/app/{app}/runtime.json`    | Get runtime metadata for an app                                               |
+| GET    | `/v1/ws/{ws}/export`                    | Export a workspace as a mastertape file (v1 equivalent of `/v0/ws-export`)    |
+| POST   | `/v1/ws/{ws}/export`                    | Export a workspace to a remote URL (JSON body)                                |
 
 ### Auth Configs
 
-| Method | Path                       | Description                                                                               |
-|--------|----------------------------|-------------------------------------------------------------------------------------------|
-| GET    | `/v1/ws/{ws}/auth-configs` | Get auth config by name (query: `name`) or list all → `APIAuthConfig` / `APIAuthConfig[]` |
+| Method | Path                            | Description                                                            |
+|--------|---------------------------------|------------------------------------------------------------------------|
+| GET    | `/v1/ws/{ws_list}/auth-configs` | List all auth configurations → `APIAuthConfig[]`                       |
+| GET    | `/v1/ws/{ws_get}/auth-configs`  | Get an auth configuration by name (query: `name`) → `APIAuthConfig`    |
+| POST   | `/v1/ws/{ws}/auth-configs`      | Create a new auth configuration (JSON body)                            |
+| GET    | `/v1/ws/{ws}/auth-configs/{id}` | Get an auth configuration by ID → `APIAuthConfig`                      |
+| PUT    | `/v1/ws/{ws}/auth-configs/{id}` | Update an auth configuration (JSON body) — full replace                |
+| PATCH  | `/v1/ws/{ws}/auth-configs/{id}` | Patch an auth configuration (JSON body) — partial update               |
+| DELETE | `/v1/ws/{ws}/auth-configs/{id}` | Delete an auth configuration                                           |
 
 ### Documents (Mix DB records)
 
@@ -84,17 +115,34 @@ Many v0 endpoints come in two flavors: `{ws_form}` (multipart/form-data) and `{w
 | DELETE | `/v1/ws/{ws}/app/{app}/documents/{id}`  | Delete a document by ID (204)                                                        |
 | DELETE | `/v1/ws/{ws_query}/app/{app}/documents` | Batch delete — `ids` as query param (URL-encoded JSON array, e.g. `%5b%22abc%22%5d`) |
 | DELETE | `/v1/ws/{ws_body}/app/{app}/documents`  | Batch delete — `ids` as form body (URL-encoded JSON array)                           |
+| POST   | `/v1/ws/{ws}/app/{app}/save`            | Save documents, Mix-style (JSON body) — alternate save endpoint                      |
+| POST   | `/v1/ws/{ws}/app/{app}/modify`          | Administrative DB modification (JSON body)                                           |
+| GET    | `/v1/ws/{ws}/app/{app}/raw/{id}`        | Get raw document field contents. Query: `data` (field name, default `"data"`) — returns the raw string/bytes value of that field |
+
+### DB Query (v1)
+
+Replaces the v0 `/v0/query/...` registered-query mechanism with direct query execution.
+
+| Method | Path                                  | Description                                                                                                                                          |
+|--------|---------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| GET    | `/v1/ws/{ws}/app/{app}/query`         | Run DB query. Query params: `query`, `queryAST`, `includeDeleted`, `includeHistory`, `skip`, `limit`                                                  |
+| POST   | `/v1/ws/{ws}/app/{app}/query`         | Run DB query (JSON body)                                                                                                                              |
+| GET    | `/v1/ws/{ws}/app/{app}/query/parse`   | Parse a DB query (returns AST). Same params as `/query`                                                                                                |
+| POST   | `/v1/ws/{ws}/app/{app}/query/parse`   | Parse a DB query (JSON body)                                                                                                                          |
 
 ### File Manager
 
-| Method | Path                                         | Description                                                                                   |
-|--------|----------------------------------------------|-----------------------------------------------------------------------------------------------|
-| GET    | `/v1/ws/{ws}/app/{app}/file-manager/content` | Get file content or list directory at `path` (query). Returns `octet-stream`.                 |
-| PUT    | `/v1/ws/{ws}/app/{app}/file-manager/content` | Upload a file (`octet-stream`). Query: `path`, `force` (overwrite). 200=updated, 201=created. |
-| POST   | `/v1/ws/{ws}/app/{app}/file-manager/content` | Upload a file via multipart form (`CreateFile` schema). 200=updated, 201=created.             |
-| DELETE | `/v1/ws/{ws}/app/{app}/file-manager/content` | Delete file at `path` (query)                                                                 |
-| POST   | `/v1/ws/{ws}/app/{app}/file-manager/copy`    | Copy a file. Query: `src` (source path), `src_app` (source app), `path` (destination path)    |
-| GET    | `/v1/ws/{ws}/app/{app}/file-manager/props`   | Stat a file — get `FileInfo` metadata at `path` (query)                                       |
+| Method | Path                                          | Description                                                                                                  |
+|--------|-----------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| GET    | `/v1/ws/{ws}/app/{app}/file-manager/content`  | Get file content or list directory at `path` (query). Returns `octet-stream`.                                |
+| PUT    | `/v1/ws/{ws}/app/{app}/file-manager/content`  | Upload a file (`octet-stream`). Query: `path`, `force` (overwrite). 200=updated, 201=created.                |
+| POST   | `/v1/ws/{ws}/app/{app}/file-manager/content`  | Upload a file via multipart form (`CreateFile` schema). 200=updated, 201=created.                            |
+| DELETE | `/v1/ws/{ws}/app/{app}/file-manager/content`  | Delete file at `path` (query)                                                                                |
+| POST   | `/v1/ws/{ws}/app/{app}/file-manager/copy`     | Copy a file. Query: `src` (source path), `src_app` (source app), `path` (destination path)                   |
+| GET    | `/v1/ws/{ws}/app/{app}/file-manager/props`    | Stat a file — get `FileInfo` metadata at `path` (query)                                                      |
+| PATCH  | `/v1/ws/{ws}/app/{app}/file-manager/props`    | Rename / move a file. Query: `path` (current), `change_path` (new path)                                      |
+| POST   | `/v1/ws/{ws}/app/{app}/file-manager/register` | Register a file (form / multipart body)                                                                      |
+| GET    | `/v1/ws/{ws}/app/{app}/files/{path}`          | Get a file directly by path (content-type guessed from extension, falling back to `application/octet-stream`) |
 
 ### Signals (async coordination)
 
@@ -128,13 +176,14 @@ XHR call in the Network tab because it likely arrives via WebSocket/MQTT during 
 **Body:** `{}` (POST also works)  
 **Auth:** Bearer JWT
 
-**Known library workspaces** (`{library_ws}` values):
+**Known library workspaces** (`{library_ws}` values) — counts as of 2026-05-17:
 
-- `remix_labs` (~355 assets) — primary Remix-built library
-- `remix-libraries` (~240 assets)
-- `remix-dbp` (~148 assets) — DBP components, "data visualiser" collection lives here
-- `com_remixlabs_john` (~112), `com_remixlabs_wilber` (~110), `com_remixlabs_padmanabha` (~6) — per-user libraries
-- `iaEj4QYboi` (~26) — Lumber
+- `remix_labs` (358 assets) — primary Remix-built library
+- `remix-libraries` (243 assets)
+- `com_remixlabs_john` (165), `com_remixlabs_wilber` (158), `com_remixlabs_padmanabha` (21), `com_remixlabs_arka` (2) — per-user libraries
+- `remix-dbp` (148 assets) — DBP components, "data visualiser" collection lives here
+- `iaEj4QYboi` (47 assets) — Lumber
+- `com_remixlabs` (6), `zendesk_widgets` (5), `salesforce_widgets` (1) — vertical / small libraries
 
 **Response shape:** `{"assets": [...]}` where each asset has:
 

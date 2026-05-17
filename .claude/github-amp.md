@@ -76,9 +76,11 @@ via `rmxcodec` binary format.
 - Solo mode: desktop serves builder (`/e/`), runtime (`/r/`), groovebox (`/g/`) static files
 - Dependencies: `eleventwo` (DB), `elaws` (AWS), `siwago` (Apple Sign In), forked `hmq`/`gosnowflake`
 
-## Scan — May 3–9, 2026
+## Recent PRs — May 10–16, 2026 (1 merged)
 
-> No merged PRs. Repo remains quiet; last merge was #2792 (May 2, 2026).
+| PR        | Date   | Summary                                                                                                                                                                                                                                                                                                                                                                                                                              | Author        |
+|-----------|--------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| **#2794** ★ | May 15 | **Port amp to rcm2** — `rcm.config.mjs` → `rcm.config.json` (pure JSON, no `export default` wrapper). CircleCI: drops gsutil/Python setup (rcm2 standalone); installs rcm from `https://storage.googleapis.com/rmx-static/rcm/rcm`; adds `rcm setup` bootstrap; removes all `rcm script authorize-gcloud` calls (auth now internal); renames `rcm script update-users` → `rcm users update`. First repo ported to rcm2. | gerdstolpmann |
 
 ## Recent PRs — Apr 26 – May 2, 2026
 

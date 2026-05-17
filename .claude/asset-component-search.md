@@ -2,7 +2,7 @@
 
 How Claude can answer "find me the best asset/component for X" by querying the Remix Agent Server.
 
-> Last synced: **2026-05-06**
+> Last synced: **2026-05-17**
 
 ---
 
@@ -87,13 +87,17 @@ User opens this URL → "Copy to Clipboard" button → paste into a Studio scree
 
 | Workspace ID               | Asset count | Notes                                                                         |
 |----------------------------|-------------|-------------------------------------------------------------------------------|
-| `remix_labs`               | ~355        | Primary Remix-built library; Tailwind classes                                 |
-| `remix-libraries`          | ~240        | "Remix advanced" — large parsing/conversion components                        |
-| `remix-dbp`                | ~148        | DBP components; "Default class set" naming; "data visualiser" collection here |
-| `com_remixlabs_john`       | ~112        | John's personal library                                                       |
-| `com_remixlabs_wilber`     | ~110        | Wilber's library — many Action tiles                                          |
-| `iaEj4QYboi`               | ~26         | Lumber workspace library                                                      |
-| `com_remixlabs_padmanabha` | ~6          | User's own library                                                            |
+| `remix_labs`               | 358         | Primary Remix-built library; Tailwind classes                                 |
+| `remix-libraries`          | 243         | "Remix advanced" — large parsing/conversion components                        |
+| `com_remixlabs_john`       | 165         | John's personal library                                                       |
+| `com_remixlabs_wilber`     | 158         | Wilber's library — many Action tiles                                          |
+| `remix-dbp`                | 148         | DBP components; "Default class set" naming; "data visualiser" collection here |
+| `iaEj4QYboi`               | 47          | Lumber workspace library                                                      |
+| `com_remixlabs_padmanabha` | 21          | User's own library                                                            |
+| `com_remixlabs`            | 6           | Remix Labs main workspace (small library)                                     |
+| `zendesk_widgets`          | 5           | Zendesk widget assets                                                         |
+| `com_remixlabs_arka`       | 2           | Arka's personal library                                                       |
+| `salesforce_widgets`       | 1           | Salesforce widget assets                                                      |
 
 Default search target: **`remix_labs`** unless user says otherwise.
 
