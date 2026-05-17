@@ -1,28 +1,20 @@
 # #dumbquestionsanswered Slack Channel — Remix Labs
 
-**Coverage:** Feb 16 – May 9, 2026
+**Coverage:** Feb 16 – May 16, 2026
 **Channel ID:** C86KWF7MG
 **Purpose:** "the dumbness of the programmer has no limits" — quick Q&A, platform clarifications
 
 ---
 
-## [Feb 20, 61 replies] `env.runtimeURL` deprecated
-
-**Replace with:** `env.baseURL` (works on all surfaces). For in-app navigation: use Navigate action node. For widget tap targets (iOS/macOS): use universal link format. Each surface has different URL semantics — no stdlib replacement planned. `protoquery/pull/2218` will make removal a compile-time error.
+## [Feb 20] `env.runtimeURL` deprecated
+Use `env.baseURL` (all surfaces). In-app nav: Navigate action node. iOS/macOS widget taps: universal link. Each surface differs — no stdlib replacement. `protoquery/pull/2218` makes removal a compile-time error.
 
 ---
 
-## [Feb 22] Desktop: equivalent of `/a/x/apps` actions (Arvind → Chris/Benedikt/Gerd)
-
-**Question:** What is the desktop equivalent of amp's `/a/x/apps` actions (`compact`, `rename` with orig/dest params, `garbage-collect`)?
-
-**Answers (Chris):**
-
-- **`compact` / garbage-collect:** Currently disabled — has issues with file interaction (mix-rs/issues/751). Less necessary now that v2 `.remix` files store binary code in files. Not exposed any
-  other way.
-- **`rename`:** NOT supported in mixer and probably shouldn't be — DB name is used as identifier in many places; renaming breaks things. Copy+delete workaround exists.
-- **Clone (install-as):** Equivalent is `.remix` export + import. Missing piece is "import-as" / "install-as" feature — ability to set a new DB name and Studio display name during import. Arvind added
-  this to the Notion task list.
+## [Feb 22] Desktop equivalent of amp `/a/x/apps` (Arvind → Chris)
+- **compact/gc:** disabled (mix-rs/issues/751); less needed with v2 .remix files.
+- **rename:** NOT supported; DB name = identifier. Workaround: copy+delete.
+- **clone/install-as:** `.remix` export+import; missing "install-as" (new DB+display name). In Notion tasks.
 
 ---
 
@@ -198,3 +190,9 @@ morning" behavior on infrequent reports.
 **Cross-DB tiles deprecation proposal [May 8, Didier]:** File/save/delete/query tiles still support cross-DB, but `.remix` is single-DB and client extension won't work cross-DB. Didier proposes removing cross-DB from these tiles. Open.
 
 **`fullscreen_init` gone in rmx-init-runtime.js [May 8, Chris]:** Snowflake runtime page migrated to `rmx-init-runtime.js`; old `window.fullscreen_init` no longer works. New init API TBD.
+
+## May 9–16, 2026 Q&A
+
+**Efficient count for large DB [May 14, Padmanabha → Chris/Fred]:** ~45K records. `db.head() |> db.filter(...) |> db.toArray |> array.length` timed out. **Correct:** `db.head() |> db.filter(.entity == "X") |> db.length` (instant). String-syntax equivalent: `entity=="X" | count()` or `group("entity") | count()`. **Distinction:** `entity` for userspace records, `_rmx_type` for internal system — records rarely have both. Final: 44,446.
+
+**mixcore console log [May 11, Didier → Benedikt/Gerd]:** `[mixcore-groovebox-starter] mixcore kind not applicable wasm` shows on every `rmx-remix`. Harmless worker log. Benedikt added `<rmx-remix debug="mixcore ...">` attribute for conditional logging (mix-rs/pull/1120 + turntable/pull/12027); also exposed in React wrapper. Documented in Notion "Embedding a .remix into a webpage" (33a1d464).

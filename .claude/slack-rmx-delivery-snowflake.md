@@ -1,6 +1,6 @@
 # #rmx-delivery-snowflake Slack Channel — Remix Labs
 
-**Coverage:** Mar 25, 2025 – May 9, 2026
+**Coverage:** Mar 25, 2025 – May 16, 2026
 **Channel ID:** C08JPJ6EES3
 **Nature:** Snowflake GTM partnership, not a customer delivery
 
@@ -137,24 +137,13 @@ accessible from both remix + remix_spcs_demo accounts without changes on consume
 **Status Apr 3:** widget_preview working in dev (mw7zsh). Padmanabha posted to demo env for review:
 `iqlr4z-oxfsvki-remix-spcs-demo.snowflakecomputing.app/e/preview/customer360_spcs_test/widget_preview`.
 
-### Apr 4–11, 2026 — Marketplace Listing Push + SPCS Build
-
-**Widget preview polished (Padmanabha, Apr 6):** Updated aggregate card, clearer metadata, visible generated SQL. Deployed to iqlr4z consumer env. Mukund approved; has a landing page request.
-
-**Platform tasks remaining (Chris, Apr 6):** Include initial .remix files in image + load on startup; support default web endpoint → demo screen redirect.
-
-**Tailwind styles missing in SPCS (Apr 7):** Styles work on remix-india but missing in SPCS env. Fix: export `_rmx_tailwind` from remix-india, reinstall in SPCS account.
-
-**Landing page review (Padmanabha → Mukund/Chris, Apr 7):** Marketplace landing page at `mw7zsh.../snowflake_widgets_analytics/home`. Chris: fix title/subheader typos, remove placeholder descriptions.
-Mukund approved styling and edited content.
-
-**App package v1.98 ready (Chris, Apr 8):** Package updated; ready to publish as public listing. Mukund: listing work not yet started.
-
-**DB rename breaks widget preview (Padmanabha/Chris, Apr 10):** mw7zsh `widget_preview` broken — `REMIX_DXP` not found. Cause: Chris renamed underlying DB for public listing (now `remix_dxp`). Fix:
-set `DATABASE` input to `REMIX_DXP_INTERNAL`. Tip: `SYS_CONTEXT('SNOWFLAKE$APPLICATION', 'NAME')` returns current app DB name dynamically.
-
-**iqlr4z consumer env broken (Apr 10–11):** `REMIX_DXP_INTERNAL` not present in iqlr4z. Root cause: Chris accidentally deleted the internal listing when renaming for public submission — needs
-recreation. Data access non-functional; Snowpark service still running.
+### Apr 4–11, 2026 — Marketplace Listing Push
+- **Widget preview polished** (Padmanabha, Apr 6) on iqlr4z; Mukund approved.
+- **Platform open** (Chris, Apr 6): bundle initial `.remix`, load on startup; default web endpoint → demo redirect.
+- **Tailwind in SPCS:** export `_rmx_tailwind` from remix-india, reinstall.
+- **App package v1.98 ready** (Chris, Apr 8) — listing work not started.
+- **DB rename broke widget_preview** (Apr 10) — `REMIX_DXP` → `REMIX_DXP_INTERNAL`; use `SYS_CONTEXT('SNOWFLAKE$APPLICATION','NAME')` dynamically.
+- **iqlr4z consumer env broken** (Apr 10–11) — internal listing deleted accidentally; data access dead, Snowpark still up.
 
 ### Apr 13, 2026 — Provider billing enabled; Stripe integration needed (Chris)
 
@@ -189,3 +178,9 @@ Note: "build in Snowflake" = build on Desktop Studio, deploy natively in Snowfla
 **Consumer SPCS restored [May 2, Chris]:** `remix_spcs_demo` back up at `https://mrlr4z-oxfsvki-remix-spcs-demo.snowflakecomputing.app`; Mukund + Padmanabha as admins. Data sharing confirmation still pending.
 
 **Public vs private marketplace listing [May 9, Mukund/Vijay]:** Private listing allows marketplace credits; public adds credibility, discovery, easier procurement/infosec. Awaiting partner manager confirmation. Vijay: no objection to public if it doesn't delay.
+
+## May 9–16, 2026 Additions
+
+**Marketplace credits: both listing types eligible [May 11, Mukund]:** Confirmed with partner manager — **both public and private listings are eligible for Marketplace drawdown**. Resolves last week's open question.
+
+**Private listing ready to publish as-is [May 15, Chris → Mukund]:** "Launch app before setting up access" flow tested + works (placeholder text inline in `runtime.html`; can swap for static page or redirect later). **Current private listing should be ready to publish as-is** — README already in package since first submission. Open task: rework README to drop builder/Studio references (Mukund's ask) — Chris will simplify.

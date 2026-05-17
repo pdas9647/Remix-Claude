@@ -1,6 +1,6 @@
 # #general Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – May 9, 2026
+**Coverage:** Dec 20, 2025 – May 16, 2026
 **Channel ID:** C02BD0B8B
 
 ---
@@ -188,3 +188,13 @@ Daily standups Mon–Fri via https://meet.google.com/hrz-onty-twp
 **Fred [May 4]:** Query optimization merged; now adding result-limit parameter for grouping.
 
 **Oliver OOO May 11–17** (CW20; back May 18).
+
+### May 11–15, 2026: India relocation + Snowflake trial decision
+
+**Arvind to India [May 11]:** Flying Wed May 13; **on IST through August** — material schedule shift.
+
+**Mukund [May 14]:** (1) **Snowflake** — decide trial experience (private listing); (2) **Lumber** — no response from Greg/Manish/India engg; asks "good on any other deliverables not dependent on them?"
+
+**Chris [May 13, dry]:** "Just give us a heads-up if you're going to be the new PM" — commentary on Mukund's PM-like coordination.
+
+**OOO:** Simon Thu/Fri (Belgium); Wilber Wed–Fri; Gerd Thu (Germany); Reza Fri (+ missed May 13 standup, London).

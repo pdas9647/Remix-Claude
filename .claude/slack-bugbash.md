@@ -1,6 +1,6 @@
 # #bugbash Slack Channel — Remix Labs
 
-**Coverage:** Jan 20 – May 9, 2026
+**Coverage:** Jan 20 – May 16, 2026
 **Channel ID:** C862WHQMS
 **Bug reporting guide:** https://www.notion.so/Bug-reporting-3061d464528f80cdacf7eed2612bad07
 
@@ -18,33 +18,11 @@ VM not closed after use; error propagation under investigation. **Unresolved.**
 
 Platform update invalidates pre-compiled code. Fix in progress: turntable/pull/11731 (detects mismatch, shows modal). Workaround: full `make` at L1.
 
-### Tailwind styles out of sync: preview ≠ runtime (ongoing) 🟡
+### Tailwind cluster (Feb 17–26) 🟡
+(a) Preview ≠ runtime — turntable/issues/11716, workaround: Save & Make Styles. (b) `_rmx_tailwind` Constants error on remix-dev, no L1 make button. (c) Stack overflow on too many styles — workaround: compile on amp or drop `[app_versions]`.
 
-Styles visible in builder but absent/wrong at runtime. turntable/issues/11716. Workaround: open Styles module → save & make. Root cause unclear; Didier investigating.
-
-### `_rmx_tailwind` Constants error on dev (Arvind, Feb 25) 🟡
-
-Styles module on remix-dev throws Constants rebuild error; no "make" button at L1. Preserved on remix-dev for Simon to debug.
-
-### Tailwind compiler stack overflow (Gerd, Feb 26) 🟡
-
-Too many styles → stack overflow at compile time. Workaround: compile on amp, or remove `[app_versions]` from config.toml and restart. Gerd fixing; full fix not imminent.
-
-### Propagation results not shown on first invoke (Gerd, Feb 25) 🟡
-
-Results exist in messages but not displayed until second invocation. Intermittent. Filed: protoquery/issues/2279.
-
-### Deploy rmx-sync/prefs/search to customer workspaces (Didier, Feb 28) 🟡
-
-Latest `rmx-sync` on prod fixes dedup. Need to deploy to every customer workspace. `catalog_list` tool deprecated (v1 only); Arvind migrating to v2 exports. Owner: Arvind + John/Wilber.
-
-### L2 params `%20` → `+` mangling (Wilber, Feb 19) 🟡
-
-`form_urlencoded` decodes space then re-encodes as `+`. Fix: mix-rs/pull/1003 (Benedikt), Simon reviewing.
-
-### Deleted agent still in first deployment (Wilber, Jan 21) 🟡
-
-Compiled binaries not removed when agent deleted in builder. Workaround: manually delete `/code/<agent>.*` before deploying.
+### Misc Feb open bugs 🟡
+(a) Propagation results not shown on first invoke — protoquery/issues/2279. (b) Deploy latest `rmx-sync/prefs/search` to every customer workspace (Arvind+John/Wilber; v2 export migration). (c) L2 `%20`→`+` mangling — mix-rs/pull/1003. (d) Deleted agent binaries linger — rm `/code/<agent>.*` pre-deploy.
 
 ### Cloud subscribe not updating in Studio L2 (Arvind, Mar 9, 60 replies) 🔴
 
@@ -60,13 +38,8 @@ Works for components but not screens. Works in browser but not desktop. Simon ha
 
 Set state works, get state shows value, but value doesn't pass as in_param when editing the component. Repro asset shared. Simon reviewing.
 
-### Read-only flag ineffective on checkboxes (Gerd, Mar 11) 🟡
-
-Read-only attribute doesn't work for checkboxes, at least on desktop.
-
-### Desktop crash from malformed claude_desktop_config.json (Didier, Mar 11) 🟡
-
-"trailing characters at line 12 column 2" crashes desktop on startup. Root cause: malformed Claude config JSON. Fix: mix-rs#1039 (shouldn't be fatal). Workaround: re-save the JSON file.
+### Mar 11 small bugs 🟡
+(a) Checkbox read-only attribute ignored on desktop (Gerd). (b) Desktop crash on malformed `claude_desktop_config.json` (Didier) — fix mix-rs#1039 (shouldn't be fatal); workaround: re-save.
 
 
 ### State machine editor L3 hover styles broken (Didier, Mar 6) 🔴
@@ -78,14 +51,8 @@ Mouse-over styles for state machine editor at L3 no longer working — CSS anima
 "Remove invalid connection" button and backspace key fail to delete connections under certain unknown circumstances. Triggered by changing input type (URL→Binary). Simon could not repro. Gerd hit it
 again without error markers. **Unresolved.**
 
-### Published .remix missing styles from desktop (Mark, Mar 5) 🟡
-`_rmx_tailwind` styles missing when published via desktop. Workaround: open empty Styles module, Save & Make, republish.
-
-### Theme auto-make error referencing _rmx_auth (Arvind, Mar 3) 🟡
-Opening theme triggers auto-make error on `_rmx_auth`. Proposed: add to "fake cases" list. **Not confirmed fixed.**
-
-### File download in Desktop opens without auth (Benedikt, Mar 3) 🟡
-Workspace Tools opens file URL anonymously. Proposed `Content-Disposition: attachment` fix. **No fix yet.**
+### Misc Mar open bugs 🟡
+(a) Published `.remix` missing `_rmx_tailwind` styles from desktop — workaround Save & Make empty Styles. (b) Theme auto-make error on `_rmx_auth` (proposed fake-cases list). (c) Workspace Tools opens file URLs anonymously — proposed `Content-Disposition: attachment`.
 
 ---
 
@@ -147,13 +114,8 @@ Deploying agent to `localhost/local` marks appmeta `binary` — no recovery. Ger
 
 ## Apr 4-11 New Open Bugs
 
-### Desktop keyboard shortcuts broken (Mark, Apr 10) 🟡
-
-`Cmd+A`/`Cmd+K+C` don’t work in function nodes; `Cmd+A` fails to select all at L1/L2. Benedikt will look.
-
-### Component drill-in/out wrong level (Mark, Apr 10) 🟡
-
-Builder ends at wrong level after drilling in/out. Didier added footer safety code (turntable/pull/11917); root cause not repro’d.
+### Apr 10 desktop bugs 🟡
+(a) Keyboard shortcuts: `Cmd+A`/`Cmd+K+C` dead in function nodes; `Cmd+A` doesn't select-all at L1/L2 (Benedikt to look). (b) Component drill-in/out ends at wrong level — turntable/pull/11917 added footer safety; root not repro'd.
 
 ## Apr 11–18, 2026 New Open Bugs
 
@@ -225,3 +187,19 @@ File deletion via workspace tool returns error. **Unresolved.**
 
 ### Webcomp intermittent first-load error (Sirshendu, May 7) 🟡
 Web component fails on first load intermittently. **Unresolved.**
+
+## May 9–16, 2026 New Open Bugs
+
+### .remix install hidden under Legacy/System (Arka, May 14) 🟡
+iOS v2849 — `.remix` from `export package` plugin shows under "Legacy and System Project" in Manage Content, not home screen. cc Wilber. Repro: `orderly_ai_app`, `about_us_remix_admin`. **Unresolved.**
+
+### App clip token error on iOS (Arka, May 13) 🟡
+`beta.remix.app/about/remix` errors as native iOS app clip; fine in Safari. Didier merged fix (beta 2849); Arka still seeing May 14 after deleting app clip + Safari data. **Partial fix.**
+
+### Interpolate tile crashes desktop window (John, May 12) 🟡
+Add interpolate tile → paste `{}` → click done → window dies; no console errors; restart required. Simon: "Fix coming." **In progress.**
+
+### experience.html resize → blank screen (Didier, May 12) 🟡
+Resizing remixlabs.com/experience.html blanks the screen. Root: dual `rmx-remix` webcomps + media-query swap. Arvind PR#141 (resize) merged + Sirshendu PR (single webcomp + image shrink + curly-quote analytics). Console errors persist on customers.html as of May 15. **Cleanup ongoing.**
+
+**Ops directive [Mukund, May 14]:** No website pushes/merges until testing done — last cycle broke working areas. Cycle-based push process required.

@@ -1,6 +1,6 @@
 # #announcements Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – May 9, 2026
+**Coverage:** Dec 20, 2025 – May 16, 2026
 **Channel ID:** CK8S97CUV
 **Purpose:** Important info everyone should read; also used for cross-team huddle coordination
 

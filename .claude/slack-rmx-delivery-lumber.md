@@ -1,6 +1,6 @@
 # #rmx-delivery-lumber Slack Channel — Remix Labs
 
-**Coverage:** Oct 9, 2025 – May 9, 2026
+**Coverage:** Oct 9, 2025 – May 16, 2026
 **Channel ID:** C09KL3K7P0D
 
 ---
@@ -77,19 +77,7 @@ natural-language AI queries and custom SQL uniformly. Approved by Vijay + Arvind
 
 **TUI grid sort-by-column event [Mar 23, Arvind → Tyler]:** Column header click must fire a sort event for Snowflake SQL sort order to respond. cc: Mark, Reza.
 
-**Pre-demo crisis [Mar 27, Reza, 3am]:** 5 open issues before Friday Lumber demo → moved to Monday:
-
-1. CTE must apply to base table (not final dataset) for facets
-2. Table shows source-table columns, not SQL GROUP BY result columns
-3. Views not supported as data sources (tables only)
-4. Demo can't be driven from Desktop catalog (publish/cache bug)
-5. Numeric columns show excess decimals despite SQL rounding
-
-**Mark pushed repo fixes [Mar 27]:** CTE fix, column/filtering improvements, view-datasource support. NOT published to catalog (cache issue).
-
-**Scope: stacked-column chart only for Monday [Mar 27, Arvind]:** Job costing report only chart needed. John WIP: column+facet, h-bar+facet, scatter+facet, bubble.
-
-**TUI built-in download [Mar 30, Arvind]:** TUI Grid has CSV/XLSX; charts have PDF/PNG. May be sufficient.
+**Pre-demo crisis [Mar 27, Reza, 3am]:** 5 issues → demo moved to Monday. Mark pushed CTE/column/view-source fixes (cache blocked catalog publish). Scope for Mon: stacked-column chart only. TUI Grid has CSV/XLSX, charts have PDF/PNG — built-in download may suffice.
 
 **Report builder redesign [Apr 1–3, Reza]:** Clean node types (data / filters / display) piped independently. JSON is isomorphic to Remix node graph → AI can one-shot an entire report definition.
 Tested with Claude Code against Snowflake. Notion: https://www.notion.so/Report-Builder-3351d464528f800d8b5ce12f6517c93f |
@@ -133,8 +121,7 @@ p,s), or (2) view with CAST(ROUND(col, 2) AS NUMBER(12,2)). Mark created `V_WORK
 
 **Channel switch to beta [Apr 20, Arvind]:** India team moved to beta — release v0.10557.0 blocked (Padmanabha: red toast on project creation; can’t create/import screen).
 
-**Column order UX [Apr 21, Arvind]:** AI config handles complex header grouping, but drag/sort for column order also needed. Options: (1) tree editor respecting group boundaries; (2) TUI Grid native
-drag + emit events to update config/variant. Open.
+**Column order UX [Apr 21, Arvind]:** AI config handles header grouping; drag/sort still needed — options: tree editor (group-aware) or TUI Grid native drag. Open.
 
 **Table config + QA milestone [Apr 22, Arvind]:** Pushed AI-based table config + column reorder to catalog. Asked team: have all 4 table-only reports been built and published on lumber-qa?
 
@@ -167,3 +154,9 @@ project ID: `P2Zne0vibP6VccnwmuPXAfOl1jz0`. Didier’s JS wrapper working May 2.
 **Embed doc + Lumber India planning [May 2–7, Didier/Mukund]:** Didier updated Google doc with npm React install + React SSO example; posted to lumberfi channel. Mukund wants Lumber India team to test embed into demo portal; call planned.
 
 **Greg struggles with Job Cost Report [May 8, Greg/Mukund]:** Greg tried building solo — stuck at multiple steps; couldn't replicate 1:1. Second Remix person also attempted with partial success only. Screenshots shared with Arvind.
+
+## May 9–16, 2026 Additions
+
+**Facet Builder repo unblocked [May 13–14, Arvind/Mark]:** Duplicate node issue (remix-issues/167) had blocked Mark's pull on Facet Builder. Mark fixed dupes in both projects May 14, pulled latest, pushed updates — Arvind can publish.
+
+**Lumber build-flow video debate [May 12, Mukund/Arvind]:** Arpita/Riju produced shortened build-flow video. Mukund proposed sending to Greg. Arvind: good for landing page / onboarding pre-req, **not** instructional for Greg's stage — glosses over essentials, would need voiceover. **Position: Greg's team needs docs, not video.**

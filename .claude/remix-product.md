@@ -82,6 +82,8 @@ usability, and "content engineering" support.
 
 Chronological team decisions (recent first):
 
+- **2026-05-13:** Platform releases — consensus on Rust-style `nightly/beta/stable` channels but too painful with current polyrepo; prioritize repo consolidation + rcm improvements first ([rcm#98](https://github.com/remixlabs/rcm/issues/98)). Weekly cadence continues; pull Windows desktop + Chrome extension into it; QA scripts focus on Lumber/Starlight use cases
+- **2026-05-08:** Two-product focus (Vijay): **analytical apps + RCS** — productize both. Lumber + Starlight are the prototypical customers / testbeds
 - **2026-03-06:** Added product strategy doc (above)
 - **2026-02-11:** Sprint cadence — 2-week sprints (planning Monday, retro following Friday). Bug reporting: Slack as triage/discovery → GitHub issue for tracking/prioritization
 - **2026-02-10:** Roadmap/planning — platform near feature complete, need focused execution. Chris = engineering PM, Reza = content PM. Global Task List as coordination point

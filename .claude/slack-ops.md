@@ -1,6 +1,6 @@
 # #ops Slack Channel — Remix Labs
 
-**Coverage:** Feb 1 – May 9, 2026
+**Coverage:** Feb 1 – May 16, 2026
 **Channel ID:** C07P57B89
 **Purpose:** Weekly production release promotion workflow (beta → production)
 
@@ -102,3 +102,7 @@ find a nearby build with correct component set; otherwise defer.
 **Simon missed promotion cut [May 7, Simon]:** turntable/pull/12003 did not make harmony/pull/373.
 
 **Next week's promotion PR [May 7, Chris]:** harmony/pull/374.
+
+## May 9–16, 2026 Additions
+
+**Dev → beta promotion [May 11, Chris]:** Promoted dev to beta to pull in the **rust-s3 fix for file deletions**.

@@ -1,6 +1,6 @@
 # #go-to-market Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – May 9, 2026 (+ earlier GTM context; channel is very low-traffic)
+**Coverage:** Dec 20, 2025 – May 16, 2026 (+ earlier GTM context; channel is very low-traffic)
 **Channel ID:** C7HGRVDL3
 **Purpose:** GTM updates/status; target application & process scenarios, incl. for demo workflows
 
@@ -208,3 +208,7 @@ first-pass product pages.
 penetrating even in WhatsApp-dominant markets.
 
 **Google RCS deck shared [Apr 21, Mukund]:** Mukund shared the deck presented to the Google RCS team the previous week (file attachment). No further discussion recorded.
+
+## May 9–16, 2026 Additions
+
+**Google RCS demo video [May 11, Mukund]:** Shared YouTube demo for the Google RCS team: https://youtu.be/ewPM3b5jWH4 — "Remix: Context-aware Digital Experiences (RCS)". Follow-up to the Apr 21 deck.

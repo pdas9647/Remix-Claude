@@ -1,6 +1,6 @@
 # #desktop Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – May 9, 2026
+**Coverage:** Dec 20, 2025 – May 16, 2026
 **Channel ID:** C04T4HW06CC
 **Bug tracker:** https://github.com/remixlabs/mix-rs/issues/937
 

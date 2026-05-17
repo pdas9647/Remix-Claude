@@ -1,6 +1,6 @@
 # #backend Slack Channel — Remix Labs
 
-**Coverage:** Jan 2 – May 9, 2026
+**Coverage:** Jan 2 – May 16, 2026
 **Channel ID:** CHTGC5BGQ
 **Purpose:** server, compiler, and database stuff
 
@@ -10,15 +10,11 @@
 
 ## Key Decisions & Technical Discussions
 
-### DB save FFI overhaul [Jan 13-28, 89 replies]
+### DB save FFI overhaul [Jan 13-28]
+mix-rs/issues/913: save-unchanged threw FFI error. Fred added case-returning FFIs: `db.saved`, `db.rev_match_current`, `db.rev_match_old`; new `$db_save_ar`/`$db_upsert_ar`. Old preserved. Non-array deprecated since 2022. Stdlib: protoquery/pull/2252.
 
-Bug mix-rs/issues/913: saving unchanged record threw FFI errors. Fred built new save FFIs returning case types: `db.saved(record)`, `db.rev_match_current(record)`, `db.rev_match_old(record)`. New
-FFIs: `$db_save_ar`, `$db_upsert_ar`. Old FFIs preserved for backward compat. Non-array save/upsert deprecated since 2022. Merged to mix-rs + amp; stdlib: protoquery/pull/2252.
-
-### Wasm caching fix [Jan 26-27, 49 replies]
-
-`mixrt.wasm` downloaded every page load (~8s for two loads per L2 open). Root cause: nginx gzip converts strong ETag to weak → no 304. Fix: upload pre-compressed with `gsutil cp -Z` → strong ETag
-preserved. PR: turntable/pull/11660. Also: mix-rs/issues/962 (mixer Cache-Control), mix-rs/issues/963.
+### Wasm caching fix [Jan 26-27]
+`mixrt.wasm` re-downloaded every load (~8s). Cause: nginx gzip → weak ETag → no 304. Fix: `gsutil cp -Z` upload pre-compressed (turntable/pull/11660). Also mix-rs/issues/962, /963.
 
 ### QB 2.0 field discovery [Feb 3-13, 31 replies]
 

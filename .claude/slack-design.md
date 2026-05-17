@@ -1,6 +1,6 @@
 # #design Slack Channel — Remix Labs
 
-**Coverage:** Dec 20, 2025 – May 9, 2026
+**Coverage:** Dec 20, 2025 – May 16, 2026
 **Channel ID:** C4BLR910S
 **Purpose:** Design systems, visual IDE, icon and widget libraries
 
@@ -149,3 +149,9 @@ for a good 2026 story." Tagged Vijay, John, Mukund.
 ## May 2–9, 2026 Additions
 
 **Symbol previews in projects view [May 6, Simon]:** Requested adding preview thumbnails for symbols in the L0 projects view — data already available; just needs surfacing. Tagged Didier + Arvind.
+
+## May 9–16, 2026 Additions
+
+**Desktop home theme styles missing [May 11, Gerd → Benedikt]:** Benedikt added one button to `desktop_home_remix/home` → exposed many missing theme styles (old theme removed). Side question: "why is desktop home on amp?" Benedikt: "history". Arvind volunteered to redesign.
+
+**Website strategy: shift to static rendering [May 15, Arvind → Vijay/Mukund/Didier]:** Site has outgrown "investor destination"; needs strategic shift. Concerns: (1) shadow webcomps = black boxes to AI/Google crawlers; (2) non-shadow JS content gets lower-priority indexing; (3) load time + resource penalties hurt SEO. **Proposal: 90%+ statically rendered; embeds reserved for live apps/widgets.** "If we can't do better than Next/JSX/SSR, our embeds are just another component in that stack." **Mukund agreed:** "ready for a more statically rendered website with differentiated experiences embedded." Follow-up May 17: Claude analysis of customers.html confirms all logos/case studies/quotes invisible (JS-rendered).

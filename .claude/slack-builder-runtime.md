@@ -1,6 +1,6 @@
 # #builder-runtime Slack Channel — Remix Labs
 
-**Coverage:** Dec 31, 2025 – May 9, 2026
+**Coverage:** Dec 31, 2025 – May 16, 2026
 **Channel ID:** C58HC9EC8
 **Topic:** Builder, remix.app, WebApp
 
@@ -161,3 +161,7 @@ question** — discussion with Tyler deferred post-standup.
 **Svelte + React runtime library integrations [May 6–7, Simon/Didier]:** Simon: Runtime Library works directly in Svelte. Didier: published npm wrapper package `remixlabs-rmx-remix-react-1.0.0-11350.tgz` on GCS — `npm install <gcs-url>`; `import RmxRemix from "remixlabs/rmx-remix-react"`. Targeted at Lumber (React app). Doc revision in progress.
 
 **Pagination Transform node proposal [May 7, Simon]:** New yellow node for pagination. Option 1: expose `first`/`skip` bindings (familiar, like QB). Option 2 (Simon's preference): expose `items_per_page` + `page_number` → auto-converts to `skip`/`first`. Handles 80% case simply; function nodes available for custom logic.
+
+## May 9–16, 2026 Additions
+
+**Selected Nodes in-event AI-flow update [May 12, Simon]:** turntable/pull/11993 — updates to Selected Nodes in-event for AI flows in builder.
